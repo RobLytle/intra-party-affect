@@ -22,14 +22,66 @@ makefile-dag.png: makefile-dag.R Makefile
 
 #
 
-doc/fyp-rob-lytle.pdf: fig/ext-dag.png  doc/fyp-rob-lytle.tex
+
+doc/intra-party-affect.pdf: doc/intra-party-affect.tex fig/table-2016.tex doc/references.bib data/tidy-cdf.rds data/tidy-primaries.rds fig/cdf-scatter-dem.png fig/cdf-ideo-line.png
   # compile -> run bibLaTeX -> compile -> compile
-	cd doc; pdflatex fyp-rob-lytle.tex
-	cd doc; bibtex fyp-rob-lytle.tex
-	cd doc; pdflatex fyp-rob-lytle.tex
-	cd doc; pdflatex fyp-rob-lytle.tex
+	cd doc; pdflatex intra-party-affect.tex
+	cd doc; bibtex intra-party-affect.tex
+	cd doc; pdflatex intra-party-affect.tex
+	cd doc; pdflatex intra-party-affect.tex
 	# remove the junk files leftover
 	cd doc; rm -f *.log *.synctex.gz *.out *.blg *.toc *.bak *.bbl *.aux
+	
+#fig/table-2016.png: R/perceived-ideology.R R/wrangle-2016.R
+	#Rscript R/wrangle-2016
+#	Rscript R/perceived-ideology
+
+fig/cdf-sd.png: R/plots-cdf
+
+fig/table-levene.tex: R/variance-tests.R
+	Rscript R/variance-tests.R
+
+fig/table-2016.tex: R/primary-tables.R data/tidy-primaries.rds
+	Rscript R/primary-tables.R
+
+fig/cdf-ideo-line.png: R/plots-cdf.R data/tidy-cdf.rds
+	Rscript R/plots-cdf.R
+	
+fig/cdf-scatter-dem.png: R/plots-cdf.R data/tidy-cdf.rds
+	Rscript R/plots-cdf.R
+	
+#fig/therm-hist-2016.png: R/plots-2016.R data/tidy-2016.rds 
+#	Rscript R/plots-2016-deprecated.R
+	
+fig/therm-ideo-scatter-2016.png: R/plots-primaries.R data/tidy-2016.rds
+	Rscript R/plots-primaries.R
+	
+data/tidy-primaries.rds: R/wrangle-primary.R data/tidy-2016.rds
+	Rscript R/wrangle-primary.R
+	
+data/tidy-primaries.csv: R/wrangle-primary.R
+	Rscript R/wrangle-primary.R
+
+data/tidy-cdf.csv: R/wrangle-cdf.R data/raw/cdf-raw-trim.csv
+	Rscript R/wrangle-cdf.R
+	
+data/tidy-cdf.rds: R/wrangle-cdf.R data/raw/cdf-raw-trim.csv
+	Rscript R/wrangle-cdf.R
+	
+data/tidy-2016.csv: R/wrangle-2016.R
+	Rscript R/wrangle-2016.R
+
+data/tidy-2016.rds: R/wrangle-2016.R
+	Rscript R/wrangle-2016.R
+	
+data/raw/cdf-raw-trim.csv: R/anes-cdf-trim.R
+	Rscript R/anes-cdf-trim.R
+	
+	
+# define the `clean` phony so that you can run `make clean` 
+# (or click *More* > *Clean All* in the build tab in RStudio) 
+# and clean the entire project
+clean: cleandoc
 	
 #fig/table-2016.png: R/perceived-ideology.R R/wrangle-2016.R
 	#Rscript R/wrangle-2016

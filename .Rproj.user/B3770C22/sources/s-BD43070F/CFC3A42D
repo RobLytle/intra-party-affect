@@ -2,18 +2,18 @@
     "collab_server" : "",
     "contents" : "",
     "created" : 1583184773483.000,
-    "dirty" : true,
+    "dirty" : false,
     "encoding" : "UTF-8",
     "folds" : "",
-    "hash" : "0",
+    "hash" : "3651415243",
     "id" : "CFC3A42D",
-    "lastKnownWriteTime" : 1583184816,
-    "last_content_update" : 1583184930960,
+    "lastKnownWriteTime" : 1583187795,
+    "last_content_update" : 1583187795391,
     "path" : "C:/Users/robly/OneDrive/academics/intra-party-affect/Makefile",
     "project_path" : "Makefile",
     "properties" : {
-        "cursorPosition" : "77,26",
-        "scrollLine" : "49"
+        "cursorPosition" : "25,180",
+        "scrollLine" : "15"
     },
     "read_only" : false,
     "read_only_alternatives" : [

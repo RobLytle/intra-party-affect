@@ -23,7 +23,7 @@ makefile-dag.png: makefile-dag.R Makefile
 #
 
 
-doc/intra-party-affect.pdf: doc/intra-party-affect.tex fig/table-2016.tex doc/references.bib data/tidy-cdf.rds data/tidy-primaries.rds fig/cdf-scatter-dem.png fig/cdf-ideo-line.png fig/therm-hist-2016.png fig/therm-hist-2016.png 
+doc/intra-party-affect.pdf: doc/intra-party-affect.tex fig/table-2016.tex doc/references.bib data/tidy-cdf.rds data/tidy-primaries.rds fig/cdf-scatter-dem.png fig/cdf-ideo-line.png
   # compile -> run bibLaTeX -> compile -> compile
 	cd doc; pdflatex intra-party-affect.tex
 	cd doc; bibtex intra-party-affect.tex

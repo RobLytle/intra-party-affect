@@ -26,6 +26,7 @@
   library(goji)
 	library(tidyverse)
 	library(stargazer)
+	library(tidyverse)
 #
 # 2004 NES  ~~
 # ~~~~~~~~~~~~~~~~~~~~~
@@ -33,7 +34,7 @@
 # Load data
 	
 	
-	a2004			<- foreign::read.spss("replication-data/raw-data/anes2004.POR", to.data.frame=T)
+	a2004			<- foreign::read.spss("replication-data/raw/anes2004.POR", to.data.frame=T)
 
 # Issues
 	# Econ.
@@ -61,13 +62,11 @@
 	a2004$education <- factor(car::recode(as.numeric(a2004$V043254),"3:4='High school';5:6='Some college';7:9='College or Higher';else='Less'"))
 	a2004$education <- relevel(a2004$education,ref="Less")
 	
-	
 	a2004$race 		<- car::recode(as.numeric(a2004$V043299a),"5='White';7:8=NA;1:4='Other';6='Other'")
 	a2004$region 	<- a2004$V041205
 	a2004$south 	<- car::recode(as.numeric(a2004$V041205),"3=1;else=0")
 	a2004$gender 	<- a2004$V041109a
 	a2004$interest 	<- zero1(car::recode(as.numeric(a2004$V043001),"3=1;2=2;1=3;else=NA"))
-	
 	a2004$worship 	<- car::recode(as.numeric(a2004$V043224),"6:7=NA")
 
 # Party Feeling therms.
@@ -83,7 +82,6 @@
 	a2004$fthermin <- NA 
 	a2004$fthermin[which(as.numeric(a2004$demrep)>4)] <- a2004$fthermrep[which(as.numeric(a2004$demrep)>4)]
 	a2004$fthermin[which(as.numeric(a2004$demrep)<4)] <- a2004$fthermdem[which(as.numeric(a2004$demrep)<4)]
-
 	a2004 <- subset(a2004,is.na(demrep)==F)
 
 #
@@ -148,7 +146,6 @@
 	
 	a2004$internet <- as.numeric(a2004$V045155)==1
 
-
 #
 # IMPUTE MISSING DATA
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -182,7 +179,7 @@
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~
 	# Good. May want to do it via OpenMx (>> sem)
 	library(sem)
-	model.sem <- specifyModel(text="
+	model.sem <- specifyModel()
 	SW -> insurance, lam1, NA
 	SW -> jobs,      lam2, NA
 	SW -> services,  lam3, NA
@@ -200,9 +197,8 @@
 	women <-> women,         d7, NA
 	abortion <-> abortion,   d8, NA
 	gayrights <-> gayrights, d9, NA
-	")
-model.sem
-#
+	
+	#
 # APPLY SEM TO EACH IMPUTED DATASET
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 	
@@ -284,7 +280,7 @@ rs04r <- mean(unlist(lapply(im04outdr,function(x)summary(x)$adj.r.squared)))
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 # Load data
-	a1988 <- foreign::read.spss("replication-data/raw-data/anes1988.POR", to.data.frame=T)
+	a1988 <- foreign::read.spss("replication-data/raw/anes1988.POR", to.data.frame=T)
 
 # Econ.
 	a1988$insurance <- car::recode(as.numeric(a1988$V880318),"8:1000=NA")
@@ -337,7 +333,7 @@ rs04r <- mean(unlist(lapply(im04outdr,function(x)summary(x)$adj.r.squared)))
 
 	library(sem)
 	
-	model.sem <- specifyModel(text="
+	model.sem <- specifyModel(
 	SW -> insurance, lam1, NA
 	SW -> jobs, lam2, NA
 	SW -> services, lam3, NA
@@ -355,7 +351,7 @@ rs04r <- mean(unlist(lapply(im04outdr,function(x)summary(x)$adj.r.squared)))
 	women <-> women, d7, NA
 	abortion <-> abortion, d8, NA
 	gayrights <-> gayrights, d9, NA
-  ")
+  )
 
 a04  <- lapply(aout04$imputations,function(x) with(x,cor(data.frame(insurance,jobs,services,ss,women,abortion, gayrights))))
 
@@ -422,7 +418,6 @@ library(arm)
 	betas<-MIextract(im04outdr,fun=coef)
 	vars<-MIextract(im04outdr, fun=vcov)
 	reps <- as.data.frame(summary(MIcombine(betas,vars)))
-#	reps <- summary(MIcombine(betas,vars))
 	write.csv(reps,file="replication-data/coefs/rep88coefs.csv")
 	ds88r <- mean(unlist(lapply(im04outdr,function(x)summary(x)$adj.r.squared)))
 	
