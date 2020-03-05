@@ -58,7 +58,7 @@ While the descriptive claim \textbf{\textit{H1}} is articulated clearly in the t
 
 Fortunately, the core descriptive claim is both sound and a valuable contribution to the polarization literature. Iyengar et al. show unambiguous and increasingly wide attitudinal cleavages between supporters of the major parties, using a previously under-explored set of measures. While the authors' causal model is flawed, they succeed in showing the existence of a phenomenon which \textit{can} be modeled.
 
-Still, there is more work to be done even on the descriptive front. This study does not address sub-partisan units of political identity, such as self identification as a member of a specific caucus or faction (e.g. progressive, tea-party, alt-right) within the broader party and the implications these identities may have for animus directed at an outgroup. A subgroup analysis along these lines is proposed [SECTION]
+Still, there is more work to be done even on the descriptive front. This study does not address sub-partisan units of political identity, such as self identification as a member of a specific caucus or faction (e.g. progressive, tea-party, alt-right) within the broader party and the implications these identities may have for animus directed at an outgroup. A subgroup analysis along these lines is proposed in section four.
 
 \subsection{Role of Ideology in Affective Polarization}
 
@@ -71,7 +71,7 @@ Ideology, the authors contend, plays a minimal role in driving out-party animus.
 \end{equation}
 
 \noindent where dummy variables are indicated by a gamma coefficient. All variables are rescaled so that the minimum value of each is 0, and the maximum is 1. Missing data are imputed using the 
-\texttt{Amelia} and \texttt{mitools} packages in the \texttt{RStudio} software suite. A total of five datasets are generated, containing estimates of missing observations. The OLS model is applied to each dataset, and the estimate of each coefficient is averaged across the five datasets.
+\texttt{Amelia} and \texttt{mitools} packages in the \texttt{RStudio} software suite. A total of five datasets are generated, containing estimates of missing observations. The OLS model is applied to each dataset, and the estimate of each coefficient is then averaged across the five datasets and reported.
 
 \subsubsection{Levels of Measurement}
 
@@ -118,6 +118,10 @@ Below, I present the results of the replication of \citeauthor{iyengar2012affect
 
 The coefficients reported here are fairly different from those given in \citet{iyengar2012affect} (presented below). I suspect this may be due to some misunderstanding on my part of the multiple imputation and structural equation methods used to create the datasets on which the OLS regression was performed. I will consult with my advisor, as well as one of the co-authors to diagnose the problem.
 
+\begin{figure}[H]
+\center\includegraphics[width=5in]{isl-fig-3.png}
+\caption{\label{fig:cdf-avg}\textit{\textbf{The original results from Iyengar, Sood, and Lelkes (2012).} There are inconsistencies between my replication and the original work. It is fairly likely that these are due to the structural equation model and imputation methods employed by the authors.}}
+\end{figure}
 
 %\subsection{Research Design Concerns and Limitations}
 
@@ -183,9 +187,9 @@ Extant scholarship has, in large part, treated the major parties as affectively 
 \center\includegraphics[width=5in]{cdf-avg.png}
 \caption{\label{fig:cdf-avg}\textit{\textbf{Yearly mean of partisans' in-party and out-party feeling thermometers, 1978--2016.} Consistent with the extant literature (e.g., \citet{iyengar2012affect}, Democrat and Republican in-party FTs are consistently high (with a slight decrease since the first decade of the 2000s).}}
 \end{figure}
-\noindent \ref{fig:cdf-avg} shows the average in-party and out-party feeling thermometer for Republicans and Democrats from 1978-2016. We clearly see out-party feeling thermometers scores decline; while the in-party remains relatively constant. This is true of both parties.
+\noindent Figure \ref{fig:cdf-avg} shows the average in-party and out-party feeling thermometer for Republicans and Democrats from 1978-2016. We clearly see out-party feeling thermometers scores decline; while the in-party remains relatively constant. This is true of both parties.
 
-Unfortunately reliance on annual means as a description of partisan affect paints too simple a picture. The standard deviation of the feeling thermometers, presented in figure \ref{fig:cdf-sd}, shows that the stability of mean in-party affect observed in Figure \ref{fig:cdf-avg} belies an increase in the variation around that mean. This variation has increased in each iteration of the survey since 2004, both Republicans and Democrats have become less cohesive in their feelings toward their own party than at any other time period for which we have data. It should be noted that, historically, partisans are less cohesive of their feelings towards the out-party, though the variance in intra-party affect now seems to be on par with out-party feelings. %Both figures \ref{fig:cdf-sd} and \ref{fig:cdf-avg}are reproduced in the Appendix using data from Democrat leaning independents, to similar results.
+Unfortunately reliance on annual means as a description of partisan affect paints too simple a picture. The standard deviation of the feeling thermometers, presented in figure \ref{fig:cdf-sd}, shows that the stability of mean in-party affect observed in Figure \ref{fig:cdf-avg} belies an increase in the variation around that mean. This variation has increased in each iteration of the survey since 2004, both Republicans and Democrats have become less cohesive in their feelings toward their own party than at any other time period for which we have data. It should be noted that, historically, partisans are less cohesive in their feelings towards the out-party, though the variance in intra-party affect now seems to be on par with out-party feelings. %Both figures \ref{fig:cdf-sd} and \ref{fig:cdf-avg}are reproduced in the Appendix using data from Democrat leaning independents, to similar results.
 
 %%%%%%
 
@@ -234,7 +238,7 @@ I turn now to subgroup analyses of participants and non-participants in the 2008
 \end{table}
 In 2008 Democrats were largely warm to the party, with averaged feeling thermometers toward their own party in the high 70s or low 80s, in the case of Obama supporters. Clinton voters profess the lowest NPA (identical to that of Bernie voters' in 2016). Consistent with the observed increase in variation, Clinton and Obama voters' net party affects were more similar than those of Clinton and Sanders supporters in 2016.
 
-As expected, affect toward toward republicans dropped across voters and non-voters between 2008 and 2016.  That year, Clinton voters' NPA was substantially higher than that of any other group, and their warmth toward the Democratic party is the highest of all six groups. Bernie voters net affect is much lower, at about 48. Examining affect toward the Democratic and Republican parties individually, it is clear that Bernie voters' low NPA is the product of coldness towards the Democratic party on the part of Sanders supporters, rather than any particular warmth towards the Republicans. Bernie supporters reported both the lowest in-party thermometer rating (15 points lower than Clinton supporters in 2016) and the lowest out-party score, a point colder towards Republicans than Clinton voters.
+As expected, affect toward toward republicans dropped across voters and non-voters between 2008 and 2016.  That year, Clinton voters' NPA was substantially higher than that of any other group, and their warmth toward the Democratic party is the highest of all six groups. Bernie voters' net affect is much lower, at about 48. Examining affect toward the Democratic and Republican parties individually, it is clear that Bernie voters' low NPA is the product of coldness towards the Democratic party on the part of Sanders supporters, rather than any particular warmth towards the Republicans. Bernie supporters reported both the lowest in-party thermometer rating (15 points lower than Clinton supporters in 2016) and the lowest out-party score, a point colder towards Republicans than Clinton voters.
 
 \begin{figure}[H]
 \center\includegraphics[width=6in]{primary-scatter.png}
@@ -250,9 +254,28 @@ Democrats' in-party affect is more heterogenous than has been suggested by exist
 %
 %The data presented above suggest a more complicated picture of Democrats' affect than annual averages would suggest, more suggestive of modest polarization than the stability of opinion insinuated by simple annual averages. It is not that Democrats on the whole feel the same way about the party today as they did in the 1980s, but that some have grown warmer to the party while other have grown colder. In short, Democrats are polarizing---albeit modestly---in their feelings of their own party.
 
+
+ A potential explanation for these findings is that losing a primary election causes supporters of the losing candidates to dislike the party. Hillary supporters were most cold toward the party in 2008, as were Bernie supporters in 2016. It is also possible that some primary candidates bring new voters into the party, who may not be as friendly towards the organization as existing partisans. This hypothesis seems particularly likely in the case of Sanders in 2016, who did particularly well with those identifying as leaning independents. These hypotheses could be evaluated using panel data to track respondents' changes in partisanship over time.
+
+Finally, the role of ideology in primary vote choice and affect should also be further investigated. While \cite{iyengar2012affect} argue that ideology plays only a minor role in shaping peoples' affective responses, it may be more prevalent among primary voters, who are particularly engaged and attuned to politics \citep{iyengar2012affect}. The affective cleavages between opposing primary voters may be the product of substantive differences on the issues. It is also possible that primary voters chosen candidate functions as an element of their political identity. Possessing a social identity necessitates an in-group and an out-group \citep{brewer2001many}. If a Sanders supporter thinks of their in-group as other Sanders supporters rather than the party writ-large, they may be predisposed to see the party (whose elites overwhelmingly supported Clinton) as a hostile out-group. 
+
 \section{Extension to \citet{iyengar2012affect} }
 
+In order to begin assessing the differences in covariate effects between primary voters I propose an extension to \citet{iyengar2012affect} by way of the addition of two independent variables to their models: a multi-category dummy variable for primary vote choice and two interaction terms. The first interaction term is comprised of a vote for a losing candidate and a dummy variable indicating whether or not a respondent is disatisfied with democracy, the second is cultural preferences interacted with a vote for either candidate---intended to assess whether the cultural concerns of those who vote in a primary are relevant in shaping their partisan affect. Additionally, I would like to extend the analysis to the 2016 iteration of the ANES, in which case the modified functional form of the original model would be as follows:
+\begin{equation}
+\begin{split}
+\hat{Y} = \alpha + \hat{\beta}_1{\mathit{Culture}} + \hat{\beta}_2\mathit{Econ} + \hat{\gamma}_3\mathit{Strong Partisan} +  \hat{\beta}_4\mathit{Interest} +  \hat{\gamma_5}\mathit{Female} + \\ \hat{\gamma}_6\mathit{South} + \hat{\gamma}_7\mathit{High School} + \hat{\gamma}_8\mathit{Some College} + \hat{\gamma}_9\mathit{Advanced} + \hat{\gamma}_{10}\mathit{interest}*\mathit{internet} + \\
+\hat{\gamma}_{11}\mathit{Clinton} + \hat{\gamma}_{12}\mathit{Sanders} + \hat{\gamma}_{13}\mathit{Sanders}*\mathit{dissatisfaction} +\hat{\gamma}_{14}\mathit{dissatisfaction} +\\ \hat{\gamma}_{15}\mathit{Culture}(\mathit{Clinton} + \mathit{Sanders})  ,
+\end{split}
+\end{equation}
 
+\noindent where ``non-voter" is the reference category for primary vote choice. And the dependent variables on which the covariates are regressed are in-party, out-party, and net affect.
+
+ While this specification will not help us to assess the degree to which depressed intra-party affect precedes or is preceded by a primary loss, inclusion of the dissatisfaction interaction term may help to rule out a sore loser effect---it would be difficult to argue that a loss in a primary caused a decrease in in-party FTs if those who voted for the loser and were dissatisfied with democracy showed \textit{greater} warmth to their party. However, I suspect that those who vote for a loser and who are dissatisfied with democracy will exhibit a substantially lower intra-party affect than those who vote for a winning candidate or are satisfied. Additionally, I expect that cultural concerns will increase out-party animosity among primary voters, but have little effect on their in-party feelings.
+ 
+\subsection{Data}
+
+The data necessary to complete this extension are simple to gather, being acquired from the ANES-CDF and the 2016 iteration of the study, which asks respondents for whom they cast a vote in the primary election. As for democratic satisfaction, the ANES asks respondents to rate their satisfaction as "very" or "somewhat" satisfied or dissatisfied with democracy. I will recode those responses who indicate either level of dissatisfaction as a 1.
 
 %\begin{figure}[H]
 %\center\includegraphics[width=6in]{therm-hist-2016.png}

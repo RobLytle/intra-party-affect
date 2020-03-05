@@ -175,7 +175,10 @@ anes_char <- anes_raw %>%
          respondent_ideo = reorder(respondent_ideo, respondent_ideo_num))%>%
   mutate(parties_therm_dif = sqrt((therm_dem - therm_rep)^2))%>% #creates a variable showing the difference in thermometer ratings for each party
   mutate(parties_ideo_dif = abs(ideo_dem - ideo_rep))%>%
-  select(-ends_with("_num")) %>%   # drop the numeric versions of the factors that i used for reordering above
+	mutate(pid_7_num = na_if(pid_7_num, 3))%>%
+	mutate(pid_7_num = na_if(pid_7_num, 4))%>%
+	mutate(pid_7_num = na_if(pid_7_num, 5))%>%
+#  select(-ends_with("_num")) %>%   # drop the numeric versions of the factors that i used for reordering above
   glimpse()%>%
   write_rds("data/tidy-cdf.rds") %>%
   write_csv("data/tidy-cdf.csv")

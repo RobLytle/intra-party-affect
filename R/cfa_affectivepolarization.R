@@ -1,7 +1,7 @@
 ##--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~---++
 ##   											
 ##     CFA - Affective Polarization
-##	   Last Edited: 4.18.12   	
+##	   Last Edited: 3.2.2020  	
 ##     Yph Lelkes (edited, expanded, amended, and parts of it tested by Gaurav Sood)
 ## 	   GS Notes: 9/3/12: 
 ##		1. Not sure why absolute value of in-out therm is regressed. Think it is incorrect
@@ -12,38 +12,48 @@
 ##--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~---++
 
 # Set Working dir. 
-	setwd(basedir)
+#	setwd(basedir)
 	
 # Sourcing Common Functions
-	source("func/func.R")
-	source("func/polr.func.R")
+	source("replication-data/scripts/func.R")
+	source("replication-data/scripts/polr.func.R")
 
 # Load libraries
 	library(Amelia)
 	library(sem)
 	library(mitools)
 	library(arm)
-
+  library(goji)
+	library(tidyverse)
+	library(stargazer)
 #
 # 2004 NES  ~~
 # ~~~~~~~~~~~~~~~~~~~~~
 
 # Load data
-	a2004			<- foreign::read.spss("data/nes04/anes2004.POR", to.data.frame=T)
+	
+	
+	a2004			<- foreign::read.spss("replication-data/raw/anes2004.POR", to.data.frame=T)
 
 # Issues
 	# Econ.
+	
+####	
 	a2004$insurance <- car::recode(as.numeric(a2004$V043150),"8:1000=NA")
 	a2004$jobs 		<- car::recode(as.numeric(a2004$V043152),"8:1000=NA")
 	a2004$services  <- abs(car::recode(as.numeric(a2004$V043136),"8:1000=NA")-8) # nice
 	a2004$ss 		<- car::recode(as.numeric(a2004$V043165),"1=1; 2=3;4=3;3=2;else=NA")
 	
 	# Moral
+	
+	
 	a2004$women 	<- car::recode(as.numeric(a2004$V043196),"8:1000=NA")
 	a2004$abortion  <- abs(car::recode(as.numeric(a2004$V045132),"5:7=NA")-5)
 	a2004$gayrights <- car::recode(as.numeric(a2004$V045156a),"5=NA")
 
 # Demographics, PID etc.
+	
+	
 	a2004$demrep 	<- car::recode(as.numeric(a2004$V043116),"8:10=NA")
 	a2004$libcon 	<- car::recode(as.numeric(a2004$V043085),"8:10=NA")
 
@@ -61,6 +71,8 @@
 	a2004$worship 	<- car::recode(as.numeric(a2004$V043224),"6:7=NA")
 
 # Party Feeling therms.
+	
+	
 	a2004$fthermdem <- car::recode(a2004$V043049,"101:1000=NA")
 	a2004$fthermrep <- car::recode(a2004$V043050,"101:1000=NA")
 
@@ -78,25 +90,33 @@
 #  Political Knowledge
 	
 	# Interviewer Assesses Knowledge (2004)
+	
+	
 	a2004$iwrpk_pre <- car::recode(a2004$V043403, "0=NA; 1=1; 2=.75; 3=.5; 4=.25; 5=0")
 	a2004$iwrpk_pst <- car::recode(a2004$V045303, "0=NA; 1=1; 2=.75; 3=.5; 4=.25; 5=0")
 	a2004$iwrpk = with(a2004, rowMeans(cbind(iwrpk_pre, iwrpk_pst), na.rm=T))
 	
 	# Office Recognition (2004) 
 	# Items from Post-election questionnaire; there is also information on whether DK probe was used)
+	
+	
 	a2004$know_hastert   <- car::recode(a2004$V045162,"1=1; c(8, 5)=0")
 	a2004$know_cheney    <- car::recode(a2004$V045163,"1=1; c(8, 5)=0")
 	a2004$know_blair     <- car::recode(a2004$V045164,"1=1; c(8, 5)=0")
 	a2004$know_rehnquist <- car::recode(a2004$V045165,"1=1; c(8, 5)=0")
 	
 	# Maj. Party
+	
+	
 	a2004$know_house  <- car::recode(a2004$V045089,"5=1; c(8, 1)=0")
 	a2004$know_senate <- car::recode(a2004$V045090,"5=1; c(8, 1)=0")
 	
 	a2004$pk = with(a2004, rowMeans(cbind(know_hastert, know_cheney, know_blair,  know_rehnquist,  know_house,  know_senate), na.rm=T))
 
-# Party and Candidate Placement
+# #Party and Candidate Placement#
 # Ideology or libcon scale; lc is short for libcon
+	
+	
 	a2004$lc_bush   <- car::recode(as.numeric(a2004$V043087),"c(8,9)=NA")
 	a2004$lc_kerry  <- car::recode(as.numeric(a2004$V043088),"c(8,9)=NA")
 	a2004$lc_nader  <- car::recode(as.numeric(a2004$V043089),"c(8,9)=NA")
@@ -104,24 +124,28 @@
 	a2004$lc_rep    <- car::recode(as.numeric(a2004$V043091),"c(8,9)=NA")
 	
 	# Some people think the government should provide fewer services even in areas such as health and
+	
 	a2004$serv_bush  <- car::recode(as.numeric(a2004$V043138),"c(8,9)=NA")
 	a2004$serv_kerry <- car::recode(as.numeric(a2004$V043139),"c(8,9)=NA")
 	a2004$serv_dem   <- car::recode(as.numeric(a2004$V043140),"c(8,9)=NA")
 	a2004$serv_rep   <- car::recode(as.numeric(a2004$V043141),"c(8,9)=NA")
 	
 	# Some people feel the government in Washington should see to it that every person has a job and a
+	
 	a2004$job_bush   <- car::recode(as.numeric(a2004$V043154),"c(8,9)=NA")
 	a2004$job_kerry  <- car::recode(as.numeric(a2004$V043155),"c(8,9)=NA")
 	a2004$job_dem    <- car::recode(as.numeric(a2004$V043156),"c(8,9)=NA")
 	a2004$job_rep    <- car::recode(as.numeric(a2004$V043157),"c(8,9)=NA")
 	
 	# Some people feel that the government in Washington should make every effort to improve the social
-	a2004$blk_bush   <- car::recode(as.numeric(a2004$V043160),"c(8,9)=NA")
+	
+	a2004$blk_bush   <- car::recode(as.numeric(a2004$V043160),"c(8,9)=`NA")
 	a2004$blk_kerry  <- car::recode(as.numeric(a2004$V043161),"c(8,9)=NA")
 	a2004$blk_dem    <- car::recode(as.numeric(a2004$V043162),"c(8,9)=NA")
 	a2004$blk_rep    <- car::recode(as.numeric(a2004$V043163),"c(8,9)=NA")
 
 	# Internet
+	
 	a2004$internet <- as.numeric(a2004$V045155)==1
 
 
@@ -131,6 +155,7 @@
 		
 	# Creating 5 sets than 25
 	# All of the ordinal variables are going to be taken to be continuous (previous version was sub-optimal) 
+	
 	ad04   <- with(a2004, data.frame(V040001, V043299a, internet, insurance, jobs, services, ss, women, abortion, gayrights, demrep, libcon, south, educ, pk, gender, fthermin,fthermout, interest, 
 									 lc_bush, lc_kerry, lc_nader, lc_dem, lc_rep, serv_bush, serv_kerry, serv_dem, serv_rep, job_bush, job_kerry, job_dem, job_rep, 
 									 blk_bush, blk_kerry, blk_dem, blk_rep))
@@ -138,21 +163,26 @@
 	aout04 <- amelia(ad04,noms=c("V043299a","south","gender","demrep", "internet"), idvars="V040001", m=5)
 	
 	# Some testing; good
+	
 	overimpute(aout04, var = "insurance")
 
 	# Race variable
+	
 	aout04$imputations <- lapply(aout04$imputations,  function(x) { x[,'race'] <- car::recode(x$V043299a,"5='White';7:8=NA;1:4='Other';6='Other'"); return(x)})
 	
 	# Education
+	
 	aout04$imputations <- lapply(aout04$imputations, function(x) { x[,'education'] <- car::recode(x$educ,"3:4='High school';5:6='Some college';7:9='College or Higher';else='Less'"); return(x)})
 	aout04$imputations <- lapply(aout04$imputations, transform, education = relevel(a2004$education,ref="Less"))
 	
+	
+	#is.atomic(aout04$imputations)
 #
 # DEFINE TWO FACTOR SEM
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~
 	# Good. May want to do it via OpenMx (>> sem)
 	library(sem)
-	model.sem <- specifyModel()
+	model.sem <- specifyModel(text="
 	SW -> insurance, lam1, NA
 	SW -> jobs,      lam2, NA
 	SW -> services,  lam3, NA
@@ -170,16 +200,18 @@
 	women <-> women,         d7, NA
 	abortion <-> abortion,   d8, NA
 	gayrights <-> gayrights, d9, NA
-
+	")
+model.sem
 #
 # APPLY SEM TO EACH IMPUTED DATASET
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-	a04   <- lapply(aout04$imputations, function(x) with(x,cor(data.frame(insurance,jobs,services,ss,women,abortion, gayrights))))
+	
+  a04   <- lapply(aout04$imputations, function(x) with(x,cor(data.frame(insurance,jobs,services,ss,women,abortion, gayrights))))
 	sem04 <- lapply(a04,function(x)sem(model.sem,x,nrow(aout04$imputations[[1]])))
 
 # EXTRACT FSCORES FROM EACH IMPUTED DATASET
 
-# No. of imputed datasets
+## No. of imputed datasets
 q <- 5
 
 d04f <- list()
@@ -208,12 +240,19 @@ for(i in 1:q){
 
 
 #######LM FOR Democrats
+
+##
+
 library(mitools)
 	d04dd     <- lapply(d04d,function(x)subset(x,demrep<4))
 	imlist04d <- imputationList(d04dd)
 	im04outdd <- with(imlist04d,lm(zero1(abs(fthermin-fthermout))~CU01r+SW01r+internet*interest+(demrep==1)+gender+race+south+education))
 	
 	# In and Out Separated
+	
+	##
+	
+	
 	im04out1dd <- with(imlist04d,lm(zero1(fthermin)~CU01r+SW01r+interest+(demrep==1)+gender+race+south+education))
 	im04out2dd <- with(imlist04d,lm(zero1(fthermout)~CU01r+SW01r+interest+(demrep==1)+gender+race+south+education))
 	
@@ -221,7 +260,7 @@ library(mitools)
 	vars      <- MIextract(im04outdd, fun=vcov)
 	dems      <- as.data.frame(summary(MIcombine(betas,vars)))
 
-write.csv(dems,file="polar/results/dem04coefs.csv")
+write.csv(dems,file="replication-data/coefs/dem04coefs.csv")
 
 library(arm)
 rs04d <- mean(unlist(lapply(im04outdd,function(x)summary(x)$adj.r.squared)))
@@ -233,7 +272,7 @@ im04outdr <- with(imlist04r,lm(zero1(abs(fthermin-fthermout))~CU01+SW01+(demrep=
 betas     <- MIextract(im04outdr,fun=coef)
 vars      <- MIextract(im04outdr, fun=vcov)
 reps      <- as.data.frame(summary(MIcombine(betas,vars)))
-write.csv(reps,file="polar/results/rep04coefs.csv")
+write.csv(reps,file="replication-data/coefs/rep04coefs.csv")
 
 display(im04outdr[[1]])
 
@@ -245,7 +284,7 @@ rs04r <- mean(unlist(lapply(im04outdr,function(x)summary(x)$adj.r.squared)))
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 # Load data
-	a1988 <- foreign::read.spss("data/nes88/anes1988.POR", to.data.frame=T)
+	a1988 <- foreign::read.spss("replication-data/raw/anes1988.POR", to.data.frame=T)
 
 # Econ.
 	a1988$insurance <- car::recode(as.numeric(a1988$V880318),"8:1000=NA")
@@ -260,7 +299,7 @@ rs04r <- mean(unlist(lapply(im04outdr,function(x)summary(x)$adj.r.squared)))
 
 # Background
 	a1988$demrep <- car::recode(as.numeric(a1988$V880274),"8:10=NA")
-	#a1988$libcon <- car::recode(as.numeric(a2004$V043085),"8:10=NA")
+	a1988$libcon <- car::recode(as.numeric(a2004$V043085),"8:10=NA")
 	a1988$education <- factor(car::recode(as.numeric(a1988$V880422),"3:4='High school';5:6='Some college';7:9='College or Higher';else='Less'"))
 	a1988$education <- relevel(a1988$education,ref="Less")
 	
@@ -298,7 +337,7 @@ rs04r <- mean(unlist(lapply(im04outdr,function(x)summary(x)$adj.r.squared)))
 
 	library(sem)
 	
-	model.sem <- specifyModel()
+	model.sem <- specifyModel(text="
 	SW -> insurance, lam1, NA
 	SW -> jobs, lam2, NA
 	SW -> services, lam3, NA
@@ -316,7 +355,7 @@ rs04r <- mean(unlist(lapply(im04outdr,function(x)summary(x)$adj.r.squared)))
 	women <-> women, d7, NA
 	abortion <-> abortion, d8, NA
 	gayrights <-> gayrights, d9, NA
-
+  ")
 
 a04  <- lapply(aout04$imputations,function(x) with(x,cor(data.frame(insurance,jobs,services,ss,women,abortion, gayrights))))
 
@@ -373,7 +412,7 @@ library(mitools)
 	betas<-MIextract(im04outdd,fun=coef)
 	vars<-MIextract(im04outdd, fun=vcov)
 	dems <- as.data.frame(summary(MIcombine(betas,vars)))
-	write.csv(dems,file="dem88coefs.csv")
+	write.csv(dems,file="replication-data/coefs/dem88coefs.csv")
 	ds88d <- mean(unlist(lapply(im04outdd,function(x)summary(x)$adj.r.squared)))
 
 library(arm)
@@ -382,6 +421,10 @@ library(arm)
 	im04outdr <- with(imlist04r,lm(zero1(abs(fthermin-fthermout))~CU01+SW01+(demrep==7)+interest+gender+race+south+education))
 	betas<-MIextract(im04outdr,fun=coef)
 	vars<-MIextract(im04outdr, fun=vcov)
-	reps <- as.data.frame(summary(MIcombine(betas,vars)))
-	write.csv(reps,file="rep88coefs.csv")
+	reps <- summary(MIcombine(betas,vars))
+	#reps <- as.data.frame(summary(MIcombine(betas,vars)))
+#	reps <- summary(MIcombine(betas,vars))
+	write.csv(reps,file="replication-data/coefs/rep88coefs.csv")
 	ds88r <- mean(unlist(lapply(im04outdr,function(x)summary(x)$adj.r.squared)))
+	
+	stargazer(im04outdd)

@@ -25,8 +25,7 @@
 	library(arm)
   library(goji)
 	library(tidyverse)
-	library(stargazer)
-	library(tidyverse)
+	
 #
 # 2004 NES  ~~
 # ~~~~~~~~~~~~~~~~~~~~~
@@ -421,4 +420,4 @@ library(arm)
 	write.csv(reps,file="replication-data/coefs/rep88coefs.csv")
 	ds88r <- mean(unlist(lapply(im04outdr,function(x)summary(x)$adj.r.squared)))
 	
-	stargazer(im04outdr)
+	
