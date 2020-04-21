@@ -38,7 +38,8 @@ select(VCF0004,
        VCF0050b, # iwrpkpst (same above), take mean
        VCF9255, #satisfied_democ 1(very), 2(fairly), 3(not very), 4(not at all) -8,-9NA
        VCF0729, #know_house which party has the most seats in house 1(wrong), 2(right), 0NA
-       VCF9036 #know_sen 1-2(correct), 3-4(wrong), 7-9NA
+       VCF9036, #know_sen 1-2(correct), 3-4(wrong), 7-9NA
+       VCF0104
        )%>%
 glimpse()%>%
   write_rds("data/raw/cdf-raw-trim.rds")%>%

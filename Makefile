@@ -23,7 +23,7 @@ makefile-dag.png: makefile-dag.R Makefile
 #
 
 
-doc/intra-party-affect.pdf: doc/intra-party-affect.tex fig/table-2016.tex doc/references.bib data/tidy-cdf.rds data/tidy-primaries.rds fig/cdf-scatter-dem.png fig/cdf-ideo-line.png
+doc/intra-party-affect.pdf: doc/intra-party-affect.tex fig/isl-model.tex fig/table-2016.tex doc/references.bib data/tidy-cdf.rds data/tidy-primaries.rds fig/cdf-scatter-dem.png fig/cdf-ideo-line.png
   # compile -> run bibLaTeX -> compile -> compile
 	cd doc; pdflatex intra-party-affect.tex
 	cd doc; bibtex intra-party-affect.tex
@@ -36,6 +36,9 @@ doc/intra-party-affect.pdf: doc/intra-party-affect.tex fig/table-2016.tex doc/re
 	#Rscript R/wrangle-2016
 #	Rscript R/perceived-ideology
 
+fig/isl-model.tex: R/isl-replication.R
+	Rscript R/isl-replication.R
+	
 fig/cdf-sd.png: R/plots-cdf
 
 fig/table-levene.tex: R/variance-tests.R
