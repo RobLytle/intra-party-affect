@@ -5,7 +5,7 @@ library(goji)
 #  select(V161095, V161096, V161086, V161087, V161126, V161128, V161129, V161130, V161131, V161021, V161021a)%>%
 #  glimpse()
 
-anes_raw <- read_rds("data/raw/cdf-raw-trim.rds")%>% # Loads RDS created in `anes-cdf-trim.R`
+anes_raw <- read_rds("data/anes/cdf-raw-trim.rds")%>% # Loads RDS created in `anes-cdf-trim.R`
 	glimpse()
 
 anes_char <- anes_raw %>%
@@ -19,11 +19,23 @@ anes_char <- anes_raw %>%
 	rename(respondent_ideo = VCF0803)%>% # Liberal-conservative scale val: 1(extremely liberal)- 7(extremely conservative) 9. DK; haven't much thought about it
 	rename(therm_dem = VCF0218)%>% # val 00-96 cold-warm as coded; 97: 97-100, 98: DK, 99. NA
 	rename(therm_rep = VCF0224)%>% # val 00-96 cold-warm as coded; 97: 97-100, 98: DK, 99. NA
+  rename(therm_lib = VCF0211)%>% #libs FT
+  rename(therm_con = VCF0212)%>% #cons FT
 	rename(activist_6cat = VCF0723)%>%#val: 1-6 low-high participation 0. DKN/NA
 	rename(ideo_dem = VCF0503)%>% # val: 1-7 lib-con
 	rename(ideo_rep = VCF0504)%>%# val: 1-7 lib-con
 	rename(primary_vote = VCF9265)%>%
-	select(year,  
+  rename(therm_dem_old = VCF0201)%>%
+  rename(therm_rep_old = VCF0202)%>%
+  rename(therm_cath = VCF0204)%>%
+  rename(therm_prot = VCF0203)%>%
+  rename(therm_black = VCF0206)%>%
+  rename(therm_white = VCF0207)%>%
+  rename(case_id = VCF0006)%>%
+  rename(weight = VCF0009z)%>%
+	select(year,
+	       case_id,
+	       weight,
 				 pid_7, 
 				 pid_3, 
 				 pid_str, 
@@ -32,6 +44,8 @@ anes_char <- anes_raw %>%
 				 respondent_ideo,
 				 therm_dem,
 				 therm_rep,
+				 therm_lib,
+				 therm_con,
 				 activist_6cat,
 				 ideo_dem,
 				 ideo_rep,
@@ -53,9 +67,21 @@ anes_char <- anes_raw %>%
 				 VCF9255, #satisfied_democ 1(very), 2(fairly), 3(not very), 4(not at all) -8,-9NA
 				 VCF0729, #know_house which party has the most seats in house 1(wrong), 2(right), 0NA
 				 VCF9036, #know_sen 1-2(correct), 3-4(wrong), 7-9NA
-				 VCF0104
+				 VCF0104,
+				 therm_dem_old, #FT Democrats (old)
+				 therm_rep_old, #FT Republicans (old)
+				 therm_prot, #FT Protestants
+				 therm_cath, #FT Catholics
+				 therm_black, #FT Blacks
+				 therm_white, #FT Whites
+				 VCF0128 # Regligions preference. 1 protestant, 2 catholic, 3 jewish, 4 other/none/dk, 0 na
 	)%>%
+  unite("case", year:case_id, remove = FALSE)%>%
+  select(-case_id)%>%
+  mutate(case = as.numeric(str_remove(case, "_")))%>%
 	rename(female = VCF0104)%>%
+  mutate(female = na_if(female, 3))%>%
+  mutate(female = na_if(female, 0))%>%
 	mutate(female = as.numeric(recode(female, 
 																		"1" = "0",
 																		"2" = "1")))%>%
@@ -91,6 +117,8 @@ anes_char <- anes_raw %>%
 	mutate(women = na_if(women, 0))%>%
 	mutate(women = zero1(women))%>%
 	rename(abortion = VCF0838)%>%
+  mutate(abortion = na_if(abortion, 9))%>%
+  mutate(abortion = na_if(abortion, 0))%>%
 	mutate(abortion = as.numeric(recode(abortion, #recoding so that liberal values are lower, in accordance with everything else..
 																			"1" = "4",
 																			"2" = "3",
@@ -107,9 +135,37 @@ anes_char <- anes_raw %>%
 	mutate(high_school = if_else(education == 2, 1, 0))%>% #creating education dummies. grade school is ref. cat.
 	mutate(some_college = if_else(education == 3, 1, 0))%>%
 	mutate(college_adv = if_else(education == 4, 1, 0))%>%
-	rename(white = VCF0105a)%>%
-	mutate(white = na_if(white, 9))%>%
-	mutate(white = if_else(white==1, 1, 0))%>%
+  rename(race_num = VCF0105a)%>%
+  mutate(race_num = na_if(race_num, 9))%>%
+  mutate(race = as.factor(recode(race_num, 
+                                 "1" = "White",
+                                 "2" = "Black",
+                                 "3" = "Asian or Pacific Islander",
+                                 "4" = "American Indian",
+                                 "5" = "Hispanic",
+                                 "6" = "Other",
+                                 "7" = "Non-white and Non-black")))%>%
+  mutate(black_white_flag = if_else(race=="Black", "Black", if_else(race=="White", "White", "other")))%>%
+  mutate(black_white_flag = recode(race_num,
+                                   .default = "other",
+                                  "1" = "White",
+                                  "2" = "Black"))%>%
+  mutate(black_white_flag = na_if(black_white_flag, "other"))%>%
+	mutate(white = if_else(race=="White", 1, 0))%>%
+  mutate(black = if_else(race=="Black", 1, 0))%>%
+  rename(religion_num = VCF0128)%>%
+  mutate(religion_num = na_if(religion_num, 0))%>%
+  mutate(religion = as.factor(recode(religion_num,
+                              "1" = "Protestant",
+                              "2" = "Catholic",
+                              "3" = "Jewish",
+                              "4" = "Other"
+                              )))%>%
+  mutate(cath_prot_flag = as.factor(recode(religion_num,
+                                 .default = "other",
+                                 "1" = "Protestant",
+                                 "2" = "Catholic")))%>%
+  mutate(cath_prot_flag = na_if(cath_prot_flag, "other"))%>%
 	rename(south = VCF0113)%>%
 	mutate(south = if_else(south==1, 1, 0))%>%
 	rename(interest = VCF0310)%>%
@@ -203,12 +259,112 @@ anes_char <- anes_raw %>%
 				 												 "6" = "Conservative", 
 				 												 "7" = "Extremely Conservative"),
 				 respondent_ideo = reorder(respondent_ideo, respondent_ideo_num))%>%
-	mutate(parties_therm_dif = sqrt((therm_dem - therm_rep)^2))%>% #creates a variable showing the difference in thermometer ratings for each party
+  mutate(pid_3_sort = factor(recode(pid_7_num,
+                             "1" = "Democrat",
+                             "2" = "Democrat",
+                             "3" = "Independent",
+                             "4" = "Independent",
+                             "5" = "Independent",
+                             "6" = "Republican",
+                             "7" = "Republican"),
+         levels = c("Democrat",
+                    "Independent",
+                    "Republican")))%>%
+  mutate(ideo_3_sort = factor(recode(respondent_ideo_num, #anes codes leaning independents as partisans; not ideal
+                                    "1" = "Liberal",
+                                    "2" = "Liberal",
+                                    "3" = "Moderate",
+                                    "4" = "Moderate",
+                                    "5" = "Moderate",
+                                    "6" = "Conservative",
+                                    "7" = "Conservative"),
+                             levels = c("Liberal",
+                                        "Moderate",
+                                        "Conservative")))%>%
+#  mutate(pid_2_sort = na_if(pid_3_sort, "Independent"))%>% #better just to filter(pid_3_sort != "Independent")
+#  mutate(ideo_2_sort = na_if(ideo_3_sort, "Moderate"))%>%
+  mutate(therm_dem = na_if(therm_dem, 98))%>%
+  mutate(therm_dem = na_if(therm_dem, 99))%>%
+  mutate(therm_rep = na_if(therm_rep, 98))%>%
+  mutate(therm_rep = na_if(therm_rep, 99))%>%
+  mutate(therm_inparty = if_else(pid_2_sort=="Democrat", therm_dem, therm_rep))%>%
+  mutate(therm_outparty = if_else(pid_2_sort=="Democrat", therm_rep, therm_dem))%>%
+  mutate(npa_party = therm_inparty - therm_outparty)%>%
+  mutate(therm_dem_old = na_if(therm_dem_old, 98))%>%
+  mutate(therm_dem_old = na_if(therm_dem_old, 99))%>%
+  mutate(therm_rep_old = na_if(therm_rep_old, 98))%>%
+  mutate(therm_rep_old = na_if(therm_rep_old, 99))%>%
+  mutate(therm_party_ingroup = if_else(pid_2_sort=="Democrat", therm_dem_old, therm_rep_old))%>%
+  mutate(therm_party_outgroup = if_else(pid_2_sort=="Democrat", therm_rep_old, therm_dem_old))%>%
+  mutate(npa_partisans = therm_party_ingroup - therm_party_outgroup)%>%
+  mutate(therm_lib = na_if(therm_lib, 98))%>%
+  mutate(therm_lib = na_if(therm_lib, 99))%>%
+  mutate(therm_con = na_if(therm_con, 98))%>%
+  mutate(therm_con = na_if(therm_con, 99))%>%
+  mutate(therm_ideo_ingroup = if_else(ideo_2_sort=="Liberal", therm_lib, therm_con))%>%
+  mutate(therm_ideo_outgroup = if_else(ideo_2_sort=="Liberal", therm_con, therm_lib))%>%
+  mutate(net_ideo = therm_ideo_ingroup - therm_ideo_outgroup)%>%
+  mutate(therm_cath = na_if(therm_cath, 98))%>%
+  mutate(therm_cath = na_if(therm_cath, 99))%>%
+  mutate(therm_prot = na_if(therm_prot, 98))%>%
+  mutate(therm_prot = na_if(therm_prot, 99))%>%
+  mutate(therm_relig_ingroup = if_else(cath_prot_flag=="Catholic", therm_cath, therm_prot))%>%
+  mutate(therm_relig_outgroup = if_else(cath_prot_flag=="Catholic", therm_prot, therm_cath))%>%
+  mutate(net_relig = therm_relig_ingroup - therm_relig_outgroup)%>%
+  mutate(therm_black = na_if(therm_black, 98))%>%
+  mutate(therm_black = na_if(therm_black, 99))%>%
+  mutate(therm_white = na_if(therm_white, 98))%>%
+  mutate(therm_white = na_if(therm_white, 99))%>%
+  mutate(therm_race_ingroup = if_else(black_white_flag=="Black", therm_black, therm_white))%>%
+  mutate(therm_race_outgroup = if_else(black_white_flag=="Black", therm_white, therm_black))%>%
+  mutate(net_race = therm_race_ingroup - therm_race_outgroup)%>%
+	mutate(parties_therm_dif = therm_inparty - therm_outparty)%>% #creates a variable showing the difference in thermometer ratings for each party
 	mutate(parties_ideo_dif = abs(ideo_dem - ideo_rep))%>%
+  select(-ends_with("flag"))%>%
 #	mutate(cult_att = if_else(pid_3_num == 3, (1-cult_att), cult_att))%>%
 #	mutate(econ_att = if_else(pid_3_num == 3, (1-econ_att), econ_att))%>% #DO NOT USE UNLESS YOU ARE WORKING WITH DEMS AND REPS ONLY
 #	select(-ends_with("_num")) %>%   # drop the numeric versions of the factors that i used for reordering above
 	glimpse()%>%
-	write_rds("data/tidy-cdf.rds") %>%
-	write_csv("data/tidy-cdf.csv")
+	write_rds("data/anes/tidy-cdf.rds") %>%
+	write_csv("data/anes/tidy-cdf.csv")
+
+###########################
+####@@@@@@@@@@@@@@@@@@@####
+####@                 @####
+####@ Troubleshooting @####
+####@      Relig      @####
+####@                 @####
+####@@@@@@@@@@@@@@@@@@@####
+###########################
+
+# relig_years <- c(1964,
+#                  1966,
+#                  1968,
+#                  1972,
+#                  1976,
+#                  1984,
+#                  1988,
+#                  1992,
+#                  2000,
+#                  2002,
+#                  2004,
+#                  2008,
+#                  2008)
+# 
+# relig <- anes_char%>%
+#   filter(year %in% relig_years)%>%
+#   select(year,
+#          case,
+#          cath_prot_flag,
+#          religion
+#          )%>%
+#   glimpse()
+
+
+
+
+
+
+
+
 

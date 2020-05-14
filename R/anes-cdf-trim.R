@@ -7,9 +7,11 @@ library(sjlabelled)
 # This is done to avoid the lengthy rio::import() from a zip file every time the wrangling dplyr pipe is run  #
 ######                                                                                                #########
 
-cdf_raw_trim <- rio::import("data/raw/anes_timeseries_cdf_dta.zip", which = "anes_timeseries_cdf.dta")%>% #Imports the .dta file from the .zip file
-  filter(VCF0004 >= 1978)%>%
+cdf_raw_trim <- rio::import("data/anes/anes_timeseries_cdf_dta.zip", which = "anes_timeseries_cdf.dta")%>% #Imports the .dta file from the .zip file
+  filter(VCF0004 >= 1964)%>%
 select(VCF0004,
+       VCF0006, #unique case ID
+       VCF0009z, #weight
        VCF0301,
        VCF0303,
        VCF0305,
@@ -39,8 +41,17 @@ select(VCF0004,
        VCF9255, #satisfied_democ 1(very), 2(fairly), 3(not very), 4(not at all) -8,-9NA
        VCF0729, #know_house which party has the most seats in house 1(wrong), 2(right), 0NA
        VCF9036, #know_sen 1-2(correct), 3-4(wrong), 7-9NA
-       VCF0104
+       VCF0104,
+       VCF0212, #FT Conservatives
+       VCF0211, # FT Liberals
+       VCF0201, #FT Democrats (old)
+       VCF0202, #FT Republicans (old)
+       VCF0203, #FT Protestants
+       VCF0204, #FT Catholics
+       VCF0206, #FT Blacks
+       VCF0207, #FT Whites
+       VCF0128 # Regligions preference. 1 protestant, 2 catholic, 3 jewish, 4 other/none/dk, 0 na
        )%>%
 glimpse()%>%
-  write_rds("data/raw/cdf-raw-trim.rds")%>%
-  write_csv("data/raw/cdf-raw-trim.csv")
+  write_rds("data/anes/cdf-raw-trim.rds")%>%
+  write_csv("data/anes/cdf-raw-trim.csv")
