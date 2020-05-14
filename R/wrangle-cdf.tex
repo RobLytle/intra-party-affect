@@ -1,0 +1,522 @@
+% Options for packages loaded elsewhere
+\PassOptionsToPackage{unicode}{hyperref}
+\PassOptionsToPackage{hyphens}{url}
+%
+\documentclass[
+]{article}
+\usepackage{lmodern}
+\usepackage{amssymb,amsmath}
+\usepackage{ifxetex,ifluatex}
+\ifnum 0\ifxetex 1\fi\ifluatex 1\fi=0 % if pdftex
+  \usepackage[T1]{fontenc}
+  \usepackage[utf8]{inputenc}
+  \usepackage{textcomp} % provide euro and other symbols
+\else % if luatex or xetex
+  \usepackage{unicode-math}
+  \defaultfontfeatures{Scale=MatchLowercase}
+  \defaultfontfeatures[\rmfamily]{Ligatures=TeX,Scale=1}
+\fi
+% Use upquote if available, for straight quotes in verbatim environments
+\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
+\IfFileExists{microtype.sty}{% use microtype if available
+  \usepackage[]{microtype}
+  \UseMicrotypeSet[protrusion]{basicmath} % disable protrusion for tt fonts
+}{}
+\makeatletter
+\@ifundefined{KOMAClassName}{% if non-KOMA class
+  \IfFileExists{parskip.sty}{%
+    \usepackage{parskip}
+  }{% else
+    \setlength{\parindent}{0pt}
+    \setlength{\parskip}{6pt plus 2pt minus 1pt}}
+}{% if KOMA class
+  \KOMAoptions{parskip=half}}
+\makeatother
+\usepackage{xcolor}
+\IfFileExists{xurl.sty}{\usepackage{xurl}}{} % add URL line breaks if available
+\IfFileExists{bookmark.sty}{\usepackage{bookmark}}{\usepackage{hyperref}}
+\hypersetup{
+  pdftitle={wrangle-cdf.R},
+  pdfauthor={robly},
+  hidelinks,
+  pdfcreator={LaTeX via pandoc}}
+\urlstyle{same} % disable monospaced font for URLs
+\usepackage[margin=1in]{geometry}
+\usepackage{color}
+\usepackage{fancyvrb}
+\newcommand{\VerbBar}{|}
+\newcommand{\VERB}{\Verb[commandchars=\\\{\}]}
+\DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+% Add ',fontsize=\small' for more characters per line
+\usepackage{framed}
+\definecolor{shadecolor}{RGB}{248,248,248}
+\newenvironment{Shaded}{\begin{snugshade}}{\end{snugshade}}
+\newcommand{\AlertTok}[1]{\textcolor[rgb]{0.94,0.16,0.16}{#1}}
+\newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.77,0.63,0.00}{#1}}
+\newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\BuiltInTok}[1]{#1}
+\newcommand{\CharTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\CommentTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textit{#1}}}
+\newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{#1}}
+\newcommand{\DecValTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\ErrorTok}[1]{\textcolor[rgb]{0.64,0.00,0.00}{\textbf{#1}}}
+\newcommand{\ExtensionTok}[1]{#1}
+\newcommand{\FloatTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\ImportTok}[1]{#1}
+\newcommand{\InformationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\NormalTok}[1]{#1}
+\newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.81,0.36,0.00}{\textbf{#1}}}
+\newcommand{\OtherTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{#1}}
+\newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textit{#1}}}
+\newcommand{\RegionMarkerTok}[1]{#1}
+\newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\StringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\VariableTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\WarningTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\usepackage{graphicx,grffile}
+\makeatletter
+\def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth\else\Gin@nat@width\fi}
+\def\maxheight{\ifdim\Gin@nat@height>\textheight\textheight\else\Gin@nat@height\fi}
+\makeatother
+% Scale images if necessary, so that they will not overflow the page
+% margins by default, and it is still possible to overwrite the defaults
+% using explicit options in \includegraphics[width, height, ...]{}
+\setkeys{Gin}{width=\maxwidth,height=\maxheight,keepaspectratio}
+% Set default figure placement to htbp
+\makeatletter
+\def\fps@figure{htbp}
+\makeatother
+\setlength{\emergencystretch}{3em} % prevent overfull lines
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+\setcounter{secnumdepth}{-\maxdimen} % remove section numbering
+
+\title{wrangle-cdf.R}
+\author{robly}
+\date{2020-04-21}
+
+\begin{document}
+\maketitle
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{library}\NormalTok{(tidyverse)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## -- Attaching packages -------------------------------------------------------------------------------------------------------- tidyverse 1.3.0 --
+\end{verbatim}
+
+\begin{verbatim}
+## v ggplot2 3.3.0     v purrr   0.3.4
+## v tibble  3.0.1     v dplyr   0.8.5
+## v tidyr   1.0.2     v stringr 1.4.0
+## v readr   1.3.1     v forcats 0.5.0
+\end{verbatim}
+
+\begin{verbatim}
+## -- Conflicts ----------------------------------------------------------------------------------------------------------- tidyverse_conflicts() --
+## x dplyr::filter() masks stats::filter()
+## x dplyr::lag()    masks stats::lag()
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{library}\NormalTok{(sjlabelled)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 
+## Attaching package: 'sjlabelled'
+\end{verbatim}
+
+\begin{verbatim}
+## The following object is masked from 'package:forcats':
+## 
+##     as_factor
+\end{verbatim}
+
+\begin{verbatim}
+## The following object is masked from 'package:dplyr':
+## 
+##     as_label
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{library}\NormalTok{(goji)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 
+## Attaching package: 'goji'
+\end{verbatim}
+
+\begin{verbatim}
+## The following object is masked from 'package:graphics':
+## 
+##     stars
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{#anes_df <- read_dta("data/raw/anes_timeseries_2016.dta")%>%}
+\CommentTok{#  select(V161095, V161096, V161086, V161087, V161126, V161128, V161129, V161130, V161131, V161021, V161021a)%>%}
+\CommentTok{#  glimpse()}
+
+\NormalTok{anes_raw <-}\StringTok{ }\KeywordTok{read_rds}\NormalTok{(}\StringTok{"data/raw/cdf-raw-trim.rds"}\NormalTok{)}\OperatorTok{%>%}\StringTok{ }\CommentTok{# Loads RDS created in `anes-cdf-trim.R`}
+\StringTok{    }\KeywordTok{glimpse}\NormalTok{()}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Rows: 38,100
+## Columns: 31
+## $ VCF0004  <dbl> 1978, 1978, 1978, 1978, 1978, 1978, 1978, 1978, 1978, 1978...
+## $ VCF0301  <dbl> 1, 4, 7, 3, 3, 2, 3, 2, 2, 1, 5, 2, 1, 3, 4, 1, 2, 6, 6, 1...
+## $ VCF0303  <dbl> 1, 2, 3, 1, 1, 1, 1, 1, 1, 1, 3, 1, 1, 1, 2, 1, 1, 3, 3, 1...
+## $ VCF0305  <dbl> 4, 1, 4, 2, 2, 3, 2, 3, 3, 4, 2, 3, 4, 2, 1, 4, 3, 3, 3, 4...
+## $ VCF0311  <dbl> NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA...
+## $ VCF0312  <dbl> 2, 2, 2, 1, 1, 1, 1, 1, 1, 2, 2, 2, 2, 2, 1, 2, 1, 2, 2, 2...
+## $ VCF0803  <dbl> 6, 9, 4, 4, 9, 5, 1, 9, 5, 6, 9, 6, 2, 4, 9, 1, 5, 4, 9, 9...
+## $ VCF0218  <dbl> 80, 50, 40, 60, 85, 50, 70, NA, 60, NA, NA, 70, 85, 75, 50...
+## $ VCF0224  <dbl> 50, 50, 60, 60, 60, 50, 40, NA, 60, NA, NA, 40, 85, 65, 50...
+## $ VCF0723  <dbl> 1, 1, 1, 2, 1, 1, 1, 2, 1, 2, 2, 1, 2, 1, 1, 2, 3, 1, 1, 1...
+## $ VCF0503  <dbl> 5, NA, 2, 4, NA, 5, 2, NA, 2, 6, NA, 6, 2, 3, NA, 1, 1, NA...
+## $ VCF0504  <dbl> 2, NA, 4, 3, NA, 4, 5, NA, 6, 6, NA, 2, 3, 6, NA, 7, 7, 4,...
+## $ VCF9265  <dbl> NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA...
+## $ VCF0806  <dbl> 2, 3, 6, 1, 1, 1, 5, 9, 5, 1, 9, 1, 1, 3, 9, 9, 1, 1, 9, 7...
+## $ VCF0809  <dbl> 2, 9, 6, 9, 9, 4, 3, 9, 5, 3, 9, 9, 1, 4, 9, 6, 7, 5, 7, 9...
+## $ VCF0839  <dbl> NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA...
+## $ VCF9049  <dbl> NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA...
+## $ VCF0834  <dbl> 4, 4, 5, 4, 1, 4, 1, 6, 1, 7, 9, 1, 1, 4, 9, 9, 1, 6, 9, 7...
+## $ VCF0838  <dbl> NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA...
+## $ VCF0876a <dbl> NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA...
+## $ VCF0110  <dbl> 2, 1, 2, 2, 1, 2, 4, 2, 3, 2, 2, 2, 1, 4, 2, 2, 3, 3, 2, 1...
+## $ VCF0105a <dbl> 1, 1, 1, 1, 1, 1, 1, 2, 1, 4, 1, 1, 1, 1, 5, 1, 1, 1, 2, 1...
+## $ VCF0113  <dbl> 1, 2, 2, 2, 2, 2, 2, 1, 1, 2, 1, 2, 2, 2, 2, 2, 1, 1, 1, 2...
+## $ VCF0310  <dbl> 2, 1, 3, 2, 2, 2, 1, 1, 1, 3, 3, 2, 3, 3, 1, 2, 2, 2, 1, 1...
+## $ VCF0130  <dbl> 4, 4, 3, 2, 4, 2, 7, 1, 2, 3, 1, 5, 2, 2, 2, 1, 3, 2, 4, 4...
+## $ VCF0050a <dbl> NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA...
+## $ VCF0050b <dbl> 4, 3, 2, 4, 3, 3, 2, 5, 2, 2, 4, 2, 3, 4, 5, 2, 2, 3, 4, 5...
+## $ VCF9255  <dbl> NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA...
+## $ VCF0729  <dbl> 1, 1, 2, 2, 2, 2, 2, 1, 2, 1, 1, 2, 2, 2, 1, 2, 2, 2, 1, 1...
+## $ VCF9036  <dbl> NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA...
+## $ VCF0104  <dbl> 2, 1, 2, 1, 1, 2, 1, 2, 1, 2, 2, 1, 2, 2, 2, 1, 1, 2, 2, 2...
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{anes_char <-}\StringTok{ }\NormalTok{anes_raw }\OperatorTok{%>%}
+\StringTok{    }\KeywordTok{remove_all_labels}\NormalTok{()}\OperatorTok{%>%}
+\StringTok{    }\KeywordTok{rename}\NormalTok{(}\DataTypeTok{year =}\NormalTok{ VCF0004)}\OperatorTok{%>%}\StringTok{ }\CommentTok{# Year of response}
+\StringTok{    }\KeywordTok{rename}\NormalTok{(}\DataTypeTok{pid_7 =}\NormalTok{ VCF0301)}\OperatorTok{%>%}\StringTok{ }\CommentTok{#7 scale Party ID val: 1-7. Strong Democrat 2. Weak Democrat3. Independent - Democrat4. Independent - Independent5. Independent - Republican6. Weak Republican7. Strong Republican}
+\StringTok{    }\KeywordTok{rename}\NormalTok{(}\DataTypeTok{pid_3 =}\NormalTok{ VCF0303)}\OperatorTok{%>%}\StringTok{ }\CommentTok{# Party ID 3 categories val: "Republican", "Independent", "Democrat" (Dem/Rep include Leaners)}
+\StringTok{    }\KeywordTok{rename}\NormalTok{(}\DataTypeTok{pid_str =}\NormalTok{ VCF0305)}\OperatorTok{%>%}\StringTok{ }\CommentTok{# PID strength val: 1. Independent 2. Leaning Independent 3. Weak Partisan 4. Strong Partisan Kept this because I wanted to create basically this variable later}
+\StringTok{    }\KeywordTok{rename}\NormalTok{(}\DataTypeTok{win_care_pres =}\NormalTok{ VCF0311)}\OperatorTok{%>%}\StringTok{ }\CommentTok{# How much do you care which party wins presidency? val: 1. Don't care very much or DK, pro-con, depends, and other, 2. Care a great deal}
+\StringTok{    }\KeywordTok{rename}\NormalTok{(}\DataTypeTok{win_care_cong =}\NormalTok{ VCF0312)}\OperatorTok{%>%}\StringTok{ }\CommentTok{# How much do you care which party wins congress? val: 1. Don't care very much or DK, pro-con, depends, and other, 2. Care a great deal notes: only asked through 2008}
+\StringTok{    }\KeywordTok{rename}\NormalTok{(}\DataTypeTok{respondent_ideo =}\NormalTok{ VCF0803)}\OperatorTok{%>%}\StringTok{ }\CommentTok{# Liberal-conservative scale val: 1(extremely liberal)- 7(extremely conservative) 9. DK; haven't much thought about it}
+\StringTok{    }\KeywordTok{rename}\NormalTok{(}\DataTypeTok{therm_dem =}\NormalTok{ VCF0218)}\OperatorTok{%>%}\StringTok{ }\CommentTok{# val 00-96 cold-warm as coded; 97: 97-100, 98: DK, 99. NA}
+\StringTok{    }\KeywordTok{rename}\NormalTok{(}\DataTypeTok{therm_rep =}\NormalTok{ VCF0224)}\OperatorTok{%>%}\StringTok{ }\CommentTok{# val 00-96 cold-warm as coded; 97: 97-100, 98: DK, 99. NA}
+\StringTok{    }\KeywordTok{rename}\NormalTok{(}\DataTypeTok{activist_6cat =}\NormalTok{ VCF0723)}\OperatorTok{%>%}\CommentTok{#val: 1-6 low-high participation 0. DKN/NA}
+\StringTok{    }\KeywordTok{rename}\NormalTok{(}\DataTypeTok{ideo_dem =}\NormalTok{ VCF0503)}\OperatorTok{%>%}\StringTok{ }\CommentTok{# val: 1-7 lib-con}
+\StringTok{    }\KeywordTok{rename}\NormalTok{(}\DataTypeTok{ideo_rep =}\NormalTok{ VCF0504)}\OperatorTok{%>%}\CommentTok{# val: 1-7 lib-con}
+\StringTok{    }\KeywordTok{rename}\NormalTok{(}\DataTypeTok{primary_vote =}\NormalTok{ VCF9265)}\OperatorTok{%>%}
+\StringTok{    }\KeywordTok{select}\NormalTok{(year,  }
+\NormalTok{                 pid_}\DecValTok{7}\NormalTok{, }
+\NormalTok{                 pid_}\DecValTok{3}\NormalTok{, }
+\NormalTok{                 pid_str, }
+\NormalTok{                 win_care_pres,}
+\NormalTok{                 win_care_cong,}
+\NormalTok{                 respondent_ideo,}
+\NormalTok{                 therm_dem,}
+\NormalTok{                 therm_rep,}
+\NormalTok{                 activist_6cat,}
+\NormalTok{                 ideo_dem,}
+\NormalTok{                 ideo_rep,}
+\NormalTok{                 primary_vote,}
+\NormalTok{                 VCF0806, }\CommentTok{#insurance Government Health Insurance Scale #1-7 Gov ins- Private ins 9DK, 0NA}
+\NormalTok{                 VCF0809, }\CommentTok{#jobs Jobs Gurantee, same scale as above}
+\NormalTok{                 VCF0839, }\CommentTok{# services Gov should provide 1 (few services)--7 (many services) 9DK, 0NA}
+\NormalTok{                 VCF9049, }\CommentTok{#ss SS: 1 (increase), 2 (same), 3 Decreased, 7 cut entirely 8DK 9NA}
+\NormalTok{                 VCF0834, }\CommentTok{#women 1(equal) -- 7 (home) 9DK, 0NA}
+\NormalTok{                 VCF0838, }\CommentTok{#abortion 1 (never), 2(rape, incest, danger), 3(need est.), 4(always) 9DK, 0NA}
+\NormalTok{                 VCF0876a, }\CommentTok{#gayrights 1(Favor Strongly),2, 4, 5 (Oppose Strongly). 7DK, 9NA}
+\NormalTok{                 VCF0110, }\CommentTok{#education 1 (grade school), 2(High School), 3(Some College), 4(College/advanced) 0DK/NA}
+\NormalTok{                 VCF0105a, }\CommentTok{#race 1(white), 2(Black), 3 (asian/pacific), 4(Am. indian/alaska native), 5(hispanic), 6 (other/mult), 7(non-white/non-black), 9NA}
+\NormalTok{                 VCF0113, }\CommentTok{#south 1(south), 2(nonsouth)}
+\NormalTok{                 VCF0310, }\CommentTok{#interest 1(not much), 2(somewhat), 3(very) 9dk, 0na}
+\NormalTok{                 VCF0130, }\CommentTok{#worship 1(every week), 2(almost every week), 3 (once or twice a month), 4 (few times a year), 5(never), 7(no relig.), 890na}
+\NormalTok{                 VCF0050a, }\CommentTok{# iwrpkpre 1(very high)-5(very low)}
+\NormalTok{                 VCF0050b, }\CommentTok{# iwrpkpst (same above), take mean}
+\NormalTok{                 VCF9255, }\CommentTok{#satisfied_democ 1(very), 2(fairly), 3(not very), 4(not at all) -8,-9NA}
+\NormalTok{                 VCF0729, }\CommentTok{#know_house which party has the most seats in house 1(wrong), 2(right), 0NA}
+\NormalTok{                 VCF9036, }\CommentTok{#know_sen 1-2(correct), 3-4(wrong), 7-9NA}
+\NormalTok{                 VCF0104}
+\NormalTok{    )}\OperatorTok{%>%}
+\StringTok{    }\KeywordTok{rename}\NormalTok{(}\DataTypeTok{female =}\NormalTok{ VCF0104)}\OperatorTok{%>%}
+\StringTok{    }\KeywordTok{mutate}\NormalTok{(}\DataTypeTok{female =} \KeywordTok{as.numeric}\NormalTok{(}\KeywordTok{recode}\NormalTok{(female, }
+                                                                        \StringTok{"1"}\NormalTok{ =}\StringTok{ "0"}\NormalTok{,}
+                                                                        \StringTok{"2"}\NormalTok{ =}\StringTok{ "1"}\NormalTok{)))}\OperatorTok{%>%}
+\StringTok{    }\KeywordTok{rename}\NormalTok{(}\DataTypeTok{insurance =}\NormalTok{ VCF0806)}\OperatorTok{%>%}
+\StringTok{    }\KeywordTok{mutate}\NormalTok{(}\DataTypeTok{insurance =} \KeywordTok{na_if}\NormalTok{(insurance, }\DecValTok{9}\NormalTok{))}\OperatorTok{%>%}
+\StringTok{    }\KeywordTok{mutate}\NormalTok{(}\DataTypeTok{insurance =} \KeywordTok{na_if}\NormalTok{(insurance, }\DecValTok{0}\NormalTok{))}\OperatorTok{%>%}
+\StringTok{    }\KeywordTok{mutate}\NormalTok{(}\DataTypeTok{insurance =} \KeywordTok{zero1}\NormalTok{(insurance))}\OperatorTok{%>%}\CommentTok{#standardize between 0-1}
+\StringTok{    }\KeywordTok{rename}\NormalTok{(}\DataTypeTok{jobs =}\NormalTok{ VCF0809)}\OperatorTok{%>%}
+\StringTok{    }\KeywordTok{mutate}\NormalTok{(}\DataTypeTok{jobs =} \KeywordTok{na_if}\NormalTok{(jobs, }\DecValTok{9}\NormalTok{))}\OperatorTok{%>%}
+\StringTok{    }\KeywordTok{mutate}\NormalTok{(}\DataTypeTok{jobs =} \KeywordTok{na_if}\NormalTok{(jobs, }\DecValTok{0}\NormalTok{))}\OperatorTok{%>%}
+\StringTok{    }\KeywordTok{mutate}\NormalTok{(}\DataTypeTok{jobs =} \KeywordTok{zero1}\NormalTok{(jobs))}\OperatorTok{%>%}
+\StringTok{    }\KeywordTok{rename}\NormalTok{(}\DataTypeTok{services =}\NormalTok{ VCF0839)}\OperatorTok{%>%}
+\StringTok{    }\KeywordTok{mutate}\NormalTok{(}\DataTypeTok{services =} \KeywordTok{na_if}\NormalTok{(services, }\DecValTok{9}\NormalTok{))}\OperatorTok{%>%}
+\StringTok{    }\KeywordTok{mutate}\NormalTok{(}\DataTypeTok{services =} \KeywordTok{na_if}\NormalTok{(services, }\DecValTok{0}\NormalTok{))}\OperatorTok{%>%}
+\StringTok{    }\KeywordTok{mutate}\NormalTok{(}\DataTypeTok{services =} \KeywordTok{as.numeric}\NormalTok{(}\KeywordTok{recode}\NormalTok{(services, }\CommentTok{#recoding so that liberal values are lower, in accordance with everything else..}
+                                                                            \StringTok{"1"}\NormalTok{ =}\StringTok{ "7"}\NormalTok{,}
+                                                                            \StringTok{"2"}\NormalTok{ =}\StringTok{ "6"}\NormalTok{,}
+                                                                            \StringTok{"3"}\NormalTok{ =}\StringTok{ "5"}\NormalTok{,}
+                                                                            \StringTok{"4"}\NormalTok{ =}\StringTok{ "4"}\NormalTok{,}
+                                                                            \StringTok{"5"}\NormalTok{ =}\StringTok{ "3"}\NormalTok{,}
+                                                                            \StringTok{"6"}\NormalTok{ =}\StringTok{ "2"}\NormalTok{,}
+                                                                            \StringTok{"7"}\NormalTok{ =}\StringTok{ "1"}
+\NormalTok{    )))}\OperatorTok{%>%}
+\StringTok{    }\KeywordTok{mutate}\NormalTok{(}\DataTypeTok{services =} \KeywordTok{zero1}\NormalTok{(services))}\OperatorTok{%>%}
+\StringTok{    }\KeywordTok{rename}\NormalTok{(}\DataTypeTok{ss =}\NormalTok{ VCF9049)}\OperatorTok{%>%}
+\StringTok{    }\KeywordTok{mutate}\NormalTok{(}\DataTypeTok{ss =} \KeywordTok{na_if}\NormalTok{(ss, }\DecValTok{8}\NormalTok{))}\OperatorTok{%>%}
+\StringTok{    }\KeywordTok{mutate}\NormalTok{(}\DataTypeTok{ss =} \KeywordTok{na_if}\NormalTok{(ss, }\DecValTok{9}\NormalTok{))}\OperatorTok{%>%}
+\StringTok{    }\KeywordTok{mutate}\NormalTok{(}\DataTypeTok{no_ss =} \KeywordTok{if_else}\NormalTok{(ss }\OperatorTok{==}\StringTok{ }\DecValTok{7}\NormalTok{, }\DecValTok{1}\NormalTok{, }\DecValTok{0}\NormalTok{))}\OperatorTok{%>%}
+\StringTok{    }\KeywordTok{mutate}\NormalTok{(}\DataTypeTok{ss =} \KeywordTok{na_if}\NormalTok{(ss, }\DecValTok{7}\NormalTok{))}\OperatorTok{%>%}
+\StringTok{    }\KeywordTok{mutate}\NormalTok{(}\DataTypeTok{ss =} \KeywordTok{zero1}\NormalTok{(ss))}\OperatorTok{%>%}
+\StringTok{    }\KeywordTok{rename}\NormalTok{(}\DataTypeTok{women =}\NormalTok{ VCF0834)}\OperatorTok{%>%}
+\StringTok{    }\KeywordTok{mutate}\NormalTok{(}\DataTypeTok{women =} \KeywordTok{na_if}\NormalTok{(women, }\DecValTok{9}\NormalTok{))}\OperatorTok{%>%}
+\StringTok{    }\KeywordTok{mutate}\NormalTok{(}\DataTypeTok{women =} \KeywordTok{na_if}\NormalTok{(women, }\DecValTok{0}\NormalTok{))}\OperatorTok{%>%}
+\StringTok{    }\KeywordTok{mutate}\NormalTok{(}\DataTypeTok{women =} \KeywordTok{zero1}\NormalTok{(women))}\OperatorTok{%>%}
+\StringTok{    }\KeywordTok{rename}\NormalTok{(}\DataTypeTok{abortion =}\NormalTok{ VCF0838)}\OperatorTok{%>%}
+\StringTok{    }\KeywordTok{mutate}\NormalTok{(}\DataTypeTok{abortion =} \KeywordTok{as.numeric}\NormalTok{(}\KeywordTok{recode}\NormalTok{(abortion, }\CommentTok{#recoding so that liberal values are lower, in accordance with everything else..}
+                                                                            \StringTok{"1"}\NormalTok{ =}\StringTok{ "4"}\NormalTok{,}
+                                                                            \StringTok{"2"}\NormalTok{ =}\StringTok{ "3"}\NormalTok{,}
+                                                                            \StringTok{"3"}\NormalTok{ =}\StringTok{ "2"}\NormalTok{,}
+                                                                            \StringTok{"4"}\NormalTok{ =}\StringTok{ "1"}
+\NormalTok{    )))}\OperatorTok{%>%}
+\StringTok{    }\KeywordTok{mutate}\NormalTok{(}\DataTypeTok{abortion =} \KeywordTok{zero1}\NormalTok{(abortion))}\OperatorTok{%>%}
+\StringTok{    }\KeywordTok{rename}\NormalTok{(}\DataTypeTok{gayrights =}\NormalTok{ VCF0876a)}\OperatorTok{%>%}
+\StringTok{    }\KeywordTok{mutate}\NormalTok{(}\DataTypeTok{gayrights =} \KeywordTok{na_if}\NormalTok{(gayrights, }\DecValTok{7}\NormalTok{))}\OperatorTok{%>%}
+\StringTok{    }\KeywordTok{mutate}\NormalTok{(}\DataTypeTok{gayrights =} \KeywordTok{na_if}\NormalTok{(gayrights, }\DecValTok{9}\NormalTok{))}\OperatorTok{%>%}
+\StringTok{    }\KeywordTok{mutate}\NormalTok{(}\DataTypeTok{gayrights =} \KeywordTok{zero1}\NormalTok{(gayrights))}\OperatorTok{%>%}
+\StringTok{    }\KeywordTok{rename}\NormalTok{(}\DataTypeTok{education =}\NormalTok{ VCF0110)}\OperatorTok{%>%}\CommentTok{#education 1 (grade school), 2(High School), 3(Some College), 4(College/advanced) 0DK/NA}
+\StringTok{    }\KeywordTok{mutate}\NormalTok{(}\DataTypeTok{education =} \KeywordTok{na_if}\NormalTok{(education, }\DecValTok{0}\NormalTok{))}\OperatorTok{%>%}
+\StringTok{    }\KeywordTok{mutate}\NormalTok{(}\DataTypeTok{high_school =} \KeywordTok{if_else}\NormalTok{(education }\OperatorTok{==}\StringTok{ }\DecValTok{2}\NormalTok{, }\DecValTok{1}\NormalTok{, }\DecValTok{0}\NormalTok{))}\OperatorTok{%>%}\StringTok{ }\CommentTok{#creating education dummies. grade school is ref. cat.}
+\StringTok{    }\KeywordTok{mutate}\NormalTok{(}\DataTypeTok{some_college =} \KeywordTok{if_else}\NormalTok{(education }\OperatorTok{==}\StringTok{ }\DecValTok{3}\NormalTok{, }\DecValTok{1}\NormalTok{, }\DecValTok{0}\NormalTok{))}\OperatorTok{%>%}
+\StringTok{    }\KeywordTok{mutate}\NormalTok{(}\DataTypeTok{college_adv =} \KeywordTok{if_else}\NormalTok{(education }\OperatorTok{==}\StringTok{ }\DecValTok{4}\NormalTok{, }\DecValTok{1}\NormalTok{, }\DecValTok{0}\NormalTok{))}\OperatorTok{%>%}
+\StringTok{    }\KeywordTok{rename}\NormalTok{(}\DataTypeTok{white =}\NormalTok{ VCF0105a)}\OperatorTok{%>%}
+\StringTok{    }\KeywordTok{mutate}\NormalTok{(}\DataTypeTok{white =} \KeywordTok{na_if}\NormalTok{(white, }\DecValTok{9}\NormalTok{))}\OperatorTok{%>%}
+\StringTok{    }\KeywordTok{mutate}\NormalTok{(}\DataTypeTok{white =} \KeywordTok{if_else}\NormalTok{(white}\OperatorTok{==}\DecValTok{1}\NormalTok{, }\DecValTok{1}\NormalTok{, }\DecValTok{0}\NormalTok{))}\OperatorTok{%>%}
+\StringTok{    }\KeywordTok{rename}\NormalTok{(}\DataTypeTok{south =}\NormalTok{ VCF0113)}\OperatorTok{%>%}
+\StringTok{    }\KeywordTok{mutate}\NormalTok{(}\DataTypeTok{south =} \KeywordTok{if_else}\NormalTok{(south}\OperatorTok{==}\DecValTok{1}\NormalTok{, }\DecValTok{1}\NormalTok{, }\DecValTok{0}\NormalTok{))}\OperatorTok{%>%}
+\StringTok{    }\KeywordTok{rename}\NormalTok{(}\DataTypeTok{interest =}\NormalTok{ VCF0310)}\OperatorTok{%>%}
+\StringTok{    }\KeywordTok{mutate}\NormalTok{(}\DataTypeTok{interest =} \KeywordTok{na_if}\NormalTok{(interest, }\DecValTok{9}\NormalTok{))}\OperatorTok{%>%}
+\StringTok{    }\KeywordTok{mutate}\NormalTok{(}\DataTypeTok{interest =} \KeywordTok{na_if}\NormalTok{(interest, }\DecValTok{0}\NormalTok{))}\OperatorTok{%>%}
+\StringTok{    }\KeywordTok{rename}\NormalTok{(}\DataTypeTok{worship =}\NormalTok{ VCF0130)}\OperatorTok{%>%}
+\StringTok{    }\KeywordTok{mutate}\NormalTok{(}\DataTypeTok{worship =} \KeywordTok{if_else}\NormalTok{(worship }\OperatorTok{==}\StringTok{ }\DecValTok{1} \OperatorTok{|}\StringTok{ }\NormalTok{worship }\OperatorTok{==}\StringTok{ }\DecValTok{2}\NormalTok{, }\DecValTok{1}\NormalTok{, }\DecValTok{0}\NormalTok{))}\OperatorTok{%>%}
+\StringTok{    }\KeywordTok{rename}\NormalTok{(}\DataTypeTok{iwrpk_pre =}\NormalTok{ VCF0050a)}\OperatorTok{%>%}
+\StringTok{    }\KeywordTok{mutate}\NormalTok{(}\DataTypeTok{iwrpk_pre =} \KeywordTok{na_if}\NormalTok{(iwrpk_pre, }\DecValTok{9}\NormalTok{))}\OperatorTok{%>%}
+\StringTok{    }\KeywordTok{mutate}\NormalTok{(}\DataTypeTok{iwrpk_pre =} \KeywordTok{as.numeric}\NormalTok{(}\KeywordTok{recode}\NormalTok{(iwrpk_pre, }\CommentTok{#recoding so that liberal values are lower, in accordance with everything else..}
+                                                                            \StringTok{"1"}\NormalTok{ =}\StringTok{ "5"}\NormalTok{,}
+                                                                            \StringTok{"2"}\NormalTok{ =}\StringTok{ "4"}\NormalTok{,}
+                                                                            \StringTok{"3"}\NormalTok{ =}\StringTok{ "3"}\NormalTok{,}
+                                                                            \StringTok{"4"}\NormalTok{ =}\StringTok{ "2"}\NormalTok{,}
+                                                                            \StringTok{"5"}\NormalTok{ =}\StringTok{ "1"}
+\NormalTok{    )))}\OperatorTok{%>%}
+\StringTok{    }\KeywordTok{mutate}\NormalTok{(}\DataTypeTok{iwrpk_pre =} \KeywordTok{zero1}\NormalTok{(iwrpk_pre))}\OperatorTok{%>%}
+\StringTok{    }\KeywordTok{rename}\NormalTok{(}\DataTypeTok{iwrpk_post =}\NormalTok{ VCF0050b)}\OperatorTok{%>%}
+\StringTok{    }\KeywordTok{mutate}\NormalTok{(}\DataTypeTok{iwrpk_post =} \KeywordTok{na_if}\NormalTok{(iwrpk_post, }\DecValTok{9}\NormalTok{))}\OperatorTok{%>%}
+\StringTok{    }\KeywordTok{mutate}\NormalTok{(}\DataTypeTok{iwrpk_post =} \KeywordTok{na_if}\NormalTok{(iwrpk_post, }\DecValTok{0}\NormalTok{))}\OperatorTok{%>%}
+\StringTok{    }\KeywordTok{mutate}\NormalTok{(}\DataTypeTok{iwrpk_post =} \KeywordTok{as.numeric}\NormalTok{(}\KeywordTok{recode}\NormalTok{(iwrpk_post, }\CommentTok{#recoding so that liberal values are lower, in accordance with everything else..}
+                                                                             \StringTok{"1"}\NormalTok{ =}\StringTok{ "5"}\NormalTok{,}
+                                                                             \StringTok{"2"}\NormalTok{ =}\StringTok{ "4"}\NormalTok{,}
+                                                                             \StringTok{"3"}\NormalTok{ =}\StringTok{ "3"}\NormalTok{,}
+                                                                             \StringTok{"4"}\NormalTok{ =}\StringTok{ "2"}\NormalTok{,}
+                                                                             \StringTok{"5"}\NormalTok{ =}\StringTok{ "1"}
+\NormalTok{    )))}\OperatorTok{%>%}
+\StringTok{    }\KeywordTok{mutate}\NormalTok{(}\DataTypeTok{iwrpk_post =} \KeywordTok{zero1}\NormalTok{(iwrpk_post))}\OperatorTok{%>%}
+\CommentTok{#   mutate(iwrpk_mean = (iwrpk_post + iwrpk_pre)/2)%>%}
+\StringTok{    }\KeywordTok{rename}\NormalTok{(}\DataTypeTok{dis_democ =}\NormalTok{ VCF9255)}\OperatorTok{%>%}
+\StringTok{    }\KeywordTok{mutate}\NormalTok{(}\DataTypeTok{dis_democ =} \KeywordTok{na_if}\NormalTok{(dis_democ, }\DecValTok{-9}\NormalTok{))}\OperatorTok{%>%}
+\StringTok{    }\KeywordTok{mutate}\NormalTok{(}\DataTypeTok{dis_democ =} \KeywordTok{na_if}\NormalTok{(dis_democ, }\DecValTok{-8}\NormalTok{))}\OperatorTok{%>%}
+\StringTok{    }\KeywordTok{mutate}\NormalTok{(}\DataTypeTok{dis_democ =} \KeywordTok{if_else}\NormalTok{(dis_democ }\OperatorTok{==}\StringTok{ }\DecValTok{3} \OperatorTok{|}\StringTok{ }\NormalTok{dis_democ }\OperatorTok{==}\DecValTok{4}\NormalTok{, }\DecValTok{1}\NormalTok{, }\DecValTok{0}\NormalTok{))}\OperatorTok{%>%}
+\StringTok{    }\KeywordTok{rename}\NormalTok{(}\DataTypeTok{know_house =}\NormalTok{ VCF0729)}\OperatorTok{%>%}
+\StringTok{    }\KeywordTok{mutate}\NormalTok{(}\DataTypeTok{know_house =} \KeywordTok{na_if}\NormalTok{(know_house, }\DecValTok{0}\NormalTok{))}\OperatorTok{%>%}
+\StringTok{    }\KeywordTok{mutate}\NormalTok{(}\DataTypeTok{know_house =} \KeywordTok{if_else}\NormalTok{(know_house}\OperatorTok{==}\DecValTok{1}\NormalTok{, }\DecValTok{1}\NormalTok{, }\DecValTok{0}\NormalTok{))}\OperatorTok{%>%}
+\StringTok{    }\KeywordTok{rename}\NormalTok{(}\DataTypeTok{know_sen =}\NormalTok{ VCF9036)}\OperatorTok{%>%}
+\StringTok{    }\KeywordTok{mutate}\NormalTok{(}\DataTypeTok{know_sen =} \KeywordTok{na_if}\NormalTok{(know_sen, }\DecValTok{0}\NormalTok{))}\OperatorTok{%>%}
+\StringTok{    }\KeywordTok{mutate}\NormalTok{(}\DataTypeTok{know_sen =} \KeywordTok{if_else}\NormalTok{(know_sen}\OperatorTok{==}\DecValTok{1}\NormalTok{, }\DecValTok{1}\NormalTok{, }\DecValTok{0}\NormalTok{))}\OperatorTok{%>%}
+\StringTok{    }\KeywordTok{mutate}\NormalTok{(}\DataTypeTok{know_cong =}\NormalTok{ (know_sen }\OperatorTok{+}\StringTok{ }\NormalTok{know_house)}\OperatorTok{/}\DecValTok{2}\NormalTok{)}\OperatorTok{%>%}
+\CommentTok{#   rowwise()%>%}
+\CommentTok{#   mutate(cult_att = mean(c(abortion, gayrights, women), na.rm = TRUE))%>%}
+\CommentTok{#   mutate(cult_att = (abortion + gayrights + women)/3)%>%}
+\CommentTok{#   mutate(cult_att = zero1(cult_att))%>%}
+\CommentTok{#   mutate(econ_att = (ss + services + jobs + insurance)/4)%>%}
+\CommentTok{#   mutate(econ_att = zero1(econ_att))%>%}
+\StringTok{    }\KeywordTok{glimpse}\NormalTok{()}\OperatorTok{%>%}\CommentTok{# adds only these variables to the df}
+\StringTok{    }\KeywordTok{mutate}\NormalTok{(}\DataTypeTok{win_care_pres =} \KeywordTok{na_if}\NormalTok{(win_care_pres, }\DecValTok{0}\NormalTok{))}\OperatorTok{%>%}\StringTok{ }\CommentTok{#these functions set the specified value to NA, (per the ANES codebook)}
+\StringTok{    }\KeywordTok{mutate}\NormalTok{(}\DataTypeTok{win_care_cong =} \KeywordTok{na_if}\NormalTok{(win_care_cong, }\DecValTok{0}\NormalTok{))}\OperatorTok{%>%}
+\StringTok{    }\KeywordTok{mutate}\NormalTok{(}\DataTypeTok{respondent_ideo =} \KeywordTok{na_if}\NormalTok{(respondent_ideo, }\DecValTok{9}\NormalTok{))}\OperatorTok{%>%}\CommentTok{#the recode() function is used in the next 4 pipes to apply new values to observation in the columns. ANES uses numerical values to represent factors.}
+\StringTok{    }\KeywordTok{mutate}\NormalTok{(}\DataTypeTok{ideo_rep =} \KeywordTok{na_if}\NormalTok{(ideo_rep, }\DecValTok{8}\NormalTok{))}\OperatorTok{%>%}
+\StringTok{    }\KeywordTok{mutate}\NormalTok{(}\DataTypeTok{ideo_rep =} \KeywordTok{na_if}\NormalTok{(ideo_rep, }\DecValTok{0}\NormalTok{))}\OperatorTok{%>%}
+\StringTok{    }\KeywordTok{mutate}\NormalTok{(}\DataTypeTok{ideo_dem =} \KeywordTok{na_if}\NormalTok{(ideo_dem, }\DecValTok{8}\NormalTok{))}\OperatorTok{%>%}
+\StringTok{    }\KeywordTok{mutate}\NormalTok{(}\DataTypeTok{ideo_dem =} \KeywordTok{na_if}\NormalTok{(ideo_dem, }\DecValTok{0}\NormalTok{))}\OperatorTok{%>%}
+\StringTok{    }\KeywordTok{mutate}\NormalTok{(}\DataTypeTok{primary_vote =} \KeywordTok{na_if}\NormalTok{(primary_vote, }\DecValTok{-8}\NormalTok{))}\OperatorTok{%>%}
+\StringTok{    }\KeywordTok{mutate}\NormalTok{(}\DataTypeTok{primary_vote =} \KeywordTok{na_if}\NormalTok{(primary_vote, }\DecValTok{-9}\NormalTok{))}\OperatorTok{%>%}
+\StringTok{    }\KeywordTok{mutate}\NormalTok{(}\DataTypeTok{primary_vote =} \KeywordTok{as.numeric}\NormalTok{(}\KeywordTok{recode}\NormalTok{(primary_vote, }
+                                                                        \StringTok{"1"}\NormalTok{ =}\StringTok{ "1"}\NormalTok{,}
+                                                                        \StringTok{"2"}\NormalTok{ =}\StringTok{ "0"}\NormalTok{)))}\OperatorTok{%>%}
+\StringTok{    }\KeywordTok{mutate}\NormalTok{(}\DataTypeTok{strong_partisan =} \KeywordTok{if_else}\NormalTok{(pid_}\DecValTok{7} \OperatorTok{==}\StringTok{ }\DecValTok{1}\OperatorTok{|}\NormalTok{pid_}\DecValTok{7} \OperatorTok{==}\DecValTok{7}\NormalTok{, }\DecValTok{1}\NormalTok{, }\DecValTok{0}\NormalTok{))}\OperatorTok{%>%}
+\StringTok{    }\KeywordTok{mutate}\NormalTok{(}\DataTypeTok{pid_7_num =} \KeywordTok{as.numeric}\NormalTok{(pid_}\DecValTok{7}\NormalTok{),}
+                 \DataTypeTok{pid_7 =} \KeywordTok{recode}\NormalTok{(pid_}\DecValTok{7}\NormalTok{, }
+                                             \StringTok{"1"}\NormalTok{ =}\StringTok{ "Strong Democrat"}\NormalTok{, }
+                                             \StringTok{"2"}\NormalTok{ =}\StringTok{ "Weak Democrat"}\NormalTok{, }
+                                             \StringTok{"3"}\NormalTok{ =}\StringTok{ "Independent - Democrat"}\NormalTok{, }
+                                             \StringTok{"4"}\NormalTok{ =}\StringTok{ "Independent - Independent"}\NormalTok{, }
+                                             \StringTok{"5"}\NormalTok{ =}\StringTok{ "Independent - Republican"}\NormalTok{, }
+                                             \StringTok{"6"}\NormalTok{ =}\StringTok{ "Weak Republican"}\NormalTok{, }
+                                             \StringTok{"7"}\NormalTok{ =}\StringTok{ "Strong Republican"}\NormalTok{),}
+                 \DataTypeTok{pid_7 =} \KeywordTok{reorder}\NormalTok{(pid_}\DecValTok{7}\NormalTok{, pid_}\DecValTok{7}\NormalTok{_num))}\OperatorTok{%>%}
+\StringTok{    }\KeywordTok{mutate}\NormalTok{(}\DataTypeTok{pid_3_num =} \KeywordTok{as.numeric}\NormalTok{(pid_}\DecValTok{3}\NormalTok{),}
+                 \DataTypeTok{pid_3 =} \KeywordTok{recode}\NormalTok{(pid_}\DecValTok{3}\NormalTok{, }
+                                             \StringTok{"1"}\NormalTok{ =}\StringTok{ "Democrat"}\NormalTok{, }
+                                             \StringTok{"2"}\NormalTok{ =}\StringTok{ "Independent"}\NormalTok{, }
+                                             \StringTok{"3"}\NormalTok{ =}\StringTok{ "Republican"}\NormalTok{),}
+                 \DataTypeTok{pid_3 =} \KeywordTok{reorder}\NormalTok{(pid_}\DecValTok{3}\NormalTok{, pid_}\DecValTok{3}\NormalTok{_num))}\OperatorTok{%>%}
+\StringTok{    }\KeywordTok{mutate}\NormalTok{(}\DataTypeTok{pid_str_num =} \KeywordTok{as.numeric}\NormalTok{(pid_str),}
+                 \DataTypeTok{pid_str =} \KeywordTok{recode}\NormalTok{(pid_str, }
+                                                 \StringTok{"1"}\NormalTok{ =}\StringTok{ "Independent"}\NormalTok{, }
+                                                 \StringTok{"2"}\NormalTok{ =}\StringTok{ "Leaning Independent"}\NormalTok{, }
+                                                 \StringTok{"3"}\NormalTok{ =}\StringTok{ "Weak Partisan"}\NormalTok{, }
+                                                 \StringTok{"4"}\NormalTok{ =}\StringTok{ "Strong Partisan"}\NormalTok{),}
+                 \DataTypeTok{pid_str =} \KeywordTok{reorder}\NormalTok{(pid_str, pid_str_num))}\OperatorTok{%>%}
+\StringTok{    }\KeywordTok{mutate}\NormalTok{(}\DataTypeTok{respondent_ideo_num =} \KeywordTok{as.numeric}\NormalTok{(respondent_ideo),}
+                 \DataTypeTok{respondent_ideo =} \KeywordTok{recode}\NormalTok{(respondent_ideo, }
+                                                                 \StringTok{"1"}\NormalTok{ =}\StringTok{ "Extremely Liberal"}\NormalTok{, }
+                                                                 \StringTok{"2"}\NormalTok{ =}\StringTok{ "Liberal"}\NormalTok{, }
+                                                                 \StringTok{"3"}\NormalTok{ =}\StringTok{ "Somewhat Liberal"}\NormalTok{, }
+                                                                 \StringTok{"4"}\NormalTok{ =}\StringTok{ "Moderate"}\NormalTok{, }
+                                                                 \StringTok{"5"}\NormalTok{ =}\StringTok{ "Somewhat Conservative"}\NormalTok{, }
+                                                                 \StringTok{"6"}\NormalTok{ =}\StringTok{ "Conservative"}\NormalTok{, }
+                                                                 \StringTok{"7"}\NormalTok{ =}\StringTok{ "Extremely Conservative"}\NormalTok{),}
+                 \DataTypeTok{respondent_ideo =} \KeywordTok{reorder}\NormalTok{(respondent_ideo, respondent_ideo_num))}\OperatorTok{%>%}
+\StringTok{    }\KeywordTok{mutate}\NormalTok{(}\DataTypeTok{parties_therm_dif =} \KeywordTok{sqrt}\NormalTok{((therm_dem }\OperatorTok{-}\StringTok{ }\NormalTok{therm_rep)}\OperatorTok{^}\DecValTok{2}\NormalTok{))}\OperatorTok{%>%}\StringTok{ }\CommentTok{#creates a variable showing the difference in thermometer ratings for each party}
+\StringTok{    }\KeywordTok{mutate}\NormalTok{(}\DataTypeTok{parties_ideo_dif =} \KeywordTok{abs}\NormalTok{(ideo_dem }\OperatorTok{-}\StringTok{ }\NormalTok{ideo_rep))}\OperatorTok{%>%}
+\CommentTok{#   mutate(cult_att = if_else(pid_3_num == 3, (1-cult_att), cult_att))%>%}
+\CommentTok{#   mutate(econ_att = if_else(pid_3_num == 3, (1-econ_att), econ_att))%>% #DO NOT USE UNLESS YOU ARE WORKING WITH DEMS AND REPS ONLY}
+\CommentTok{#   select(-ends_with("_num")) %>%   # drop the numeric versions of the factors that i used for reordering above}
+\StringTok{    }\KeywordTok{glimpse}\NormalTok{()}\OperatorTok{%>%}
+\StringTok{    }\KeywordTok{write_rds}\NormalTok{(}\StringTok{"data/tidy-cdf.rds"}\NormalTok{) }\OperatorTok{%>%}
+\StringTok{    }\KeywordTok{write_csv}\NormalTok{(}\StringTok{"data/tidy-cdf.csv"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Warning: Unreplaced values treated as NA as .x is not compatible. Please specify
+## replacements exhaustively or supply .default
+
+## Warning: Unreplaced values treated as NA as .x is not compatible. Please specify
+## replacements exhaustively or supply .default
+\end{verbatim}
+
+\begin{verbatim}
+## Rows: 38,100
+## Columns: 36
+## $ year            <dbl> 1978, 1978, 1978, 1978, 1978, 1978, 1978, 1978, 197...
+## $ pid_7           <dbl> 1, 4, 7, 3, 3, 2, 3, 2, 2, 1, 5, 2, 1, 3, 4, 1, 2, ...
+## $ pid_3           <dbl> 1, 2, 3, 1, 1, 1, 1, 1, 1, 1, 3, 1, 1, 1, 2, 1, 1, ...
+## $ pid_str         <dbl> 4, 1, 4, 2, 2, 3, 2, 3, 3, 4, 2, 3, 4, 2, 1, 4, 3, ...
+## $ win_care_pres   <dbl> NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA,...
+## $ win_care_cong   <dbl> 2, 2, 2, 1, 1, 1, 1, 1, 1, 2, 2, 2, 2, 2, 1, 2, 1, ...
+## $ respondent_ideo <dbl> 6, 9, 4, 4, 9, 5, 1, 9, 5, 6, 9, 6, 2, 4, 9, 1, 5, ...
+## $ therm_dem       <dbl> 80, 50, 40, 60, 85, 50, 70, NA, 60, NA, NA, 70, 85,...
+## $ therm_rep       <dbl> 50, 50, 60, 60, 60, 50, 40, NA, 60, NA, NA, 40, 85,...
+## $ activist_6cat   <dbl> 1, 1, 1, 2, 1, 1, 1, 2, 1, 2, 2, 1, 2, 1, 1, 2, 3, ...
+## $ ideo_dem        <dbl> 5, NA, 2, 4, NA, 5, 2, NA, 2, 6, NA, 6, 2, 3, NA, 1...
+## $ ideo_rep        <dbl> 2, NA, 4, 3, NA, 4, 5, NA, 6, 6, NA, 2, 3, 6, NA, 7...
+## $ primary_vote    <dbl> NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA,...
+## $ insurance       <dbl> 0.1666667, 0.3333333, 0.8333333, 0.0000000, 0.00000...
+## $ jobs            <dbl> 0.1666667, NA, 0.8333333, NA, NA, 0.5000000, 0.3333...
+## $ services        <dbl> NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA,...
+## $ ss              <dbl> NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA,...
+## $ women           <dbl> 0.5000000, 0.5000000, 0.6666667, 0.5000000, 0.00000...
+## $ abortion        <dbl> NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA,...
+## $ gayrights       <dbl> NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA,...
+## $ education       <dbl> 2, 1, 2, 2, 1, 2, 4, 2, 3, 2, 2, 2, 1, 4, 2, 2, 3, ...
+## $ white           <dbl> 1, 1, 1, 1, 1, 1, 1, 0, 1, 0, 1, 1, 1, 1, 0, 1, 1, ...
+## $ south           <dbl> 1, 0, 0, 0, 0, 0, 0, 1, 1, 0, 1, 0, 0, 0, 0, 0, 1, ...
+## $ interest        <dbl> 2, 1, 3, 2, 2, 2, 1, 1, 1, 3, 3, 2, 3, 3, 1, 2, 2, ...
+## $ worship         <dbl> 0, 0, 0, 1, 0, 1, 0, 1, 1, 0, 1, 0, 1, 1, 1, 1, 0, ...
+## $ iwrpk_pre       <dbl> NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA,...
+## $ iwrpk_post      <dbl> 0.25, 0.50, 0.75, 0.25, 0.50, 0.50, 0.75, 0.00, 0.7...
+## $ dis_democ       <dbl> NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA,...
+## $ know_house      <dbl> 1, 1, 0, 0, 0, 0, 0, 1, 0, 1, 1, 0, 0, 0, 1, 0, 0, ...
+## $ know_sen        <dbl> NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA,...
+## $ female          <dbl> 1, 0, 1, 0, 0, 1, 0, 1, 0, 1, 1, 0, 1, 1, 1, 0, 0, ...
+## $ no_ss           <dbl> NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA,...
+## $ high_school     <dbl> 1, 0, 1, 1, 0, 1, 0, 1, 0, 1, 1, 1, 0, 0, 1, 1, 0, ...
+## $ some_college    <dbl> 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1, ...
+## $ college_adv     <dbl> 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, ...
+## $ know_cong       <dbl> NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA,...
+## Rows: 38,100
+## Columns: 43
+## $ year                <dbl> 1978, 1978, 1978, 1978, 1978, 1978, 1978, 1978,...
+## $ pid_7               <fct> Strong Democrat, Independent - Independent, Str...
+## $ pid_3               <fct> Democrat, Independent, Republican, Democrat, De...
+## $ pid_str             <fct> Strong Partisan, Independent, Strong Partisan, ...
+## $ win_care_pres       <dbl> NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA,...
+## $ win_care_cong       <dbl> 2, 2, 2, 1, 1, 1, 1, 1, 1, 2, 2, 2, 2, 2, 1, 2,...
+## $ respondent_ideo     <fct> Conservative, NA, Moderate, Moderate, NA, Somew...
+## $ therm_dem           <dbl> 80, 50, 40, 60, 85, 50, 70, NA, 60, NA, NA, 70,...
+## $ therm_rep           <dbl> 50, 50, 60, 60, 60, 50, 40, NA, 60, NA, NA, 40,...
+## $ activist_6cat       <dbl> 1, 1, 1, 2, 1, 1, 1, 2, 1, 2, 2, 1, 2, 1, 1, 2,...
+## $ ideo_dem            <dbl> 5, NA, 2, 4, NA, 5, 2, NA, 2, 6, NA, 6, 2, 3, N...
+## $ ideo_rep            <dbl> 2, NA, 4, 3, NA, 4, 5, NA, 6, 6, NA, 2, 3, 6, N...
+## $ primary_vote        <dbl> NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA,...
+## $ insurance           <dbl> 0.1666667, 0.3333333, 0.8333333, 0.0000000, 0.0...
+## $ jobs                <dbl> 0.1666667, NA, 0.8333333, NA, NA, 0.5000000, 0....
+## $ services            <dbl> NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA,...
+## $ ss                  <dbl> NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA,...
+## $ women               <dbl> 0.5000000, 0.5000000, 0.6666667, 0.5000000, 0.0...
+## $ abortion            <dbl> NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA,...
+## $ gayrights           <dbl> NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA,...
+## $ education           <dbl> 2, 1, 2, 2, 1, 2, 4, 2, 3, 2, 2, 2, 1, 4, 2, 2,...
+## $ white               <dbl> 1, 1, 1, 1, 1, 1, 1, 0, 1, 0, 1, 1, 1, 1, 0, 1,...
+## $ south               <dbl> 1, 0, 0, 0, 0, 0, 0, 1, 1, 0, 1, 0, 0, 0, 0, 0,...
+## $ interest            <dbl> 2, 1, 3, 2, 2, 2, 1, 1, 1, 3, 3, 2, 3, 3, 1, 2,...
+## $ worship             <dbl> 0, 0, 0, 1, 0, 1, 0, 1, 1, 0, 1, 0, 1, 1, 1, 1,...
+## $ iwrpk_pre           <dbl> NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA,...
+## $ iwrpk_post          <dbl> 0.25, 0.50, 0.75, 0.25, 0.50, 0.50, 0.75, 0.00,...
+## $ dis_democ           <dbl> NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA,...
+## $ know_house          <dbl> 1, 1, 0, 0, 0, 0, 0, 1, 0, 1, 1, 0, 0, 0, 1, 0,...
+## $ know_sen            <dbl> NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA,...
+## $ female              <dbl> 1, 0, 1, 0, 0, 1, 0, 1, 0, 1, 1, 0, 1, 1, 1, 0,...
+## $ no_ss               <dbl> NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA,...
+## $ high_school         <dbl> 1, 0, 1, 1, 0, 1, 0, 1, 0, 1, 1, 1, 0, 0, 1, 1,...
+## $ some_college        <dbl> 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0,...
+## $ college_adv         <dbl> 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 1, 0, 0,...
+## $ know_cong           <dbl> NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA,...
+## $ strong_partisan     <dbl> 1, 0, 1, 0, 0, 0, 0, 0, 0, 1, 0, 0, 1, 0, 0, 1,...
+## $ pid_7_num           <dbl> 1, 4, 7, 3, 3, 2, 3, 2, 2, 1, 5, 2, 1, 3, 4, 1,...
+## $ pid_3_num           <dbl> 1, 2, 3, 1, 1, 1, 1, 1, 1, 1, 3, 1, 1, 1, 2, 1,...
+## $ pid_str_num         <dbl> 4, 1, 4, 2, 2, 3, 2, 3, 3, 4, 2, 3, 4, 2, 1, 4,...
+## $ respondent_ideo_num <dbl> 6, NA, 4, 4, NA, 5, 1, NA, 5, 6, NA, 6, 2, 4, N...
+## $ parties_therm_dif   <dbl> 30, 0, 20, 0, 25, 0, 30, NA, 0, NA, NA, 30, 0, ...
+## $ parties_ideo_dif    <dbl> 3, NA, 2, 1, NA, 1, 3, NA, 4, 0, NA, 4, 1, 3, N...
+\end{verbatim}
+
+\end{document}

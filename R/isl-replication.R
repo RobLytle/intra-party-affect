@@ -3,6 +3,8 @@ library(stargazer)
 library(goji)
 library(purrr)
 library(GGally)
+library(knitr)
+library(kableExtra) 
 
 #import the CDF into a dataframe (done in multiple pipes because rowwise() seemed to be causing problems.
 cdfa <- read_rds("data/tidy-cdf.rds")%>%
@@ -200,6 +202,17 @@ ext_1_model = stargazer(dem88_ext_1, rep88_ext_1, dem04_ext_1, rep04_ext_1, dem1
 )
 cat(ext_1_model, sep = '\n', file = 'fig/ext-1-model.tex')
 
+
+fligner_results <- fligner.test(formula = (cdf88$out88 ~ cdf88$cult_att), data = cdf88)
+
+kable(fligner_results, format = "latex",
+			booktabs = TRUE,
+			escape = FALSE)%>%
+	row_spec(0, bold = TRUE)%>%
+	column_spec(1:3, width = "3cm")%>%
+	kable_stying(full_width = FALSE)
+
+stargazer(fligner_results)
 # #########
 # GRAVEYARD OF
 # DEPRECATED CODE
