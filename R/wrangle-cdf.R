@@ -5,7 +5,7 @@ library(goji)
 #  select(V161095, V161096, V161086, V161087, V161126, V161128, V161129, V161130, V161131, V161021, V161021a)%>%
 #  glimpse()
 
-anes_raw <- read_rds("data/anes/cdf-raw-trim.rds")%>% # Loads RDS created in `anes-cdf-trim.R`
+anes_raw <- read_rds("data/raw/cdf-raw-trim.rds")%>% # Loads RDS created in `anes-cdf-trim.R`
 	glimpse()
 
 anes_char <- anes_raw %>%
@@ -259,7 +259,7 @@ anes_char <- anes_raw %>%
 				 												 "6" = "Conservative", 
 				 												 "7" = "Extremely Conservative"),
 				 respondent_ideo = reorder(respondent_ideo, respondent_ideo_num))%>%
-  mutate(pid_3_sort = factor(recode(pid_7_num,
+  mutate(pid_3_sort = factor(recode(pid_7_num, #different from regular pid_3 which codes 3, 5 as partisan
                              "1" = "Democrat",
                              "2" = "Democrat",
                              "3" = "Independent",
@@ -271,7 +271,7 @@ anes_char <- anes_raw %>%
                     "Independent",
                     "Republican")))%>%
   mutate(ideo_3_sort = factor(recode(respondent_ideo_num, #anes codes leaning independents as partisans; not ideal
-                                    "1" = "Liberal",
+                                    "1" = "Liberal", #see not on pid_3_sort
                                     "2" = "Liberal",
                                     "3" = "Moderate",
                                     "4" = "Moderate",
@@ -281,8 +281,8 @@ anes_char <- anes_raw %>%
                              levels = c("Liberal",
                                         "Moderate",
                                         "Conservative")))%>%
-#  mutate(pid_2_sort = na_if(pid_3_sort, "Independent"))%>% #better just to filter(pid_3_sort != "Independent")
-#  mutate(ideo_2_sort = na_if(ideo_3_sort, "Moderate"))%>%
+  mutate(pid_2_sort = na_if(pid_3_sort, "Independent"))%>% #better just to filter(pid_3_sort != "Independent"), but used to build other vars
+  mutate(ideo_2_sort = na_if(ideo_3_sort, "Moderate"))%>%# see pid_2_sort
   mutate(therm_dem = na_if(therm_dem, 98))%>%
   mutate(therm_dem = na_if(therm_dem, 99))%>%
   mutate(therm_rep = na_if(therm_rep, 98))%>%
@@ -325,46 +325,8 @@ anes_char <- anes_raw %>%
 #	mutate(econ_att = if_else(pid_3_num == 3, (1-econ_att), econ_att))%>% #DO NOT USE UNLESS YOU ARE WORKING WITH DEMS AND REPS ONLY
 #	select(-ends_with("_num")) %>%   # drop the numeric versions of the factors that i used for reordering above
 	glimpse()%>%
-	write_rds("data/anes/tidy-cdf.rds") %>%
-	write_csv("data/anes/tidy-cdf.csv")
-
-###########################
-####@@@@@@@@@@@@@@@@@@@####
-####@                 @####
-####@ Troubleshooting @####
-####@      Relig      @####
-####@                 @####
-####@@@@@@@@@@@@@@@@@@@####
-###########################
-
-# relig_years <- c(1964,
-#                  1966,
-#                  1968,
-#                  1972,
-#                  1976,
-#                  1984,
-#                  1988,
-#                  1992,
-#                  2000,
-#                  2002,
-#                  2004,
-#                  2008,
-#                  2008)
-# 
-# relig <- anes_char%>%
-#   filter(year %in% relig_years)%>%
-#   select(year,
-#          case,
-#          cath_prot_flag,
-#          religion
-#          )%>%
-#   glimpse()
-
-
-
-
-
-
+	write_rds("data/tidy-cdf.rds") %>%
+	write_csv("data/tidy-cdf.csv")
 
 
 

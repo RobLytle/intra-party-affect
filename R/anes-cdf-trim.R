@@ -7,7 +7,7 @@ library(sjlabelled)
 # This is done to avoid the lengthy rio::import() from a zip file every time the wrangling dplyr pipe is run  #
 ######                                                                                                #########
 
-cdf_raw_trim <- rio::import("data/anes/anes_timeseries_cdf_dta.zip", which = "anes_timeseries_cdf.dta")%>% #Imports the .dta file from the .zip file
+cdf_raw_trim <- rio::import("data/raw/anes_timeseries_cdf_dta.zip", which = "anes_timeseries_cdf.dta")%>% #Imports the .dta file from the .zip file
   filter(VCF0004 >= 1964)%>%
 select(VCF0004,
        VCF0006, #unique case ID
@@ -53,5 +53,5 @@ select(VCF0004,
        VCF0128 # Regligions preference. 1 protestant, 2 catholic, 3 jewish, 4 other/none/dk, 0 na
        )%>%
 glimpse()%>%
-  write_rds("data/anes/cdf-raw-trim.rds")%>%
-  write_csv("data/anes/cdf-raw-trim.csv")
+  write_rds("data/raw/cdf-raw-trim.rds")%>%
+  write_csv("data/raw/cdf-raw-trim.csv")
