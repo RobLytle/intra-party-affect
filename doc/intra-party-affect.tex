@@ -20,75 +20,20 @@
 
 \begin{document}
 
-\title{First Year Paper:\\ \large{\citet{iyengar2012affect}}}
+\title{Not Homogeneous: Intra-party affect}
 \author{Robert Lytle}
 \date{\today}
 \maketitle
 \thispagestyle{empty}
 \clearpage
 \section{Introduction}
-The question ``Has the mass public polarized alongside elites?" has been the subject of an enormous amount of scholarly debate. This debate has been held largely in terms of ideology, with scholars leveraging competing evidence showing \citep{abramowitz2010disappearing} or not showing \citep{fiorina2012disconnect} mass-level polarization. \cite{iyengar2012affect} argue that affect (one's emotional valence towards a stimulus) rather than ideology should be used to evaluate levels of mass polarization. 
+Evidence abounds that regardless of ideological distance between partisan groups, the affective and social distance between Democrats and Republicans has expanded dramatically. American National Election Study (ANES) respondents' Net Partisan Affect---the difference between their in and out party feeling thermometer has steadily increased since the ANES began asking partisans to rate the Democratic and Republican parties on a scale from 0-100; 0 indicating complete coldness toward the party and 100 indicating total warmth . Partisans, it seems, consistently like their party, and increasingly \textit{dislike} the out-party \citep{iyengar2012affect}. 
 
-While the authors leverage a variety of publicly available observational datasets to demonstrate that Democrats and Republicans exhibit increasing animosity towards out-partisans in this paper, I replicate the findings of \cite{iyengar2012affect} as they relate to the effect of policy preferences and party identification on affective polarization, and extend the original work first by applying the authors models to more recent 2016 data alongside the replication and then by respecifying the models to a more appropriate functional form.
-
-
-\section{Summary of \cite{iyengar2012affect}}
-\textit{Affect, Not Ideology} is an ambitious work; seeking to describe the historical trends of affective polarization and to establish a causal chain between hostile media, party-ID, and mass-level affective polarization. This analysis is done in service of the authors' central argument: that Americanist scholars of polarization should study the attitudes of voters towards members of the out-party, not just the ideological differences between opposing parties.
-
-The vast majority of scholars have evaluated polarization in terms of divergent policy preferences between parties and their supporters and have produced contradictory results. While virtually all agree that \textit{elites} have become more polarized, some argue this elite polarization is in response to an increasingly polarized \textit{public} \citep{abramowitz2010disappearing} and some argue against the notion of mass polarization altogether \citep{fiorina2012disconnect, fiorina2005culture}. Still other scholars have argued that observed polarization is not the result of increasingly extreme policy positions on the part of Democrats and Republicans, but the result of previously ideologically heterodox partisans sorting themselves into more appropriate parties \citep{levendusky2009partisan}.
-
-Each of the works discussed in the previous paragraph share a common focus on partisans' \textit{ideology}. Iyengar, Sood, and Lelkes identify this commonality and argue that, since most people have a limited conception of their own ideology \citep{converse1964nature}, and tend to have conflicting \citep{mcclosky1984american} and ideologically incoherent views \citep[p. 76--96]{zaller1992nature}, ideological differences are not a suitable metric by which to gauge mass polarization. In the view of the authors, partisans' affect towards their opponents is a more consistent and substantively meaningful diagnostic of the degree of mass polarization.
-
-To demonstrate this, the authors leverage several existing survey datasets and an advertising dataset\footnote{\textit{ANES Cumulative Study, YouGov/Polimetrix 2008 Election Study}, a \textit{YouGov 2011 multi-national study, Almond \& Verba (1960), Blair Center Election Study}, an \textit{AP Yahoo! News 2008} Election Study and the \textit{Wisconsin Advertising Project}. The implications for validity in using survey data will be discussed in greater detail in section 3.}. The survey data are used first to describe the degree of affective polarization, and are then used in conjunction with the advertisement data to establish a causal link between exposure to hostile political media and affective polarization. Survey data from the United Kingdom is included in the descriptive portion of the research, intended by the authors to serve as a pseudo-control for country-level effects \citep[p. 407]{iyengar2012affect}, comparing a country with parties whose ideology is more salient (the U.K.) to the U.S.
-
-In a series of regression analyses presented in the table below, the authors use data from the ANES to argue that cultural attitudes have no effect on affective polarization, while economic attitudes are only loosely related. Rather, they argue, the simple strength of one's partisan identification explains the degree to which they feel warmly towards their in-party and coldly towards the outparty. The dependent variable in these analyses is ``net partisan affect" (NPA), the difference between a respondent's in-party and out-party feeling thermometers used to measure the degree to which a survey respondent feels warmly or coldly towards another group. My principal focus in this paper will be to replicate these results, extending the data to 2016 before critiquing and respecifying the model.
-
-\begin{figure}[H]
-\center\includegraphics[width=5in]{isl-fig-3.png}
-\caption{\label{fig:cdf-avg}\textit{\textbf{The original results from Iyengar, Sood, and Lelkes (2012).} These results are the primary focus of this paper, and will be referenced throughout this piece.}}
-\end{figure}
-
-In short: \citeauthor{iyengar2012affect} identify a shortcoming in the ongoing debate over the existence of mass-level polarization---that scholars have focused exclusively on partisans' ideology. Instead, they argue that analyses of ideology are insufficient means by which to evaluate mass polarization. The authors argue for a new conception of division: partisans' affect towards their opponents. Iyengar et al. show that partisans are becoming increasingly divided from (and hostile towards) one another and posit that this division is the result of increasingly hostile media, rather than ideological differences between partisans. Therefore, ideological homogeneity between Democrats and Republicans is not sufficient evidence of a broader lack of polarization. 
-\section{Replication}
-
-\subsection{Role of Ideology in Affective Polarization}
-
-Ideology, the authors contend, plays a minimal role in driving out-party animus. This conclusion is reached through the application of a Two-Factor Structural Equation Model in which both respondents' cultural positions (gay rights, women's place, and abortion) and their economic positions (social security, healthcare, jobs, essential services) are allowed to affect one of three dependent feeling thermometer variables: in-party, out-party, and the difference of the two. Also included in the regression model are several covariates indicating political interest, whether a respondent is a strong partisan, gender, region (whether a respondent is a southerner), and education. While my replication forgoes the structural equation model used by the authors, both the author's model and my replication us an OLS model of the form:
-
-\begin{equation}
-\begin{split}
-\hat{\mathit{Net Partisan Affect}} = \alpha + \hat{\beta}_1{\mathit{Culture}} + \hat{\beta}_2\mathit{Econ} + \hat{\gamma}_3\mathit{Strong Partisan} +  \hat{\beta}_4\mathit{Interest} +  \gamma_5\mathit{Female} + \\ \hat{\gamma}_6\mathit{South} + \hat{\gamma}_7\mathit{High School} + \hat{\gamma}_8\mathit{Some College} + \hat{\gamma}_9\mathit{Adv. Deg}
-\end{split}
-\end{equation}
-
-\noindent where dummy variables are indicated by a gamma coefficient, to similar results, as shown in section 3.4.
-
-\subsection{Survey Validity Issues}
-
-Surveys are notoriously vulnerable to issues of framing, priming, and response instability \citep[p. 53--75]{zaller1992nature}, which at best introduce noise in the data and at worst (or at the most interesting, depending on one's perspective) are illustrative of a broader problem with the measurement of public opinion---that many people are simply ``Making it up as [they] go along", to borrow a phrase from Zaller. While these problems are not addressed by \citeauthor{iyengar2012affect} \textit{post facto}; surveys (including the ANES, from which much of these data are drawn) take steps to ameliorate some of the threat from other forms of response bias, often randomizing the order in which questions are asked so as to avoid priming respondents. Still, the larger problem of instability is a more fundamental problem, and one that is not addressed in the text.
-
-A third validity concern of these data is the possibility that respondents have under reported their attachment to their party. As people generally express a preference for bipartisanship \citep{harbridge2014public}, there is logical reason to believe respondents' desire to appear less partisan could lead to Hawthorne effects or social-desirability bias, posing a potential threat to the construct validity of the findings \citep[p. 73, Table 3.1 Item 8]{shadish2002experimental}. Fortunately, if the results are the product of social desirability bias they should \textit{underestimate} the degree of affective polarization. Thus the possibility of unaccounted for social desirability bias does not pose a major threat to the core findings of the paper.
+Scholars of affective polarization have largely considered partisans to be warm towards their parties and co-partisans \cite{iyengar2012affect, iyengar2018strengthening, abramowitz2010disappearing}. While it is true that \textit{mean} partisan affect---as measured by partisan feeling thermometers---has remained high, the standard deviation of this measure has increased substantially since 2004. By focusing on mean in-party feeling---rather than the distribution of partisan affect---researchers paint too optimistic a view of partisanship
 
 
-\subsection{Execution \& Results}
 
-On the next page, I present the results of the replication of Iyengar, Sood, and Lelkes' original models. I estimate six models of the effect of covariates on net partisan affect. The first four models replicate Table 3 of \cite{iyengar2012affect} (fig. 1 of this paper), while models five and six apply the regression to both Democrats and Republicans in 2016. Aside from subsetting on party ID and year, the specification of each model is identical. All six are linear, OLS regressions.
-
-Data for this extension are taken from the ANES cumulative data file, which has been asking respondents to report a partisan feeling thermometer since 1978. Rscripts from \citeauthor{iyengar2012affect}'s original paper were supplied by Gaurav Sood, to ensure that the variables used in my replication were the same used in the original piece. The bulk of the code used to wrangle the ANES data and conducted replication was written by myself in RStudio, making heavy use of the \texttt{tidyverse} and \texttt{stargazer} packages, as well as Gaurav Sood's own \texttt{goji} package \footnote{https://github.com/soodoku/goji}.
-
-Gender, Region, Race, and the education categories are each dummy variables included as Demographic controls. ``Strong Partisan" is a dummy variable indicating that a respondent identifies as strongly Democratic or Republican, and ``Political Knowledge" is an interviewer's assessment of the respondent's general political knowledge, averaged across a record made at the beginning and end of their interview on a five point scale. It has been coded so that high values indicate high levels of political knowledge.
-
-For convenience, each variable has been rescaled to a range [0,1], as in the original paper. In other words, the coefficients presented in the table bellow indicate the change in Net Partisan Affect when moving from the lowest to highest possible value of each variable. The cultural and economic attitude items are both constructed from a variety of ANES questions which present respondents with an issue (such as whether social security should be expanded) and ask them to place their ideal point on a scale ranging from most to least conservative. These items were rescaled such that high values represented the ideological position most consistent with their party ID (e.g., a ``1" would be a perfectly liberal response for a Democrat and a perfectly conservative response for a Republican). These responses were then averaged across the relevant issue areas.
-
-This method of variable construction is likely problematic---it is not clear that these responses are truly quantitative. Even if responses to the same question are quantitative, it is not unlikely that a respondent views the statements ``Social Security should be expanded", and ``The government should provide health insurance" as being mathematically equivalent in terms of their ideological liberalism, but the measure used in this replication assumes so nonetheless.
-
-This potentially dubious coding decision was made to replicate as closely as possible the measures used by Iyengar, Sood, and Lelkes, who use a structural equation model to estimate the effects of economic and cultural attitudes on NPA. The authors' results are generally robust to my simplified model, the magnitude of effects observed varying only slightly. The core claims made by the authors; that strong partisan identification and to a lesser extent, economic attitudes, are driving polarization hold, with (minor) variation in the effects of demographic controls.
-\input{../fig/ext-2-model}
-Looking to 2016, the effect of liberal economic attitudes increases Democrats' NPA substantially, while there is no meaningful effect for conservative attitudes in Republicans.  For a Democrat, moving from the most conservative to the most liberal economic positions increases NPA by .38, more than a third of the possible range. 
-
-That the findings of \cite{iyengar2012affect} were so closely replicated despite forgoing the use of a structural equation model as used in the original paper indicates that their findings are robust beyond their choice of methodology. However, the use of net partisan affect, rather than simply out-party affect poses both theoretical and practical problems; both of which will be addressed in the following section.
-
-
+\section{}
 
 
 
@@ -111,18 +56,10 @@ Further, I hypothesize that by controlling for in-party warmth, the modeled effe
 
 \subsection{Data \& Methodology}
 
-By and large, the variables included in this extension are identical to those of the replication, with three major exceptions. Rather than a dependent variable calculated as the difference between in and out-party thermometers, I regress the model solely on out-party feeling, therefore, negative coefficients indicate that an increase in the variable causes the average respondent to dislike members of the out-party. In addition to the change of dependent variable, I include the in-party feeling thermometer as a covariate. Finally, I remove the dummy variable ``Strong Partisan" from the analysis to avoid overcontrol bias. The inclusion of that variable would block a path from warmth toward the in-party, causing the model to underestimate the effect of warmth towards the in-party on warmth towards the out-party. The equation for the models in this extension is:
-\begin{equation}
-\begin{split}
-\hat{\mathit{Outparty Warmth}} = \alpha + \hat{\beta}_1{\mathit{Culture}} + \hat{\beta}_2\mathit{Econ} + \hat{\beta}_3\mathit{Inparty Warmth} +  \hat{\beta}_4\mathit{Interest} +  \gamma_5\mathit{Female} + \\ \hat{\gamma}_6\mathit{South} + \hat{\gamma}_7\mathit{High School} + \hat{\gamma}_8\mathit{Some College} + \hat{\gamma}_9\mathit{Adv. Deg.}
-\end{split}
-\end{equation}
-each variable is coded to be between [0, 1] following the same guidelines as the replication.
-\subsection{Results}
-My first hypothesis, that the effect of warmth towards one's in-party should be less in 2016 than in 1988 or 2004 is largely supported by these results. While Democrats do see a significant effect of in-party affect in 2016, the magnitude of this effect is fairly small compared to previews years, and Republicans experienced no effect at all.
 
-Additionally, cultural and economic attitudes are more frequently shown to have an effect on out-party thermometers when controlling for in-party feelings than in the replication model. This offers some support to my second hypothesis, but it should be noted that the magnitude of these effects are fairly small (and in the case of Democrats in 2016, decreased between the replication and extension models). Nonetheless, these results indicate that the forces\input{../fig/ext-1-model}
-\noindent driving partisan hostility may not be as simple partisan identity and economic opinions, clearly important though these variables are.
+\subsection{Results}
+
+
 \section{Conclusion}
 The main lesson of this study to scholars of political polarization should be the importance of clearly conceptualizing what is substantively important about polarization, and understanding the methodological trade-offs that occur when too much is built in to our dependent-variable models of polarization. The tacit (or explicit) assumption that in-party feelings are necessarily high when out-party feelings are low should be put to rest.
 
