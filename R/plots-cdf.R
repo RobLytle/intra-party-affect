@@ -263,13 +263,13 @@ cdf_below_mean_sd <- ggplot(below_mct_prop, aes(x = year, y = prop_mean_sd_below
   theme(legend.position = c(0.1, 0.85)) +
   guides(size = FALSE) +
   labs(x = "Year",
-       y = "Proportion of Partisans Below Median FT",
+       y = "Proportion of Partisans < Mean - SD",
        color = "Party ID",
        linetype = "Party ID",
        shape = "Party ID")
 cdf_below_mean_sd
 
-ggsave("fig/cdf-below.png", cdf_below, width = 6, height = 4, units = "in")
+ggsave("fig/cdf-below-mean-sd.png", cdf_below_mean_sd, width = 6, height = 4, units = "in")
 
 
 
