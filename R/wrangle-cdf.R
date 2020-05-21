@@ -297,6 +297,7 @@ anes_char <- anes_raw %>%
   																if_else(pid_3=="Democrat", therm_rep, therm_dem),
   																(therm_dem + therm_rep)/2))%>%
   mutate(npa_party = therm_inparty - therm_outparty)%>%
+	mutate(therm_parties_mean = (therm_dem + therm_rep)/2)%>%
   mutate(therm_dem_old = na_if(therm_dem_old, 98))%>%
   mutate(therm_dem_old = na_if(therm_dem_old, 99))%>%
   mutate(therm_rep_old = na_if(therm_rep_old, 98))%>%

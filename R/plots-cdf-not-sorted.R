@@ -148,7 +148,10 @@ cdf_ridge_ns <- ggplot(ridge_df_ns, aes(x = therm_inparty, y = year_fct, color =
        subtitle = "Compared to Mean Partisan FT of Independents",
        y = "Year",
        x = "Feeling Thermometer",
-       caption = "Independents increasingly likely to have cold average party FT, partisans increasingly cold toward in-party")
+       caption = "Independents increasingly likely to have cold average party FT, partisans increasingly cold toward in-party") +
+  theme(panel.grid.major = element_blank(), 
+        panel.grid.minor = element_blank(),
+        panel.background = element_blank())
 cdf_ridge_ns
 ggsave("fig/cdf-ridge-ns.png", cdf_ridge_ns, width = 8, height = 6, units = "in")
 

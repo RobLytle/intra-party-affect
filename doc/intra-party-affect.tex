@@ -1,4 +1,4 @@
-\documentclass[12pt]{article}
+\documentclass[12pt]{paper}
 %\usepackage{paper} %if the document does not compile properly for you on the initial build, uncomment \usepackage{paper} and build again. This should force MikTeX to install package "paper"
 \usepackage[margin=1in]{geometry}
 \usepackage{float}
@@ -7,7 +7,6 @@
 \usepackage{graphicx}
 \graphicspath{ {../fig/} }
 \usepackage{setspace}
-\setstretch{2}
 \usepackage[super]{nth}
 \usepackage{booktabs}
 \usepackage{makecell}
@@ -16,8 +15,9 @@
 %\usepackage{authblk}
 \usepackage{hyperref}
 %\usepackage{etoolbox}
+%
 %\AtBeginEnvironment{quote}{\singlespacing\small}
-
+\usepackage{epigraph}
 %"In New York, it isn't between Democrat and Republican, it's between top and down"
 \begin{document}
 
@@ -25,12 +25,18 @@
 \author{Robert Lytle}
 \date{\today}
 \maketitle
-\thispagestyle{empty}
-\clearpage
-\section{Introduction}
-Evidence abounds that regardless of ideological distance between partisan groups, the affective and social distance between Democrats and Republicans has expanded dramatically. American National Election Study (ANES) respondents' Net Partisan Affect---the difference between their in and out party feeling thermometer has steadily increased since the ANES began asking partisans to rate the Democratic and Republican parties on a scale from 0-100; 0 indicating complete coldness toward the party and 100 indicating total warmth . Partisans, it seems, consistently like their party, and increasingly \textit{dislike} the out-party \citep{iyengar2012affect}.
+\epigraph{I didn't get a thank you. That's OK. We sent him on the way, but I wasn't a fan of John McCain.}{\textit{Donald Trump}}
+\epigraph{``In New York, it isn't between Democrat and Republican---it's between top and bottom"}{\textit{Alexandria Ocasio-Cortez}}
+\setstretch{2}
+%\thispagestyle{empty}
+%\clearpage
 
-Recent developments give us cause, however, to doubt the consistency of in-party warmth. Using ANES time-series data, \cite{iyengar2018strengthening} finds that the strength of partisans out-party animus has supplanted in-party warmth as a predictor of voting behavior. The 2016 and 2020 election cycles have been characterized by lengthy and contentious primary elections. There has been no shortage of media accounts describing chaos at party conventions [CITE] and increasingly salient divides between populist and establishment wings of both parties [CITE].
+
+
+\section{Introduction}
+Evidence abounds that regardless of ideological distance between partisan groups, the affective and social distance between Democrats and Republicans has expanded dramatically. American National Election Study (ANES) respondents' Net Partisan Affect---the difference between their in and out party feeling thermometer has steadily increased since the ANES began asking partisans to rate the Democratic and Republican parties on a scale from 0-100---a 0 indicating complete coldness toward the party and 100 indicating total warmth. Partisans, it seems, consistently like their party, and increasingly \textit{dislike} the out-party \citep{iyengar2012affect}.
+
+Recent developments give us cause, however, to doubt the consistency of in-party warmth. For example, \cite{iyengar2018strengthening} find that the strength of partisans' out-party animus has supplanted in-party warmth as a predictor of voting behavior. The 2016 and 2020 election cycles have been characterized by lengthy and contentious primary elections. There has been no shortage of media accounts describing chaos at party conventions [CITE] and increasingly salient divides between populist and establishment wings of both parties [CITE].
 
  Pundit portrayals of in-party dynamics have been supported by scholarship.
 %probs expand this section
@@ -54,34 +60,38 @@ The data from this study were taken from the American National Election Study Cu
 \section{Results}
 
 \begin{figure}[H]
-\center\includegraphics[width=5in]{cdf-mean.png}
+\center\includegraphics[width=5in]{cdf-mean-ns.png}
 \caption{\label{fig:cdf-mean} \textit{\textbf{Mean of Partisans' in-party and out-party feeling thermometers as reported in the ANES, 1978--2016.} Republicans tend to be colder in general.}}
 \end{figure}
 
 Previous studies of affective polarization (e.g. \citet{iyengar2012affect}) have  focused on partisans' net partisan affect, this approach is problemmatic. When using a measure built from both in party and out party evaluations, it is not clear whether a change in NPA is borne of a change in in-party or out-party feeling. For example, the mean out-party affect of Republicans and Democrats in 2016 were each about 25 (Figure \ref{fig:cdf-mean}), but Republicans' NPA was significantly lower than Democrats' (Figure \ref{fig:cdf-npa}). Ostensibly, Republicans were \textit{less} polarized than Democrats, but to say so belies the fact that Republicans are very cold towards Democrats, they are just somewhat colder towards \textit{their own} party as well.
 \begin{figure}[H]
-\center\includegraphics[width=5in]{cdf-npa.png}
+\center\includegraphics[width=5in]{cdf-npa-ns.png}
 \caption{\label{fig:cdf-npa} \textit{\textbf{Mean of Partisans' in-party and out-party feeling thermometers as reported in the ANES, 1978--2016.} Republicans tend to be colder in general.}}
 \end{figure}
 
  An increase in NPA can be observed \textit{either} when in-party feeling increases \textit{or} when out-party feeling decreases (and vice-versa). Similarly, partisans could become more hostile towards their political opponents, while NPA remained constant. These unfortunate characteristics of the NPA measure are becoming more problematic as partisans' feelings towards their own party become less consistent. Indeed, we see increases in NPA (Fig. \ref{fig:cdf-npa}) even as mean in-party affect grows colder (Fig. \ref{fig:cdf-mean}).   Polarization implies mean in and out party affect diverging from one another; we observe instead partisans growing to dislike both parties---one at a faster rate than the other. 
 
 \begin{figure}[H]
-\center\includegraphics[width=5in]{cdf-sd.png}
+\center\includegraphics[width=5in]{cdf-sd-ns.png}
 \caption{\label{fig:cdf-sd} \textit{\textbf{Standard Deviation of partisans' in party feeling thermometers as reported in the ANES, 1978--2016.} After several decades of minimal change, the variation in in-party feeling thermometer ratings increased substantially between 2004 and 2016. This change is robust to both the Fligner-Killeen and Levene's tests of homogeneity of variance.}}
 \end{figure}
 
 Since 2004, partisans' feelings towards their own party have become less cohesive. This trend is less meaningful in regards to out-party feeling thermometers. While  the variance of out-party scores is similar in size to that of the in-party, out-party feeling thermometers have historically had high variance, particularly among Democrats.
 
 \subsection{How Has the Distribution changed?}
-
 \begin{figure}[H]
-\center\includegraphics[width=5in]{cdf-below-med.png}
-\caption{\label{fig:cdf-below-med} \textit{\textbf{The proportion of partisans who whose in-party FT falls below the historical median (70).} Republicans and Democrats increasingly report feeling colder than the median. Republicans are particularly likely to rate their party colder than median.}}
+\center\includegraphics[width=7in]{cdf-ridge-ns.png}
+\caption{\label{fig:ridge} \textit{\textbf{Ridgeline plot of partisan feeling thermometers.} Partisans' in-party/independents average FT.}}
 \end{figure}
 
-To 
+Negative evaluations of parties are increasingly common. The modal value of independents' average party FT has always been 50; in the late \nth{20} century, the distribution was characterized by a rightward tail. From 2000--2016 that tail has shifted left. Far more independents now have a net-negative disposition towards the two major parties. Similarly, when examining the distributions of in-party feeling thermometers the left skey has become more apparent; More Republicans and Democrats are now cold---below 50---toward their party than at any point in the range of data.
+\begin{figure}[H]
+\center\includegraphics[width=5in]{cdf-below-50-ns.png}
+\caption{\label{fig:cdf-below-50} \textit{\textbf{The proportion of partisans who whose in-party FT falls below 50.} Republicans and Democrats increasingly report feeling colder than the median. This trend is robust to multiple thresholds (further figures included in appendix.}}
+\end{figure}
 
+The increasing frequency of cold in-party affect is shown in Figure \ref{fig:cdf-below-50}. In 2004, less than 5\% of Republicans and Democrats were cold toward their party, in 2016 that number increased to 10\% of Democrats and almost 20\% of Republicans.
 
 
 
