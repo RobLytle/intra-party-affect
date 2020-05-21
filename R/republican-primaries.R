@@ -36,11 +36,12 @@ rep_08_means <- rep_2008_primary%>%
   glimpse()
 
 rep_2016_primary <- rep_primary%>%
-  filter(year == 2016 & (primary_vote_choice == "Donald Trump" |
-                          primary_vote_choice == "Ted Cruz" |
-                          primary_vote_choice == "John Kasich" |
-                          primary_vote_choice == "Marco Rubio" |
-                          primary_vote_choice == "Didn't Vote"))%>%
+  filter(year == 2016 & (primary_vote_choice == "Donald Trump" #|
+#                          primary_vote_choice == "Ted Cruz" |
+#                          primary_vote_choice == "John Kasich" |
+#                          primary_vote_choice == "Marco Rubio" |
+                          #primary_vote_choice == "Didn't Vote"
+                          ))%>%
   glimpse()
 
 rep_16_means <- rep_2016_primary%>%
@@ -59,7 +60,8 @@ print(dem_16_means)
 #Histogram
 base_therm_hist_2016 <- ggplot(rep_2016_primary, aes(x = pre_therm_rep, y = ..density.., fill = primary_vote_choice, alpha = .1)) + 
   guides(alpha = FALSE) +
-  geom_density() +
+#  geom_density() +
+  geom_histogram() +
   theme_bw()+
   facet_wrap(vars(year)) +
   xlim(0,100) +

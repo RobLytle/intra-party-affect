@@ -282,13 +282,20 @@ anes_char <- anes_raw %>%
                                         "Moderate",
                                         "Conservative")))%>%
   mutate(pid_2_sort = na_if(pid_3_sort, "Independent"))%>% #better just to filter(pid_3_sort != "Independent"), but used to build other vars
-  mutate(ideo_2_sort = na_if(ideo_3_sort, "Moderate"))%>%# see pid_2_sort
+	mutate(pid_2 = na_if(pid_3, "Independent"))%>% 
+	mutate(ideo_2_sort = na_if(ideo_3_sort, "Moderate"))%>%# see pid_2_sort
   mutate(therm_dem = na_if(therm_dem, 98))%>%
   mutate(therm_dem = na_if(therm_dem, 99))%>%
   mutate(therm_rep = na_if(therm_rep, 98))%>%
   mutate(therm_rep = na_if(therm_rep, 99))%>%
-  mutate(therm_inparty = if_else(pid_2_sort=="Democrat", therm_dem, therm_rep))%>%
-  mutate(therm_outparty = if_else(pid_2_sort=="Democrat", therm_rep, therm_dem))%>%
+#  mutate(therm_inparty = if_else(pid_3=="Democrat", therm_dem, therm_rep))%>%
+	mutate(therm_inparty = if_else(pid_3=="Democrat" | pid_3 == "Republican",
+																	if_else(pid_3=="Democrat", therm_dem, therm_rep),
+																		(therm_dem + therm_rep)/2))%>% #therm in/out are equal
+	mutate(therm_inparty = na_if(therm_inparty, -9))%>%
+  mutate(therm_outparty = if_else(pid_3=="Democrat" | pid_3 == "Republican",
+  																if_else(pid_3=="Democrat", therm_rep, therm_dem),
+  																(therm_dem + therm_rep)/2))%>%
   mutate(npa_party = therm_inparty - therm_outparty)%>%
   mutate(therm_dem_old = na_if(therm_dem_old, 98))%>%
   mutate(therm_dem_old = na_if(therm_dem_old, 99))%>%
