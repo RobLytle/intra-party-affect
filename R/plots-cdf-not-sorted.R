@@ -126,6 +126,7 @@ ggsave("fig/cdf-sd-ns.png", sd_ft_ns, width = 8, height = 6, units = "in")
 ridge_df_ns <- tidy_cdf_ns%>%
   filter(year != 2002 & pid_3 != is.na(TRUE))%>%
   mutate(year_fct = fct_rev(as.factor(year)))%>%
+  filter(income_num != is.na(TRUE))%>%
   glimpse()
   
 cdf_ridge_ns <- ggplot(ridge_df_ns, aes(x = therm_inparty, y = year_fct, color = pid_3, fill = pid_3, group = year)) +
@@ -140,7 +141,7 @@ cdf_ridge_ns <- ggplot(ridge_df_ns, aes(x = therm_inparty, y = year_fct, color =
   scale_color_manual(values = c("Democrat" = "dodgerblue1",
                                "Republican" = "firebrick1",
                                "Independent" = "darkorchid1")) +
-  facet_grid(cols = vars(pid_3)) +
+  facet_grid(cols = vars(pid_3), rows = vars(income_bottom_third)) +
   geom_vline(xintercept = 50, color = "white") +
   guides(color = FALSE,
          fill = FALSE) +
@@ -253,7 +254,9 @@ below_mct_ns <- tidy_cdf_ns%>% # MCT = Measure of Central Tendency
          pid_3,
          therm_inparty)%>%
   filter(pid_3 != "Independent" & year != 2002)%>%
-  mutate(below_50_dum = if_else(therm_inparty < 50, 1, 0),
+  mutate(above_80_dum = if_else(therm_inparty > 80, 1, 0),
+         above_mean_sd_dum = if_else(therm_inparty > weighted.mean(therm_inparty, weight, na.rm = TRUE) + radiant.data::weighted.sd(therm_inparty, weight, na.rm = TRUE), 1, 0),
+         below_50_dum = if_else(therm_inparty < 50, 1, 0),
          below_mean_dum = if_else(therm_inparty < weighted.mean(therm_inparty, weight, na.rm = TRUE), 1, 0),
          below_mean_sd_dum = if_else(therm_inparty < weighted.mean(therm_inparty, weight, na.rm = TRUE) - radiant.data::weighted.sd(therm_inparty, weight, na.rm = TRUE), 1, 0),
          below_med_dum = if_else(therm_inparty < spatstat::weighted.median(therm_inparty, weight, na.rm = TRUE), 1, 0),
@@ -267,11 +270,16 @@ below_mct_prop_ns <- below_mct_ns%>%
             prop_med_below = weighted.mean(below_med_dum, weight, na.rm = TRUE), #prop_below is those below the MCT, prop_sd_below is those one SD below med
             prop_med_below_sd = weighted.mean(below_med_sd_dum, weight, na.rm = TRUE),
             prop_50_below = weighted.mean(below_50_dum, weight, na.rm = TRUE),
+            prop_80_above = weighted.mean(above_80_dum, weight, na.rm = TRUE),
+            prop_mean_sd_above = weighted.mean(above_mean_sd_dum, weight, na.rm = TRUE),
             se_mean_below = diagis::weighted_se(below_mean_dum, weight, na.rm = TRUE),
             se_mean_sd_below = diagis::weighted_se(below_mean_sd_dum, weight, na.rm = TRUE),
             se_med_below = diagis::weighted_se(below_med_dum, weight, na.rm = TRUE),
             se_med_sd_below = diagis::weighted_se(below_med_sd_dum, weight, na.rm = TRUE),
-            se_50_below = diagis::weighted_se(below_50_dum, weight, na.rm = TRUE))%>%
+            se_50_below = diagis::weighted_se(below_50_dum, weight, na.rm = TRUE),
+            se_80_above = diagis::weighted_se(above_80_dum, weight, na.rm = TRUE),
+            se_mean_sd_above = diagis::weighted_se(above_mean_sd_dum, weight, na.rm = TRUE)
+  )%>%
   glimpse()
 
 cdf_med_below_ns <- ggplot(below_mct_prop_ns, aes(x = year, y = prop_med_below)) +
@@ -310,6 +318,47 @@ cdf_below_mean_sd_ns
 
 ggsave("fig/cdf-below-mean-sd-ns.png", cdf_below_mean_sd_ns, width = 6, height = 4, units = "in")
 
+### Above 80:
+
+cdf_above_80_ns <- ggplot(below_mct_prop_ns, aes(x = year, y = prop_80_above)) +
+  geom_point(aes(shape = pid_3, size = 1, color = pid_3)) +
+  geom_errorbar(aes(ymin = prop_80_above - se_80_above, ymax = prop_80_above + se_80_above, width = .2)) +
+  geom_smooth(aes(linetype = pid_3, color = pid_3), span = .3, se = FALSE) +
+  scale_color_manual(values = c("Democrat" = "dodgerblue3",
+                                "Republican" = "firebrick3")) +
+  theme(legend.position = c(0.1, 0.7)) +
+  guides(size = FALSE) +
+  labs(x = "Year", 
+       subtitle = "Includes Leaning Independents",
+       y = "Proportion",
+       color = "Party ID",
+       linetype = "Party ID",
+       shape = "Party ID",
+       title = "Proportion of Partisans Below 50 In-Party FT")
+cdf_above_80_ns
+
+ggsave("fig/cdf-above-80-ns.png", cdf_above_80_ns, width = 8, height = 6, units = "in")
+
+### Above Mean + SD
+
+cdf_above_mean_sd_ns <- ggplot(below_mct_prop_ns, aes(x = year, y = prop_mean_sd_above)) +
+  geom_point(aes(shape = pid_3, size = 1, color = pid_3)) +
+  geom_errorbar(aes(ymin = prop_mean_sd_above - se_mean_sd_above, ymax = prop_mean_sd_above + se_mean_sd_above, width = .2)) +
+  geom_smooth(aes(linetype = pid_3, color = pid_3), span = .3, se = FALSE) +
+  scale_color_manual(values = c("Democrat" = "dodgerblue3",
+                                "Republican" = "firebrick3")) +
+  theme(legend.position = c(0.1, 0.85)) +
+  guides(size = FALSE) +
+  labs(x = "Year", 
+       title = "Proportion of Partisans < 1 SD above Mean",
+       subtitle = "Includes Leaning Independents",
+       y = "Proportion",
+       color = "Party ID",
+       linetype = "Party ID",
+       shape = "Party ID")
+cdf_above_mean_sd_ns
+
+ggsave("fig/cdf-above-mean-sd-ns.png", cdf_below_mean_sd_ns, width = 6, height = 4, units = "in")
 ### Below 50:
 
 cdf_below_50_ns <- ggplot(below_mct_prop_ns, aes(x = year, y = prop_50_below)) +

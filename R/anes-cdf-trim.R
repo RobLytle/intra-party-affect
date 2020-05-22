@@ -12,6 +12,7 @@ cdf_raw_trim <- rio::import("data/raw/anes_timeseries_cdf_dta.zip", which = "ane
 select(VCF0004,
        VCF0006, #unique case ID
        VCF0009z, #weight
+       VCF0114,
        VCF0301,
        VCF0303,
        VCF0305,

@@ -60,6 +60,7 @@ anes_char <- anes_raw %>%
 				 VCF0110, #education 1 (grade school), 2(High School), 3(Some College), 4(College/advanced) 0DK/NA
 				 VCF0105a, #race 1(white), 2(Black), 3 (asian/pacific), 4(Am. indian/alaska native), 5(hispanic), 6 (other/mult), 7(non-white/non-black), 9NA
 				 VCF0113, #south 1(south), 2(nonsouth)
+				 VCF0114,
 				 VCF0310, #interest 1(not much), 2(somewhat), 3(very) 9dk, 0na
 				 VCF0130, #worship 1(every week), 2(almost every week), 3 (once or twice a month), 4 (few times a year), 5(never), 7(no relig.), 890na
 				 VCF0050a, # iwrpkpre 1(very high)-5(very low)
@@ -328,6 +329,15 @@ anes_char <- anes_raw %>%
   mutate(net_race = therm_race_ingroup - therm_race_outgroup)%>%
 	mutate(parties_therm_dif = therm_inparty - therm_outparty)%>% #creates a variable showing the difference in thermometer ratings for each party
 	mutate(parties_ideo_dif = abs(ideo_dem - ideo_rep))%>%
+	rename(income = VCF0114)%>%
+	mutate(income_num = na_if(income, 0))%>%
+	mutate(income = recode(income_num,
+												 "1" = "0 -- 16 Percentile",
+												 "2" = "17 -- 33 Percentile",
+												 "3" = "34 -- 67 Percentile",
+												 "4" = "68 -- 95 Percentile",
+												 "5" = "96 -- 100 Percentile"))%>%
+	mutate(income_bottom_third = if_else(income_num <= 3, 1, 0))%>%
   select(-ends_with("flag"))%>%
 #	mutate(cult_att = if_else(pid_3_num == 3, (1-cult_att), cult_att))%>%
 #	mutate(econ_att = if_else(pid_3_num == 3, (1-econ_att), econ_att))%>% #DO NOT USE UNLESS YOU ARE WORKING WITH DEMS AND REPS ONLY
