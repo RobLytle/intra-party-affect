@@ -1,3 +1,4 @@
+
 library(tidyverse)
 library(ggExtra)
 library(ggridges)
@@ -124,24 +125,67 @@ ggsave("fig/cdf-sd-ns.png", sd_ft_ns, width = 8, height = 6, units = "in")
 #####
 ##ggridges
 ridge_df_ns <- tidy_cdf_ns%>%
-  filter(year != 2002 & pid_3 != is.na(TRUE))%>%
+  filter(year != 2002 & pid_3 != is.na(TRUE) & pid_3 != "Independent")%>%
   mutate(year_fct = fct_rev(as.factor(year)))%>%
-  filter(income_num != is.na(TRUE))%>%
   glimpse()
   
-cdf_ridge_ns <- ggplot(ridge_df_ns, aes(x = therm_inparty, y = year_fct, color = pid_3, fill = pid_3, group = year)) +
+cdf_ridge_ns <- ggplot(ridge_df_ns, aes(x = therm_inparty, 
+                                        y = year_fct, 
+                                        color = "white",
+                                        fill = stat(x),
+)) +
 #  geom_ridgeline() + 
-  geom_density_ridges(rel_min_height = 0.015, alpha = 1) +
+  geom_density_ridges_gradient(scale = 3, rel_min_height = 0.02, gradient_lwd = 1) +
+  coord_cartesian(clip = "off") +
 #  scale_y_discrete(expand = expand_scale(mult = c(0.01, 0.25))) +
   scale_x_continuous(limits = c(0,100), breaks = seq(0, 100, by = 10)) +
+#  scale_fill_viridis_c(name = "In-Party FT", option = "B") +
+  scale_fill_gradient(
+    low = "blue4",
+#    mid = "darkorchid2",
+    high = "red1"
+#    midpoint = 50
+  )+
 #  scale_x_continuous(limits = c(.2,1), breaks = seq(.2, 1, by = .1)) +
+ #  scale_discrete_manual(aesthetics = "fill", 
+ #                        values = c("Democrat" = "dodgerblue3",
+ #                                "Republican" = "firebrick3",
+ #                               "Independent" = "darkorchid3")) +
+  scale_discrete_manual(aesthetics = "color",
+                       values = c("white")) +
+  geom_vline(xintercept = 50, color = "white") +
+  guides(color = FALSE,
+         fill = FALSE) +
+  labs(title = "In-Party Feeling Thermometers",
+       subtitle = "Republicans and Democrats",
+       y = "Year",
+       x = "Feeling Thermometer",
+       caption = " ") +
+  theme(panel.grid.major = element_blank(), 
+        panel.grid.minor = element_blank(),
+        panel.background = element_blank())
+cdf_ridge_ns
+ggsave("fig/cdf-ridge-ns.png", cdf_ridge_ns, width = 8, height = 6, units = "in")
+
+ridge_df_ns <- tidy_cdf_ns%>%
+  filter(year != 2002 & pid_3 != is.na(TRUE))%>%
+  mutate(year_fct = fct_rev(as.factor(year)))%>%
+  glimpse()
+
+#by parties
+cdf_ridge_ns <- ggplot(ridge_df_ns, aes(x = therm_inparty, y = year_fct, color = pid_3, fill = pid_3, group = year)) +
+  #  geom_ridgeline() + 
+  geom_density_ridges(rel_min_height = 0.015, alpha = 1) +
+  #  scale_y_discrete(expand = expand_scale(mult = c(0.01, 0.25))) +
+  scale_x_continuous(limits = c(0,100), breaks = seq(0, 100, by = 10)) +
+  #  scale_x_continuous(limits = c(.2,1), breaks = seq(.2, 1, by = .1)) +
   scale_fill_manual(values = c("Democrat" = "dodgerblue3",
-                                "Republican" = "firebrick3",
+                               "Republican" = "firebrick3",
                                "Independent" = "darkorchid3")) +
   scale_color_manual(values = c("Democrat" = "dodgerblue1",
-                               "Republican" = "firebrick1",
-                               "Independent" = "darkorchid1")) +
-  facet_grid(cols = vars(pid_3), rows = vars(income_bottom_third)) +
+                                "Republican" = "firebrick1",
+                                "Independent" = "darkorchid1")) +
+  facet_grid(cols = vars(pid_3)) +
   geom_vline(xintercept = 50, color = "white") +
   guides(color = FALSE,
          fill = FALSE) +
@@ -154,7 +198,7 @@ cdf_ridge_ns <- ggplot(ridge_df_ns, aes(x = therm_inparty, y = year_fct, color =
         panel.grid.minor = element_blank(),
         panel.background = element_blank())
 cdf_ridge_ns
-ggsave("fig/cdf-ridge-ns.png", cdf_ridge_ns, width = 8, height = 6, units = "in")
+ggsave("fig/cdf-ridge-split-ns.png", cdf_ridge_ns, width = 8, height = 6, units = "in")
 
 # ggplot(ridge_df_ns, aes(x = year, y = therm_inparty)) +
 #   geom_point(aes(alpha=.1), position="jitter") +
@@ -315,7 +359,6 @@ cdf_below_mean_sd_ns <- ggplot(below_mct_prop_ns, aes(x = year, y = prop_mean_sd
        linetype = "Party ID",
        shape = "Party ID")
 cdf_below_mean_sd_ns
-
 ggsave("fig/cdf-below-mean-sd-ns.png", cdf_below_mean_sd_ns, width = 6, height = 4, units = "in")
 
 ### Above 80:
@@ -362,9 +405,9 @@ ggsave("fig/cdf-above-mean-sd-ns.png", cdf_below_mean_sd_ns, width = 6, height =
 ### Below 50:
 
 cdf_below_50_ns <- ggplot(below_mct_prop_ns, aes(x = year, y = prop_50_below)) +
-  geom_point(aes(shape = pid_3, size = 1, color = pid_3)) +
-  geom_errorbar(aes(ymin = prop_50_below - se_50_below, ymax = prop_50_below + se_50_below, width = .2)) +
+	geom_errorbar(aes(ymin = prop_50_below - se_50_below, ymax = prop_50_below + se_50_below, width = .2)) +
   geom_smooth(aes(linetype = pid_3, color = pid_3), span = .3, se = FALSE) +
+	geom_point(aes(shape = pid_3, size = 1, color = pid_3)) +
   scale_color_manual(values = c("Democrat" = "dodgerblue3",
                                 "Republican" = "firebrick3")) +
   theme(legend.position = c(0.1, 0.7)) +

@@ -31,32 +31,36 @@
 \setstretch{2}
 %\thispagestyle{empty}
 %\clearpage
+%\setstretch{1}
 
 
 
 \section{Introduction}
 Evidence abounds that regardless of ideological distance between partisan groups, the affective and social distance between Democrats and Republicans has expanded dramatically. American National Election Study (ANES) respondents' Net Partisan Affect---the difference between their in and out party feeling thermometer has steadily increased since the ANES began asking partisans to rate the Democratic and Republican parties on a scale from 0-100---a 0 indicating complete coldness toward the party and 100 indicating total warmth. Partisans, it seems, consistently like their party, and increasingly \textit{dislike} the out-party \citep{iyengar2012affect}.
 
-Recent developments give us cause, however, to doubt the consistency of in-party warmth. For example, \cite{iyengar2018strengthening} find that the strength of partisans' out-party animus has supplanted in-party warmth as a predictor of voting behavior. The 2016 and 2020 election cycles have been characterized by lengthy and contentious primary elections. There has been no shortage of media accounts describing chaos at party conventions [CITE] and increasingly salient divides between populist and establishment wings of both parties [CITE].
 
- Pundit portrayals of in-party dynamics have been supported by scholarship.
-%probs expand this section
-Using the 2016 Democratic primary \cite{wronski2018tale}
+%Not super happy with "midst of disagreements"
+Recent developments give us cause, however, to doubt the consistency of in-party warmth; Factions in both parties have received a great deal of attention in recent years. Groups like the Tea Party and alt-right in the Republican Party and progressives and socialists in the Democratic party have presented challenges to their party's status-quo, often acting in opposition to their party's elites [CITE]. In the midst of these in-party disagreements the 2016 and 2020 election cycles have been characterized by lengthy and contentious primary elections. There has been no shortage of media accounts describing chaos at party conventions [CITE] and increasingly salient divides between populist and establishment wings of both parties [CITE]. 
+
+Using the 2016 Democratic primary \cite{wronski2018tale} demonstrate that Democrats in 2016 primary were divided along autoritarian lines. Primary voters scoring high in authoritarian personality traits were more likely to support Hillary Clinton---those with few authoritarian tendencies were likely to be supporters of Bernie Sanders. For example, \cite{iyengar2018strengthening} find that the strength of partisans' out-party animus has supplanted in-party warmth as a predictor of voting behavior. 
+
+%Rohde (1991) elite heterogeneity decreases salience of party ID
 %ask Dr. Bankert if okay to \cite{bankert2020authoritarian}
 
 
-Scholars of affective polarization have largely considered partisans to be warm towards their parties and co-partisans \citep{iyengar2012affect, iyengar2018strengthening, abramowitz2010disappearing}. While it is true that \textit{mean} partisan affect---as measured by partisan feeling thermometers---has remained high, the standard deviation of this measure has increased substantially since 2004. By focusing on mean in-party feeling---rather than the distribution of partisan affect---researchers paint too optimistic a view of partisanship's strength. 
+Scholars of affective polarization have largely considered partisans to be warm towards their parties and co-partisans \citep{iyengar2012affect, iyengar2018strengthening, abramowitz2010disappearing}. While it is true that \textit{mean} partisan affect---as measured by partisan feeling thermometers---has remained high, the standard deviation of this measure has increased substantially since 2004 (Fig. \ref{fig:cdf-sd}). By focusing on mean in-party feeling---rather than the distribution of partisan affect---researchers paint too optimistic a view of partisanship's strength. 
+\begin{figure}[H]
+\center\includegraphics[width=5in]{cdf-sd-ns.png}
+\caption{\label{fig:cdf-sd} \textit{\textbf{Standard Deviation of partisans' in party feeling thermometers as reported in the ANES, 1978--2016.} After several decades of minimal change, the variation in in-party feeling thermometer ratings increased substantially between 2004 and 2016. This change is robust to both the Fligner-Killeen and Levene's tests of homogeneity of variance.}}
+\end{figure}
 
-Factions in both parties have received a great deal of attention in recent years. Groups like the Tea Party and alt-right in the Republican Party and progressives and socialists in the Democratic party have presented substantial challenges to their party's status-quo, often acting in opposition to their party's elites. Recent scholarship too has shown that affective divisions in the parties are both salient and predictive of other traits in partisans \citep{wronski2018tale, bankert2020authoritarian}. When the dependent variable in studies of polarization includes by default feelings towards the in-party, it becomes impossible to study how the effects of in-party feelings themselves have changed over time, or even to determine if they have any effect at all.
+%When the dependent variable in studies of polarization includes by default feelings towards the in-party, it becomes impossible to study how the effects of in-party feelings themselves have changed over time, or even to determine if they have any effect at all.
 
 
-I hypothesize that, as partisans have become less consistent in their feelings towards their party there in-party feeling thermometers will be inconsistently related to their feelings towards the out-party. This hypothesis suggests that contemporary conceptions of political polarization, which presuppose that those who feel most warmly toward their co-partisans will  on average feel most coldly toward the opposition are subtly incorrect---it is not necessarily that partisans are warm towards their party and cold to the other. They are perfectly capable of being cold towards both groups. 
-
-Further, I hypothesize that by controlling for in-party warmth, the modeled effect of cultural and economic attitudes will be more significant. When NPA is used as the dependent variable, the attitudes respondents who feel outside the ideological bounds of their party may cause them to report colder thermometers for both their in-party and out-party, which would not be detected by the NPA measure.
 
 \section{Data}
 
-The data from this study were taken from the American National Election Study Cumulative Data File \footnote{https://electionstudies.org/data-center/anes-time-series-cumulative-data-file/}. All data and replication materials will be made available on GitHub. The samples used here \textit{exclude} leaning partisans, despite the evidence that partisan leaning independents behave in much the same way as their sorted counterparts \citep{klar2016independent}. By restricting the sample to avowed partisans, I am likely underestimating the variation present in in-party attitudes, and overestimating the proportion of Democrat and Republican voters who are lukewarm or ambivalent towards their party. 
+The data from this study were taken from the American National Election Study Cumulative Data File\footnote{https://electionstudies.org/data-center/anes-time-series-cumulative-data-file/}. All data and replication materials will be made available on GitHub. The samples used here \textit{exclude} leaning partisans, despite the evidence that partisan leaning independents behave in much the same way as their sorted counterparts \citep{klar2016independent}. By restricting the sample to avowed partisans, I am likely underestimating the variation present in in-party attitudes, and overestimating the proportion of Democrat and Republican voters who are lukewarm or ambivalent towards their party. 
 
 \section{Results}
 
@@ -73,10 +77,7 @@ Previous studies of affective polarization (e.g. \citet{iyengar2012affect}) have
 
  An increase in NPA can be observed \textit{either} when in-party feeling increases \textit{or} when out-party feeling decreases (and vice-versa). Similarly, partisans could become more hostile towards their political opponents, while NPA remained constant. These unfortunate characteristics of the NPA measure are becoming more problematic as partisans' feelings towards their own party become less consistent. Indeed, we see increases in NPA (Fig. \ref{fig:cdf-npa}) even as mean in-party affect grows colder (Fig. \ref{fig:cdf-mean}).   Polarization implies mean in and out party affect diverging from one another; we observe instead partisans growing to dislike both parties---one at a faster rate than the other. 
 
-\begin{figure}[H]
-\center\includegraphics[width=5in]{cdf-sd-ns.png}
-\caption{\label{fig:cdf-sd} \textit{\textbf{Standard Deviation of partisans' in party feeling thermometers as reported in the ANES, 1978--2016.} After several decades of minimal change, the variation in in-party feeling thermometer ratings increased substantially between 2004 and 2016. This change is robust to both the Fligner-Killeen and Levene's tests of homogeneity of variance.}}
-\end{figure}
+
 
 Since 2004, partisans' feelings towards their own party have become less cohesive. This trend is less meaningful in regards to out-party feeling thermometers. While  the variance of out-party scores is similar in size to that of the in-party, out-party feeling thermometers have historically had high variance, particularly among Democrats.
 
