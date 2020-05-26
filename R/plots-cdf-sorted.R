@@ -57,6 +57,7 @@ cdf_mean <- party_fts%>%
   glimpse()
 
 cdf_sd <- party_fts%>%
+  filter(group == "Democrat - In Party" | group == "Republican - In Party")%>%
   filter(stat == "sd")%>%
   glimpse()
 
@@ -83,25 +84,26 @@ mean_ft
 
 ggsave("fig/cdf-mean.png", mean_ft, width = 6, height = 4, units = "in")
 
-sd_ft <- ggplot(cdf_sd, aes(x = year, y = result)) +
-  geom_point(aes(shape = group)) +
-  geom_smooth(aes(linetype = group), color = "darkgrey", se=F) + 
+sd_ft <- ggplot(cdf_sd, aes(x = year, y = result, color = group)) +
+#  geom_smooth(aes(linetype = group), span = .3, se=F) + 
+  geom_line(aes(linetype = group), size = 1.5) +
+  geom_point(aes(shape = group), size = 2) +
   scale_linetype_manual(values = c("Democrat - In Party" = "longdash",
-                                   "Democrat - Out Party" = "dotted",
-                                   "Republican - In Party" = "solid",
-                                   "Republican - Out Party" = "twodash")) +
+                                   "Republican - In Party" = "solid")) +
   scale_shape_manual(values = c("Democrat - In Party" = 3,
-                                "Democrat - Out Party" = 2,
-                                "Republican - In Party" = 16,
-                                "Republican - Out Party" = 19)) +
+                                "Republican - In Party" = 16)) +
+  scale_color_manual(values = c("Democrat - In Party" = "dodgerblue3",
+                                "Republican - In Party" = "firebrick3")) +
   #scale_x_continuous(limits = c(1978,2020), breaks = c(0:5)) +
   scale_x_continuous(breaks = seq(1976, 2020, by = 4)) +
-  scale_y_continuous(limits = c(10,25)) +
+  scale_y_continuous(limits = c(12,25)) +
   labs(y = "Partisan Feeling Thermometer Standard Deviations",
        x = "Year",
+       subtitle = "Excludes Leaning Independents",
        linetype = " ",
+       color = " ",
        shape = " ") +
-  theme(legend.position = c(0.2, 0.2))
+  theme(legend.position = c(0.2, 0.8))
 sd_ft
 
 ggsave("fig/cdf-sd.png", sd_ft, width = 8, height = 6, units = "in")
@@ -214,12 +216,16 @@ ggsave("fig/cdf-below-parties.png", cdf_below_party_meds, width = 6, height = 4,
 ###
 
 below_mct <- tidy_cdf%>% # MCT = Measure of Central Tendency
+#  filter(pid_str == "Strong Partisan")%>%
   select(year,
          weight,
          pid_3_sort,
          therm_inparty)%>%
   filter(pid_3_sort != "Independent" & year != 2002)%>%
-  mutate(below_mean_dum = if_else(therm_inparty < weighted.mean(therm_inparty, weight, na.rm = TRUE), 1, 0),
+  mutate(above_80_dum = if_else(therm_inparty > 80, 1, 0),
+         above_mean_sd_dum = if_else(therm_inparty > weighted.mean(therm_inparty, weight, na.rm = TRUE) + radiant.data::weighted.sd(therm_inparty, weight, na.rm = TRUE), 1, 0),
+         below_50_dum = if_else(therm_inparty < 50, 1, 0),
+         below_mean_dum = if_else(therm_inparty < weighted.mean(therm_inparty, weight, na.rm = TRUE), 1, 0),
          below_mean_sd_dum = if_else(therm_inparty < weighted.mean(therm_inparty, weight, na.rm = TRUE) - radiant.data::weighted.sd(therm_inparty, weight, na.rm = TRUE), 1, 0),
          below_med_dum = if_else(therm_inparty < spatstat::weighted.median(therm_inparty, weight, na.rm = TRUE), 1, 0),
          below_med_sd_dum = if_else(therm_inparty < spatstat::weighted.median(therm_inparty, weight, na.rm = TRUE) - radiant.data::weighted.sd(therm_inparty, weight, na.rm = TRUE), 1, 0))%>%
@@ -231,10 +237,17 @@ below_mct_prop <- below_mct%>%
             prop_mean_sd_below = weighted.mean(below_mean_sd_dum, weight, na.rm = TRUE),
             prop_med_below = weighted.mean(below_med_dum, weight, na.rm = TRUE), #prop_below is those below the MCT, prop_sd_below is those one SD below med
             prop_med_below_sd = weighted.mean(below_med_sd_dum, weight, na.rm = TRUE),
+            prop_50_below = weighted.mean(below_50_dum, weight, na.rm = TRUE),
+            prop_80_above = weighted.mean(above_80_dum, weight, na.rm = TRUE),
+            prop_mean_sd_above = weighted.mean(above_mean_sd_dum, weight, na.rm = TRUE),
             se_mean_below = diagis::weighted_se(below_mean_dum, weight, na.rm = TRUE),
             se_mean_sd_below = diagis::weighted_se(below_mean_sd_dum, weight, na.rm = TRUE),
             se_med_below = diagis::weighted_se(below_med_dum, weight, na.rm = TRUE),
-            se_med_sd_below = diagis::weighted_se(below_med_sd_dum, weight, na.rm = TRUE))%>%
+            se_med_sd_below = diagis::weighted_se(below_med_sd_dum, weight, na.rm = TRUE),
+            se_50_below = diagis::weighted_se(below_50_dum, weight, na.rm = TRUE),
+            se_80_above = diagis::weighted_se(above_80_dum, weight, na.rm = TRUE),
+            se_mean_sd_above = diagis::weighted_se(above_mean_sd_dum, weight, na.rm = TRUE)
+  )%>%
   glimpse()
 
 cdf_med_below <- ggplot(below_mct_prop, aes(x = year, y = prop_med_below)) +
@@ -284,6 +297,25 @@ test_df <- read_rds("data/tidy-cdf.rds")%>%
   summarize(prop_part_s = weighted.mean(partisan_s, weight, na.rm = TRUE),
             prop_part_ns = weighted.mean(partisan_ns, weight, na.rm = TRUE))%>%
   glimpse()
+
+# Below 50
+
+cdf_below_50 <- ggplot(below_mct_prop, aes(x = year, y = prop_50_below)) +
+  geom_errorbar(aes(ymin = prop_50_below - se_50_below, ymax = prop_50_below + se_50_below, width = .2)) +
+  geom_smooth(aes(linetype = pid_3_sort, color = pid_3_sort), span = .3, se = FALSE) +
+  geom_point(aes(shape = pid_3_sort, size = 1, color = pid_3_sort)) +
+  scale_color_manual(values = c("Democrat" = "dodgerblue3",
+                                "Republican" = "firebrick3")) +
+  theme(legend.position = c(0.1, 0.7)) +
+  guides(size = FALSE) +
+  labs(x = "Year", 
+       subtitle = "Excludes Leaning Independents",
+       y = "Proportion",
+       color = "Party ID",
+       linetype = "Party ID",
+       shape = "Party ID",
+       title = "Proportion of Partisans Below 50 In-Party FT")
+cdf_below_50
 
 ## Have FTs of cold partisans changed?
 # below_med_fts <- below_med%>%

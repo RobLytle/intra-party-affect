@@ -72,6 +72,7 @@ cdf_mean_ns <- party_fts_ns%>%
   glimpse()
 
 cdf_sd_ns <- party_fts_ns%>%
+  filter(group == "Democrat - In Party" | group == "Republican - In Party")%>%
   filter(stat == "sd")%>%
   glimpse()
 
@@ -98,25 +99,26 @@ mean_ft_ns
 
 ggsave("fig/cdf-mean-ns.png", mean_ft_ns, width = 6, height = 4, units = "in")
 
-sd_ft_ns <- ggplot(cdf_sd_ns, aes(x = year, y = result)) +
-  geom_point(aes(shape = group)) +
-  geom_smooth(aes(linetype = group), color = "darkgrey", se=F) + 
+sd_ft_ns <- ggplot(cdf_sd_ns, aes(x = year, y = result, color = group)) +
+#  geom_smooth(aes(linetype = group), span = .3, se=F) + 
+  geom_line(aes(linetype = group), size = 1.5) +
+  geom_point(aes(shape = group), size = 2) +
   scale_linetype_manual(values = c("Democrat - In Party" = "longdash",
-                                   "Democrat - Out Party" = "dotted",
-                                   "Republican - In Party" = "solid",
-                                   "Republican - Out Party" = "twodash")) +
+                                   "Republican - In Party" = "solid")) +
   scale_shape_manual(values = c("Democrat - In Party" = 3,
-                                "Democrat - Out Party" = 2,
-                                "Republican - In Party" = 16,
-                                "Republican - Out Party" = 19)) +
+                                "Republican - In Party" = 16)) +
+  scale_color_manual(values = c("Democrat - In Party" = "dodgerblue3",
+                                "Republican - In Party" = "firebrick3")) +
   #scale_x_continuous(limits = c(1978,2020), breaks = c(0:5)) +
   scale_x_continuous(breaks = seq(1976, 2020, by = 4)) +
-  scale_y_continuous(limits = c(10,25)) +
+  scale_y_continuous(limits = c(12,25)) +
   labs(y = "Partisan Feeling Thermometer Standard Deviations",
-       x = "Year", subtitle = "Includes Leaning Independents",
+       x = "Year",
+       subtitle = "Includes Leaning Independents",
        linetype = " ",
+       color = " ",
        shape = " ") +
-  theme(legend.position = c(0.2, 0.2))
+  theme(legend.position = c(0.2, 0.8))
 sd_ft_ns
 
 ggsave("fig/cdf-sd-ns.png", sd_ft_ns, width = 8, height = 6, units = "in")
@@ -124,12 +126,12 @@ ggsave("fig/cdf-sd-ns.png", sd_ft_ns, width = 8, height = 6, units = "in")
 ## Not sure if things in this section will end up in a manuscript, just trying to get a better idea of the data.
 #####
 ##ggridges
-ridge_df_ns <- tidy_cdf_ns%>%
+ridge_df_partisan_ns <- tidy_cdf_ns%>%
   filter(year != 2002 & pid_3 != is.na(TRUE) & pid_3 != "Independent")%>%
   mutate(year_fct = fct_rev(as.factor(year)))%>%
   glimpse()
   
-cdf_ridge_ns <- ggplot(ridge_df_ns, aes(x = therm_inparty, 
+cdf_ridge_ns <- ggplot(ridge_df_partisan_ns, aes(x = therm_inparty, 
                                         y = year_fct, 
                                         color = "white",
                                         fill = stat(x),
@@ -171,6 +173,61 @@ ridge_df_ns <- tidy_cdf_ns%>%
   filter(year != 2002 & pid_3 != is.na(TRUE))%>%
   mutate(year_fct = fct_rev(as.factor(year)))%>%
   glimpse()
+
+# mean ft
+ridge_mean_all <- tidy_cdf_ns%>%
+  filter(year != 2002)%>%
+  mutate(year_fct = fct_rev(as.factor(year)))%>%
+  glimpse()
+
+cdf_ridge_all <- ggplot(ridge_mean_all, aes(x = therm_parties_mean, 
+                                                 y = year_fct, 
+                                                 color = "white",
+                                                 fill = stat(x),
+)) +
+  #  geom_ridgeline() + 
+  geom_density_ridges_gradient(scale = 3, rel_min_height = 0.02, gradient_lwd = 1) +
+  coord_cartesian(clip = "off") +
+  #  scale_y_discrete(expand = expand_scale(mult = c(0.01, 0.25))) +
+  scale_x_continuous(limits = c(0,100), breaks = seq(0, 100, by = 10)) +
+  #  scale_fill_viridis_c(name = "In-Party FT", option = "B") +
+  scale_fill_gradient(
+    low = "blue4",
+    #    mid = "darkorchid2",
+    high = "red1"
+    #    midpoint = 50
+  )+
+  #  scale_x_continuous(limits = c(.2,1), breaks = seq(.2, 1, by = .1)) +
+  #  scale_discrete_manual(aesthetics = "fill", 
+  #                        values = c("Democrat" = "dodgerblue3",
+  #                                "Republican" = "firebrick3",
+  #                               "Independent" = "darkorchid3")) +
+  scale_discrete_manual(aesthetics = "color",
+                        values = c("white")) +
+  geom_vline(xintercept = 50, color = "white") +
+  guides(color = FALSE,
+         fill = FALSE) +
+  labs(title = "Mean Partisan Feeling Thermometer",
+       subtitle = "All Respondents",
+       y = "Year",
+       x = "Feeling Thermometer",
+       caption = " ") +
+  theme(panel.grid.major = element_blank(), 
+        panel.grid.minor = element_blank(),
+        panel.background = element_blank())
+cdf_ridge_all
+ggsave("fig/cdf-ridge-all.png", cdf_ridge_all, width = 8, height = 6, units = "in")
+
+ridge_df_ns <- tidy_cdf_ns%>%
+  filter(year != 2002 & pid_3 != is.na(TRUE))%>%
+  mutate(year_fct = fct_rev(as.factor(year)))%>%
+  glimpse()
+
+
+
+
+
+
 
 #by parties
 cdf_ridge_ns <- ggplot(ridge_df_ns, aes(x = therm_inparty, y = year_fct, color = pid_3, fill = pid_3, group = year)) +
