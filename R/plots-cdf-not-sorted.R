@@ -459,6 +459,8 @@ cdf_above_mean_sd_ns <- ggplot(below_mct_prop_ns, aes(x = year, y = prop_mean_sd
 cdf_above_mean_sd_ns
 
 ggsave("fig/cdf-above-mean-sd-ns.png", cdf_below_mean_sd_ns, width = 6, height = 4, units = "in")
+
+
 ### Below 50:
 
 cdf_below_50_ns <- ggplot(below_mct_prop_ns, aes(x = year, y = prop_50_below)) +
@@ -475,7 +477,8 @@ cdf_below_50_ns <- ggplot(below_mct_prop_ns, aes(x = year, y = prop_50_below)) +
        color = "Party ID",
        linetype = "Party ID",
        shape = "Party ID",
-       title = "Proportion of Partisans Below 50 In-Party FT")
+       title = "Proportion of Partisans Below 50 In-Party FT") #+
+#  facet_wrap(vars(pid_str))
 cdf_below_50_ns
 
 ggsave("fig/cdf-below-50-ns.png", cdf_below_50_ns, width = 8, height = 6, units = "in")
