@@ -78,7 +78,7 @@ cdf_sd_ns <- party_fts_ns%>%
 
 mean_ft_ns <- ggplot(cdf_mean_ns, aes(x = year, y = result)) +
   geom_point(aes(shape = group)) +
-  geom_smooth(aes(linetype = group), color = "darkgrey", se=F) + 
+  geom_smooth(aes(linetype = group, color = group), span = .3, se=F) + 
   scale_linetype_manual(values = c("Democrat - In Party" = "longdash",
                                    "Democrat - Out Party" = "dotted",
                                    "Republican - In Party" = "solid",
@@ -87,12 +87,18 @@ mean_ft_ns <- ggplot(cdf_mean_ns, aes(x = year, y = result)) +
                                    "Democrat - Out Party" = 2,
                                    "Republican - In Party" = 16,
                                    "Republican - Out Party" = 19)) +
+  scale_color_manual(values = c("Democrat - In Party" = "dodgerblue4",
+                                   "Democrat - Out Party" = "dodgerblue1",
+                                   "Republican - In Party" = "firebrick4",
+                                   "Republican - Out Party" = "firebrick1")) +
   #scale_x_continuous(limits = c(1978,2020), breaks = c(0:5)) +
   scale_x_continuous(breaks = seq(1976, 2020, by = 4)) +
   scale_y_continuous(breaks = seq(20, 80, by = 5), limits = c(20,80)) +
   labs(y = "Mean Thermometer Ratings of Partisans",
-       x = "Year", subtitle = "Includes Leaning Independents",
+       x = "Year", 
+       subtitle = "Includes Leaning Independents",
        linetype = " ",
+       color = " ",
        shape = " ") +
   theme(legend.position = c(0.2, 0.2))
 mean_ft_ns
@@ -464,11 +470,14 @@ ggsave("fig/cdf-above-mean-sd-ns.png", cdf_below_mean_sd_ns, width = 6, height =
 ### Below 50:
 
 cdf_below_50_ns <- ggplot(below_mct_prop_ns, aes(x = year, y = prop_50_below)) +
-	geom_errorbar(aes(ymin = prop_50_below - se_50_below, ymax = prop_50_below + se_50_below, width = .2)) +
-  geom_smooth(aes(linetype = pid_3, color = pid_3), span = .3, se = FALSE) +
-	geom_point(aes(shape = pid_3, size = 1, color = pid_3)) +
+  geom_errorbar(aes(ymin = prop_50_below - se_50_below, ymax = prop_50_below + se_50_below, width = .2)) +
+  geom_line(aes(linetype = pid_3, color = pid_3), size = 1) + 
+  #  geom_smooth(aes(linetype = pid_3_sort, color = pid_3_sort), span = .3, se = FALSE) +
+  geom_point(aes(shape = pid_3, size = 1, color = pid_3)) +
   scale_color_manual(values = c("Democrat" = "dodgerblue3",
                                 "Republican" = "firebrick3")) +
+  scale_linetype_manual(values = c("Democrat" = "dashed",
+                                   "Republican" = "solid")) +
   theme(legend.position = c(0.1, 0.7)) +
   guides(size = FALSE) +
   labs(x = "Year", 
