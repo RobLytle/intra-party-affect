@@ -94,8 +94,8 @@ ggsave("fig/cdf-mean.png", mean_ft, width = 6, height = 4, units = "in")
 
 sd_ft <- ggplot(cdf_sd, aes(x = year, y = result, color = group)) +
 #  geom_smooth(aes(linetype = group), span = .3, se=F) + 
-  geom_line(aes(linetype = group), size = 1.5) +
-  geom_point(aes(shape = group), size = 2) +
+  geom_line(aes(linetype = group), size = 1) +
+  geom_point(aes(shape = group, size = 1)) +
   scale_linetype_manual(values = c("Democrat - In Party" = "longdash",
                                    "Republican - In Party" = "solid")) +
   scale_shape_manual(values = c("Democrat - In Party" = 3,
@@ -111,7 +111,8 @@ sd_ft <- ggplot(cdf_sd, aes(x = year, y = result, color = group)) +
        linetype = " ",
        color = " ",
        shape = " ") +
-  theme(legend.position = c(0.2, 0.8))
+  theme(legend.position = c(0.2, 0.8)) +
+  guides(size = FALSE)
 sd_ft
 
 ggsave("fig/cdf-sd.png", sd_ft, width = 8, height = 6, units = "in")
@@ -315,7 +316,7 @@ cdf_below_50 <- ggplot(below_mct_prop, aes(x = year, y = prop_50_below)) +
   geom_point(aes(shape = pid_3_sort, size = 1, color = pid_3_sort)) +
   scale_color_manual(values = c("Democrat" = "dodgerblue3",
                                 "Republican" = "firebrick3")) +
-  scale_linetype_manual(values = c("Democrat" = "dashed",
+  scale_linetype_manual(values = c("Democrat" = "longdash",
                                 "Republican" = "solid")) +
   theme(legend.position = c(0.1, 0.7)) +
   guides(size = FALSE) +
