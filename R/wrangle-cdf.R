@@ -198,8 +198,17 @@ anes_char <- anes_raw %>%
 #	mutate(iwrpk_mean = (iwrpk_post + iwrpk_pre)/2)%>%
 	rename(dis_democ = VCF9255)%>%
 	mutate(dis_democ = na_if(dis_democ, -9))%>%
-	mutate(dis_democ = na_if(dis_democ, -8))%>%
-	mutate(dis_democ = if_else(dis_democ == 3 | dis_democ ==4, 1, 0))%>%
+	mutate(dis_democ = as.numeric(recode(dis_democ,
+														"3" = "1",
+														"4" = "1",
+														"1" = "0",
+														"2" = "0",
+														"-8" = "-8")))%>%
+	mutate(dis_democ_qual = recode(dis_democ,
+																 "1" = "Not at all/Very Dissatisfied",
+																 "0" = "Very/Fairly Satisfied",
+																 "-8" = "Don't Know"))%>%
+	mutate(dis_democ_dum = na_if(dis_democ, -8))%>%
 	rename(know_house = VCF0729)%>%
 	mutate(know_house = na_if(know_house, 0))%>%
 	mutate(know_house = if_else(know_house==1, 1, 0))%>%
@@ -338,13 +347,12 @@ anes_char <- anes_raw %>%
 												 "4" = "68 -- 95 Percentile",
 												 "5" = "96 -- 100 Percentile"))%>%
 	mutate(income_bottom_third = if_else(income_num <= 3, 1, 0))%>%
-  select(-ends_with("flag"))%>%
+	select(-ends_with("flag"))%>%
 #	mutate(cult_att = if_else(pid_3_num == 3, (1-cult_att), cult_att))%>%
 #	mutate(econ_att = if_else(pid_3_num == 3, (1-econ_att), econ_att))%>% #DO NOT USE UNLESS YOU ARE WORKING WITH DEMS AND REPS ONLY
 #	select(-ends_with("_num")) %>%   # drop the numeric versions of the factors that i used for reordering above
 	glimpse()%>%
-	write_rds("data/tidy-cdf.rds") %>%
+	write_rds("data/tidy-cdf.rds")%>%
 	write_csv("data/tidy-cdf.csv")
-
 
 

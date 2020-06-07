@@ -134,6 +134,12 @@ ggsave("fig/cdf-sd-ns.png", sd_ft_ns, width = 8, height = 6, units = "in")
 ## Not sure if things in this section will end up in a manuscript, just trying to get a better idea of the data.
 #####
 ##ggridges
+
+
+
+
+
+
 ridge_df_partisan_ns <- tidy_cdf_ns%>%
   filter(year != 2002 & pid_3 != is.na(TRUE) & pid_3 != "Independent")%>%
   mutate(year_fct = fct_rev(as.factor(year)))%>%
@@ -193,23 +199,13 @@ cdf_ridge_all <- ggplot(ridge_mean_all, aes(x = therm_parties_mean,
                                                  color = "white",
                                                  fill = stat(x),
 )) +
-  #  geom_ridgeline() + 
   geom_density_ridges_gradient(scale = 3, rel_min_height = 0.02, gradient_lwd = 1) +
   coord_cartesian(clip = "off") +
-  #  scale_y_discrete(expand = expand_scale(mult = c(0.01, 0.25))) +
   scale_x_continuous(limits = c(0,100), breaks = seq(0, 100, by = 10)) +
-  #  scale_fill_viridis_c(name = "In-Party FT", option = "B") +
   scale_fill_gradient(
     low = "blue4",
-    #    mid = "darkorchid2",
     high = "red1"
-    #    midpoint = 50
   )+
-  #  scale_x_continuous(limits = c(.2,1), breaks = seq(.2, 1, by = .1)) +
-  #  scale_discrete_manual(aesthetics = "fill", 
-  #                        values = c("Democrat" = "dodgerblue3",
-  #                                "Republican" = "firebrick3",
-  #                               "Independent" = "darkorchid3")) +
   scale_discrete_manual(aesthetics = "color",
                         values = c("white")) +
   geom_vline(xintercept = 50, color = "white") +
@@ -225,6 +221,83 @@ cdf_ridge_all <- ggplot(ridge_mean_all, aes(x = therm_parties_mean,
         panel.background = element_blank())
 cdf_ridge_all
 ggsave("fig/cdf-ridge-all.png", cdf_ridge_all, width = 8, height = 6, units = "in")
+###########
+#### Dissatisfaction with Democ.
+########
+
+# Mean of all
+ridge_mean_dis <- ridge_mean_all%>%
+  filter(year >= 2004)%>%
+  glimpse()
+
+
+cdf_ridge_all_dis <- ggplot(ridge_mean_dis, aes(x = therm_parties_mean, 
+                                            y = year_fct, 
+                                            color = "white",
+                                            fill = stat(x))) +
+  geom_density_ridges_gradient(scale = 3, rel_min_height = 0.02, gradient_lwd = 1) +
+  coord_cartesian(clip = "off") +
+  scale_x_continuous(limits = c(0,100), breaks = seq(0, 100, by = 10)) +
+  scale_fill_gradient(
+    low = "blue4",
+    high = "red1")+
+  scale_discrete_manual(aesthetics = "color",
+                        values = c("white")) +
+  geom_vline(xintercept = 50, color = "white") +
+  guides(color = FALSE,
+         fill = FALSE) +
+  labs(title = "Mean Partisan Feeling Thermometer",
+       subtitle = "All Respondents, by satisfaction with Democracy",
+       y = "Year",
+       x = "Feeling Thermometer",
+       caption = " ") +
+  theme(panel.grid.major = element_blank(), 
+        panel.grid.minor = element_blank(),
+        panel.background = element_blank()) +
+  facet_grid(rows = vars(dis_democ_qual))
+cdf_ridge_all_dis 
+ggsave("fig/cdf-ridge-all-dis.png", cdf_ridge_all_dis, width = 8, height = 6, units = "in")
+
+
+
+
+
+#### Just In-party
+
+ridge_in_dis <- ridge_df_partisan_ns%>%
+  filter(year >= 2004)%>%
+  glimpse()
+
+ggplot(ridge_in_dis, aes(x = therm_inparty, y = ..density..)) +
+  geom_histogram() +
+  facet_grid(rows = vars(year), cols = vars(dis_democ_qual))
+
+cdf_ridge_in_dis <- ggplot(ridge_in_dis, aes(x = therm_inparty, 
+                                                y = year_fct, 
+                                                color = "white",
+                                                fill = stat(x))) +
+#  geom_density_ridges_gradient(scale = 3, rel_min_height = 0.02, gradient_lwd = 1) +
+  geom_density_ridges_gradient(stat = "binline", scale = 3, rel_min_height = 0.02, gradient_lwd = 1) +
+  coord_cartesian(clip = "off") +
+  scale_x_continuous(limits = c(0,100), breaks = seq(0, 100, by = 10)) +
+  scale_fill_gradient(
+    low = "blue4",
+    high = "red1")+
+  scale_discrete_manual(aesthetics = "color",
+                        values = c("white")) +
+  geom_vline(xintercept = 50, color = "white") +
+  guides(color = FALSE,
+         fill = FALSE) +
+  labs(title = "In-Party Feeling Thermometers",
+       subtitle = "Democrats and Republicans, by satisfaction with Democracy",
+       y = "Year",
+       x = "Feeling Thermometer",
+       caption = " ") +
+  theme(panel.grid.major = element_blank(), 
+        panel.grid.minor = element_blank(),
+        panel.background = element_blank()) +
+  facet_grid(rows = vars(dis_democ_qual))
+cdf_ridge_in_dis
 
 ridge_df_ns <- tidy_cdf_ns%>%
   filter(year != 2002 & pid_3 != is.na(TRUE))%>%
@@ -565,3 +638,17 @@ prop_strong <- ggplot(prop_strong_df, aes(x = year, y = prop_strong)) +
        subtitle = " ") #+
 #  facet_wrap(vars(pid_str))
 prop_strong
+
+
+prop_dissatisfied <- tidy_cdf_ns%>%
+  filter(year >= 2004)%>%
+  select(year,
+         weight,
+         dis_democ_dum,
+         pid_3)%>%
+  glimpse()
+group_by(year)%>%
+  summarize(prop_dis = weighted.mean(dis_democ, weight, na.rm = TRUE))%>%
+  glimpse()
+
+
