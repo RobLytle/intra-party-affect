@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.19 (MiKTeX 2.9.6930 64-bit) (preloaded format=pdflatex 2019.9.29)  7 JUN 2020 17:26
+This is pdfTeX, Version 3.14159265-2.6-1.40.19 (MiKTeX 2.9.6930 64-bit) (preloaded format=pdflatex 2019.9.29)  8 JUN 2020 16:55
 entering extended mode
 **./intra-party-affect.tex
 (intra-party-affect.tex
@@ -387,11 +387,7 @@ Package: nextpage 2009/09/03 v1.1a additional page commands
 \afterepigraphskip=\skip54
 \epigraphwidth=\skip55
 \epigraphrule=\skip56
-) (intra-party-affect.aux
-
-LaTeX Warning: Label `fig:ridge' multiply defined.
-
-)
+) (intra-party-affect.aux)
 \openout1 = `intra-party-affect.aux'.
 
 LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 22.
@@ -531,40 +527,36 @@ Underfull \hbox (badness 3108) in paragraph at lines 102--102
  []
 
 [6 <../fig/cdf-below-50.png> <../fig/cdf-ridge-ns.png (PNG copy)>]
-<../fig/cdf-ridge-all-dis.png, id=99, 578.16pt x 433.62pt>
+<../fig/cdf-ridge-all-dis.png, id=98, 578.16pt x 433.62pt>
 File: ../fig/cdf-ridge-all-dis.png Graphic file (type png)
 <use ../fig/cdf-ridge-all-dis.png>
-Package pdftex.def Info: ../fig/cdf-ridge-all-dis.png  used on input line 113.
+Package pdftex.def Info: ../fig/cdf-ridge-all-dis.png  used on input line 112.
 (pdftex.def)             Requested size: 361.34999pt x 271.01183pt.
 
-Underfull \hbox (badness 3108) in paragraph at lines 114--114
+Underfull \hbox (badness 3108) in paragraph at lines 113--113
 [][][] \OT1/cmr/bx/it/12 Ridge-line plot of par-ti-san feel-ing ther-mome-ters.
  \OT1/cmr/m/it/12 Par-ti-sans' in-
  []
 
 [7] [8 <../fig/cdf-ridge-all-dis.png (PNG copy)>] (intra-party-affect.bbl)
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 285.
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 284.
 
 [9
 
 ]
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 285.
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 284.
  (intra-party-affect.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 285.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 285.
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 284.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 284.
 Package rerunfilecheck Info: File `intra-party-affect.out' has not changed.
 (rerunfilecheck)             Checksum: F451C1FFF9745877D9B0F440FB557139;177.
-
-
-LaTeX Warning: There were multiply-defined labels.
-
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 285.
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 284.
  ) 
 Here is how much of TeX's memory you used:
- 7122 strings out of 492946
- 106686 string characters out of 3126266
- 204844 words of memory out of 3000000
- 10845 multiletter control sequences out of 15000+200000
+ 7123 strings out of 492946
+ 106701 string characters out of 3126266
+ 205004 words of memory out of 3000000
+ 10846 multiletter control sequences out of 15000+200000
  13908 words of font info for 49 fonts, out of 3000000 for 9000
  1141 hyphenation exceptions out of 8191
  42i,8n,32p,1055b,324s stack positions out of 5000i,500n,10000p,200000b,50000s
@@ -584,9 +576,9 @@ X 2.9/fonts/type1/public/amsfonts/cm/cmssbx10.pfb><D:/Users/robly/AppData/Local
 /AppData/Local/Programs/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmti10.pfb><D
 :/Users/robly/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/
 cmti12.pfb>
-Output written on intra-party-affect.pdf (9 pages, 596212 bytes).
+Output written on intra-party-affect.pdf (9 pages, 597800 bytes).
 PDF statistics:
- 166 PDF objects out of 1000 (max. 8388607)
+ 167 PDF objects out of 1000 (max. 8388607)
  26 named destinations out of 1000 (max. 500000)
  58 words of extra memory for PDF output out of 10000 (max. 10000000)
 
