@@ -36,19 +36,6 @@ party_fts_ns <- tidy_cdf_ns%>% # Making a DF of the party-year SD
                        "Republican_sd_out" = "Republican - Out Party")))%>%
   glimpse()
 
-test_df <- tidy_cdf_ns%>%
-  select(year,
-         weight,
-         pid_3,
-         pid_3_sort,
-         pid_7)%>%
-  mutate(partisan_ns = if_else(pid_3 == "Republican" | pid_3 == "Democrat", 1, 0))%>%
-  mutate(partisan_s = if_else(pid_3_sort == "Republican" | pid_3_sort == "Democrat", 1, 0))%>%
-  group_by(year)%>%
-  summarize(prop_part_s = weighted.mean(partisan_s, weight, na.rm = TRUE),
-            prop_part_ns = weighted.mean(partisan_ns, weight, na.rm = TRUE))%>%
-  glimpse()
-
 n_df_ns <- tidy_cdf_ns%>% # Making a DF of the party-year SD
   filter(pid_3 != "Independent" & year != 2002)%>%
   select(year,

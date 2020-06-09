@@ -269,6 +269,26 @@ anes_char <- anes_raw %>%
 				 												 "6" = "Conservative", 
 				 												 "7" = "Extremely Conservative"),
 				 respondent_ideo = reorder(respondent_ideo, respondent_ideo_num))%>%
+	mutate(ideo_dem_num = as.numeric(ideo_dem),
+				 ideo_dem = recode(ideo_dem, 
+				 												 "1" = "Extremely Liberal", 
+				 												 "2" = "Liberal", 
+				 												 "3" = "Somewhat Liberal", 
+				 												 "4" = "Moderate", 
+				 												 "5" = "Somewhat Conservative", 
+				 												 "6" = "Conservative", 
+				 												 "7" = "Extremely Conservative"),
+				 ideo_dem = reorder(ideo_dem, ideo_dem_num))%>%
+	mutate(ideo_rep_num = as.numeric(ideo_rep),
+				 ideo_rep = recode(ideo_rep, 
+				 												 "1" = "Extremely Liberal", 
+				 												 "2" = "Liberal", 
+				 												 "3" = "Somewhat Liberal", 
+				 												 "4" = "Moderate", 
+				 												 "5" = "Somewhat Conservative", 
+				 												 "6" = "Conservative", 
+				 												 "7" = "Extremely Conservative"),
+				 ideo_rep = reorder(ideo_rep, ideo_rep_num))%>%
   mutate(pid_3_sort = factor(recode(pid_7_num, #different from regular pid_3 which codes 3, 5 as partisan
                              "1" = "Democrat",
                              "2" = "Democrat",
@@ -293,6 +313,13 @@ anes_char <- anes_raw %>%
                                         "Conservative")))%>%
   mutate(pid_2_sort = na_if(pid_3_sort, "Independent"))%>% #better just to filter(pid_3_sort != "Independent"), but used to build other vars
 	mutate(pid_2 = na_if(pid_3, "Independent"))%>% 
+	mutate(ideo_inparty_recode = if_else(pid_2 == "Democrat", 
+																		(8-ideo_dem_num), ideo_rep_num))%>% #7= extremely liberal for dems, extremely conservative for reps
+	mutate(ideo_self_recode = if_else(pid_2 == "Democrat",
+																		(8-respondent_ideo_num), respondent_ideo_num))%>% #Recodes so that 7 is most lib for dems/con for reps
+	mutate(ideo_self_party_dif = ideo_self_recode - ideo_inparty_recode)%>% #negative values indicate that R thinks party is more moderate than them.
+	mutate(self_more_moderate_dum = if_else(ideo_self_party_dif < 0, 1, 0))%>%
+	#mutate(ideo_inparty_dif = )
 	mutate(ideo_2_sort = na_if(ideo_3_sort, "Moderate"))%>%# see pid_2_sort
   mutate(therm_dem = na_if(therm_dem, 98))%>%
   mutate(therm_dem = na_if(therm_dem, 99))%>%
@@ -337,7 +364,7 @@ anes_char <- anes_raw %>%
   mutate(therm_race_outgroup = if_else(black_white_flag=="Black", therm_white, therm_black))%>%
   mutate(net_race = therm_race_ingroup - therm_race_outgroup)%>%
 	mutate(parties_therm_dif = therm_inparty - therm_outparty)%>% #creates a variable showing the difference in thermometer ratings for each party
-	mutate(parties_ideo_dif = abs(ideo_dem - ideo_rep))%>%
+	mutate(parties_ideo_dif = abs(ideo_dem_num - ideo_rep_num))%>%
 	rename(income = VCF0114)%>%
 	mutate(income_num = na_if(income, 0))%>%
 	mutate(income = recode(income_num,
