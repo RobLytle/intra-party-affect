@@ -1,4 +1,3 @@
-
 library(tidyverse)
 library(ggExtra)
 library(ggridges)
@@ -40,7 +39,7 @@ missing_data <- finalfit::missing_plot(ideo_missing_df)
 missing_data
 ggsave("fig/ideology-missing.png", missing_data, width = 6, height = 4, units = "in")
 
-prop_more_mod <- ggplot(ideo_dif_df, aes(x = year, y = prop_more_moderate)) +
+prop_more_mod <- ggplot(ideo_missing_df, aes(x = year, y = prop_more_moderate)) +
 #	geom_errorbar(aes(ymin = prop_50_below - se_50_below, ymax = prop_50_below + se_50_below, width = .2)) +
 	geom_line(aes(linetype = pid_2, color = pid_2), size = 1) + 
 	#  geom_smooth(aes(linetype = pid_2, color = pid_2), span = .3, se = FALSE) +
