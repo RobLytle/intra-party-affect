@@ -113,7 +113,8 @@ sd_ft_ns <- ggplot(cdf_sd_ns, aes(x = year, y = result, color = group)) +
        linetype = " ",
        color = " ",
        shape = " ") +
-  theme(legend.position = c(0.2, 0.8))
+  theme(legend.position = c(0.2, 0.8))+
+  guides(size = FALSE)
 sd_ft_ns
 
 ggsave("fig/cdf-sd-ns.png", sd_ft_ns, width = 8, height = 6, units = "in")
