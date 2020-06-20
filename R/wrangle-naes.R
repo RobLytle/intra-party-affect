@@ -1,7 +1,7 @@
 library(tidyverse)
 
 
-online_08_trim <- rio::import("data/raw/naes/2008/naes08_online_all_waves_data_full.dta")%>%
+online_08_trim <- rio::import("data/raw/naes/2008/dta08.zip", which = "naes08_online_all_waves_data_full.dta")%>%
 	select(rkey,
 				 contains("wave"), #wave--not sure how coded
 				 contains("date"), #date

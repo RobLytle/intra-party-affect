@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.19 (MiKTeX 2.9.6930 64-bit) (preloaded format=pdflatex 2019.9.29)  8 JUN 2020 16:55
+This is pdfTeX, Version 3.14159265-2.6-1.40.19 (MiKTeX 2.9.6930 64-bit) (preloaded format=pdflatex 2019.9.29)  18 JUN 2020 19:25
 entering extended mode
 **./intra-party-affect.tex
 (intra-party-affect.tex
@@ -375,6 +375,15 @@ Package uniquecounter Info: New unique counter `rerunfilecheck' on input line 2
 )
 \Hy@SectionHShift=\skip52
 )
+("D:\Users\robly\AppData\Local\Programs\MiKTeX 2.9\tex/latex/wrapfig\wrapfig.st
+y"
+\wrapoverhang=\dimen142
+\WF@size=\dimen143
+\c@WF@wrappedlines=\count122
+\WF@box=\box33
+\WF@everypar=\toks25
+Package: wrapfig 2003/01/31  v 3.6
+)
 ("D:\Users\robly\AppData\Local\Programs\MiKTeX 2.9\tex/latex/epigraph\epigraph.
 sty"
 Package: epigraph 2020/01/02 v1.5e typesetting epigraphs
@@ -390,20 +399,20 @@ Package: nextpage 2009/09/03 v1.1a additional page commands
 ) (intra-party-affect.aux)
 \openout1 = `intra-party-affect.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 22.
-LaTeX Font Info:    ... okay on input line 22.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 22.
-LaTeX Font Info:    ... okay on input line 22.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 22.
-LaTeX Font Info:    ... okay on input line 22.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 22.
-LaTeX Font Info:    ... okay on input line 22.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 22.
-LaTeX Font Info:    ... okay on input line 22.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 22.
-LaTeX Font Info:    ... okay on input line 22.
-LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 22.
-LaTeX Font Info:    ... okay on input line 22.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 23.
+LaTeX Font Info:    ... okay on input line 23.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 23.
+LaTeX Font Info:    ... okay on input line 23.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 23.
+LaTeX Font Info:    ... okay on input line 23.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 23.
+LaTeX Font Info:    ... okay on input line 23.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 23.
+LaTeX Font Info:    ... okay on input line 23.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 23.
+LaTeX Font Info:    ... okay on input line 23.
+LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 23.
+LaTeX Font Info:    ... okay on input line 23.
 
 *geometry* driver: auto-detecting
 *geometry* detected driver: pdftex
@@ -443,17 +452,17 @@ LaTeX Font Info:    ... okay on input line 22.
 ("D:\Users\robly\AppData\Local\Programs\MiKTeX 2.9\tex/context/base/mkii\supp-p
 df.mkii"
 [Loading MPS to PDF converter (version 2006.09.02).]
-\scratchcounter=\count122
-\scratchdimen=\dimen142
-\scratchbox=\box33
-\nofMPsegments=\count123
-\nofMParguments=\count124
-\everyMPshowfont=\toks25
-\MPscratchCnt=\count125
-\MPscratchDim=\dimen143
-\MPnumerator=\count126
-\makeMPintoPDFobject=\count127
-\everyMPtoPDFconversion=\toks26
+\scratchcounter=\count123
+\scratchdimen=\dimen144
+\scratchbox=\box34
+\nofMPsegments=\count124
+\nofMParguments=\count125
+\everyMPshowfont=\toks26
+\MPscratchCnt=\count126
+\MPscratchDim=\dimen145
+\MPnumerator=\count127
+\makeMPintoPDFobject=\count128
+\everyMPtoPDFconversion=\toks27
 )
 ("D:\Users\robly\AppData\Local\Programs\MiKTeX 2.9\tex/latex/oberdiek\epstopdf-
 base.sty"
@@ -470,8 +479,8 @@ Package grfext Info: Graphics extension search list:
 G,.JBIG2,.JB2,.eps]
 (grfext)             \AppendGraphicsExtensions on input line 456.
 )
-\AtBeginShipoutBox=\box34
-Package hyperref Info: Link coloring OFF on input line 22.
+\AtBeginShipoutBox=\box35
+Package hyperref Info: Link coloring OFF on input line 23.
 
 ("D:\Users\robly\AppData\Local\Programs\MiKTeX 2.9\tex/latex/hyperref\nameref.s
 ty"
@@ -485,11 +494,11 @@ Package: refcount 2016/05/16 v3.5 Data extraction from label references (HO)
 estring.sty"
 Package: gettitlestring 2016/05/16 v1.5 Cleanup title references (HO)
 )
-\c@section@level=\count128
+\c@section@level=\count129
 )
-LaTeX Info: Redefining \ref on input line 22.
-LaTeX Info: Redefining \pageref on input line 22.
-LaTeX Info: Redefining \nameref on input line 22.
+LaTeX Info: Redefining \ref on input line 23.
+LaTeX Info: Redefining \pageref on input line 23.
+LaTeX Info: Redefining \nameref on input line 23.
  (intra-party-affect.out) (intra-party-affect.out)
 \@outlinefile=\write3
 \openout3 = `intra-party-affect.out'.
@@ -497,88 +506,177 @@ LaTeX Info: Redefining \nameref on input line 22.
  [1
 
 
-{C:/Users/robly/AppData/Local/MiKTeX/2.9/pdftex/config/pdftex.map}] [2] [3]
-<../fig/cdf-mean-ns.png, id=71, 433.62pt x 289.08pt>
+{C:/Users/robly/AppData/Local/MiKTeX/2.9/pdftex/config/pdftex.map}] [2]
+<../fig/cdf-mean-ns.png, id=66, 433.62pt x 289.08pt>
 File: ../fig/cdf-mean-ns.png Graphic file (type png)
 <use ../fig/cdf-mean-ns.png>
-Package pdftex.def Info: ../fig/cdf-mean-ns.png  used on input line 84.
-(pdftex.def)             Requested size: 289.07999pt x 192.72981pt.
- [4]
-<../fig/cdf-sd.png, id=78, 578.16pt x 433.62pt>
+Package pdftex.def Info: ../fig/cdf-mean-ns.png  used on input line 72.
+(pdftex.def)             Requested size: 375.80544pt x 250.5492pt.
+ [3 <../fig/cdf-mean-ns.png>]
+<../fig/cdf-sd.png, id=79, 578.16pt x 433.62pt>
 File: ../fig/cdf-sd.png Graphic file (type png)
 <use ../fig/cdf-sd.png>
-Package pdftex.def Info: ../fig/cdf-sd.png  used on input line 90.
-(pdftex.def)             Requested size: 289.07999pt x 216.80946pt.
-<../fig/cdf-below-50.png, id=79, 578.16pt x 433.62pt>
-File: ../fig/cdf-below-50.png Graphic file (type png)
-<use ../fig/cdf-below-50.png>
-Package pdftex.def Info: ../fig/cdf-below-50.png  used on input line 96.
-(pdftex.def)             Requested size: 289.07999pt x 216.80946pt.
- [5 <../fig/cdf-mean-ns.png> <../fig/cdf-sd.png>]
-<../fig/cdf-ridge-ns.png, id=88, 578.16pt x 433.62pt>
+Package pdftex.def Info: ../fig/cdf-sd.png  used on input line 80.
+(pdftex.def)             Requested size: 352.31625pt x 264.23654pt.
+
+Underfull \hbox (badness 3029) in paragraph at lines 85--86
+[][]\OT1/cmr/m/n/12 From 2004--
+ []
+
+
+Underfull \hbox (badness 3758) in paragraph at lines 85--86
+\OT1/cmr/m/n/12 2016 the vari-
+ []
+
+
+Overfull \hbox (10.21056pt too wide) in paragraph at lines 85--86
+\OT1/cmr/m/n/12 Feel-ing ther-mome-
+ []
+
+
+Overfull \hbox (7.63419pt too wide) in paragraph at lines 85--86
+\OT1/cmr/m/n/12 ters has in-creased.
+ []
+
+
+Underfull \hbox (badness 1112) in paragraph at lines 85--86
+\OT1/cmr/m/n/12 the SD of Re-
+ []
+
+
+Overfull \hbox (11.42026pt too wide) in paragraph at lines 85--86
+\OT1/cmr/m/n/12 pub-li-cans' in-party
+ []
+
+
+Overfull \hbox (12.9522pt too wide) in paragraph at lines 85--86
+\OT1/cmr/m/n/12 FTs in-creased from
+ []
+
+
+Overfull \hbox (30.44646pt too wide) in paragraph at lines 85--86
+\OT1/cmr/m/n/12 riod, while Democrats'
+ []
+
+
+Overfull \hbox (9.78833pt too wide) in paragraph at lines 85--86
+\OT1/cmr/m/n/12 in-creased from 15--
+ []
+
+[4 <../fig/cdf-sd.png>]
+<../fig/cdf-below-50-ns.png, id=89, 578.16pt x 433.62pt>
+File: ../fig/cdf-below-50-ns.png Graphic file (type png)
+<use ../fig/cdf-below-50-ns.png>
+Package pdftex.def Info: ../fig/cdf-below-50-ns.png  used on input line 93.
+(pdftex.def)             Requested size: 328.82707pt x 246.61679pt.
+
+
+Package wrapfig Warning: Collision between wrapping environments on input line 
+104.
+
+<../fig/cdf-ridge-ns.png, id=92, 578.16pt x 433.62pt>
 File: ../fig/cdf-ridge-ns.png Graphic file (type png)
 <use ../fig/cdf-ridge-ns.png>
-Package pdftex.def Info: ../fig/cdf-ridge-ns.png  used on input line 101.
-(pdftex.def)             Requested size: 361.34999pt x 271.01183pt.
+Package pdftex.def Info: ../fig/cdf-ridge-ns.png  used on input line 106.
+(pdftex.def)             Requested size: 281.85587pt x 211.39055pt.
+[5]
 
-Underfull \hbox (badness 3108) in paragraph at lines 102--102
-[][][] \OT1/cmr/bx/it/12 Ridge-line plot of par-ti-san feel-ing ther-mome-ters.
- \OT1/cmr/m/it/12 Par-ti-sans' in-
- []
+Package wrapfig Warning: Collision between wrapping environments on input line 
+117.
 
-[6 <../fig/cdf-below-50.png> <../fig/cdf-ridge-ns.png (PNG copy)>]
-<../fig/cdf-ridge-all-dis.png, id=98, 578.16pt x 433.62pt>
+<../fig/cdf-ridge-all-dis.png, id=105, 578.16pt x 433.62pt>
 File: ../fig/cdf-ridge-all-dis.png Graphic file (type png)
 <use ../fig/cdf-ridge-all-dis.png>
-Package pdftex.def Info: ../fig/cdf-ridge-all-dis.png  used on input line 112.
-(pdftex.def)             Requested size: 361.34999pt x 271.01183pt.
+Package pdftex.def Info: ../fig/cdf-ridge-all-dis.png  used on input line 119.
+(pdftex.def)             Requested size: 328.82707pt x 246.61679pt.
+[6 <../fig/cdf-below-50-ns.png>] [7 <../fig/cdf-ridge-ns.png (PNG copy)>]
 
-Underfull \hbox (badness 3108) in paragraph at lines 113--113
-[][][] \OT1/cmr/bx/it/12 Ridge-line plot of par-ti-san feel-ing ther-mome-ters.
- \OT1/cmr/m/it/12 Par-ti-sans' in-
+Package wrapfig Warning: Collision between wrapping environments on input line 
+129.
+
+<../fig/primary-dem.png, id=121, 578.16pt x 433.62pt>
+File: ../fig/primary-dem.png Graphic file (type png)
+<use ../fig/primary-dem.png>
+Package pdftex.def Info: ../fig/primary-dem.png  used on input line 131.
+(pdftex.def)             Requested size: 328.82707pt x 246.61679pt.
+[8 <../fig/cdf-ridge-all-dis.png (PNG copy)>]
+Underfull \hbox (badness 3780) in paragraph at lines 136--137
+[][]\OT1/cmr/m/n/12 Figure []6[] shows
  []
 
-[7] [8 <../fig/cdf-ridge-all-dis.png (PNG copy)>] (intra-party-affect.bbl)
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 284.
 
-[9
+Overfull \hbox (29.6737pt too wide) in paragraph at lines 136--137
+\OT1/cmr/m/n/12 den-sity plots of Democrats'
+ []
+
+
+Underfull \hbox (badness 7649) in paragraph at lines 136--137
+\OT1/cmr/m/n/12 mome-ters in 2008
+ []
+
+
+Underfull \hbox (badness 4518) in paragraph at lines 136--137
+\OT1/cmr/m/n/12 and 2016 in each
+ []
+
+
+Underfull \hbox (badness 5260) in paragraph at lines 136--137
+\OT1/cmr/m/n/12 a los-ing can-di-date
+ []
+
+
+Overfull \hbox (1.57399pt too wide) in paragraph at lines 136--137
+\OT1/cmr/m/n/12 were more more likely
+ []
+
+
+Overfull \hbox (10.6475pt too wide) in paragraph at lines 136--137
+\OT1/cmr/m/n/12 sus-pect a re-verse causal
+ []
+
+[9 <../fig/primary-dem.png>] [10] (intra-party-affect.bbl)
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 310.
+ [11
 
 ]
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 284.
- (intra-party-affect.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 284.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 284.
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 310.
+
+(intra-party-affect.aux)
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 310.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 310.
 Package rerunfilecheck Info: File `intra-party-affect.out' has not changed.
-(rerunfilecheck)             Checksum: F451C1FFF9745877D9B0F440FB557139;177.
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 284.
+(rerunfilecheck)             Checksum: 5C5EB69695C409D620054AE5758886DF;325.
+
+
+LaTeX Warning: Label(s) may have changed. Rerun to get cross-references right.
+
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 310.
  ) 
 Here is how much of TeX's memory you used:
- 7123 strings out of 492946
- 106701 string characters out of 3126266
- 205004 words of memory out of 3000000
- 10846 multiletter control sequences out of 15000+200000
- 13908 words of font info for 49 fonts, out of 3000000 for 9000
+ 7207 strings out of 492946
+ 107984 string characters out of 3126266
+ 205691 words of memory out of 3000000
+ 10915 multiletter control sequences out of 15000+200000
+ 14509 words of font info for 51 fonts, out of 3000000 for 9000
  1141 hyphenation exceptions out of 8191
- 42i,8n,32p,1055b,324s stack positions out of 5000i,500n,10000p,200000b,50000s
+ 42i,8n,32p,1327b,326s stack positions out of 5000i,500n,10000p,200000b,50000s
 <D:/Users/robly/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/public/amsfonts
-/cm/cmbxti10.pfb><D:/Users/robly/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/
-public/amsfonts/cm/cmmi12.pfb><D:/Users/robly/AppData/Local/Programs/MiKTeX 2.9
-/fonts/type1/public/amsfonts/cm/cmmi8.pfb><D:/Users/robly/AppData/Local/Program
-s/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmr10.pfb><D:/Users/robly/AppData/L
-ocal/Programs/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmr12.pfb><D:/Users/rob
-ly/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmr7.pfb><D
-:/Users/robly/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/
-cmr8.pfb><D:/Users/robly/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/public/a
-msfonts/cm/cmss10.pfb><D:/Users/robly/AppData/Local/Programs/MiKTeX 2.9/fonts/t
-ype1/public/amsfonts/cm/cmss12.pfb><D:/Users/robly/AppData/Local/Programs/MiKTe
-X 2.9/fonts/type1/public/amsfonts/cm/cmssbx10.pfb><D:/Users/robly/AppData/Local
-/Programs/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmssi17.pfb><D:/Users/robly
-/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmti10.pfb><D
-:/Users/robly/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/
-cmti12.pfb>
-Output written on intra-party-affect.pdf (9 pages, 597800 bytes).
+/cm/cmbx12.pfb><D:/Users/robly/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/pu
+blic/amsfonts/cm/cmbxti10.pfb><D:/Users/robly/AppData/Local/Programs/MiKTeX 2.9
+/fonts/type1/public/amsfonts/cm/cmr10.pfb><D:/Users/robly/AppData/Local/Program
+s/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmr12.pfb><D:/Users/robly/AppData/L
+ocal/Programs/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmr7.pfb><D:/Users/robl
+y/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmr8.pfb><D:
+/Users/robly/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/c
+mss10.pfb><D:/Users/robly/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/public/
+amsfonts/cm/cmss12.pfb><D:/Users/robly/AppData/Local/Programs/MiKTeX 2.9/fonts/
+type1/public/amsfonts/cm/cmssbx10.pfb><D:/Users/robly/AppData/Local/Programs/Mi
+KTeX 2.9/fonts/type1/public/amsfonts/cm/cmssi17.pfb><D:/Users/robly/AppData/Loc
+al/Programs/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmti10.pfb><D:/Users/robl
+y/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmti12.pfb>
+Output written on intra-party-affect.pdf (11 pages, 644185 bytes).
 PDF statistics:
- 167 PDF objects out of 1000 (max. 8388607)
- 26 named destinations out of 1000 (max. 500000)
- 58 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 196 PDF objects out of 1000 (max. 8388607)
+ 35 named destinations out of 1000 (max. 500000)
+ 79 words of extra memory for PDF output out of 10000 (max. 10000000)
 

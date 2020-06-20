@@ -1,4 +1,5 @@
 library(tidyverse)
+theme_set(theme_minimal())
 library(ggthemes)
 library(ggExtra)
 library(kableExtra)
@@ -45,8 +46,7 @@ dem_2008_primary <- dem_primary%>%
 
 dem_08_means <- dem_2008_primary%>%
   group_by(primary_vote_choice)%>%
-  summarise(ft_rep = mean(pre_therm_rep, na.rm = TRUE),
-            ft_dem = mean(pre_therm_dem, na.rm = TRUE))%>%
+  summarise(mean_in = mean(pre_therm_dem, na.rm = TRUE))%>%
   glimpse()
 
 dem_2016_primary <- dem_primary%>%
@@ -55,52 +55,57 @@ dem_2016_primary <- dem_primary%>%
 
 dem_16_means <- dem_2016_primary%>%
   group_by(primary_vote_choice)%>%
-  summarise(ft_rep = mean(pre_therm_rep, na.rm = TRUE),
-            ft_dem = mean(pre_therm_dem, na.rm = TRUE))%>%
+  summarise(mean_in = mean(pre_therm_dem, na.rm = TRUE))%>%
   glimpse()
 
 # Plots
-scat_08 <- ggplot(dem_2008_primary, aes(pre_therm_dem, pre_therm_rep, alpha = .4))+
-  guides(alpha = FALSE, x = FALSE) +
-  geom_vline(aes(xintercept = mean(dem_2008_primary$pre_therm_dem, na.rm = TRUE), alpha = .4)) +
+dem_08 <- ggplot(dem_2008_primary, aes(pre_therm_dem, y = ..density..))+
+  geom_density(fill = "darkgrey") +
+  geom_vline(data = dem_08_means, color = "white", aes(xintercept = mean_in)) +
+  guides(alpha = FALSE,
+         fill = FALSE) +
   facet_wrap(vars(primary_vote_choice))+
-  geom_point()+
-  theme_bw()+
+#  geom_point()+
+#  theme_bw()+
   theme(
-    plot.background = element_blank(),
-    panel.grid.major = element_blank(),
-    panel.grid.minor = element_blank(),
-    panel.border = element_blank(),
-    axis.title.x=element_blank())+
-#    axis.text.x=element_blank(),
+#    plot.background = element_blank(),
+#    panel.grid.major = element_blank(),
+#    panel.grid.minor = element_blank(),
+#    panel.border = element_blank(),
+#    axis.title.x=element_blank())+
+    axis.text.y=element_blank()) +
+    
 #    axis.ticks.x=element_blank()) +
   labs(#subtitle = "2008",
-       y = "Republican FT, 2008") +
-  xlim(0,100)+
-  ylim(0,100)
-scat_08
+       y = "2008",
+       x = " ") +
+  xlim(0,100)
+#  ylim(0,100)
+dem_08
 #  geom_vline(data = dem_08_means, mapping = aes(xintercept = ft_dem), alpha = .4) +
 #  geom_hline(data = dem_08_means, mapping = aes(yintercept = ft_rep), alpha = .4) +
 
 #  geom_hline(aes(yintercept = mean(pre_therm_rep)), alpha = .4) +
 #  geom_vline(aes(xintercept = mean(pre_therm_dem)), alpha = .4) +
 
-dem_16 <- ggplot(dem_2016_primary, aes(pre_therm_dem, pre_therm_rep, alpha = .4))+
-  geom_vline(aes(xintercept = mean(dem_2016_primary$pre_therm_dem, na.rm = TRUE), alpha = .4)) +
+dem_16 <- ggplot(dem_2016_primary, aes(x = pre_therm_dem, y = ..density..))+
+  geom_density(fill = "darkgrey")+
+  geom_vline(data = dem_16_means, color = "white", aes(xintercept = mean_in)) +
   facet_wrap(vars(primary_vote_choice)) +
   guides(alpha = FALSE) +
-  geom_point()+
-  theme_bw()+
+ # theme_bw()+
   theme(
-  plot.background = element_blank(),
-  panel.grid.major = element_blank(),
-  panel.grid.minor = element_blank(),
-  panel.border = element_blank()) +
+    #    plot.background = element_blank(),
+    #    panel.grid.major = element_blank(),
+    #    panel.grid.minor = element_blank(),
+    #    panel.border = element_blank(),
+    #    axis.title.x=element_blank())+
+    axis.text.y=element_blank()) +
   labs(#subtitle = "2016",
-       y = "Republican FT, 2016",
-       x = "Democrat FT") +
-  xlim(0,100) +
-  ylim(0,100)
+       x = "Democrat FT",
+       y = "2016") +
+  xlim(0,100)
+ # ylim(0,100)
 dem_16
 
 primary_dem <- grid.arrange(dem_08,
@@ -108,7 +113,7 @@ primary_dem <- grid.arrange(dem_08,
                               nrow = 2)
 primary_dem
 
-ggsave("fig/primary-scatter.png", plot = primary_scats, width = 8, height = 6, units = "in")
+ggsave("fig/primary-dem.png", plot = primary_dem, width = 8, height = 6, units = "in")
 #####
 #__xxXX-GRAVEYARD OF DEPRECATED PLOTS-XXxx__
 #

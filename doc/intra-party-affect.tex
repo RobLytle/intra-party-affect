@@ -14,6 +14,7 @@
 \usepackage{dcolumn}
 %\usepackage{authblk}
 \usepackage{hyperref}
+\usepackage{wrapfig}
 %\usepackage{etoolbox}
 %
 %\AtBeginEnvironment{quote}{\singlespacing\small}
@@ -61,11 +62,25 @@ By focusing on mean in-party feeling---rather than the distribution of partisan 
 
 \section{Data}
 
-The data from this study were taken from the American National Election Study Cumulative Data File\footnote{https://electionstudies.org/data-center/anes-time-series-cumulative-data-file/}. All data and replication materials will be made available on GitHub. The samples used here \textit{exclude} leaning partisans, despite the evidence that partisan leaning independents behave in much the same way as their sorted counterparts \citep{klar2016independent}. By restricting the sample to avowed partisans, I am likely underestimating the variation present in in-party attitudes, and overestimating the proportion of Democrat and Republican voters who are lukewarm or ambivalent towards their party. 
+The data from this study were taken from the American National Election Study Cumulative Data File\footnote{https://electionstudies.org/data-center/anes-time-series-cumulative-data-file/}. All data and replication materials will be made available on GitHub. Some figures have been built using samples \textit{including} leaning partisans, while others \textit{exclude} leaning partisans, despite the evidence that partisan leaning independents behave in much the same way as their sorted counterparts \citep{klar2016independent}\footnote{The upper left corner of each figure indicates whether leaning independents were included in the sample.This will certainly change before the paper is finished, I've generated figs for both and have been going back and forth}. By restricting the sample to avowed partisans, I am likely underestimating the variation/animosity present in in-party attitudes, and overestimating the proportion of Democrat and Republican voters who are lukewarm or ambivalent towards their party. Regardless of the samples used, the topline finding is the same: \textbf{An increasing number of Democrats and Republicans, voters and nonvoters, and partisans and non-partisans are lukewarm or cold---not just towards an out-party but towards both major parties.}
+
 
 \section{Results}
 
+\begin{figure}[H]
+\centering
+\includegraphics[width=.8\textwidth]{cdf-mean-ns.png}
+\caption{\label{fig:cdf-mean} \textit{\textbf{Mean of Partisans' in-party and out-party feeling thermometers as reported in the ANES, 1978--2016.}% Republicans tend to be colder in general.
+}}
+\end{figure}
 As shown in Figure \ref{fig:cdf-mean}, mean out party feeling thermometers for Democrats and Republicans have obviously declined. We also a see a decline in Republican's in party FTs since 2004, and only a slight decline in those of Democrats. Partisans remain much warmer (on average) towards their party than the opposition this---particularly in the case of Republicans---is in spite of a decline in average in-party FTs.
+
+\begin{wrapfigure}{R}{.8\textwidth}
+\centering
+\includegraphics[width=.75\textwidth]{cdf-sd.png}
+\caption{\label{fig:cdf-sd} \textit{\textbf{Standard Deviation of partisans' in party feeling thermometers as reported in the ANES, 1978--2016.} %After several decades of minimal change, the variation in in-party feeling thermometer ratings increased substantially between 2004 and 2016. This change is robust to both the Fligner-Killeen and Levene's tests of homogeneity of variance.
+}}
+\end{wrapfigure}
 
 From 2004--2016 the variance of in-party Feeling thermometers has increased. the SD of Republicans' in-party FTs increased from 14--21 in this period, while Democrats' increased from 15--19. Alone, these numbers are not all that impressive, but as is made clear by Figure \ref{fig:cdf-sd}, an increase in variation of this magnitude has never before been observed, nor has the trend continued for so many years.
 
@@ -73,46 +88,58 @@ As variance increases, so to has the proportion of partisans who rate their own 
 
 Negative evaluations of parties are increasingly common. The modal value of independents' average party FT has always been 50; in the late \nth{20} century, the distribution was characterized by a rightward tail. From 2000--2016 that tail has shifted left. Far more independents now have a net-negative disposition towards the two major parties. Similarly, when examining the distributions of in-party feeling thermometers the left skew has become more apparent; more Republicans and Democrats are now cold---below 50---toward their party than at any point in the range of data.
 
+\begin{wrapfigure}{L}{.7\textwidth}
+\centering
+\includegraphics[width=.7\textwidth]{cdf-below-50-ns.png}
+\caption{\label{fig:cdf-below-50} \textit{\textbf{The proportion of partisans who whose in-party FT falls below 50.} %Republicans and Democrats increasingly report feeling colder than the median.
+}}
+\end{wrapfigure}
 
-The increasing frequency of cold in-party affect is shown in Figure \ref{fig:cdf-below-50}. In 2004, less than 5\% of Republicans and Democrats were cold toward their party, in 2016 that number increased to 10\% of Democrats and almost 20\% of Republicans. This trend is robust across all strengths of partisan identification and regardless of the score we deem to indicate coldness. Additional figures made available in the appendix.
+The increasing frequency of cold in-party affect is shown in Figure \ref{fig:cdf-below-50}. In 2004, less than 5\% of Republicans and Democrats were cold toward their party, in 2016 that number increased to 10\% of Democrats and almost 20\% of Republicans. This trend is robust across all strengths of partisan identification and regardless of the score we deem to indicate coldness. Additional figures will made available in the appendix.
+
+
 
 Finally, Figure \ref{fig:ridge} displays changes in the distribution of in-party FTs over time. From 2004--2016, the left tail has grown noticeably longer and more dense. While the majority of partisans remain warmer than 50, these figures are striking.
 
-
-
-\begin{figure}[H]
-\center\includegraphics[width=4in]{cdf-mean-ns.png}
-\caption{\label{fig:cdf-mean} \textit{\textbf{Mean of Partisans' in-party and out-party feeling thermometers as reported in the ANES, 1978--2016.} Republicans tend to be colder in general.}}
-\end{figure}
-
-
-\begin{figure}[H]
-\center\includegraphics[width=4in]{cdf-sd.png}
-\caption{\label{fig:cdf-sd} \textit{\textbf{Standard Deviation of partisans' in party feeling thermometers as reported in the ANES, 1978--2016.} After several decades of minimal change, the variation in in-party feeling thermometer ratings increased substantially between 2004 and 2016. This change is robust to both the Fligner-Killeen and Levene's tests of homogeneity of variance.}}
-\end{figure}
-
-
-\begin{figure}[H]
-\center\includegraphics[width=4in]{cdf-below-50.png}
-\caption{\label{fig:cdf-below-50} \textit{\textbf{The proportion of partisans who whose in-party FT falls below 50.} Republicans and Democrats increasingly report feeling colder than the median.} This trend is robust to multiple thresholds figures included in the appendix show that this trend is robust to choice of ``cutoff point" as well as across strengths of party ID. }
-\end{figure}
-
-\begin{figure}[H]
-\center\includegraphics[width=5in]{cdf-ridge-ns.png}
+\begin{wrapfigure}{R}{.6\textwidth}
+\centering
+\includegraphics[width=.6\textwidth]{cdf-ridge-ns.png}
 \caption{\label{fig:ridge} \textit{\textbf{Ridgeline plot of partisan feeling thermometers.} Partisans' in-party/independents average FT.}}
-\end{figure}
+\end{wrapfigure}
 
 
-\section{Conclusion}
+\subsection{Dissatisfaction}
 
 The findings presented here support the view of \cite{klar2018affective}, that the pattern of  affective partisan polarization identified in recent years (e.g. \citet{iyengar2012affect}), is better characterized as increasing frustration with political parties in general---not simple polarization. It is true that antipathy towards the outparty has increased since the 1970s, but so to has the proportion of those who are lukewarm or cold toward their own party.
 
 This raises troubling normative concerns regarding citizens' faith in democracy. By the ANES's measure, the proportion of people ``Somewhat" or ``Very" dissatisfied with democracy has increased from about 18\% in 2004 (the first year the question was asked), to 34\% in 2012 and 2016.
-\begin{figure}[H]
-\center\includegraphics[width=5in]{cdf-ridge-all-dis.png}
-\caption{\label{fig:ridge-dis} \textit{\textbf{Ridgeline plot of partisan feeling thermometers.} Partisans' in-party/independents average FT. Plots show the distributions of mean partisan feeling thermometers---$(FT_D + FT_R)/2$---of those satisfied and dissatisfied with Democracy. Unsurprisingly, those dissatisfied are more likely to have a cold average FT}}
-\end{figure}
+
+\begin{wrapfigure}{R}{.7\textwidth}
+\centering
+\includegraphics[width=.7\textwidth]{cdf-ridge-all-dis.png}
+\caption{\label{fig:ridge-dis} \textit{\textbf{Ridgeline plot of mean partisan feeling thermometers by reported satisfaction in democracy.} Partisans' in-party/independents average FT. %Plots show the distributions of mean partisan feeling thermometers---$(FT_D + FT_R)/2$---of those satisfied and dissatisfied with Democracy. Unsurprisingly, those dissatisfied are more likely to have a cold average FT
+}}
+\end{wrapfigure}
+
 Figure \ref{fig:ridge-dis} shows all respondents' mean partisan feeling thermometer (the average of their Democrat and Republican thermometers), stratified by whether the respondent is satisfied or dissatisfied with Democracy. Unsurprisingly, the left-ward tails are largest among discontents, but all three groups (satisfied, dissatisfied, and those who weren't sure or declined to answer) have become increasingly likely to be, an average, cold towards the parties.
+
+\subsection{Primaries}
+Setting aside issues of causal identification, clearly increasing dissatisfaction with democracy does not fully explain  the increase in those who are cold toward their (or both) parties\footnote{Nor does cold partisan affect explain all increasing dissatisfaction.}. I turn now to an examination of the relationship between primary vote choice and in-party affect. I argue that the increase in cold partisan affect can be explained in part by ``sore losers" in primary elections---as primaries become more salient, so to do the factions represented by supporters of particular candidates. In short, primary elections provide another layer of group-based political identity below the party, forcing partisans to see not just the out-party as adversarial, but members of their own party as well.
+
+\begin{wrapfigure}{R}{.75\textwidth}
+\centering
+\includegraphics[width=.7\textwidth]{primary-dem.png}
+\caption{\label{fig:primary-dem} \textit{\textbf{Density plots of in-party feeling thermometers by year and primary candidate preference.}}}
+\end{wrapfigure}
+ Primary elections are substantively significant events, allowing partisans a voice in the presentation and direction of their party. In a political environment in which the presidential nominee becomes the de facto leader of the party, the primary process affords non-elite voters a voice in the ideological, political, and stylistic future of the party. The political products offered by primary candidates may reflect (or drive) extant divisions in the party. \cite{wronski2018tale} and \cite{bankert2020authoritarian} find that those scoring highly on measures authoritarian personality traits use their primary vote to ``protect" their party from factions they see as threatening group cohesion. Just as voters do not toss a coin to decide their general election vote, they do not randomly select their choice in the primary; these choices are likely to be meaningful. 
+
+Figure \ref{fig:primary-dem} shows density plots of Democrats' in-party feeling thermometers in 2008 and 2016 in each year, in both years, those who supported a losing candidate were more more likely to be cold to their party than even non-voters. One might suspect a reverse causal relationship---that the 2016 data are a product of Sanders supporters' predisposition against their party. While some Sanders supporters were no doubt motivated by an \textit{a priori} disdain for the establishment, note the large number of lukewarm Clinton Democrats relative to both Obama supporters and nonvoters. It would be difficult to imagine a more establishment Democrat than Hillary Clinton running against Obama---then a young senator promising to upset the status-quo.
+
+On the Republican side, the Trump campaign postured itself as openly hostile to the Republican party, perhaps even to a greater degree than did the Sanders campaign against the Democrats. Despite this, Trump supporters were the warmest group of Republican primary voters\footnote{[Figs will be updated to include reps]}---bad news for our \textit{a priori} disdain hypothesis---and good news for the sore loser hypothesis.
+
+\subsubsection{Panel Data}
+In this section I will use panel data to see if primary voters' party id strength decreases after their candidate loses. Any effect here should also be higher in 2008 than in 2000/2004.
+
 %The main lesson of this study to scholars of political polarization should be the importance of clearly conceptualizing what is substantively important about polarization, and understanding the methodological trade-offs that occur when too much is built in to our dependent-variable models of polarization. The tacit (or explicit) assumption that in-party feelings are necessarily high when out-party feelings are low should be put to rest.
 
 %Given that partisans feelings towards their own party are not necessarily predictive of their feeling toward the opposing party, political scientists should carefully consider what substantive questions they are interested in asking when justifying a choice of dependent variable, recognizing that choice can limit the number of questions which can be asked, and obscure potential insights.
@@ -194,8 +221,7 @@ Figure \ref{fig:ridge-dis} shows all respondents' mean partisan feeling thermome
 %%\end{table}
 %\subsection{A Closer Look At Democrats}
 %
-%To assess the degree to which systematic differences in affect exist between members of party factions, I present sub-group analyses of primary voters. Primary elections are substantively significant events, allowing partisans a voice in the presentation and direction of their party. In a political environment in which the presidential nominee becomes the de facto leader of the party, the primary process affords non-elite voters a voice in the ideological, political, and stylistic future of the party. The political products offered by primary candidates may reflect (or drive) extant divisions in the party. \cite{wronski2018tale} and \cite{bankert2020authoritarian} find that those scoring highly on measures authoritarian personality traits use their primary vote to ``protect" their party from factions they see as threatening group cohesion. Just as voters do not toss a coin to decide their general election vote, they do not randomly select their choice in the primary; these choices are likely to be meaningful. 
-%
+
 %Journalistic accounts of primary elections and their aftermath abound with assertions of internal division and strife within parties after fraught primary election cycles. Democratic primary elections were surprisingly contentious in both 2008 and 2016. In 2008, a particularly brutal primary season spawned the ``Party Unity Means Action" movement (colloquially referred to as the ``Party Unity My Ass" movement) which culminated in an estimated 15-20\% of Clinton supporters voicing their support for John McCain in that year's general election\footnote{\url{https://www.washingtonpost.com/wp-dyn/content/article/2008/06/26/AR2008062604162_pf.html}}.
 %
 %In 2016 too, primary elections brought to light conflicts between the party's ascendant left-wing and party leadership. These primary divisions seemed to remain salient to engaged voters during the subsequent election for chair of the Democratic National Committee, where Keith Ellison, favored by Sanders supporters lost the race to Obama Secretary of Labor, Tom Perez. Staffers and executives of the 2016 Sanders campaign went on to create groups like \textit{Justice Democrats}, which supports left-leaning candidates in primaries against more centrist Democrats\footnote{Perhaps most notably: \textit{Justice Democrats} supported the campaign of Alexandria Ocasio-Cortez (D-NY), herself a former member of the 2016 Sanders campaign, against former representative Joe Crowley, a high-ranking establishment Democrat.}. 
