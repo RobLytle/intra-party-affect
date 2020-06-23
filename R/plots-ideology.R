@@ -16,7 +16,6 @@ tidy_2010s <- tidy_cdf_ideo%>%
 model_quant <- lm(therm_inparty ~ ideo_self_party_dif, data = tidy_2010s, weights = weight)
 stargazer::stargazer(type = "text", model_quant)
 
-
 model_dum <- lm(therm_inparty ~ self_more_moderate_dum, data = tidy_2010s, weights = weight)
 stargazer::stargazer(type = "text", model_dum)
 
