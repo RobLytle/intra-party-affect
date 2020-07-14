@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.19 (MiKTeX 2.9.6930 64-bit) (preloaded format=pdflatex 2019.9.29)  18 JUN 2020 19:25
+This is pdfTeX, Version 3.14159265-2.6-1.40.19 (MiKTeX 2.9.6930 64-bit) (preloaded format=pdflatex 2019.9.29)  10 JUL 2020 12:03
 entering extended mode
 **./intra-party-affect.tex
 (intra-party-affect.tex
@@ -510,56 +510,56 @@ LaTeX Info: Redefining \nameref on input line 23.
 <../fig/cdf-mean-ns.png, id=66, 433.62pt x 289.08pt>
 File: ../fig/cdf-mean-ns.png Graphic file (type png)
 <use ../fig/cdf-mean-ns.png>
-Package pdftex.def Info: ../fig/cdf-mean-ns.png  used on input line 72.
+Package pdftex.def Info: ../fig/cdf-mean-ns.png  used on input line 73.
 (pdftex.def)             Requested size: 375.80544pt x 250.5492pt.
  [3 <../fig/cdf-mean-ns.png>]
 <../fig/cdf-sd.png, id=79, 578.16pt x 433.62pt>
 File: ../fig/cdf-sd.png Graphic file (type png)
 <use ../fig/cdf-sd.png>
-Package pdftex.def Info: ../fig/cdf-sd.png  used on input line 80.
+Package pdftex.def Info: ../fig/cdf-sd.png  used on input line 81.
 (pdftex.def)             Requested size: 352.31625pt x 264.23654pt.
 
-Underfull \hbox (badness 3029) in paragraph at lines 85--86
+Underfull \hbox (badness 3029) in paragraph at lines 86--87
 [][]\OT1/cmr/m/n/12 From 2004--
  []
 
 
-Underfull \hbox (badness 3758) in paragraph at lines 85--86
+Underfull \hbox (badness 3758) in paragraph at lines 86--87
 \OT1/cmr/m/n/12 2016 the vari-
  []
 
 
-Overfull \hbox (10.21056pt too wide) in paragraph at lines 85--86
+Overfull \hbox (10.21056pt too wide) in paragraph at lines 86--87
 \OT1/cmr/m/n/12 Feel-ing ther-mome-
  []
 
 
-Overfull \hbox (7.63419pt too wide) in paragraph at lines 85--86
+Overfull \hbox (7.63419pt too wide) in paragraph at lines 86--87
 \OT1/cmr/m/n/12 ters has in-creased.
  []
 
 
-Underfull \hbox (badness 1112) in paragraph at lines 85--86
+Underfull \hbox (badness 1112) in paragraph at lines 86--87
 \OT1/cmr/m/n/12 the SD of Re-
  []
 
 
-Overfull \hbox (11.42026pt too wide) in paragraph at lines 85--86
+Overfull \hbox (11.42026pt too wide) in paragraph at lines 86--87
 \OT1/cmr/m/n/12 pub-li-cans' in-party
  []
 
 
-Overfull \hbox (12.9522pt too wide) in paragraph at lines 85--86
+Overfull \hbox (12.9522pt too wide) in paragraph at lines 86--87
 \OT1/cmr/m/n/12 FTs in-creased from
  []
 
 
-Overfull \hbox (30.44646pt too wide) in paragraph at lines 85--86
+Overfull \hbox (30.44646pt too wide) in paragraph at lines 86--87
 \OT1/cmr/m/n/12 riod, while Democrats'
  []
 
 
-Overfull \hbox (9.78833pt too wide) in paragraph at lines 85--86
+Overfull \hbox (9.78833pt too wide) in paragraph at lines 86--87
 \OT1/cmr/m/n/12 in-creased from 15--
  []
 
@@ -567,95 +567,91 @@ Overfull \hbox (9.78833pt too wide) in paragraph at lines 85--86
 <../fig/cdf-below-50-ns.png, id=89, 578.16pt x 433.62pt>
 File: ../fig/cdf-below-50-ns.png Graphic file (type png)
 <use ../fig/cdf-below-50-ns.png>
-Package pdftex.def Info: ../fig/cdf-below-50-ns.png  used on input line 93.
+Package pdftex.def Info: ../fig/cdf-below-50-ns.png  used on input line 94.
 (pdftex.def)             Requested size: 328.82707pt x 246.61679pt.
 
 
 Package wrapfig Warning: Collision between wrapping environments on input line 
-104.
+105.
 
 <../fig/cdf-ridge-ns.png, id=92, 578.16pt x 433.62pt>
 File: ../fig/cdf-ridge-ns.png Graphic file (type png)
 <use ../fig/cdf-ridge-ns.png>
-Package pdftex.def Info: ../fig/cdf-ridge-ns.png  used on input line 106.
+Package pdftex.def Info: ../fig/cdf-ridge-ns.png  used on input line 107.
 (pdftex.def)             Requested size: 281.85587pt x 211.39055pt.
 [5]
 
 Package wrapfig Warning: Collision between wrapping environments on input line 
-117.
+118.
 
 <../fig/cdf-ridge-all-dis.png, id=105, 578.16pt x 433.62pt>
 File: ../fig/cdf-ridge-all-dis.png Graphic file (type png)
 <use ../fig/cdf-ridge-all-dis.png>
-Package pdftex.def Info: ../fig/cdf-ridge-all-dis.png  used on input line 119.
+Package pdftex.def Info: ../fig/cdf-ridge-all-dis.png  used on input line 120.
 (pdftex.def)             Requested size: 328.82707pt x 246.61679pt.
 [6 <../fig/cdf-below-50-ns.png>] [7 <../fig/cdf-ridge-ns.png (PNG copy)>]
 
 Package wrapfig Warning: Collision between wrapping environments on input line 
-129.
+130.
 
 <../fig/primary-dem.png, id=121, 578.16pt x 433.62pt>
 File: ../fig/primary-dem.png Graphic file (type png)
 <use ../fig/primary-dem.png>
-Package pdftex.def Info: ../fig/primary-dem.png  used on input line 131.
+Package pdftex.def Info: ../fig/primary-dem.png  used on input line 132.
 (pdftex.def)             Requested size: 328.82707pt x 246.61679pt.
 [8 <../fig/cdf-ridge-all-dis.png (PNG copy)>]
-Underfull \hbox (badness 3780) in paragraph at lines 136--137
+Underfull \hbox (badness 3780) in paragraph at lines 137--138
 [][]\OT1/cmr/m/n/12 Figure []6[] shows
  []
 
 
-Overfull \hbox (29.6737pt too wide) in paragraph at lines 136--137
+Overfull \hbox (29.6737pt too wide) in paragraph at lines 137--138
 \OT1/cmr/m/n/12 den-sity plots of Democrats'
  []
 
 
-Underfull \hbox (badness 7649) in paragraph at lines 136--137
+Underfull \hbox (badness 7649) in paragraph at lines 137--138
 \OT1/cmr/m/n/12 mome-ters in 2008
  []
 
 
-Underfull \hbox (badness 4518) in paragraph at lines 136--137
+Underfull \hbox (badness 4518) in paragraph at lines 137--138
 \OT1/cmr/m/n/12 and 2016 in each
  []
 
 
-Underfull \hbox (badness 5260) in paragraph at lines 136--137
+Underfull \hbox (badness 5260) in paragraph at lines 137--138
 \OT1/cmr/m/n/12 a los-ing can-di-date
  []
 
 
-Overfull \hbox (1.57399pt too wide) in paragraph at lines 136--137
+Overfull \hbox (1.57399pt too wide) in paragraph at lines 137--138
 \OT1/cmr/m/n/12 were more more likely
  []
 
 
-Overfull \hbox (10.6475pt too wide) in paragraph at lines 136--137
+Overfull \hbox (10.6475pt too wide) in paragraph at lines 137--138
 \OT1/cmr/m/n/12 sus-pect a re-verse causal
  []
 
 [9 <../fig/primary-dem.png>] [10] (intra-party-affect.bbl)
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 310.
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 311.
  [11
 
 ]
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 310.
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 311.
 
 (intra-party-affect.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 310.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 310.
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 311.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 311.
 Package rerunfilecheck Info: File `intra-party-affect.out' has not changed.
 (rerunfilecheck)             Checksum: 5C5EB69695C409D620054AE5758886DF;325.
-
-
-LaTeX Warning: Label(s) may have changed. Rerun to get cross-references right.
-
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 310.
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 311.
  ) 
 Here is how much of TeX's memory you used:
  7207 strings out of 492946
  107984 string characters out of 3126266
- 205691 words of memory out of 3000000
+ 205646 words of memory out of 3000000
  10915 multiletter control sequences out of 15000+200000
  14509 words of font info for 51 fonts, out of 3000000 for 9000
  1141 hyphenation exceptions out of 8191
@@ -674,7 +670,7 @@ type1/public/amsfonts/cm/cmssbx10.pfb><D:/Users/robly/AppData/Local/Programs/Mi
 KTeX 2.9/fonts/type1/public/amsfonts/cm/cmssi17.pfb><D:/Users/robly/AppData/Loc
 al/Programs/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmti10.pfb><D:/Users/robl
 y/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmti12.pfb>
-Output written on intra-party-affect.pdf (11 pages, 644185 bytes).
+Output written on intra-party-affect.pdf (11 pages, 644244 bytes).
 PDF statistics:
  196 PDF objects out of 1000 (max. 8388607)
  35 named destinations out of 1000 (max. 500000)

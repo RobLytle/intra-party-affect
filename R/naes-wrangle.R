@@ -1,6 +1,8 @@
 library(tidyverse)
 
 naes_df <- read_rds("data/raw/naes-trim.rds")%>%
+	mutate(dem_loser_wave_1 = as.double(if_else(rba03_1 != 7, 1, 0)),
+				 rep_loser_wave_1 = as.double(if_else(rba01_1 != 5, 1, 0)))%>%
 	pivot_longer(wave_1:reb01_3, 
 							 names_to = c(".value", "set"), 
 							 names_sep="_")%>%
@@ -14,7 +16,7 @@ naes_df <- read_rds("data/raw/naes-trim.rds")%>%
 	rename(dems_first_choice = rba03)%>%
 	rename(dems_sec_choice = rba04)%>%
 	rename(conf_votes_count = rea01)%>%
-	rename(primaries_good_way = reb01)%>%
+	rename(primaries_good_bad = reb01)%>%
 	mutate(wave = as.factor(set),
 				 pid7 = fct_rev(recode_factor(pid7, #reversing factors here either so that higher numbers = more agreement, or to match ANES coding scheme (eg pid7)
 				 										 "7" = "Strong Democrat",
@@ -25,6 +27,9 @@ naes_df <- read_rds("data/raw/naes-trim.rds")%>%
 				 										 "2" = "Not strong Republican",
 				 										 "1" = "Strong Republican",
 				 										 "999" = "Skipped")),
+				 pid3 = as.factor(case_when(str_detect(as.character(pid7), "Democrat") ~ "Democrat",
+				 								 str_detect(as.character(pid7), "Republican") ~ "Republican",
+				 								 TRUE ~ as.character(pid7))),
 				 elect_att = fct_rev(recode_factor(elect_att,
 				 													"1" = "A good deal",
 				 													"2" = "Some",
@@ -42,6 +47,7 @@ naes_df <- read_rds("data/raw/naes-trim.rds")%>%
 				 														 "4" = "Disagree",
 				 														 "5" = "Strongly Disagree",
 				 														 "999" = "Skipped")),
+				 no_gov_infl = na_if(no_gov_infl, 9999), #9999 is missing data
 				 no_gov_infl = fct_rev(recode_factor(no_gov_infl,
 				 																		 "1" = "Strongly Agree",
 				 																		 "2" = "Agree",
@@ -90,39 +96,38 @@ naes_df <- read_rds("data/raw/naes-trim.rds")%>%
 				 																	"6" = "Dennis Kucinich",
 				 																	"7" = "Barack Obama",
 				 																	"8" = "Bill Richardson",
+				 																	"9" = "Other Candidtate",
 				 																	"999" = "Skipped"),
+				 first_choice = as.factor(case_when(!is.na(repubs_first_choice) ~ as.character(repubs_first_choice), #combining partisan vote choices
+				 												 !is.na(dems_first_choice) ~ as.character(dems_first_choice),
+				 												 TRUE ~ NA_character_)),
+				 sec_choice = as.factor(case_when(!is.na(repubs_sec_choice) ~ as.character(repubs_sec_choice),
+				 																	 !is.na(dems_sec_choice) ~ as.character(dems_sec_choice),
+				 																	 TRUE ~ NA_character_)),
 				 conf_votes_count = fct_rev(recode_factor(conf_votes_count,
 				 																				 "1" = "Very Confident",
 				 																				 "2" = "Somewhat Confident",
 				 																				 "3" = "Not Too Confident",
 				 																				 "4" = "Not at all Confident",
 				 																				 "999" = "Skipped")),
-				 primaries_good_bad = fct_rev(recode_factor(primaries_good_way,
+				 primaries_good_bad = fct_rev(recode_factor(primaries_good_bad,
 				 																					 "1" = "A good way of picking the best candidates",
 				 																					 "2" = "A bad way of picking the best candidates",
-				 																					 "999" = "Skipped")))%>%
-	select(-set)%>%
-	glimpse()
-
-test_df <- read_rds("data/raw/naes-trim.rds")%>%
-	pivot_longer(wave_1:reb01_3, 
-							 names_to = c(".value", "set"), 
-							 names_sep="_")%>%
-	mutate(testdummy = if_else(rba04 == 9, 1, 0))%>%
-	mutate(testdummy1 = if_else(rba03 == 99, 1, 0))%>%
-	summarise(td = sum(testdummy, na.rm = TRUE),
-						td1 = sum(testdummy1, na.rm = TRUE))%>%
-	glimpse()
-# contains("wave"), #wave--not sure how coded
-# contains("date"), #date
-# contains("ma01"), #PID7 most recent
-# contains("mb01"), #elections make gov pay attention 1-3 "a good deal" -- "not much"
-# contains("mb02"), # Parties make government pay attention to people 1-3 "a good deal" -- "not much"
-# contains("mb05"), #officials not interested in avg person 1--5 strongly agree to strongly disagree
-# contains("mb06"), # someone like me can't influence government 1--5 strongly agree to strongly disagree
-# contains("rba01"), #rep primary choice 1
-# contains("rba02"), #rep primary choice 2
-# contains("rba03"), #dem primary choice 1
-# contains("rba04"), #dem primary choice 2
-# contains("rea01"), #confident votes counted
-# contains("reb01") #primary good or bad
+				 																					 "999" = "Skipped")),
+				 loser_first = as.factor(case_when(!is.na(rep_loser_wave_1) ~ rep_loser_wave_1, #combining partisan vote choices
+				 																	 !is.na(dem_loser_wave_1) ~ dem_loser_wave_1,
+				 																	 TRUE ~ -9)),
+				 strong_part = if_else(str_detect(pid7, "Strong"), 1, 0),
+				 convention_dummy = case_when(pid3 == "Democrat" & date < 20080825 ~ "Pre Convention", #only appropriate for partisans, all independents
+				 									pid3 == "Republican" & date < 20080901 ~ "Pre Convention",
+				 								 	pid3 != "Democrat" & pid3 != "Republican" ~ NA_character_,
+				 									TRUE ~ "Post Convention")
+				 )%>%
+	mutate(loser_first = na_if(loser_first, -9))%>%
+	select(-set,
+				 -dem_loser_wave_1,
+				 -rep_loser_wave_1)%>%
+	glimpse()%>%
+	write_rds("data/tidy-naes-08.rds")%>%
+write_csv("data/tidy-naes-08.csv")
+	

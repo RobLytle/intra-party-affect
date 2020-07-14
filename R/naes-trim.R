@@ -2,7 +2,8 @@ library(tidyverse)
 
 
 online_08_trim <- rio::import("data/raw/naes/2008/dta08.zip", which = "naes08_online_all_waves_data_full.dta")%>%
-	select(rkey,
+	select(
+				 rkey,
 				 contains("wave"), #wave--not sure how coded
 				 contains("date"), #date
 				 contains("ma01"), #PID7 most recent
@@ -16,8 +17,6 @@ online_08_trim <- rio::import("data/raw/naes/2008/dta08.zip", which = "naes08_on
 				 contains("rba04"), #dem primary choice 2
 				 contains("rea01"), #confident votes counted
 				 contains("reb01") #primary good or bad
-				 
-				 
 				 )%>%
 	select(-rba04r9v_2)%>%
 #	rename(rkey = respondent,
