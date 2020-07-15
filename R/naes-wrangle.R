@@ -1,8 +1,8 @@
 library(tidyverse)
 
-naes_df <- read_rds("data/raw/naes-trim.rds")%>%
-	mutate(dem_loser_wave_1 = as.double(if_else(rba03_1 != 7, 1, 0)),
-				 rep_loser_wave_1 = as.double(if_else(rba01_1 != 5, 1, 0)))%>%
+naes_online_df <- read_rds("data/raw/naes-trim.rds")%>%
+	mutate(dem_loser_wave_1 = as.character(if_else(rba03_1 != 7, "loser", "winner")),
+				 rep_loser_wave_1 = as.character(if_else(rba01_1 != 5, "loser", "winner")))%>%
 	pivot_longer(wave_1:reb01_3, 
 							 names_to = c(".value", "set"), 
 							 names_sep="_")%>%
@@ -18,6 +18,7 @@ naes_df <- read_rds("data/raw/naes-trim.rds")%>%
 	rename(conf_votes_count = rea01)%>%
 	rename(primaries_good_bad = reb01)%>%
 	mutate(wave = as.factor(set),
+				 date = as.Date(as.character(date),format="%Y%m%d"),
 				 pid7 = fct_rev(recode_factor(pid7, #reversing factors here either so that higher numbers = more agreement, or to match ANES coding scheme (eg pid7)
 				 										 "7" = "Strong Democrat",
 				 										 "6" = "Not strong Democrat",
@@ -116,18 +117,46 @@ naes_df <- read_rds("data/raw/naes-trim.rds")%>%
 				 																					 "999" = "Skipped")),
 				 loser_first = as.factor(case_when(!is.na(rep_loser_wave_1) ~ rep_loser_wave_1, #combining partisan vote choices
 				 																	 !is.na(dem_loser_wave_1) ~ dem_loser_wave_1,
-				 																	 TRUE ~ -9)),
+				 																	 TRUE ~ NA_character_)),
 				 strong_part = if_else(str_detect(pid7, "Strong"), 1, 0),
 				 convention_dummy = case_when(pid3 == "Democrat" & date < 20080825 ~ "Pre Convention", #only appropriate for partisans, all independents
 				 									pid3 == "Republican" & date < 20080901 ~ "Pre Convention",
 				 								 	pid3 != "Democrat" & pid3 != "Republican" ~ NA_character_,
-				 									TRUE ~ "Post Convention")
+				 									TRUE ~ "Post Convention"),
+				 pid_str = factor(case_when(str_detect(pid7, "Strong") ~ "Strong",
+				 										str_detect(pid7, "Not") ~ "Weak",
+				 										str_detect(pid7, "Leans") ~ "Leaning",
+				 										TRUE ~ NA_character_),
+				 								 levels = c("Leaning", 
+				 								 					 "Weak", 
+				 								 					 "Strong")),
+				 convention_end = as.Date((case_when(
+				 	pid3 == "Democrat" ~ "2008-08-28",
+				 	pid3 == "Republican" ~ "2008-09-04",
+				 	TRUE ~ NA_character_))),
+				 presumptive_date = as.Date((case_when(
+				 	pid3 == "Democrat" ~ "2008-06-03",
+				 	pid3 == "Republican" ~ "2008-03-04",
+				 	TRUE ~ NA_character_))),
+				 general_election = as.Date("2008-11-04"),
 				 )%>%
 	mutate(loser_first = na_if(loser_first, -9))%>%
 	select(-set,
 				 -dem_loser_wave_1,
 				 -rep_loser_wave_1)%>%
 	glimpse()%>%
-	write_rds("data/tidy-naes-08.rds")%>%
-write_csv("data/tidy-naes-08.csv")
-	
+	write_rds("data/tidy-naes-08-online.rds")%>%
+	write_csv("data/tidy-naes-08-online.csv")
+
+# naes_phone_df <- read_rds("data/raw/naes-trim-phone.rds")%>%
+# 	glimpse()
+# 
+# 	pivot_longer(date_c:rba02_c, 
+# 							 names_to = c(".value", "set"), 
+# 							 names_sep="_")%>%
+# 	rename(pid7 = ma01)%>%
+# 	rename(elect_att = mb01)%>%
+# 	rename(parties_att = mb02)%>%
+# 	rename(repubs_first_choice = rba01)%>%
+# 	rename(repubs_sec_choice = rba02)%>%
+# glimpse()
