@@ -1,6 +1,6 @@
 library(tidyverse)
 
-naes_online_df <- read_rds("data/raw/naes-trim.rds")%>%
+naes_2008_online_df <- read_rds("data/raw/naes-trim.rds")%>%
 	mutate(dem_loser_wave_1 = as.character(if_else(rba03_1 != 7, "loser", "winner")),
 				 rep_loser_wave_1 = as.character(if_else(rba01_1 != 5, "loser", "winner")))%>%
 	pivot_longer(wave_1:reb01_3, 
@@ -148,6 +148,37 @@ naes_online_df <- read_rds("data/raw/naes-trim.rds")%>%
 	write_rds("data/tidy-naes-08-online.rds")%>%
 	write_csv("data/tidy-naes-08-online.csv")
 
+
+naes_pi <- rio::import("data/raw/naes/2000/NAES2k-PI.dta")%>%
+	select(contains("key"),
+				 contains("date"),
+				 contains("r11"), #intend to vote for, rep
+				 contains("r12"), #intend to vote, dem
+				 contains("v01"), #pid_str
+				 contains("v02"), #pid3
+				 -ends_with("$"))%>%
+	glimpse()
+
+
+naes_super <- rio::import("data/raw/naes/2000/NAES 2000 Super Panel Data.sav")%>%
+	select(contains("key"),
+				 contains("date"),
+				 contains("r11"), #intend to vote for, rep
+				 contains("r12"), #intend to vote, dem
+				 contains("v01"), #pid_str
+				 contains("v02"), #pid3
+				 -ends_with("$"))%>%
+	glimpse()
+
+naes_oct_3 <- rio::import("data/raw/naes/2000/NAES 2000 3 Oct Deb Panel Data.sav")%>%
+	select(contains("key"),
+				 contains("date"),
+				 contains("r11"), #intend to vote for, rep
+				 contains("r12"), #intend to vote, dem
+				 contains("v01"), #pid_str
+				 contains("v02"), #pid3
+				 -ends_with("$"))%>%
+	glimpse()
 # naes_phone_df <- read_rds("data/raw/naes-trim-phone.rds")%>%
 # 	glimpse()
 # 
