@@ -1,4 +1,5 @@
 library(tidyverse)
+theme_set(theme_minimal())
 
 naes_08_wave <- read_rds("data/tidy-naes-08.rds")%>%
 	select(wave,
@@ -48,8 +49,8 @@ naes_08_date <- read_rds("data/tidy-naes-08.rds")%>%
 #########################
 
 
-naes_loess_df <- read_rds("data/tidy-naes-08-online.rds")%>%
-	filter(pid3 == "Republican" | pid3 == "Democrat" & !is.na(loser_first))%>%
+naes_loess_08_df <- read_rds("data/tidy-naes-08-online.rds")%>%
+	filter(pid3 == "Republican" | pid3 == "Democrat")%>%
 	glimpse()
 
 strong.model <- lm(strong_part ~ as.numeric(date), data = naes_loess_df)
@@ -67,8 +68,8 @@ cars.predict <- cbind(cars, predict(cars.model, interval = 'confidence'))%>%
 	glimpse()
 
 
-partisan_loess_08 <- ggplot(naes_loess_df, aes(x = date, y = strong_part, color = loser_first)) +
-	geom_point() +
+partisan_loess_08 <- ggplot(naes_loess_08_df, aes(x = date, y = strong_part, color = loser_first)) +
+#	geom_point() +
 	geom_smooth() +
 #	tidyquant::geom_ma(n = 27625, ratio = 1/7) +
 	#stat_summary(aes(y = strong_part,group=1, colour=loser_first), fun.y=mean, geom="line",group=1) +
@@ -100,9 +101,20 @@ partisan_means_08
 
 # run a few models loess over dates
 
-y <- rbinom(100, 1, (0:99)/100)
-x <- 1:100
-m <- loess(y~x)
-plot(y ~ x)
-lines(predict(m)) # also illustrating the newer loess function that has different defaults
-lines(lowess(x,y), col = 'blue')
+# Partisan Loess 2000
+naes_2000_df <- read_rds("data/tidy-naes-2000.rds")%>%
+	filter(pid3 == "Republican" | pid3 == "Democrat")%>%
+	glimpse()
+
+
+partisan_loess_00 <- ggplot(naes_2000_df, aes(x = date, y = strong_part, color = loser_first)) +
+#	geom_point() +
+	geom_smooth() +
+	#	tidyquant::geom_ma(n = 27625, ratio = 1/7) +
+	#stat_summary(aes(y = strong_part,group=1, colour=loser_first), fun.y=mean, geom="line",group=1) +
+	geom_vline(aes(xintercept = convention_end), linetype=4) + #last day of convention
+	geom_vline(aes(xintercept = presumptive_date), linetype=1) + # day candidate becomes presumptive nominee
+	geom_vline(aes(xintercept = general_election), linetype=2) + # general election
+	facet_wrap(vars(pid3))
+partisan_loess_00
+ggsave("fig/partisan_loess_00.png", plot = partisan_loess_00, width = 6, height = 4, units = "in")
