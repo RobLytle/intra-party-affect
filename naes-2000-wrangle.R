@@ -23,6 +23,15 @@ naes_reint_a <- rio::import("data/raw/naes/2000/NAES 2000 Mult Reint Panel A Dat
 	glimpse()
 
 naes_reint_b <- rio::import("data/raw/naes/2000/NAES 2000 Mult Reint Panel B Data.sav")%>%
+	select(contains("key"),
+				 contains("date"),
+				 contains("r11"), #intend to vote for, rep
+				 contains("r12"), #intend to vote, dem
+				 contains("r17"), #actual vote for rep
+				 contains("r18"), #actual vote for dem
+				 contains("v01"), #pid_str
+				 contains("v02"), #pid3
+				 -ends_with("$"))%>%
 	mutate(xdem_primary_vote = case_when(is.na(cr18) ~ as.character(cr12), #when intended ballot (cr12) blank and they're dem, use actual ballot
 																			 !is.na(cr18) ~ as.character(cr18),
 																			 TRUE  ~ NA_character_))%>% #same but for reps

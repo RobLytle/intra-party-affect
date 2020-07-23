@@ -1,4 +1,5 @@
 library(tidyverse)
+library(ggExtra)
 theme_set(theme_minimal())
 
 naes_08_wave <- read_rds("data/tidy-naes-08.rds")%>%
@@ -118,3 +119,10 @@ partisan_loess_00 <- ggplot(naes_2000_df, aes(x = date, y = strong_part, color =
 	facet_wrap(vars(pid3))
 partisan_loess_00
 ggsave("fig/partisan_loess_00.png", plot = partisan_loess_00, width = 6, height = 4, units = "in")
+
+
+loess <- ggpubr::ggarrange(partisan_loess_00,
+													 partisan_loess_08,
+													 nrow = 2)
+loess
+ggsave("fig/partisan-loess-all.png", plot = loess, width = 6, height = 4, units = "in")
