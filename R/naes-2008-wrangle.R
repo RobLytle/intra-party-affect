@@ -3,12 +3,12 @@ library(tidyverse)
 naes_2008_online_df <- read_rds("data/raw/naes-trim.rds")%>%
 	mutate(dem_loser_wave_1 = as.character(if_else(rba03_1 != 7, "loser", "winner")),
 				 rep_loser_wave_1 = as.character(if_else(rba01_1 != 5, "loser", "winner")))%>%
-	# select(ma01_1,
-	# 			 rba03_1,
-	# 			 rba03_2,
-	# 			 rba01_1,
-	# 			 rba01_2)%>%
-	 glimpse()%>%
+#	 select(ma01_1,
+#	 			 rba03_1,
+#	 			 rba03_2,
+#	 			 rba01_1,
+#	 			 rba01_2)%>%
+#	 glimpse()
 	mutate(winner_loser = as.factor(case_when(
 																	rba03_1 == 7 ~ "Obama", #creates a variable that includes
 																	rba03_2 == 7 ~ "Obama",
@@ -40,23 +40,31 @@ naes_2008_online_df <- read_rds("data/raw/naes-trim.rds")%>%
 																	ma01_1 < 4 & rba01_1 != 5 ~ "Other Candidate",
 																	TRUE ~ NA_character_)))%>%
 	mutate(winner_loser_rep = as.factor(case_when(
-																		ma01_1 > 4 & ma01_2 < 4 ~ NA_character_,
-																		ma01_1 < 4 & is.na(rba01_1) & rba01_2 == 5 ~ "McCain",
-																		ma01_1 < 4 & rba01_1 == 5 ~ "McCain",
-																		ma01_1 < 4 & is.na(rba01_1) & rba01_2 == 999 ~ "Skipped",
-																		ma01_1 < 4 & rba01_1 == 999 ~ "Skipped",
-																		ma01_1 < 4 & is.na(rba01_1) & rba01_2 != 5 ~ "Other Candidate",
-																		ma01_1 < 4 & rba01_1 != 5 ~ "Other Candidate",
+																		rba01_2 == 5 ~ "McCain",
+																		rba01_2 == 999 ~ "Skipped",
+																		rba01_2 != 5 ~ "Other Candidate",
 																		TRUE ~ NA_character_)))%>%
 	mutate(winner_loser_dem = as.factor(case_when(
-																		ma01_1 < 4 & ma01_2 > 4 ~ NA_character_,
-																		ma01_1 > 4 & is.na(rba03_1) & rba03_2 == 7 ~ "Obama",
-																		ma01_1 > 4 & rba03_1 == 7 ~ "Obama", #creates a variable that includes
-																		ma01_1 > 4 & is.na(rba03_1) & rba03_2 == 999 ~ "Skipped",
-																		ma01_1 > 4 & rba03_1 == 999 ~ "Skipped",
-																		ma01_1 > 4 & is.na(rba03_1) & rba03_2 != 7 ~ "Other Candidate",
-																		ma01_1 > 4 & rba03_1 != 7 ~ "Other Candidate",
+																		rba03_2 == 7 ~ "Obama",
+																		rba03_2 == 999 ~ "Skipped",
+																		rba03_2 != 7 ~ "Other Candidate",
 																		TRUE ~ NA_character_)))%>%
+	# mutate(winner_loser_rep = as.factor(case_when(
+	# 	is.na(rba01_1) & rba01_2 == 5 ~ "McCain",
+	# 	rba01_1 == 5 ~ "McCain",
+	# 	is.na(rba01_1) & rba01_2 == 999 ~ "Skipped",
+	# 	rba01_1 == 999 ~ "Skipped",
+	# 	is.na(rba01_1) & rba01_2 != 5 ~ "Other Candidate",
+	# 	rba01_1 != 5 ~ "Other Candidate",
+	# 	TRUE ~ NA_character_)))%>%
+	# mutate(winner_loser_dem = as.factor(case_when(
+	# 	is.na(rba03_1) & rba03_2 == 7 ~ "Obama",
+	# 	rba03_1 == 7 ~ "Obama", #creates a variable that includes
+	# 	is.na(rba03_1) & rba03_2 == 999 ~ "Skipped",
+	# 	rba03_1 == 999 ~ "Skipped",
+	# 	is.na(rba03_1) & rba03_2 != 7 ~ "Other Candidate",
+	# 	rba03_1 != 7 ~ "Other Candidate",
+	# 	TRUE ~ NA_character_)))%>%
 	mutate(winner_loser_party = as.factor(case_when(
 																									!is.na(winner_loser_dem) ~ as.character(winner_loser_dem),
 																									!is.na(winner_loser_rep) ~ as.character(winner_loser_rep),
