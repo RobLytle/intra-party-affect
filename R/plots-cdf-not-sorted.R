@@ -137,6 +137,7 @@ cdf_ridge_ns <- ggplot(ridge_df_partisan_ns, aes(x = therm_inparty,
                                         y = year_fct, 
                                         color = "white",
                                         fill = stat(x),
+                                        weight = weight
 )) +
 #  geom_ridgeline() + 
   geom_density_ridges_gradient(scale = 3, rel_min_height = 0.02, gradient_lwd = 1) +
