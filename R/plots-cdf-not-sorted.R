@@ -3,10 +3,35 @@ library(tidyverse)
 library(ggExtra)
 library(ggridges)
 library(goji)
+library(gridExtra)
 theme_set(theme_minimal())
 #### CDF Time Series Dataframe
 tidy_cdf_ns <- read_rds("data/tidy-cdf.rds")%>%
   filter(year >= 1978)%>%
+  glimpse()
+
+anes_2020 <- read_rds("data/tidy-anes-2020.rds")%>%
+  select(pid_3,
+         year,
+         therm_inparty,
+         therm_outparty,
+         therm_parties_mean,
+         weight,
+         )%>%
+  glimpse()
+
+cdf_trimmed <- tidy_cdf_ns%>% #I don't need 2020 data in all of these figures, so I'm making a seperate df to rbind with 2020
+  select(pid_3,
+         year,
+         therm_inparty,
+         therm_outparty,
+         therm_parties_mean,
+         weight,
+         )%>%
+  glimpse()
+
+cdf_extended <- rbind(cdf_trimmed,
+                       anes_2020)%>%
   glimpse()
 
 party_fts_ns <- tidy_cdf_ns%>% # Making a DF of the party-year SD
@@ -106,7 +131,7 @@ sd_ft_ns <- ggplot(cdf_sd_ns, aes(x = year, y = result, color = group)) +
                                 "Republican - In Party" = "firebrick3")) +
   #scale_x_continuous(limits = c(1978,2020), breaks = c(0:5)) +
   scale_x_continuous(breaks = seq(1976, 2020, by = 4)) +
-  scale_y_continuous(limits = c(12,25)) +
+  scale_y_continuous(limits = c(15,25)) +
   labs(y = "Partisan Feeling Thermometer Standard Deviations",
        x = "Year",
        subtitle = "Includes Leaning Independents",
@@ -118,17 +143,12 @@ sd_ft_ns <- ggplot(cdf_sd_ns, aes(x = year, y = result, color = group)) +
 sd_ft_ns
 
 ggsave("fig/cdf-sd-ns.png", sd_ft_ns, width = 8, height = 6, units = "in")
-#####
-## Not sure if things in this section will end up in a manuscript, just trying to get a better idea of the data.
-#####
-##ggridges
-
-
 
 
 
 
 ridge_df_partisan_ns <- tidy_cdf_ns%>%
+#ridge_df_partisan_ns <- cdf_extended%>%
   filter(year != 2002 & pid_3 != is.na(TRUE) & pid_3 != "Independent")%>%
   mutate(year_fct = fct_rev(as.factor(year)))%>%
   glimpse()
@@ -137,25 +157,13 @@ cdf_ridge_ns <- ggplot(ridge_df_partisan_ns, aes(x = therm_inparty,
                                         y = year_fct, 
                                         color = "white",
                                         fill = stat(x),
-                                        weight = weight
-)) +
-#  geom_ridgeline() + 
+                                        weight = weight)) +
   geom_density_ridges_gradient(scale = 3, rel_min_height = 0.02, gradient_lwd = 1) +
   coord_cartesian(clip = "off") +
-#  scale_y_discrete(expand = expand_scale(mult = c(0.01, 0.25))) +
   scale_x_continuous(limits = c(0,100), breaks = seq(0, 100, by = 10)) +
-#  scale_fill_viridis_c(name = "In-Party FT", option = "B") +
   scale_fill_gradient(
     low = "blue4",
-#    mid = "darkorchid2",
-    high = "red1"
-#    midpoint = 50
-  )+
-#  scale_x_continuous(limits = c(.2,1), breaks = seq(.2, 1, by = .1)) +
- #  scale_discrete_manual(aesthetics = "fill", 
- #                        values = c("Democrat" = "dodgerblue3",
- #                                "Republican" = "firebrick3",
- #                               "Independent" = "darkorchid3")) +
+    high = "red1")+
   scale_discrete_manual(aesthetics = "color",
                        values = c("white")) +
   geom_vline(xintercept = 50, color = "white") +
@@ -168,22 +176,21 @@ cdf_ridge_ns <- ggplot(ridge_df_partisan_ns, aes(x = therm_inparty,
        caption = " ") +
   theme(panel.grid.major = element_blank(), 
         panel.grid.minor = element_blank(),
-        panel.background = element_blank())
+        panel.background = element_blank(),
+        axis.title.y = element_blank(),
+        axis.text.y = element_blank(), #removing y axes since I'm combining two plots
+        axis.ticks.y = element_blank())
 cdf_ridge_ns
 ggsave("fig/cdf-ridge-ns.png", cdf_ridge_ns, width = 8, height = 6, units = "in")
 
-ridge_df_ns <- tidy_cdf_ns%>%
-  filter(year != 2002 & pid_3 != is.na(TRUE))%>%
-  mutate(year_fct = fct_rev(as.factor(year)))%>%
-  glimpse()
 
 # mean ft
-ridge_mean_all <- tidy_cdf_ns%>%
+ridge_df_all <- cdf_extended%>%
   filter(year != 2002)%>%
   mutate(year_fct = fct_rev(as.factor(year)))%>%
   glimpse()
 
-cdf_ridge_all <- ggplot(ridge_mean_all, aes(x = therm_parties_mean, 
+cdf_ridge_all <- ggplot(ridge_df_all, aes(x = therm_parties_mean, 
                                                  y = year_fct, 
                                                  color = "white",
                                                  fill = stat(x),
@@ -210,6 +217,15 @@ cdf_ridge_all <- ggplot(ridge_mean_all, aes(x = therm_parties_mean,
         panel.background = element_blank())
 cdf_ridge_all
 ggsave("fig/cdf-ridge-all.png", cdf_ridge_all, width = 8, height = 6, units = "in")
+
+
+ridge_plots <- grid.arrange(cdf_ridge_all,
+                            cdf_ridge_ns,
+                            ncol = 2)
+ridge_plots
+
+ggsave("fig/cdf-ridge-grid.png", ridge_plots, width = 10, height = 4, units = "in")
+
 ###########
 #### Dissatisfaction with Democ.
 ########
@@ -419,13 +435,15 @@ ggsave("fig/cdf-below-parties-ns.png", cdf_below_party_meds_ns, width = 6, heigh
 ### Single Median
 ###
 
-below_mct_ns <- tidy_cdf_ns%>% # MCT = Measure of Central Tendency
+#below_mct_ns <- tidy_cdf_ns%>% # MCT = Measure of Central Tendency
+below_mct_ns <- cdf_extended%>% # with 2020
   select(year,
          weight,
          pid_3,
          therm_inparty)%>%
   filter(pid_3 != "Independent" & year != 2002)%>%
   mutate(above_80_dum = if_else(therm_inparty > 80, 1, 0),
+         above_75_dum = if_else(therm_inparty > 75, 1, 0),
          above_mean_sd_dum = if_else(therm_inparty > weighted.mean(therm_inparty, weight, na.rm = TRUE) + radiant.data::weighted.sd(therm_inparty, weight, na.rm = TRUE), 1, 0),
          below_50_dum = if_else(therm_inparty < 50, 1, 0),
          below_mean_dum = if_else(therm_inparty < weighted.mean(therm_inparty, weight, na.rm = TRUE), 1, 0),
@@ -442,6 +460,7 @@ below_mct_prop_ns <- below_mct_ns%>%
             prop_med_below_sd = weighted.mean(below_med_sd_dum, weight, na.rm = TRUE),
             prop_50_below = weighted.mean(below_50_dum, weight, na.rm = TRUE),
             prop_80_above = weighted.mean(above_80_dum, weight, na.rm = TRUE),
+            prop_75_above = weighted.mean(above_80_dum, weight, na.rm = TRUE),
             prop_mean_sd_above = weighted.mean(above_mean_sd_dum, weight, na.rm = TRUE),
             se_mean_below = diagis::weighted_se(below_mean_dum, weight, na.rm = TRUE),
             se_mean_sd_below = diagis::weighted_se(below_mean_sd_dum, weight, na.rm = TRUE),
@@ -635,9 +654,52 @@ prop_dissatisfied <- tidy_cdf_ns%>%
          weight,
          dis_democ_dum,
          pid_3)%>%
+  group_by(year, pid_3)%>%
+  summarize(prop_dis = weighted.mean(dis_democ_dum, weight, na.rm = TRUE))%>%
   glimpse()
-group_by(year)%>%
-  summarize(prop_dis = weighted.mean(dis_democ, weight, na.rm = TRUE))%>%
-  glimpse()
+
+cdf_dis <- ggplot(prop_dissatisfied, aes(x = year, y = prop_dis)) +
+#  geom_errorbar(aes(ymin = prop_50_below - se_50_below, ymax = prop_50_below + se_50_below, width = .2)) +
+  geom_line(aes(linetype = pid_3, color = pid_3), size = 1) + 
+  #  geom_smooth(aes(linetype = pid_3_sort, color = pid_3_sort), span = .3, se = FALSE) +
+  geom_point(aes(shape = pid_3, size = 1, color = pid_3)) +
+  scale_color_manual(values = c("Democrat" = "dodgerblue3",
+                                "Republican" = "firebrick3",
+                                "Independent" = "darkorchid3")) +
+#  scale_linetype_manual(values = c("Democrat" = "longdash",
+#                                   "Republican" = "solid",
+#                                   "Independent" = "dotted")) +
+  theme(legend.position = c(0.1, 0.7)) +
+  guides(size = FALSE) +
+  labs(x = "Year", 
+       subtitle = "Includes Leaning Independents",
+       y = "Proportion",
+       color = "Party ID",
+       linetype = "Party ID",
+       shape = "Party ID",
+       title = "Proportion of Partisans Dissatisfied With Democracy") #+
+#  facet_wrap(vars(pid_str))
+cdf_dis
+
+
+cdf_above_75 <- ggplot(below_mct_prop_ns, aes(x = year, y = prop_75_above)) +
+ # geom_errorbar(aes(ymin = prop_80_above - se_50_below, ymax = prop_80_above + se_50_below, width = .2)) +
+  geom_line(aes(linetype = pid_3, color = pid_3), size = 1) + 
+  #  geom_smooth(aes(linetype = pid_3, color = pid_3), span = .3, se = FALSE) +
+  geom_point(aes(shape = pid_3, size = 1, color = pid_3)) +
+  scale_color_manual(values = c("Democrat" = "dodgerblue3",
+                                "Republican" = "firebrick3")) +
+  scale_linetype_manual(values = c("Democrat" = "longdash",
+                                   "Republican" = "solid")) +
+  theme(legend.position = c(0.1, 0.7)) +
+  guides(size = FALSE) +
+  labs(x = "Year", 
+       subtitle = "Includes Leaning Independents",
+       y = "Proportion",
+       color = "Party ID",
+       linetype = "Party ID",
+       shape = "Party ID",
+       title = "Proportion of Partisans Above 80 in-party FT")
+cdf_above_75
 
 

@@ -10,6 +10,7 @@ tidy_cdf <- read_rds("data/tidy-cdf.rds")%>%
 
 party_fts <- tidy_cdf%>% # Making a DF of the party-year SD
   filter(pid_3_sort != "Independent" & year != 2002)%>%
+  #filter(str_detect(pid_7, "Strong") & year != 2002)%>%
   select(year,
          weight,
          pid_3_sort,
@@ -143,6 +144,7 @@ ggplot(ridge_df, aes(x = year, y = therm_inparty)) +
 
 npa_parties_df <- tidy_cdf%>% # Making a DF of the party-year SD
   filter(pid_3_sort != "Independent" & year != 2002)%>%
+ # filter(str_detect(pid_7, "Strong") & year != 2002)%>%
   select(year,
          weight,
          pid_3_sort,
@@ -229,8 +231,10 @@ below_mct <- tidy_cdf%>% # MCT = Measure of Central Tendency
   select(year,
          weight,
          pid_3_sort,
-         therm_inparty)%>%
-  filter(pid_3_sort != "Independent" & year != 2002)%>%
+         therm_inparty,
+         pid_str)%>%
+#  filter(pid_3_sort != "Independent" & year != 2002)%>%
+  filter(pid_str == "Strong Partisan" & year != 2002)%>% #just to get strong partisans
   mutate(above_80_dum = if_else(therm_inparty > 80, 1, 0),
          above_mean_sd_dum = if_else(therm_inparty > weighted.mean(therm_inparty, weight, na.rm = TRUE) + radiant.data::weighted.sd(therm_inparty, weight, na.rm = TRUE), 1, 0),
          below_50_dum = if_else(therm_inparty < 50, 1, 0),
@@ -329,3 +333,25 @@ cdf_below_50 <- ggplot(below_mct_prop, aes(x = year, y = prop_50_below)) +
        title = "Proportion of Partisans Below 50 In-Party FT")
 cdf_below_50
 ggsave("fig/cdf-below-50.png", cdf_below_50, width = 8, height = 6, units = "in")
+
+#above 80
+
+cdf_above_80 <- ggplot(below_mct_prop, aes(x = year, y = prop_80_above)) +
+  geom_errorbar(aes(ymin = prop_80_above - se_50_below, ymax = prop_80_above + se_50_below, width = .2)) +
+  geom_line(aes(linetype = pid_3_sort, color = pid_3_sort), size = 1) + 
+  #  geom_smooth(aes(linetype = pid_3_sort, color = pid_3_sort), span = .3, se = FALSE) +
+  geom_point(aes(shape = pid_3_sort, size = 1, color = pid_3_sort)) +
+  scale_color_manual(values = c("Democrat" = "dodgerblue3",
+                                "Republican" = "firebrick3")) +
+  scale_linetype_manual(values = c("Democrat" = "longdash",
+                                   "Republican" = "solid")) +
+  theme(legend.position = c(0.1, 0.7)) +
+  guides(size = FALSE) +
+  labs(x = "Year", 
+       subtitle = "Excludes Leaning Independents",
+       y = "Proportion",
+       color = "Party ID",
+       linetype = "Party ID",
+       shape = "Party ID",
+       title = "Proportion of Partisans Above 80 in-party FT")
+cdf_above_80

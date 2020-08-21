@@ -51,7 +51,12 @@ select(VCF0004,
        VCF0204, #FT Catholics
        VCF0206, #FT Blacks
        VCF0207, #FT Whites
-       VCF0128 # Regligions preference. 1 protestant, 2 catholic, 3 jewish, 4 other/none/dk, 0 na
+       VCF0128, # Regligions preference. 1 protestant, 2 catholic, 3 jewish, 4 other/none/dk, 0 na
+       VCF0604, # Trust in Gov to do what's right 1, never, 2, some of time, 3 most of time, 4 almost always, 9, dk
+       VCF0605, # Gov run for a few interests (1) or benefit of all (2), 9 DK, 0 NA
+       VCF0609, # Officials care what people like R think 1 agree, 2 disagree, 3 neither 9/0 dk/na
+       VCF9222, # are things in this country on the right track (1), or have things gone off on wrong track (2), -8/-9 DK/NA
+       VCF9227, # (1) Larger (2) same, (3) smaller than 20 years ago
        )%>%
 glimpse()%>%
   write_rds("data/raw/cdf-raw-trim.rds")%>%

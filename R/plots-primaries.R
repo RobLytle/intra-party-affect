@@ -114,6 +114,121 @@ primary_dem <- grid.arrange(dem_08,
 primary_dem
 
 ggsave("fig/primary-dem.png", plot = primary_dem, width = 8, height = 6, units = "in")
+
+
+# Republicans
+
+
+#This chunk trims down the big ol' tidy-2016.rds into only Republicans who voted for Bernie or Hillary
+rep_primary <- read_rds("data/tidy-primaries.rds")%>%
+  # filter(pre_pid_3 == "Republican")%>%
+  filter(pre_pid_3 == "Republican")%>%
+  glimpse()
+###########
+###########
+## # #  ###
+# The first chunk of code creates a histogram of Bernie and Hillary voters party FT differences
+base_therm_hist_2016 <- ggplot(rep_primary, aes(x = net_party_affect, y = ..density.., fill = primary_vote_choice, alpha = .1)) + 
+  guides(alpha = FALSE) +
+  geom_density() +
+  theme_bw()+
+  facet_wrap(vars(year)) +
+  xlim(0,100) +
+  scale_color_colorblind() +
+  theme(
+    plot.background = element_blank(),
+    panel.grid.major = element_blank(),
+    panel.grid.minor = element_blank(),
+    panel.border = element_blank())+
+  labs(x = "Net Partisan Affect",
+       y = "Density",
+       alpha = FALSE,
+       fill = "Primary Vote Choice")
+base_therm_hist_2016
+ggsave("fig/therm-hist-2016.png", width = 10, height = 6, units = "in")
+
+#####################
+#####################
+#####################
+
+
+#Wrangles 
+rep_2008_primary <- rep_primary%>%
+  filter(year == 2008)%>%
+  glimpse()
+
+rep_08_means <- rep_2008_primary%>%
+  group_by(primary_vote_choice)%>%
+  summarise(mean_in = mean(pre_therm_rep, na.rm = TRUE))%>%
+  glimpse()
+
+rep_2016_primary <- rep_primary%>%
+  filter(year == 2016)%>%
+  glimpse()
+
+rep_16_means <- rep_2016_primary%>%
+  group_by(primary_vote_choice)%>%
+  summarise(mean_in = mean(pre_therm_rep, na.rm = TRUE))%>%
+  glimpse()
+
+# Plots
+rep_08 <- ggplot(rep_2008_primary, aes(pre_therm_rep, y = ..density..))+
+  geom_density(fill = "darkgrey") +
+  geom_vline(data = rep_08_means, color = "white", aes(xintercept = mean_in)) +
+  guides(alpha = FALSE,
+         fill = FALSE) +
+  facet_wrap(vars(primary_vote_choice))+
+  #  geom_point()+
+  #  theme_bw()+
+  theme(
+    #    plot.background = element_blank(),
+    #    panel.grid.major = element_blank(),
+    #    panel.grid.minor = element_blank(),
+    #    panel.border = element_blank(),
+    #    axis.title.x=element_blank())+
+    axis.text.y=element_blank()) +
+  
+  #    axis.ticks.x=element_blank()) +
+  labs(#subtitle = "2008",
+    y = "2008",
+    x = " ") +
+  xlim(0,100)
+#  ylim(0,100)
+rep_08
+#  geom_vline(data = rep_08_means, mapping = aes(xintercept = ft_rep), alpha = .4) +
+#  geom_hline(data = rep_08_means, mapping = aes(yintercept = ft_rep), alpha = .4) +
+
+#  geom_hline(aes(yintercept = mean(pre_therm_rep)), alpha = .4) +
+#  geom_vline(aes(xintercept = mean(pre_therm_rep)), alpha = .4) +
+
+rep_16 <- ggplot(rep_2016_primary, aes(x = pre_therm_rep, y = ..density..))+
+  geom_density(fill = "darkgrey")+
+  geom_vline(data = rep_16_means, color = "white", aes(xintercept = mean_in)) +
+  facet_wrap(vars(primary_vote_choice)) +
+  guides(alpha = FALSE) +
+  # theme_bw()+
+  theme(
+    #    plot.background = element_blank(),
+    #    panel.grid.major = element_blank(),
+    #    panel.grid.minor = element_blank(),
+    #    panel.border = element_blank(),
+    #    axis.title.x=element_blank())+
+    axis.text.y=element_blank()) +
+  labs(#subtitle = "2016",
+    x = "Republican FT",
+    y = "2016") +
+  xlim(0,100)
+# ylim(0,100)
+rep_16
+
+primary_rep <- grid.arrange(rep_08,
+                            rep_16,
+                            nrow = 2)
+primary_rep
+
+
+
+
 #####
 #__xxXX-GRAVEYARD OF DEPRECATED PLOTS-XXxx__
 #
