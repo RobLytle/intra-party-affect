@@ -75,7 +75,12 @@ anes_char <- anes_raw %>%
 				 therm_cath, #FT Catholics
 				 therm_black, #FT Blacks
 				 therm_white, #FT Whites
-				 VCF0128 # Regligions preference. 1 protestant, 2 catholic, 3 jewish, 4 other/none/dk, 0 na
+				 VCF0128, # Regligions preference. 1 protestant, 2 catholic, 3 jewish, 4 other/none/dk, 0 na
+				 VCF0604, # Trust in Gov to do what's right 1, never, 2, some of time, 3 most of time, 4 almost always, 9, dk
+				 VCF0605, # Gov run for a few interests (1) or benefit of all (2), 9 DK, 0 NA
+				 VCF0609, # Officials care what people like R think 1 agree, 2 disagree, 3 neither 9/0 dk/na
+				 VCF9222, # are things in this country on the right track (1), or have things gone off on wrong track (2), -8/-9 DK/NA
+				 VCF9227, # (1) Larger (2) same, (3) smaller than 20 years ago
 	)%>%
   unite("case", year:case_id, remove = FALSE)%>%
   select(-case_id)%>%
@@ -374,6 +379,23 @@ anes_char <- anes_raw %>%
 												 "4" = "68 -- 95 Percentile",
 												 "5" = "96 -- 100 Percentile"))%>%
 	mutate(income_bottom_third = if_else(income_num <= 3, 1, 0))%>%
+	rename(distrust_gov_num = VCF0604)%>%
+	mutate(distrust_gov = recode(distrust_gov_num,
+														"1" = "Never",
+														"2" = "Some of the Time",
+														"3" = "Most of the Time",
+														"4" = "Almost Always",
+														"9" = NA_character_), #Don't know
+				 distrust_gov = reorder(distrust_gov, distrust_gov_num),
+				 distrust_gov_dum = case_when(distrust_gov_num == 1 | distrust_gov_num == 2 ~ 1,
+				 														 distrust_gov_num == 3 | distrust_gov_num == 4 ~ 0,
+				 														 TRUE ~ NA_real_),
+				 distrust_gov_dum_qual = as.factor(case_when(distrust_gov == "Never" | distrust_gov == "Some of the Time" ~ "Low Trust",
+																					distrust_gov == "Most of the Time" | distrust_gov == "Almost Always" ~ "High Trust",
+									 												TRUE ~ NA_character_)))%>%
+#				 distrust_gov_dum = recode(distrust_gov_dum_qual,
+#				 											 "Low Trust" = "1",
+#				 											 "High Trust" = "0"))%>%
 	select(-ends_with("flag"))%>%
 #	mutate(cult_att = if_else(pid_3_num == 3, (1-cult_att), cult_att))%>%
 #	mutate(econ_att = if_else(pid_3_num == 3, (1-econ_att), econ_att))%>% #DO NOT USE UNLESS YOU ARE WORKING WITH DEMS AND REPS ONLY
