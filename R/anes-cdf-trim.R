@@ -57,6 +57,24 @@ select(VCF0004,
        VCF0609, # Officials care what people like R think 1 agree, 2 disagree, 3 neither 9/0 dk/na
        VCF9222, # are things in this country on the right track (1), or have things gone off on wrong track (2), -8/-9 DK/NA
        VCF9227, # (1) Larger (2) same, (3) smaller than 20 years ago
+       VCF0702,
+       #Behavior items
+       VCF0716, # Straight (2), Split (1) 0dk/na ticket voting
+       VCF0717, #R influence voters? 1 no (1) 2 yes (2) 0na0 ---Same coding
+       VCF0718, # attend political meetings/rallies during campaign?
+       VCF0719, # Work for party or candidate during campaign?
+       VCF0720, # Display candidate Button/sticker
+       VCF0721, # Donate money to party or Candidate?
+       VCF0724, # watch tb programs about campaigns
+       VCF0729, # Correctly identifies party with house majority in washington pre election
+       VCF0730, # correctly identifies house majority after election
+       VCF0731, # Do you ever discuss politics with Family and Friends? 1 yes, 2 no 8dk
+       VCF0733, # How often do you discuss politics 0 - never, 1-7 days 9dkna
+       VCF0736, # Party voted for for house 1 Dem, 5, Rep, 7 other
+       VCF0748, # On or before election day? 1 on , 2 before 9na
+       VCF0705, # Vote for Pres 1 Dem, 2 Rep, 3 other, 0 DK/NA
+       VCF0707, # Vote for house (no "other") 1 dem, 2 rep, 0 NA
+       VCF0708, # Vote for senator 1 Dem, 2 Rep, 0 NA
        )%>%
 glimpse()%>%
   write_rds("data/raw/cdf-raw-trim.rds")%>%

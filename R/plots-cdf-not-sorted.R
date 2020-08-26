@@ -265,7 +265,33 @@ ggsave("fig/cdf-ridge-all-dis.png", cdf_ridge_all_dis, width = 8, height = 6, un
 
 
 
+##### Political Knowledge #####
 
+cdf_ridge_knowledge <- ggplot(ridge_mean_dis, aes(x = therm_parties_mean, 
+                                                y = year_fct, 
+                                                color = "white",
+                                                fill = stat(x))) +
+  geom_density_ridges_gradient(scale = 3, rel_min_height = 0.02, gradient_lwd = 1) +
+  coord_cartesian(clip = "off") +
+  scale_x_continuous(limits = c(0,100), breaks = seq(0, 100, by = 10)) +
+  scale_fill_gradient(
+    low = "blue4",
+    high = "red1")+
+  scale_discrete_manual(aesthetics = "color",
+                        values = c("white")) +
+  geom_vline(xintercept = 50, color = "white") +
+  guides(color = FALSE,
+         fill = FALSE) +
+  labs(title = "Mean Partisan Feeling Thermometer",
+       subtitle = "All Respondents, by satisfaction with Democracy",
+       y = "Year",
+       x = "Feeling Thermometer",
+       caption = " ") +
+  theme(panel.grid.major = element_blank(), 
+        panel.grid.minor = element_blank(),
+        panel.background = element_blank()) +
+  facet_grid(rows = vars(dis_democ_qual))
+cdf_ridge_all_dis 
 
 #### Just In-party
 

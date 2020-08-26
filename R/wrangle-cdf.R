@@ -24,6 +24,7 @@ anes_char <- anes_raw %>%
 	rename(activist_6cat = VCF0723)%>%#val: 1-6 low-high participation 0. DKN/NA
 	rename(ideo_dem = VCF0503)%>% # val: 1-7 lib-con
 	rename(ideo_rep = VCF0504)%>%# val: 1-7 lib-con
+	rename(general_vote = VCF0702)%>%
 	rename(primary_vote = VCF9265)%>%
   rename(therm_dem_old = VCF0201)%>%
   rename(therm_rep_old = VCF0202)%>%
@@ -50,6 +51,7 @@ anes_char <- anes_raw %>%
 				 ideo_dem,
 				 ideo_rep,
 				 primary_vote,
+				 general_vote,
 				 VCF0806, #insurance Government Health Insurance Scale #1-7 Gov ins- Private ins 9DK, 0NA
 				 VCF0809, #jobs Jobs Gurantee, same scale as above
 				 VCF0839, # services Gov should provide 1 (few services)--7 (many services) 9DK, 0NA
@@ -66,7 +68,6 @@ anes_char <- anes_raw %>%
 				 VCF0050a, # iwrpkpre 1(very high)-5(very low)
 				 VCF0050b, # iwrpkpst (same above), take mean
 				 VCF9255, #satisfied_democ 1(very), 2(fairly), 3(not very), 4(not at all) -8,-9NA
-				 VCF0729, #know_house which party has the most seats in house 1(wrong), 2(right), 0NA
 				 VCF9036, #know_sen 1-2(correct), 3-4(wrong), 7-9NA
 				 VCF0104,
 				 therm_dem_old, #FT Democrats (old)
@@ -81,10 +82,27 @@ anes_char <- anes_raw %>%
 				 VCF0609, # Officials care what people like R think 1 agree, 2 disagree, 3 neither 9/0 dk/na
 				 VCF9222, # are things in this country on the right track (1), or have things gone off on wrong track (2), -8/-9 DK/NA
 				 VCF9227, # (1) Larger (2) same, (3) smaller than 20 years ago
+				 #Behavior items
+				 VCF0705,
+				 VCF0708,
+				 VCF0716, # Straight (2), Split (1) 0dk/na ticket voting
+				 VCF0717, #R influence voters? 1 no (1) 2 yes (2) 0na0 ---Same coding
+				 VCF0718, # attend political meetings/rallies during campaign?
+				 VCF0719, # Work for party or candidate during campaign?
+				 VCF0720, # Display candidate Button/sticker
+				 VCF0721, # Donate money to party or Candidate?
+				 VCF0724, # watch tb programs about campaigns
+				 VCF0729, # Correctly identifies party with house majority in washington pre election
+				 VCF0730, # correctly identifies house majority after election
+				 VCF0731, # Do you ever discuss politics with Family and Friends? 1 yes, 5 no 8dk # CODED WRONG, has values 1, 5, 6, 7
+				 VCF0733, # How often do you discuss politics 0 - never, 1-7 days 9dkna
+				 VCF0736, # Party voted for for house 1 Dem, 5, Rep, 7 other
+				 VCF0748, # On or before election day? 1 on , 2 before 9na
 	)%>%
   unite("case", year:case_id, remove = FALSE)%>%
   select(-case_id)%>%
-  mutate(case = as.numeric(str_remove(case, "_")))%>%
+  mutate(case = as.numeric(str_remove(case, "_")),
+  			 pres_election = if_else(year %in% seq(1964, 2016, by=4), 1, 0))%>%
 	rename(female = VCF0104)%>%
   mutate(female = na_if(female, 3))%>%
   mutate(female = na_if(female, 0))%>%
@@ -200,6 +218,7 @@ anes_char <- anes_raw %>%
 																			 "5" = "1"
 	)))%>%
 	mutate(iwrpk_post = zero1(iwrpk_post))%>%
+	mutate(high_knowledge_dum = if_else(iwrpk_post < 3, 1, 0))%>%
 #	mutate(iwrpk_mean = (iwrpk_post + iwrpk_pre)/2)%>%
 	rename(dis_democ = VCF9255)%>%
 	mutate(dis_democ = na_if(dis_democ, -9))%>%
@@ -214,20 +233,18 @@ anes_char <- anes_raw %>%
 																 "0" = "Very/Fairly Satisfied",
 																 "-8" = "Don't Know"))%>%
 	mutate(dis_democ_dum = na_if(dis_democ, -8))%>%
-	rename(know_house = VCF0729)%>%
-	mutate(know_house = na_if(know_house, 0))%>%
-	mutate(know_house = if_else(know_house==1, 1, 0))%>%
+#	mutate(know_house = na_if(VCF0729, 0))%>%
+#	mutate(know_house = if_else(know_house==1, 1, 0))%>%
 	rename(know_sen = VCF9036)%>%
 	mutate(know_sen = na_if(know_sen, 0))%>%
 	mutate(know_sen = if_else(know_sen==1, 1, 0))%>%
-	mutate(know_cong = (know_sen + know_house)/2)%>%
+#	mutate(know_cong = (know_sen + know_house)/2)%>%
 #	rowwise()%>%
 #	mutate(cult_att = mean(c(abortion, gayrights, women), na.rm = TRUE))%>%
 #	mutate(cult_att = (abortion + gayrights + women)/3)%>%
 #	mutate(cult_att = zero1(cult_att))%>%
 #	mutate(econ_att = (ss + services + jobs + insurance)/4)%>%
 #	mutate(econ_att = zero1(econ_att))%>%
-	glimpse()%>%# adds only these variables to the df
 	mutate(win_care_pres = na_if(win_care_pres, 0))%>% #these functions set the specified value to NA, (per the ANES codebook)
 	mutate(win_care_cong = na_if(win_care_cong, 0))%>%
 	mutate(respondent_ideo = na_if(respondent_ideo, 9))%>%#the recode() function is used in the next 4 pipes to apply new values to observation in the columns. ANES uses numerical values to represent factors.
@@ -396,10 +413,106 @@ anes_char <- anes_raw %>%
 #				 distrust_gov_dum = recode(distrust_gov_dum_qual,
 #				 											 "Low Trust" = "1",
 #				 											 "High Trust" = "0"))%>%
+	rename(gov_run_for_few_dum = VCF0605)%>%
+	mutate(gov_run_for_few_dum = as.numeric(recode(gov_run_for_few_dum,
+																			"1" = "1",
+																			"2" = "0",
+																			"9" = "0", #Coding "Don't Know" as 0, since I'm interested in those who think gov is run for few interests. I'm "working against myself" by adding to the denominator of proportion
+																			"0" = NA_character_)))%>%
+	rename(wrong_track_dum = VCF9222)%>%
+	mutate(wrong_track_dum = as.numeric(recode(wrong_track_dum,
+																	"1" = "0",
+																	"2" = "1",
+																	"-8" = "0",
+																	"-9" = NA_character_)))%>%
+	rename(officials_dont_care_dum = VCF0609)%>%
+	mutate(officials_dont_care_dum = as.numeric(recode(officials_dont_care_dum,
+																							"1" = "1",
+																							"2" = "0",
+																							"3" = "0",
+																							"9" = "0",
+																							"0" = NA_character_)))%>%
+	rename(wealth_gap_larger_dum = VCF9227)%>%
+	mutate(wealth_gap_larger_dum = as.numeric(recode(wealth_gap_larger_dum,
+																				"1" = "1",
+																				"2" = "0",
+																				"3" = "0",
+																				"-8" = "0",
+																				"-9" = NA_character_)))%>%
+	mutate(general_vote_dum = as.numeric(recode(general_vote,
+																	 "1" = "0",
+																	 "2" = "1", 
+																	 "0" = NA_character_)))%>% #1 = "Voted"
 	select(-ends_with("flag"))%>%
+	#Behavioral items
+	mutate(split_ticket_dum = as.numeric(recode(VCF0716,
+																	 "1" = "0",
+																	 "2" = "1",
+																	 "0" = NA_character_)),
+				 influence_dum = as.numeric(recode(VCF0717,
+				 																	"1" = "0",
+				 																	"2" = "1",
+				 																	"0" = NA_character_)),
+				 meetings_dum = as.numeric(recode(VCF0718,
+				 																	"1" = "0",
+				 																	"2" = "1",
+				 																	"0" = NA_character_)),
+				 work_cand_dum = as.numeric(recode(VCF0719,
+				 																	"1" = "0",
+				 																	"2" = "1",
+				 																	"0" = NA_character_)),
+				 display_merch_dum = as.numeric(recode(VCF0720,
+				 																	"1" = "0",
+				 																	"2" = "1",
+				 																	"0" = NA_character_)),
+				 donate_dum = as.numeric(recode(VCF0721,
+				 																	"1" = "0",
+				 																	"2" = "1",
+				 																	"0" = NA_character_)),
+				 watch_campaign_tv_dum = as.numeric(recode(VCF0724,
+				 															 "1" = "0",
+				 															 "2" = "1",
+				 															 "0" = NA_character_)),
+				 knows_house_pre_dum = as.numeric(recode(VCF0729,
+				 																					"1" = "0",
+				 																					"2" = "1",
+				 																					"0" = NA_character_)),
+				 knows_house_post_dum = as.numeric(recode(VCF0730,
+				  																					"1" = "0",
+				  																					"2" = "1",
+				  																					"0" = NA_character_)),
+				 talk_politics_most_days_dum = as.numeric(recode(VCF0733,
+				 																					"0" = "0",
+				 																					"1" = "0",
+				 																					"2" = "0",
+				 																					"3" = "0",
+				 																					"4" = "1",
+				 																					"5" = "1",
+				 																					"6" = "1",
+				 																					"7" = "1",
+				 																					"9" = NA_character_)),
+				 early_vote_dum = as.numeric(recode(VCF0748,
+				 																"1" = "0",
+				 																"5" = "1",
+				 																"9" = NA_character_)),
+				 vote_inparty_pres_dum = case_when(pres_election != 1 ~ NA_real_,
+				 																	 pid_3 == "Democrat" & VCF0705 == 1 ~ 1,
+				 																	 pid_3 == "Republican" & VCF0705 == 2 ~ 1,
+				 																	 VCF0705 == 3  & !is.na(VCF0705) ~ 0,
+				 																	 pid_3 != "Independent" ~ 0,
+				 																	 TRUE ~ NA_real_),
+				 vote_inparty_house_dum = case_when(pid_3 == "Democrat" & VCF0736 == 1 ~ 1,
+				 																	 pid_3 == "Republican" & VCF0736 == 5 ~ 1,
+				 																	 pid_3 != "Independent" | VCF0736 == 7 ~ 0,
+				 																	 TRUE ~ NA_real_)
+				 )%>%
+#	select(test,
+#				 talk_politics_dum)%>%
+#	filter(talk_politics_dum == 0 & test != 5)%>%
 #	mutate(cult_att = if_else(pid_3_num == 3, (1-cult_att), cult_att))%>%
 #	mutate(econ_att = if_else(pid_3_num == 3, (1-econ_att), econ_att))%>% #DO NOT USE UNLESS YOU ARE WORKING WITH DEMS AND REPS ONLY
 #	select(-ends_with("_num")) %>%   # drop the numeric versions of the factors that i used for reordering above
+	select(-starts_with("VCF"))%>%
 	glimpse()%>%
 	write_rds("data/tidy-cdf.rds")%>%
 	write_csv("data/tidy-cdf.csv")
