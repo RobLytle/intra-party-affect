@@ -186,7 +186,7 @@ behavior_proportions_lax_df <- read_rds("data/tidy-cdf.rds")%>%
 
 gg_behav_lax_difs <- ggplot(behavior_proportions_lax_df, aes(x = year, y = prop_dif)) +
 	#  geom_errorbar(aes(ymin = prop_50_below - se_50_below, ymax = prop_50_below + se_50_below, width = .2)) +
-	geom_line(aes(linetype = pid_3, color = pid_3), size = 1) + 
+	geom_line(aes(linetype = pid_3, color = pid_3), size = .5) + 
 	#  geom_smooth(aes(linetype = pid_3_sort, color = pid_3_sort), span = .3, se = FALSE) +
 	geom_point(aes(shape = pid_3, size = 1, color = pid_3)) +
 	geom_hline(yintercept = 0) +
