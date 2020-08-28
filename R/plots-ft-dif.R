@@ -175,7 +175,8 @@ behavior_proportions_lax_df <- read_rds("data/tidy-cdf.rds")%>%
 	#	glimpse()
 	#	group_by(year, pid_3, below_50_qual_lax, pres_election)%>% #easy cutoff
 	group_by(year, pid_3, below_50_qual_lax, pres_election)%>% #strict cutoff
-	summarize(prop_vote_general = weighted.mean(general_vote_dum, weight, na.rm = TRUE),
+	summarize(
+						prop_vote_general = weighted.mean(general_vote_dum, weight, na.rm = TRUE),
 						prop_split_ticket = weighted.mean(split_ticket_dum, weight, na.rm = TRUE),
 						prop_meetings = weighted.mean(meetings_dum, weight, na.rm = TRUE),
 						prop_work_cand = weighted.mean(work_cand_dum, weight, na.rm = TRUE),
@@ -187,12 +188,13 @@ behavior_proportions_lax_df <- read_rds("data/tidy-cdf.rds")%>%
 						prop_talk_pol_most = weighted.mean(talk_politics_most_days_dum, weight, na.rm = TRUE),
 						prop_early_vote = weighted.mean(early_vote_dum, weight, na.rm = TRUE),
 						prop_vote_inparty_house = weighted.mean(vote_inparty_house_dum, weight, na.rm = TRUE),
-						prop_vote_inparty_pres = weighted.mean(vote_inparty_pres_dum, weight, na.rm = TRUE))%>%
+						prop_vote_inparty_pres = weighted.mean(vote_inparty_pres_dum, weight, na.rm = TRUE)
+						)%>%
+
 	#	pivot_wider(names_from = below_50_qual_lax,
 	pivot_wider(names_from = below_50_qual_lax,
 							values_from = prop_vote_general:prop_vote_inparty_pres)%>%
 	select(-ends_with("NA"))%>%
-	#	glimpse()
 	pivot_longer(prop_vote_general_cold:prop_vote_inparty_pres_warm, 
 							 names_to = c("prop_name", ".value"), 
 							 names_pattern="(.*)_([a-z]*)")%>%
@@ -202,7 +204,7 @@ behavior_proportions_lax_df <- read_rds("data/tidy-cdf.rds")%>%
 					 prop_name,
 					 pres_election)%>%
 #	summarize(prop_dif = (cold - warm))%>%
-	summarize(prop_dif = (cold - warm)/(cold+warm))%>% #dividing to account for low proportions on some qs
+	summarize(prop_dif = (cold - warm)/(cold+warm),)%>% #dividing to account for low proportions on some qs
 	filter(!is.na(prop_dif))%>%
 	mutate(prop_name = recode(prop_name,
 														"prop_display_merch" = "Display Sticker/Pin",
@@ -310,3 +312,5 @@ gg_polar_prop
 # Look into local/state level behavior
 
 # Primary Behavior
+
+# Barbara Normander are people who vote in primaries different
