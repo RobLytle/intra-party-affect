@@ -6,11 +6,11 @@ library(gridExtra)
 library(janitor)
 theme_set(theme_minimal())
 
-#below_50_dum = if_else(therm_inparty < 50, 1, 0),
+#creating a df whith difference between cold/warm partisans (lax def of cold/warm)
 
 opinion_proportions_df <- read_rds("data/tidy-cdf.rds")%>%
 	filter(year >= 1978 & pid_3 != "Independent")%>%
-	group_by(year, pid_3, below_50_qual)%>%
+	group_by(year, pid_3, below_50_qual_lax)%>%
 	summarize(prop_dissat = weighted.mean(dis_democ_dum, weight, na.rm = TRUE),
 						prop_distrust = weighted.mean(distrust_gov_dum, weight, na.rm = TRUE),
 						prop_gov_few = weighted.mean(gov_run_for_few_dum, weight, na.rm = TRUE),
@@ -18,7 +18,7 @@ opinion_proportions_df <- read_rds("data/tidy-cdf.rds")%>%
 						prop_officials_dont_care = weighted.mean(officials_dont_care_dum, weight, na.rm = TRUE),
 						prop_wealth_gap_larger = weighted.mean(wealth_gap_larger_dum, weight, na.rm = TRUE),
 						prop_vote_general = weighted.mean(general_vote_dum, weight, na.rm = TRUE))%>%
-	pivot_wider(names_from = below_50_qual,
+	pivot_wider(names_from = below_50_qual_lax,
 							values_from = prop_dissat:prop_vote_general)%>%
 	select(-ends_with("NA"))%>%
 	group_by(year, pid_3)%>%
@@ -33,12 +33,19 @@ opinion_proportions_df <- read_rds("data/tidy-cdf.rds")%>%
 							 values_to = "prop_difference")%>%
 	mutate(which_question = as.factor(which_question))%>%
 	filter(!is.na(prop_difference))%>%
+	mutate(which_question = recode(which_question,
+																 "dif_dissat" = "Very/Fairly Dissatisfied With Democracy",
+																 "dif_distrust" = "Distrusts Gov. \"Most\" or \"Almost All\" of the Time",
+																 "dif_gov_few" = "\"Government is run for a few at the top\"",
+																 "dif_offs_dont_care" = "Officials don\'t care what people like me think",
+																 "dif_wealth_gap_larger" = "Wealth gap greater today than 20 years ago",
+																 "dif_wrong_track" = "Country is on Wrong Track"))%>%
 	glimpse()
 
 
-# making the plot
+# Plot of lax differences in behavior
 
-gg_prop_diffs <- ggplot(opinion_proportions_df, aes(x = year, y = prop_difference)) +
+gg_op_lax_diffs <- ggplot(opinion_proportions_df, aes(x = year, y = prop_difference)) +
 	#  geom_errorbar(aes(ymin = prop_50_below - se_50_below, ymax = prop_50_below + se_50_below, width = .2)) +
 	geom_line(aes(linetype = pid_3, color = pid_3), size = 1) + 
 	#  geom_smooth(aes(linetype = pid_3_sort, color = pid_3_sort), span = .3, se = FALSE) +
@@ -51,22 +58,22 @@ gg_prop_diffs <- ggplot(opinion_proportions_df, aes(x = year, y = prop_differenc
 	#                                   "Republican" = "solid",
 	#                                   "Independent" = "dotted")) +
 	facet_wrap(vars(which_question)) +
-	theme(legend.position = c(0.9, 0.2)) +
+	theme(legend.position = c(0.08, 0.85)) +
 	scale_x_continuous(breaks = seq(1976, 2020, by = 4)) +
 	guides(size = FALSE) +
 	labs(x = "Year", 
-#			 subtitle = "Grouped by warmth towards in-party (partisans) or average warmth towards parties (independents)",
+			 subtitle = "cold < 30, Warm > 70 inparty feeling thermometer",
 			 y = "Cold - Warm Proportion",
 			 color = "Party ID",
 			 linetype = "Party ID",
 			 shape = "Party ID",
 			 title = "Differences in Opinion Between Cold and Warm Partisans") #+
-gg_prop_diffs
+gg_op_lax_diffs
 
 #Ideology (party more extreme dummy?)
 #Activism/voting/donating
 
-ggsave("fig/cold-minus-warm-props.png", gg_prop_diffs, width = 12, height = 8, units = "in")
+ggsave("fig/cold-minus-warm-props.png", gg_op_lax_diffs, width = 12, height = 8, units = "in")
 
 
 #####
@@ -114,6 +121,20 @@ behavior_proportions_strict_df <- read_rds("data/tidy-cdf.rds")%>%
 					 	pres_election)%>%
 	summarize(prop_dif = cold - warm)%>%
 	filter(!is.na(prop_dif))%>%
+	mutate(prop_name = recode(prop_name,
+														"prop_display_merch" = "Display Sticker/Pin",
+														"prop_donate" = "Donate to Candidate/Campaign",
+														"prop_early_vote" = "Vote Early",
+														"prop_know_house_post" = "Know Party Won the House",
+														"prop_know_house_pre" = "Know Party in Control Before Election",
+														"prop_meetings" = "Attended Political Meetings/Rallies",
+														"prop_split_ticket" = "Voted Split Ticket",
+														"prop_talk_pol_most" = "Talk about Politics Most Days",
+														"prop_vote_general" = "Voted in General Election",
+														"prop_vote_inparty_house" = "Voted for Inparty House",
+														"prop_vote_inparty_pres" = "Voted Inparty for President",
+														"prop_watch_campaign_tv" = "Watch Campaign Related TV",
+														"prop_work_cand" = "Worked for a Candidate/Campaign"))%>%
 glimpse()
 
 gg_behav_strict_difs <- ggplot(behavior_proportions_strict_df, aes(x = year, y = prop_dif)) +
@@ -134,7 +155,7 @@ gg_behav_strict_difs <- ggplot(behavior_proportions_strict_df, aes(x = year, y =
 										 guide = guide_axis(n.dodge = 2)) +
 	guides(size = FALSE) +
 	labs(x = "Year", 
-			 subtitle = "Behavioral Items",
+			 subtitle = "cold < 30, Warm > 70 inparty feeling thermometer",
 			 y = "Cold - Warm Proportion",
 			 color = "Party ID",
 			 linetype = "Party ID",
@@ -152,8 +173,8 @@ ggsave("fig/strict-cold-minus-warm-behav.png", gg_behav_strict_difs, width = 12,
 behavior_proportions_lax_df <- read_rds("data/tidy-cdf.rds")%>%
 	filter(year >= 1978 & pid_3 != "Independent")%>%
 	#	glimpse()
-	#	group_by(year, pid_3, below_50_qual, pres_election)%>% #easy cutoff
-	group_by(year, pid_3, below_50_qual_strict, pres_election)%>% #strict cutoff
+	#	group_by(year, pid_3, below_50_qual_lax, pres_election)%>% #easy cutoff
+	group_by(year, pid_3, below_50_qual_lax, pres_election)%>% #strict cutoff
 	summarize(prop_vote_general = weighted.mean(general_vote_dum, weight, na.rm = TRUE),
 						prop_split_ticket = weighted.mean(split_ticket_dum, weight, na.rm = TRUE),
 						prop_meetings = weighted.mean(meetings_dum, weight, na.rm = TRUE),
@@ -167,8 +188,8 @@ behavior_proportions_lax_df <- read_rds("data/tidy-cdf.rds")%>%
 						prop_early_vote = weighted.mean(early_vote_dum, weight, na.rm = TRUE),
 						prop_vote_inparty_house = weighted.mean(vote_inparty_house_dum, weight, na.rm = TRUE),
 						prop_vote_inparty_pres = weighted.mean(vote_inparty_pres_dum, weight, na.rm = TRUE))%>%
-	#	pivot_wider(names_from = below_50_qual,
-	pivot_wider(names_from = below_50_qual_strict,
+	#	pivot_wider(names_from = below_50_qual_lax,
+	pivot_wider(names_from = below_50_qual_lax,
 							values_from = prop_vote_general:prop_vote_inparty_pres)%>%
 	select(-ends_with("NA"))%>%
 	#	glimpse()
@@ -180,8 +201,23 @@ behavior_proportions_lax_df <- read_rds("data/tidy-cdf.rds")%>%
 					 pid_3,
 					 prop_name,
 					 pres_election)%>%
-	summarize(prop_dif = cold - warm)%>%
+#	summarize(prop_dif = (cold - warm))%>%
+	summarize(prop_dif = (cold - warm)/(cold+warm))%>% #dividing to account for low proportions on some qs
 	filter(!is.na(prop_dif))%>%
+	mutate(prop_name = recode(prop_name,
+														"prop_display_merch" = "Display Sticker/Pin",
+														"prop_donate" = "Donate to Candidate/Campaign",
+														"prop_early_vote" = "Vote Early",
+														"prop_know_house_post" = "Know Party Won the House",
+														"prop_know_house_pre" = "Know Party in Control Before Election",
+														"prop_meetings" = "Attended Political Meetings/Rallies",
+														"prop_split_ticket" = "Voted Split Ticket",
+														"prop_talk_pol_most" = "Talk about Politics Most Days",
+														"prop_vote_general" = "Voted in General Election",
+														"prop_vote_inparty_house" = "Voted for Inparty House",
+														"prop_vote_inparty_pres" = "Voted Inparty for President",
+														"prop_watch_campaign_tv" = "Watch Campaign Related TV",
+														"prop_work_cand" = "Worked for a Candidate/Campaign"))%>%
 	glimpse()
 
 gg_behav_lax_difs <- ggplot(behavior_proportions_lax_df, aes(x = year, y = prop_dif)) +
@@ -202,7 +238,7 @@ gg_behav_lax_difs <- ggplot(behavior_proportions_lax_df, aes(x = year, y = prop_
 										 guide = guide_axis(n.dodge = 2)) +
 	guides(size = FALSE) +
 	labs(x = "Year", 
-			 subtitle = "Behavioral Items",
+			 subtitle = "Cold < 50, Warm/Indifferent >= 50 inparty feeling thermometer",
 			 y = "Cold - Warm Proportion",
 			 color = "Party ID",
 			 linetype = "Party ID",
@@ -211,3 +247,66 @@ gg_behav_lax_difs <- ggplot(behavior_proportions_lax_df, aes(x = year, y = prop_
 gg_behav_lax_difs
 
 ggsave("fig/lax-cold-minus-warm-behav.png", gg_behav_lax_difs, width = 12, height = 8, units = "in")
+
+
+
+
+## Are cold partisans polarized?
+
+polar_dif_df <- read_rds("data/tidy-cdf.rds")%>%
+	filter(year >= 1978 & year != 2002 & pid_3 != "Independent")%>%
+	mutate(polar_prop_in = therm_inparty/(therm_inparty + therm_outparty),
+				 polar_prop_out = therm_outparty/(therm_inparty + therm_outparty))%>% #possible mutate() bug?
+	select(year, 
+				 pid_3, 
+				 below_50_qual_lax,
+				 weight,
+				 polar_prop_in,
+				 polar_prop_out,
+				 therm_inparty,
+				 therm_outparty)%>%
+	group_by(year,
+					 pid_3,
+					 below_50_qual_lax)%>%
+	summarize(mean_polar_prop_in = weighted.mean(polar_prop_in, weight, na.rm = TRUE),
+						mean_polar_prop_out = weighted.mean(polar_prop_out, weight, na.rm = TRUE))%>%
+	pivot_wider(names_from = below_50_qual_lax,
+							values_from = mean_polar_prop)%>%
+	select(-ends_with("NA"))%>%
+	mutate(prop_dif = cold-warm)%>% #creates a column showing the difference in polar proportion for cold/warm partisans
+	glimpse()
+	
+
+
+gg_polar_prop <- ggplot(polar_dif_df, aes(x = year, y = prop_dif)) +
+	#  geom_errorbar(aes(ymin = prop_50_below - se_50_below, ymax = prop_50_below + se_50_below, width = .2)) +
+	geom_line(aes(linetype = pid_3, color = pid_3), size = .5) + 
+	#  geom_smooth(aes(linetype = pid_3_sort, color = pid_3_sort), span = .3, se = FALSE) +
+	geom_point(aes(shape = pid_3, size = 1, color = pid_3)) +
+	geom_hline(yintercept = 0) +
+	scale_color_manual(values = c("Democrat" = "dodgerblue3",
+																"Republican" = "firebrick3",
+																"Independent" = "darkorchid3")) +
+	#  scale_linetype_manual(values = c("Democrat" = "longdash",
+	#                                   "Republican" = "solid",
+	#                                   "Independent" = "dotted")) +
+#	facet_wrap(vars(prop_name)) +
+	theme(legend.position = c(0.8, 0.1)) +
+	scale_x_continuous(breaks = seq(1976, 2020, by = 4),
+										 guide = guide_axis(n.dodge = 2)) +
+	guides(size = FALSE) +
+	labs(x = "Year", 
+			 subtitle = "Cold < 50, Warm/Indifferent >= 50 inparty feeling thermometer",
+			 y = "Cold - Warm Proportion",
+			 color = "Party ID",
+			 linetype = "Party ID",
+			 shape = "Party ID",
+			 title = "Differences in Behavior Between Cold and Warm Partisans") 
+gg_polar_prop
+
+
+#major outparty vote or thirdparty outparty vote
+
+# Look into local/state level behavior
+
+# Primary Behavior

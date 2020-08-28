@@ -505,11 +505,11 @@ anes_char <- anes_raw %>%
 				 																	 pid_3 == "Republican" & VCF0736 == 5 ~ 1,
 				 																	 pid_3 != "Independent" | VCF0736 == 7 ~ 0,
 				 																	 TRUE ~ NA_real_),
-	 			 below_50_qual = case_when(therm_inparty < 50 & pid_3 != "Independent" ~ "cold",
+	 			 below_50_qual_lax = case_when(therm_inparty < 50 & pid_3 != "Independent" ~ "cold",
 																	 therm_parties_mean < 50 & pid_3 == "Independent" ~ "cold",
 																	 therm_inparty >= 50 | therm_parties_mean >= 50 ~ "warm",
 																	 TRUE ~ NA_character_),
-				 below_50_qual_strict = case_when(therm_inparty < 30  ~ "cold",
+				 below_50_qual_strict = case_when(therm_inparty <= 30  ~ "cold",
 																					therm_inparty >= 70 ~ "warm",
 																					TRUE ~ NA_character_))%>%
 #	select(test,
