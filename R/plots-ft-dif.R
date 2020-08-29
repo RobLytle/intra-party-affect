@@ -4,6 +4,7 @@ library(ggridges)
 library(goji)
 library(gridExtra)
 library(janitor)
+library(diagis)
 theme_set(theme_minimal())
 
 #creating a df whith difference between cold/warm partisans (lax def of cold/warm)
@@ -188,23 +189,36 @@ behavior_proportions_lax_df <- read_rds("data/tidy-cdf.rds")%>%
 						prop_talk_pol_most = weighted.mean(talk_politics_most_days_dum, weight, na.rm = TRUE),
 						prop_early_vote = weighted.mean(early_vote_dum, weight, na.rm = TRUE),
 						prop_vote_inparty_house = weighted.mean(vote_inparty_house_dum, weight, na.rm = TRUE),
-						prop_vote_inparty_pres = weighted.mean(vote_inparty_pres_dum, weight, na.rm = TRUE)
+						prop_vote_inparty_pres = weighted.mean(vote_inparty_pres_dum, weight, na.rm = TRUE),
+						var_vote_general = var(general_vote_dum, na.rm = TRUE),
+						var_split_ticket = var(split_ticket_dum, na.rm = TRUE),
+						var_meetings = var(meetings_dum, na.rm = TRUE),
+						var_work_cand = var(work_cand_dum, na.rm = TRUE),
+						var_display_merch = var(display_merch_dum, na.rm = TRUE),
+						var_donate = var(donate_dum, na.rm = TRUE),
+						var_watch_campaign_tv = var(watch_campaign_tv_dum, na.rm = TRUE),
+						var_know_house_pre = var(knows_house_pre_dum, na.rm = TRUE),
+						var_know_house_post = var(knows_house_post_dum, na.rm = TRUE),
+						var_talk_pol_most = var(talk_politics_most_days_dum, na.rm = TRUE),
+						var_early_vote = var(early_vote_dum, na.rm = TRUE),
+						var_vote_inparty_house = var(vote_inparty_house_dum, na.rm = TRUE),
+						var_vote_inparty_pres = var(vote_inparty_pres_dum, na.rm = TRUE)
 						)%>%
-
 	#	pivot_wider(names_from = below_50_qual_lax,
 	pivot_wider(names_from = below_50_qual_lax,
-							values_from = prop_vote_general:prop_vote_inparty_pres)%>%
+							values_from = prop_vote_general:var_vote_inparty_pres)%>%
 	select(-ends_with("NA"))%>%
-	pivot_longer(prop_vote_general_cold:prop_vote_inparty_pres_warm, 
-							 names_to = c("prop_name", ".value"), 
+	pivot_longer(prop_vote_general_cold:var_vote_inparty_pres_warm, 
+							 names_to = c("stat_name", ".value"), 
 							 names_pattern="(.*)_([a-z]*)")%>%
-	mutate(prop_name = as.factor(prop_name))%>%
+	mutate(stat_name = as.factor(stat_name))%>%
 	group_by(year,
 					 pid_3,
-					 prop_name,
+					 stat_name,
 					 pres_election)%>%
 #	summarize(prop_dif = (cold - warm))%>%
-	summarize(prop_dif = (cold - warm)/(cold+warm),)%>% #dividing to account for low proportions on some qs
+	summarize(prop_dif = (cold - warm)/(cold+warm),
+						se_dif)%>% #dividing to account for low proportions on some qs
 	filter(!is.na(prop_dif))%>%
 	mutate(prop_name = recode(prop_name,
 														"prop_display_merch" = "Display Sticker/Pin",
