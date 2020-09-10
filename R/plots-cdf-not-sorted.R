@@ -121,7 +121,7 @@ gg_mean_ft_ns <- ggplot(cdf_mean_ns, aes(x = year, y = result)) +
          )
 gg_mean_ft_ns
 
-ggsave("fig/cdf-mean-ns.png", mean_ft_ns, width = 6, height = 4, units = "in")
+ggsave("fig/gg-mean-ns.png", gg_mean_ft_ns, width = 6, height = 4, units = "in")
 
 gg_sd_ft_ns <- ggplot(cdf_sd_ns, aes(x = year, y = result, color = group)) +
 #  geom_smooth(aes(linetype = group), span = .3, se=F) + 
@@ -147,7 +147,7 @@ gg_sd_ft_ns <- ggplot(cdf_sd_ns, aes(x = year, y = result, color = group)) +
   guides(size = FALSE)
 gg_sd_ft_ns
 
-ggsave("fig/cdf-sd-ns.png", sd_ft_ns, width = 8, height = 6, units = "in")
+ggsave("fig/gg-sd-ns.png", gg_sd_ft_ns, width = 8, height = 6, units = "in")
 
 
 
@@ -158,7 +158,7 @@ ridge_df_partisan_ns <- tidy_cdf_ns%>%
   mutate(year_fct = fct_rev(as.factor(year)))%>%
   glimpse()
   
-cdf_ridge_ns <- ggplot(ridge_df_partisan_ns, aes(x = therm_inparty, 
+gg_ridge_ns <- ggplot(ridge_df_partisan_ns, aes(x = therm_inparty, 
                                         y = year_fct, 
                                         color = "white",
                                         fill = stat(x),
@@ -185,8 +185,8 @@ cdf_ridge_ns <- ggplot(ridge_df_partisan_ns, aes(x = therm_inparty,
         axis.title.y = element_blank(),
         axis.text.y = element_blank(), #removing y axes since I'm combining two plots
         axis.ticks.y = element_blank())
-cdf_ridge_ns
-ggsave("fig/cdf-ridge-ns.png", cdf_ridge_ns, width = 8, height = 6, units = "in")
+gg_ridge_ns
+ggsave("fig/gg-ridge-ns.png", gg_ridge_ns, width = 8, height = 6, units = "in")
 
 
 # mean ft
@@ -196,7 +196,7 @@ ridge_df_all <- tidy_cdf_ns%>%
   mutate(year_fct = fct_rev(as.factor(year)))%>%
   glimpse()
 
-cdf_ridge_all <- ggplot(ridge_df_all, aes(x = therm_parties_mean, 
+gg_ridge_all <- ggplot(ridge_df_all, aes(x = therm_parties_mean, 
                                                  y = year_fct, 
                                                  color = "white",
                                                  fill = stat(x),
@@ -221,16 +221,16 @@ cdf_ridge_all <- ggplot(ridge_df_all, aes(x = therm_parties_mean,
   theme(panel.grid.major = element_blank(), 
         panel.grid.minor = element_blank(),
         panel.background = element_blank())
-cdf_ridge_all
-ggsave("fig/cdf-ridge-all.png", cdf_ridge_all, width = 8, height = 6, units = "in")
+gg_ridge_all
+ggsave("fig/gg-ridge-all.png", gg_ridge_all, width = 8, height = 6, units = "in")
 
 
-ridge_plots <- grid.arrange(cdf_ridge_all,
-                            cdf_ridge_ns,
+ridge_plots <- grid.arrange(gg_ridge_all,
+                            gg_ridge_ns,
                             ncol = 2)
 ridge_plots
 
-ggsave("fig/cdf-ridge-grid.png", ridge_plots, width = 10, height = 4, units = "in")
+ggsave("fig/gg-ridge-grid.png", ridge_plots, width = 10, height = 4, units = "in")
 
 ###########
 #### Dissatisfaction with Democ.
@@ -242,7 +242,7 @@ ridge_mean_dis <- ridge_mean_all%>%
   glimpse()
 
 
-cdf_ridge_all_dis <- ggplot(ridge_mean_dis, aes(x = therm_parties_mean, 
+gg_ridge_all_dis <- ggplot(ridge_mean_dis, aes(x = therm_parties_mean, 
                                             y = year_fct, 
                                             color = "white",
                                             fill = stat(x))) +
@@ -266,14 +266,14 @@ cdf_ridge_all_dis <- ggplot(ridge_mean_dis, aes(x = therm_parties_mean,
         panel.grid.minor = element_blank(),
         panel.background = element_blank()) +
   facet_grid(rows = vars(dis_democ_qual))
-cdf_ridge_all_dis 
-ggsave("fig/cdf-ridge-all-dis.png", cdf_ridge_all_dis, width = 8, height = 6, units = "in")
+gg_ridge_all_dis 
+ggsave("fig/gg-ridge-all-dis.png", gg_ridge_all_dis, width = 8, height = 6, units = "in")
 
 
 
 ##### Political Knowledge #####
 
-cdf_ridge_knowledge <- ggplot(ridge_mean_dis, aes(x = therm_parties_mean, 
+gg_ridge_knowledge <- ggplot(ridge_mean_dis, aes(x = therm_parties_mean, 
                                                 y = year_fct, 
                                                 color = "white",
                                                 fill = stat(x))) +
@@ -297,7 +297,7 @@ cdf_ridge_knowledge <- ggplot(ridge_mean_dis, aes(x = therm_parties_mean,
         panel.grid.minor = element_blank(),
         panel.background = element_blank()) +
   facet_grid(rows = vars(dis_democ_qual))
-cdf_ridge_knowledge 
+gg_ridge_knowledge 
 
 #### Just In-party
 
@@ -373,7 +373,7 @@ cdf_ridge_ns <- ggplot(ridge_df_ns, aes(x = therm_inparty, y = year_fct, color =
         panel.grid.minor = element_blank(),
         panel.background = element_blank())
 cdf_ridge_ns
-ggsave("fig/cdf-ridge-split-ns.png", cdf_ridge_ns, width = 8, height = 6, units = "in")
+ggsave("fig/gg-ridge-split-ns.png", cdf_ridge_ns, width = 8, height = 6, units = "in")
 
 # ggplot(ridge_df_ns, aes(x = year, y = therm_inparty)) +
 #   geom_point(aes(alpha=.1), position="jitter") +
@@ -415,7 +415,7 @@ cdf_npa_ns <- ggplot(npa_parties_df_ns, aes(x = year, y = result)) +
        shape = " ") +
   theme(legend.position = c(0.2, 0.8))
 cdf_npa_ns
-ggsave("fig/cdf-npa-ns.png", cdf_npa_ns, width = 6, height = 4, units = "in")
+ggsave("fig/gg-npa-ns.png", cdf_npa_ns, width = 6, height = 4, units = "in")
 
 #########
 ### Partisans Below Median
@@ -461,7 +461,7 @@ cdf_below_party_meds_ns <- ggplot(below_med_party_prop_ns, aes(x = year, y = pro
   theme(legend.position = c(0.2, 0.8)) +
   guides(size = FALSE)
 cdf_below_party_meds_ns
-ggsave("fig/cdf-below-parties-ns.png", cdf_below_party_meds_ns, width = 6, height = 4, units = "in")
+ggsave("fig/gg-below-parties-ns.png", cdf_below_party_meds_ns, width = 6, height = 4, units = "in")
 
 #####################################################
 ### Single Median
@@ -484,7 +484,7 @@ below_mct_ns <- tidy_cdf_ns%>% # MCT = Measure of Central Tendency
          below_med_sd_dum = if_else(therm_inparty < spatstat::weighted.median(therm_inparty, weight, na.rm = TRUE) - radiant.data::weighted.sd(therm_inparty, weight, na.rm = TRUE), 1, 0))%>%
   glimpse()
 
-mct_prop_ns <- below_mct_ns%>%
+mct_prop_ns <- below_mct_ns%>% #way more measures here than are needed
   group_by(year, pid_3)%>%
   summarise(prop_mean_below = weighted.mean(below_mean_dum, weight, na.rm = TRUE),
             prop_mean_sd_below = weighted.mean(below_mean_sd_dum, weight, na.rm = TRUE),
@@ -504,7 +504,7 @@ mct_prop_ns <- below_mct_ns%>%
   )%>%
   glimpse()
 
-cdf_med_below_ns <- ggplot(mct_prop_ns, aes(x = year, y = prop_med_below)) +
+gg_med_below_ns <- ggplot(mct_prop_ns, aes(x = year, y = prop_med_below)) +
   geom_errorbar(aes(ymin = prop_med_below - 2*se_med_below, ymax = prop_med_below + 2*se_med_below, width = .2)) +
   geom_line(aes(linetype = pid_3, color = pid_3), size = 1) +
   geom_point(aes(shape = pid_3, size = 1, color = pid_3)) +
@@ -519,8 +519,8 @@ cdf_med_below_ns <- ggplot(mct_prop_ns, aes(x = year, y = prop_med_below)) +
        title = "Proportion of Partisans Below Global Median In-Party FT",
        subtitle = "Includes Leaning Independents",
        shape = "Party ID")
-cdf_med_below_ns
-ggsave("fig/cdf-below-med-ns.png", cdf_med_below_ns, width = 6, height = 4, units = "in")
+gg_med_below_ns
+ggsave("fig/gg-below-med-ns.png", gg_med_below_ns, width = 6, height = 4, units = "in")
 
 
 ### Below 50:
@@ -546,10 +546,10 @@ gg_below_50_ns <- ggplot(mct_prop_ns, aes(x = year, y = prop_50_below)) +
 #  facet_wrap(vars(pid_str))
 gg_below_50_ns
 
-ggsave("fig/cdf-below-50-ns.png", cdf_below_50_ns, width = 8, height = 6, units = "in")
+ggsave("fig/gg-below-50-ns.png", gg_below_50_ns, width = 8, height = 6, units = "in")
 
 #above 75
-gg_above_75 <- ggplot(mct_prop_ns, aes(x = year, y = prop_75_above)) +
+gg_above_75_ns <- ggplot(mct_prop_ns, aes(x = year, y = prop_75_above)) +
   geom_errorbar(aes(ymin = prop_80_above - 2*se_50_below, ymax = prop_80_above + 2*se_50_below, width = .2)) +
   geom_line(aes(linetype = pid_3, color = pid_3), size = 1) + 
   #  geom_smooth(aes(linetype = pid_3, color = pid_3), span = .3, se = FALSE) +
@@ -567,6 +567,7 @@ gg_above_75 <- ggplot(mct_prop_ns, aes(x = year, y = prop_75_above)) +
        linetype = "Party ID",
        shape = "Party ID",
        title = "Proportion of Partisans Above 75 in-party FT")
-gg_above_75
+gg_above_75_ns
 
+ggsave("fig/gg-below-50-ns.png", gg_above_75_ns, width = 8, height = 6, units = "in")
 
