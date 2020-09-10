@@ -8,16 +8,13 @@ This project is in-progress; figures and findings are not final.
 
 
 ## Since 2004, average in-party therms have declined, though are still relatively high
-![Particularly for Republicans, in-party therms have declined](fig/cdf-mean.png)
 ![Particularly for Republicans, in-party therms have declined](fig/cdf-mean-ns.png)
 
 ## In-party feeling thermometer standard deviation has also seen a modest increase since 2004
-![increasing in-party FT SD since 2004](fig/cdf-sd.png)
 ![increasing in-party FT SD since 2004](fig/cdf-sd-ns.png)
 
 ## The shifting distribution of in-party thermometers
 ![fattening left-tails in in-party therms](fig/cdf-ridge-ns.png)
-
 
 ## Looking at the mean partisan feeling thermometer of all respondents, the shift from warm to cold is especially apparent
 ![The distribution of mean partisan feeling thermometers has shifted from right to left skew](fig/cdf-ridge-all.png)
