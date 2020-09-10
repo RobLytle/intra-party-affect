@@ -569,5 +569,5 @@ gg_above_75_ns <- ggplot(mct_prop_ns, aes(x = year, y = prop_75_above)) +
        title = "Proportion of Partisans Above 75 in-party FT")
 gg_above_75_ns
 
-ggsave("fig/gg-below-50-ns.png", gg_above_75_ns, width = 8, height = 6, units = "in")
+ggsave("fig/gg-above-70-ns.png", gg_above_75_ns, width = 8, height = 6, units = "in")
 
