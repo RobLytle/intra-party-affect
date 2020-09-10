@@ -30,8 +30,9 @@ cdf_trimmed <- tidy_cdf_ns%>% #I don't need 2020 data in all of these figures, s
          )%>%
   glimpse()
 
-cdf_extended <- rbind(cdf_trimmed,
-                       anes_2020)%>%
+cdf_extended <- rbind(cdf_trimmed, #don't use this, 2020 pilot not intended for cross-year comparison
+                       anes_2020
+                      )%>%
   glimpse()
 
 party_fts_ns <- tidy_cdf_ns%>% # Making a DF of the party-year SD
@@ -185,7 +186,8 @@ ggsave("fig/cdf-ridge-ns.png", cdf_ridge_ns, width = 8, height = 6, units = "in"
 
 
 # mean ft
-ridge_df_all <- cdf_extended%>%
+ridge_df_all <- tidy_cdf_ns%>%
+#ridge_df_all <- cdf_extended%>%
   filter(year != 2002)%>%
   mutate(year_fct = fct_rev(as.factor(year)))%>%
   glimpse()
@@ -461,8 +463,8 @@ ggsave("fig/cdf-below-parties-ns.png", cdf_below_party_meds_ns, width = 6, heigh
 ### Single Median
 ###
 
-#below_mct_ns <- tidy_cdf_ns%>% # MCT = Measure of Central Tendency
-below_mct_ns <- cdf_extended%>% # with 2020
+below_mct_ns <- tidy_cdf_ns%>% # MCT = Measure of Central Tendency
+#below_mct_ns <- cdf_extended%>% # with 2020
   select(year,
          weight,
          pid_3,
@@ -478,7 +480,7 @@ below_mct_ns <- cdf_extended%>% # with 2020
          below_med_sd_dum = if_else(therm_inparty < spatstat::weighted.median(therm_inparty, weight, na.rm = TRUE) - radiant.data::weighted.sd(therm_inparty, weight, na.rm = TRUE), 1, 0))%>%
   glimpse()
 
-below_mct_prop_ns <- below_mct_ns%>%
+mct_prop_ns <- below_mct_ns%>%
   group_by(year, pid_3)%>%
   summarise(prop_mean_below = weighted.mean(below_mean_dum, weight, na.rm = TRUE),
             prop_mean_sd_below = weighted.mean(below_mean_sd_dum, weight, na.rm = TRUE),
@@ -498,7 +500,7 @@ below_mct_prop_ns <- below_mct_ns%>%
   )%>%
   glimpse()
 
-cdf_med_below_ns <- ggplot(below_mct_prop_ns, aes(x = year, y = prop_med_below)) +
+cdf_med_below_ns <- ggplot(mct_prop_ns, aes(x = year, y = prop_med_below)) +
   geom_point(aes(shape = pid_3, size = 1, color = pid_3)) +
   geom_errorbar(aes(ymin = prop_med_below - se_med_below, ymax = prop_med_below + se_med_below, width = .2)) +
   geom_smooth(aes(linetype = pid_3, color = pid_3), span = .3, se = FALSE) +
@@ -515,7 +517,7 @@ cdf_med_below_ns
 ggsave("fig/cdf-below-med-ns.png", cdf_med_below_ns, width = 6, height = 4, units = "in")
 
 
-cdf_below_mean_sd_ns <- ggplot(below_mct_prop_ns, aes(x = year, y = prop_mean_sd_below)) +
+cdf_below_mean_sd_ns <- ggplot(mct_prop_ns, aes(x = year, y = prop_mean_sd_below)) +
   geom_point(aes(shape = pid_3, size = 1, color = pid_3)) +
   geom_errorbar(aes(ymin = prop_mean_sd_below - se_mean_sd_below, ymax = prop_mean_sd_below + se_mean_sd_below, width = .2)) +
   geom_smooth(aes(linetype = pid_3, color = pid_3), span = .3, se = FALSE) +
@@ -535,7 +537,7 @@ ggsave("fig/cdf-below-mean-sd-ns.png", cdf_below_mean_sd_ns, width = 6, height =
 
 ### Above 80:
 
-cdf_above_80_ns <- ggplot(below_mct_prop_ns, aes(x = year, y = prop_80_above)) +
+cdf_above_80_ns <- ggplot(mct_prop_ns, aes(x = year, y = prop_80_above)) +
   geom_point(aes(shape = pid_3, size = 1, color = pid_3)) +
   geom_errorbar(aes(ymin = prop_80_above - se_80_above, ymax = prop_80_above + se_80_above, width = .2)) +
   geom_smooth(aes(linetype = pid_3, color = pid_3), span = .3, se = FALSE) +
@@ -556,7 +558,7 @@ ggsave("fig/cdf-above-80-ns.png", cdf_above_80_ns, width = 8, height = 6, units 
 
 ### Above Mean + SD
 
-cdf_above_mean_sd_ns <- ggplot(below_mct_prop_ns, aes(x = year, y = prop_mean_sd_above)) +
+cdf_above_mean_sd_ns <- ggplot(mct_prop_ns, aes(x = year, y = prop_mean_sd_above)) +
   geom_point(aes(shape = pid_3, size = 1, color = pid_3)) +
   geom_errorbar(aes(ymin = prop_mean_sd_above - se_mean_sd_above, ymax = prop_mean_sd_above + se_mean_sd_above, width = .2)) +
   geom_smooth(aes(linetype = pid_3, color = pid_3), span = .3, se = FALSE) +
@@ -578,7 +580,7 @@ ggsave("fig/cdf-above-mean-sd-ns.png", cdf_below_mean_sd_ns, width = 6, height =
 
 ### Below 50:
 
-cdf_below_50_ns <- ggplot(below_mct_prop_ns, aes(x = year, y = prop_50_below)) +
+cdf_below_50_ns <- ggplot(mct_prop_ns, aes(x = year, y = prop_50_below)) +
   geom_errorbar(aes(ymin = prop_50_below - se_50_below, ymax = prop_50_below + se_50_below, width = .2)) +
   geom_line(aes(linetype = pid_3, color = pid_3), size = 1) + 
   #  geom_smooth(aes(linetype = pid_3_sort, color = pid_3_sort), span = .3, se = FALSE) +
@@ -673,42 +675,7 @@ prop_strong <- ggplot(prop_strong_df, aes(x = year, y = prop_strong)) +
 #  facet_wrap(vars(pid_str))
 prop_strong
 
-
-prop_dissatisfied <- tidy_cdf_ns%>%
-  filter(year >= 2004)%>%
-  select(year,
-         weight,
-         dis_democ_dum,
-         pid_3)%>%
-  group_by(year, pid_3)%>%
-  summarize(prop_dis = weighted.mean(dis_democ_dum, weight, na.rm = TRUE))%>%
-  glimpse()
-
-cdf_dis <- ggplot(prop_dissatisfied, aes(x = year, y = prop_dis)) +
-#  geom_errorbar(aes(ymin = prop_50_below - se_50_below, ymax = prop_50_below + se_50_below, width = .2)) +
-  geom_line(aes(linetype = pid_3, color = pid_3), size = 1) + 
-  #  geom_smooth(aes(linetype = pid_3_sort, color = pid_3_sort), span = .3, se = FALSE) +
-  geom_point(aes(shape = pid_3, size = 1, color = pid_3)) +
-  scale_color_manual(values = c("Democrat" = "dodgerblue3",
-                                "Republican" = "firebrick3",
-                                "Independent" = "darkorchid3")) +
-#  scale_linetype_manual(values = c("Democrat" = "longdash",
-#                                   "Republican" = "solid",
-#                                   "Independent" = "dotted")) +
-  theme(legend.position = c(0.1, 0.7)) +
-  guides(size = FALSE) +
-  labs(x = "Year", 
-       subtitle = "Includes Leaning Independents",
-       y = "Proportion",
-       color = "Party ID",
-       linetype = "Party ID",
-       shape = "Party ID",
-       title = "Proportion of Partisans Dissatisfied With Democracy") #+
-#  facet_wrap(vars(pid_str))
-cdf_dis
-
-
-cdf_above_75 <- ggplot(below_mct_prop_ns, aes(x = year, y = prop_75_above)) +
+cdf_above_75 <- ggplot(mct_prop_ns, aes(x = year, y = prop_75_above)) +
  # geom_errorbar(aes(ymin = prop_80_above - se_50_below, ymax = prop_80_above + se_50_below, width = .2)) +
   geom_line(aes(linetype = pid_3, color = pid_3), size = 1) + 
   #  geom_smooth(aes(linetype = pid_3, color = pid_3), span = .3, se = FALSE) +
@@ -717,7 +684,7 @@ cdf_above_75 <- ggplot(below_mct_prop_ns, aes(x = year, y = prop_75_above)) +
                                 "Republican" = "firebrick3")) +
   scale_linetype_manual(values = c("Democrat" = "longdash",
                                    "Republican" = "solid")) +
-  theme(legend.position = c(0.1, 0.7)) +
+  theme(legend.position = c(0.8, 0.9)) +
   guides(size = FALSE) +
   labs(x = "Year", 
        subtitle = "Includes Leaning Independents",
@@ -725,7 +692,7 @@ cdf_above_75 <- ggplot(below_mct_prop_ns, aes(x = year, y = prop_75_above)) +
        color = "Party ID",
        linetype = "Party ID",
        shape = "Party ID",
-       title = "Proportion of Partisans Above 80 in-party FT")
+       title = "Proportion of Partisans Above 75 in-party FT")
 cdf_above_75
 
 

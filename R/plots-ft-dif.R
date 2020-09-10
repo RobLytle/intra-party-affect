@@ -142,7 +142,7 @@ gg_behav_strict_difs <- ggplot(behavior_proportions_strict_df, aes(x = year, y =
 	#  geom_errorbar(aes(ymin = prop_50_below - se_50_below, ymax = prop_50_below + se_50_below, width = .2)) +
 	geom_line(aes(linetype = pid_3, color = pid_3), size = 1) + 
 	#  geom_smooth(aes(linetype = pid_3_sort, color = pid_3_sort), span = .3, se = FALSE) +
-	geom_point(aes(shape = pid_3, size = 1, color = pid_3)) +
+	geom_point(aes(shape = pid_3, color = pid_3)) +
 	geom_hline(yintercept = 0) +
 	scale_color_manual(values = c("Democrat" = "dodgerblue3",
 																"Republican" = "firebrick3",
@@ -176,7 +176,7 @@ behavior_proportions_lax_df <- read_rds("data/tidy-cdf.rds")%>%
 	#	glimpse()
 	#	group_by(year, pid_3, below_50_qual_lax, pres_election)%>% #easy cutoff
 	group_by(year, 
-#					 pid_3, 
+					 pid_3, 
 					 below_50_qual_lax, 
 					 pres_election)%>% #strict cutoff
 	summarize(
@@ -216,7 +216,7 @@ behavior_proportions_lax_df <- read_rds("data/tidy-cdf.rds")%>%
 							 names_pattern="(.*)_([a-z]*)")%>%
 	mutate(stat_name = as.factor(stat_name))%>%
 	group_by(year,
-#					 pid_3,
+					 pid_3,
 					 stat_name,
 					 pres_election)%>%
 #	summarize(prop_dif = (cold - warm))%>%
@@ -244,15 +244,13 @@ behavior_proportions_lax_df <- read_rds("data/tidy-cdf.rds")%>%
 gg_behav_lax_difs <- ggplot(behavior_proportions_lax_df, aes(x = year, y = prop_dif)) +
 	#  geom_errorbar(aes(ymin = prop_50_below - se_50_below, ymax = prop_50_below + se_50_below, width = .2)) +
 	geom_line(aes(linetype = pid_3, color = pid_3)) + 
-	geom_line() + 
-	
 	#  geom_smooth(aes(linetype = pid_3_sort, color = pid_3_sort), span = .3, se = FALSE) +
-#	geom_point(aes(shape = pid_3, size = 1, color = pid_3)) +
-	geom_point(aes()) +
+	geom_point(aes(shape = pid_3, color = pid_3)) +
+#	geom_point(aes()) +
 	geom_hline(yintercept = 0) +
-#	scale_color_manual(values = c("Democrat" = "dodgerblue3",
-#																"Republican" = "firebrick3",
-#																"Independent" = "darkorchid3")) +
+	scale_color_manual(values = c("Democrat" = "dodgerblue3",
+																"Republican" = "firebrick3",
+																"Independent" = "darkorchid3")) +
 	#  scale_linetype_manual(values = c("Democrat" = "longdash",
 	#                                   "Republican" = "solid",
 	#                                   "Independent" = "dotted")) +
@@ -276,24 +274,29 @@ ggsave("fig/lax-cold-minus-warm-behav.png", gg_behav_lax_difs, width = 12, heigh
 
 
 ## Are cold partisans polarized?
-
+#takes the "affective proportion (in/out+in),(out/out+in) for cold and warm partisans
 polar_dif_df <- read_rds("data/tidy-cdf.rds")%>%
 	filter(year >= 1978 & year != 2002 & pid_3 != "Independent")%>%
-	mutate(polar_prop_in = therm_inparty/(therm_inparty + therm_outparty),
-				 polar_prop_out = therm_outparty/(therm_inparty + therm_outparty))%>% #possible mutate() bug?
+	mutate(polar_prop_inparty = therm_inparty/(therm_inparty + therm_outparty),
+				 polar_prop_outparty = therm_outparty/(therm_inparty + therm_outparty))%>% #possible mutate() bug?
 	select(year, 
 				 pid_3, 
 				 below_50_qual_lax,
 				 weight,
-				 polar_prop_in,
-				 polar_prop_out,
+				 polar_prop_inparty,
+				 polar_prop_outparty,
 				 therm_inparty,
 				 therm_outparty)%>%
 	group_by(year,
 					 pid_3,
-					 below_50_qual_lax)%>%
-	summarize(mean_polar_prop_in = weighted.mean(polar_prop_in, weight, na.rm = TRUE),
-						mean_polar_prop_out = weighted.mean(polar_prop_out, weight, na.rm = TRUE))%>%
+					 below_50_qual_lax
+					 )%>%
+	summarize(mean_polar_prop_inparty = weighted.mean(polar_prop_inparty, weight, na.rm = TRUE),
+						mean_polar_prop_outparty = weighted.mean(polar_prop_outparty, weight, na.rm = TRUE))%>%
+	glimpse()%>%
+	pivot_longer(cols = mean_polar_prop_inparty:mean_polar_prop_outparty,
+							 names_to = c(".value", "stat_name"), 
+							 names_pattern="(.*)_([a-z]*)")%>%
 	pivot_wider(names_from = below_50_qual_lax,
 							values_from = mean_polar_prop)%>%
 	select(-ends_with("NA"))%>%
