@@ -3,9 +3,11 @@ library(ggExtra)
 library(ggridges)
 library(goji)
 library(gridExtra)
+library(ggpubr)
 library(janitor)
 library(diagis)
 library(forcats)
+library(cowplot)
 theme_set(theme_minimal())
 
 #creating a df whith difference between cold/warm partisans (lax def of cold/warm)
@@ -278,66 +280,6 @@ gg_behav_lax_difs
 ggsave("fig/lax-cold-minus-warm-behav.png", gg_behav_lax_difs, width = 12, height = 8, units = "in")
 
 
-
-
-## Are cold partisans polarized?
-#takes the "affective proportion (in/out+in),(out/out+in) for cold and warm partisans
-polar_dif_df <- read_rds("data/tidy-cdf.rds")%>%
-	filter(year >= 1978 & year != 2002 & pid_3 != "Independent")%>%
-	mutate(polar_prop_inparty = therm_inparty/(therm_inparty + therm_outparty),
-				 polar_prop_outparty = therm_outparty/(therm_inparty + therm_outparty))%>% #possible mutate() bug?
-	select(year, 
-				 pid_3, 
-				 below_50_qual_lax,
-				 weight,
-				 polar_prop_inparty,
-				 polar_prop_outparty,
-				 therm_inparty,
-				 therm_outparty)%>%
-	group_by(year,
-					 pid_3,
-					 below_50_qual_lax
-					 )%>%
-	summarize(mean_polar_prop_inparty = weighted.mean(polar_prop_inparty, weight, na.rm = TRUE),
-						mean_polar_prop_outparty = weighted.mean(polar_prop_outparty, weight, na.rm = TRUE))%>%
-	glimpse()%>%
-	pivot_longer(cols = mean_polar_prop_inparty:mean_polar_prop_outparty,
-							 names_to = c(".value", "stat_name"), 
-							 names_pattern="(.*)_([a-z]*)")%>%
-	pivot_wider(names_from = below_50_qual_lax,
-							values_from = mean_polar_prop)%>%
-	select(-ends_with("NA"))%>%
-	mutate(prop_dif = cold-warm)%>% #creates a column showing the difference in polar proportion for cold/warm partisans
-	glimpse()
-	
-
-
-gg_polar_prop <- ggplot(polar_dif_df, aes(x = year, y = prop_dif)) +
-	#  geom_errorbar(aes(ymin = prop_50_below - se_50_below, ymax = prop_50_below + se_50_below, width = .2)) +
-	geom_line(aes(linetype = pid_3, color = pid_3), size = .5) + 
-	#  geom_smooth(aes(linetype = pid_3_sort, color = pid_3_sort), span = .3, se = FALSE) +
-	geom_point(aes(shape = pid_3, size = 1, color = pid_3)) +
-	geom_hline(yintercept = 0) +
-	scale_color_manual(values = c("Democrat" = "dodgerblue3",
-																"Republican" = "firebrick3",
-																"Independent" = "darkorchid3")) +
-	#  scale_linetype_manual(values = c("Democrat" = "longdash",
-	#                                   "Republican" = "solid",
-	#                                   "Independent" = "dotted")) +
-#	facet_wrap(vars(prop_name)) +
-	theme(legend.position = c(0.8, 0.1)) +
-	scale_x_continuous(breaks = seq(1976, 2020, by = 4),
-										 guide = guide_axis(n.dodge = 2)) +
-	guides(size = FALSE) +
-	labs(x = "Year", 
-			 subtitle = "Cold < 50, Warm/Indifferent >= 50 inparty feeling thermometer",
-			 y = "Cold - Warm Proportion",
-			 color = "Party ID",
-			 linetype = "Party ID",
-			 shape = "Party ID",
-			 title = "Differences in Behavior Between Cold and Warm Partisans") 
-gg_polar_prop
-
 ##
 # All years pooled
 ##
@@ -350,42 +292,43 @@ opinion_pooled_df <- read_rds("data/tidy-cdf.rds")%>%
 						prop_gov_few = weighted.mean(gov_run_for_few_dum, weight, na.rm = TRUE),
 						prop_wrong_track = weighted.mean(wrong_track_dum, weight, na.rm = TRUE),
 						prop_officials_dont_care = weighted.mean(officials_dont_care_dum, weight, na.rm = TRUE),
-						prop_wealth_gap_larger = weighted.mean(wealth_gap_larger_dum, weight, na.rm = TRUE),
-						prop_vote_general = weighted.mean(general_vote_dum, weight, na.rm = TRUE))%>%
+						prop_wealth_gap_larger = weighted.mean(wealth_gap_larger_dum, weight, na.rm = TRUE))%>%
 	pivot_wider(names_from = below_50_qual_lax,
-							values_from = prop_dissat:prop_vote_general)%>%
+							values_from = prop_dissat:prop_wealth_gap_larger)%>%
 	select(-ends_with("NA"))%>%
-	group_by(pid_3)%>%
-	summarize(dif_dissat = prop_dissat_cold - prop_dissat_warm,
-						dif_distrust = prop_distrust_cold - prop_distrust_warm,
-						dif_gov_few = prop_gov_few_cold - prop_gov_few_warm,
-						dif_wrong_track = prop_wrong_track_cold - prop_wrong_track_warm,
-						dif_offs_dont_care = prop_officials_dont_care_cold - prop_officials_dont_care_warm,
-						dif_wealth_gap_larger = prop_wealth_gap_larger_cold - prop_wealth_gap_larger_warm)%>%
-	pivot_longer(cols = dif_dissat:dif_wealth_gap_larger,
-							 names_to = "which_question",
-							 values_to = "prop_difference")%>%
+	pivot_longer(prop_dissat_cold:prop_wealth_gap_larger_warm, 
+							 names_to = c("which_question", ".value"), 
+							 names_pattern="(.*)_([a-z]*)")%>%
+	mutate(which_question = as.factor(which_question))%>%
+	group_by(
+		pid_3,
+		which_question)%>%
+	#	summarize(prop_dif = (cold - warm))%>%
+	summarize(prop_difference = (cold - warm)/(cold+warm)#difference is divided to normalize
+						#	se_dif
+	)%>% 
 	mutate(which_question = as.factor(which_question))%>%
 	filter(!is.na(prop_difference))%>%
 	mutate(which_question = recode(which_question,
-																 "dif_dissat" = "Very/Fairly Dissatisfied With Democracy",
-																 "dif_distrust" = "Distrusts Gov. \"Most\" or \"Almost All\" of the Time",
-																 "dif_gov_few" = "\"Government is run for a few at the top\"",
-																 "dif_offs_dont_care" = "Officials don\'t care what people like me think",
-																 "dif_wealth_gap_larger" = "Wealth gap greater today than 20 years ago",
-																 "dif_wrong_track" = "Country is on Wrong Track"))%>%
+																 "prop_dissat" = "Very/Fairly Dissatisfied With Democracy",
+																 "prop_distrust" = "Distrusts Gov. \"Most\" or \"Almost All\" of the Time",
+																 "prop_gov_few" = "\"Government is run for a few at the top\"",
+																 "prop_officials_dont_care" = "Officials don\'t care what people like me think",
+																 "prop_wealth_gap_larger" = "Wealth gap greater today than 20 years ago",
+																 "prop_wrong_track" = "Country is on Wrong Track"))%>%
 	mutate(which_question = reorder(which_question, prop_difference))%>%
 	glimpse()
 
-gg_opinion_pooled <- ggplot(opinion_pooled_df, aes(x = prop_difference, y = fct_relabel(which_question, str_wrap, width = 15))) +
+gg_opinion_pooled <- ggplot(opinion_pooled_df, aes(x = prop_difference, y = fct_relabel(which_question, str_wrap, width = 20))) +
 	geom_point(aes(color = pid_3, shape = pid_3), size = 3) +
 	scale_color_manual(values = c("Democrat" = "dodgerblue3",
 																"Republican" = "firebrick3")) +
 	geom_vline(xintercept = 0.00) +
+	scale_x_continuous(limits = c(-.3, .3), n.breaks = 6) +
 	labs(x = "Difference",
 			 y = "Question",
-			 title = "Difference in Proportion Whom Agree\n between Cold/Warm Partisans",
-			 subtitle = "Cold - Warm",
+#			 title = "Difference in Proportion Whom Agree\n between Cold/Warm Partisans",
+			 subtitle = "Opinion Items",
 			 color = "Party",
 			 shape = "Party")
 gg_opinion_pooled
@@ -465,20 +408,41 @@ behavior_pooled_df <- read_rds("data/tidy-cdf.rds")%>%
 	glimpse()
 ###
 
-gg_behavior_pooled <- ggplot(behavior_pooled_df, aes(x = prop_difference, y = fct_relabel(which_question, str_wrap, width = 15))) +
+gg_behavior_pooled <- ggplot(behavior_pooled_df, aes(x = prop_difference, y = fct_relabel(which_question, str_wrap, width = 20))) +
 	geom_point(aes(color = pid_3, shape = pid_3), size = 3) +
 	scale_color_manual(values = c("Democrat" = "dodgerblue3",
 																"Republican" = "firebrick3")) +
 	geom_vline(xintercept = 0.00) +
+	scale_x_continuous(limits = c(-.3, .3), n.breaks = 6) +
 	labs(x = "Difference",
 			 y = "Question",
-			 title = "Difference in Proportion Whom Agree\n between Cold/Warm Partisans",
+#			 title = "Difference in Proportion Whom Agree\n between Cold/Warm Partisans",
 			 subtitle = "Behavior and Knowledge Items",
 			 color = "Party",
 			 shape = "Party")
 gg_behavior_pooled
 
 ggsave("fig/gg-pooled-behavior.png", gg_behavior_pooled, width = 6, height = 8, units = "in")
+
+p1 <- gg_opinion_pooled + theme(legend.position = "none",
+													axis.title.x = element_blank(),
+													axis.title.y = element_blank(),
+													axis.text.x = element_blank())
+p2 <- gg_behavior_pooled + theme(legend.position="none",
+													axis.title.x = element_blank(),
+													axis.title.y = element_blank(),
+													axis.text.x = element_blank(),)
+
+pg <- plot_grid(p1, p2,  align = "v", nrow = 2, rel_heights = c(1/4, 3/4), label_x = "Difference") 
+pg
+
+
+gg_pooled_combined <- grid.arrange(arrangeGrob(pg,
+												 top = text_grob("Differences Between Cold/Warm Partisans", vjust = 1, face = "bold"),
+												 left = text_grob("Question Asked", rot = 90, vjust = 1)))
+gg_pooled_combined
+ggsave("fig/gg-pooled-combined.png", gg_pooled_combined, width = 4, height = 10, units = "in")
+
 
 #major outparty vote or thirdparty outparty vote
 
