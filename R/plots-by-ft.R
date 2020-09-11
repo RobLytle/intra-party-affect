@@ -269,3 +269,5 @@ gg_by_ft <- grid.arrange(gg_distrust,
 						 ncol = 2)
 gg_by_ft
 ggsave("fig/timeseries-by-ft.png", gg_by_ft, width = 12, height = 12, units = "in")
+
+

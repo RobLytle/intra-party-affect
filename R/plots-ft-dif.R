@@ -5,12 +5,19 @@ library(goji)
 library(gridExtra)
 library(janitor)
 library(diagis)
+library(forcats)
 theme_set(theme_minimal())
 
 #creating a df whith difference between cold/warm partisans (lax def of cold/warm)
 
+fct_wrap <- function(f, ...) {
+	base::levels(f) <- stringr::str_wrap(base::levels(f), ...)
+	f
+}
+
 opinion_proportions_df <- read_rds("data/tidy-cdf.rds")%>%
 	filter(year >= 1978 & pid_3 != "Independent")%>%
+	mutate(ltet_2004 = if_else(year <= 2004, 1, 0))%>%
 	group_by(year, pid_3, below_50_qual_lax)%>%
 	summarize(prop_dissat = weighted.mean(dis_democ_dum, weight, na.rm = TRUE),
 						prop_distrust = weighted.mean(distrust_gov_dum, weight, na.rm = TRUE),
@@ -331,6 +338,147 @@ gg_polar_prop <- ggplot(polar_dif_df, aes(x = year, y = prop_dif)) +
 			 title = "Differences in Behavior Between Cold and Warm Partisans") 
 gg_polar_prop
 
+##
+# All years pooled
+##
+opinion_pooled_df <- read_rds("data/tidy-cdf.rds")%>%
+	filter(year >= 1978 & pid_3 != "Independent")%>%
+	mutate(ltet_2004 = if_else(year <= 2004, 1, 0))%>%
+	group_by(pid_3, below_50_qual_lax)%>%
+	summarize(prop_dissat = weighted.mean(dis_democ_dum, weight, na.rm = TRUE),
+						prop_distrust = weighted.mean(distrust_gov_dum, weight, na.rm = TRUE),
+						prop_gov_few = weighted.mean(gov_run_for_few_dum, weight, na.rm = TRUE),
+						prop_wrong_track = weighted.mean(wrong_track_dum, weight, na.rm = TRUE),
+						prop_officials_dont_care = weighted.mean(officials_dont_care_dum, weight, na.rm = TRUE),
+						prop_wealth_gap_larger = weighted.mean(wealth_gap_larger_dum, weight, na.rm = TRUE),
+						prop_vote_general = weighted.mean(general_vote_dum, weight, na.rm = TRUE))%>%
+	pivot_wider(names_from = below_50_qual_lax,
+							values_from = prop_dissat:prop_vote_general)%>%
+	select(-ends_with("NA"))%>%
+	group_by(pid_3)%>%
+	summarize(dif_dissat = prop_dissat_cold - prop_dissat_warm,
+						dif_distrust = prop_distrust_cold - prop_distrust_warm,
+						dif_gov_few = prop_gov_few_cold - prop_gov_few_warm,
+						dif_wrong_track = prop_wrong_track_cold - prop_wrong_track_warm,
+						dif_offs_dont_care = prop_officials_dont_care_cold - prop_officials_dont_care_warm,
+						dif_wealth_gap_larger = prop_wealth_gap_larger_cold - prop_wealth_gap_larger_warm)%>%
+	pivot_longer(cols = dif_dissat:dif_wealth_gap_larger,
+							 names_to = "which_question",
+							 values_to = "prop_difference")%>%
+	mutate(which_question = as.factor(which_question))%>%
+	filter(!is.na(prop_difference))%>%
+	mutate(which_question = recode(which_question,
+																 "dif_dissat" = "Very/Fairly Dissatisfied With Democracy",
+																 "dif_distrust" = "Distrusts Gov. \"Most\" or \"Almost All\" of the Time",
+																 "dif_gov_few" = "\"Government is run for a few at the top\"",
+																 "dif_offs_dont_care" = "Officials don\'t care what people like me think",
+																 "dif_wealth_gap_larger" = "Wealth gap greater today than 20 years ago",
+																 "dif_wrong_track" = "Country is on Wrong Track"))%>%
+	mutate(which_question = reorder(which_question, prop_difference))%>%
+	glimpse()
+
+gg_opinion_pooled <- ggplot(opinion_pooled_df, aes(x = prop_difference, y = fct_relabel(which_question, str_wrap, width = 15))) +
+	geom_point(aes(color = pid_3, shape = pid_3), size = 3) +
+	scale_color_manual(values = c("Democrat" = "dodgerblue3",
+																"Republican" = "firebrick3")) +
+	geom_vline(xintercept = 0.00) +
+	labs(x = "Difference",
+			 y = "Question",
+			 title = "Difference in Proportion Whom Agree\n between Cold/Warm Partisans",
+			 subtitle = "Cold - Warm",
+			 color = "Party",
+			 shape = "Party")
+gg_opinion_pooled
+
+ggsave("fig/gg-pooled-opinion.png", gg_opinion_pooled, width = 6, height = 4, units = "in")
+
+
+###
+## Pooled Behavior
+
+behavior_pooled_df <- read_rds("data/tidy-cdf.rds")%>%
+	filter(year >= 1978 & pid_3 != "Independent")%>%
+	#	glimpse()
+	#	group_by( pid_3, below_50_qual_strict, pres_election)%>% #strict cutoff
+	group_by(
+					 pid_3, 
+					 below_50_qual_lax)%>% 
+	summarize(
+		prop_vote_general = weighted.mean(general_vote_dum, weight, na.rm = TRUE),
+		prop_split_ticket = weighted.mean(split_ticket_dum, weight, na.rm = TRUE),
+		prop_meetings = weighted.mean(meetings_dum, weight, na.rm = TRUE),
+		prop_work_cand = weighted.mean(work_cand_dum, weight, na.rm = TRUE),
+		prop_display_merch = weighted.mean(display_merch_dum, weight, na.rm = TRUE),
+		prop_donate = weighted.mean(donate_dum, weight, na.rm = TRUE),
+		prop_watch_campaign_tv = weighted.mean(watch_campaign_tv_dum, weight, na.rm = TRUE),
+		prop_know_house_pre = weighted.mean(knows_house_pre_dum, weight, na.rm = TRUE),
+		prop_know_house_post = weighted.mean(knows_house_post_dum, weight, na.rm = TRUE),
+		prop_talk_pol_most = weighted.mean(talk_politics_most_days_dum, weight, na.rm = TRUE),
+		prop_early_vote = weighted.mean(early_vote_dum, weight, na.rm = TRUE),
+		prop_vote_inparty_house = weighted.mean(vote_inparty_house_dum, weight, na.rm = TRUE),
+		prop_vote_inparty_pres = weighted.mean(vote_inparty_pres_dum, weight, na.rm = TRUE),
+		# var_vote_general = var(general_vote_dum, na.rm = TRUE),
+		# var_split_ticket = var(split_ticket_dum, na.rm = TRUE),
+		# var_meetings = var(meetings_dum, na.rm = TRUE),
+		# var_work_cand = var(work_cand_dum, na.rm = TRUE),
+		# var_display_merch = var(display_merch_dum, na.rm = TRUE),
+		# var_donate = var(donate_dum, na.rm = TRUE),
+		# var_watch_campaign_tv = var(watch_campaign_tv_dum, na.rm = TRUE),
+		# var_know_house_pre = var(knows_house_pre_dum, na.rm = TRUE),
+		# var_know_house_post = var(knows_house_post_dum, na.rm = TRUE),
+		# var_talk_pol_most = var(talk_politics_most_days_dum, na.rm = TRUE),
+		# var_early_vote = var(early_vote_dum, na.rm = TRUE),
+		# var_vote_inparty_house = var(vote_inparty_house_dum, na.rm = TRUE),
+		# var_vote_inparty_pres = var(vote_inparty_pres_dum, na.rm = TRUE)
+	)%>%
+	pivot_wider(names_from = below_50_qual_lax,
+							values_from = prop_vote_general:prop_vote_inparty_pres)%>%
+	select(-ends_with("NA"))%>%
+	pivot_longer(prop_vote_general_cold:prop_vote_inparty_pres_warm, 
+							 names_to = c("which_question", ".value"), 
+							 names_pattern="(.*)_([a-z]*)")%>%
+	mutate(which_question = as.factor(which_question))%>%
+	group_by(
+					 pid_3,
+					 which_question)%>%
+	#	summarize(prop_dif = (cold - warm))%>%
+	summarize(prop_difference = (cold - warm)/(cold+warm)#,
+						#	se_dif
+	)%>% 
+#	filter(!is.na(prop_dif))%>%
+	select(-starts_with("var"))%>%
+	mutate(which_question = recode(which_question,
+														"prop_display_merch" = "Display Sticker/Pin",
+														"prop_donate" = "Donate to Candidate/Campaign",
+														"prop_early_vote" = "Vote Early",
+														"prop_know_house_post" = "Know Party Won the House",
+														"prop_know_house_pre" = "Know Party in Control Before Election",
+														"prop_meetings" = "Attended Political Meetings/Rallies",
+														"prop_split_ticket" = "Voted Split Ticket",
+														"prop_talk_pol_most" = "Talk about Politics Most Days",
+														"prop_vote_general" = "Voted in General Election",
+														"prop_vote_inparty_house" = "Voted for Inparty House",
+														"prop_vote_inparty_pres" = "Voted Inparty for President",
+														"prop_watch_campaign_tv" = "Watch Campaign Related TV",
+														"prop_work_cand" = "Worked for a Candidate/Campaign"))%>%
+	mutate(which_question = reorder(which_question, prop_difference))%>%
+	glimpse()
+###
+
+gg_behavior_pooled <- ggplot(behavior_pooled_df, aes(x = prop_difference, y = fct_relabel(which_question, str_wrap, width = 15))) +
+	geom_point(aes(color = pid_3, shape = pid_3), size = 3) +
+	scale_color_manual(values = c("Democrat" = "dodgerblue3",
+																"Republican" = "firebrick3")) +
+	geom_vline(xintercept = 0.00) +
+	labs(x = "Difference",
+			 y = "Question",
+			 title = "Difference in Proportion Whom Agree\n between Cold/Warm Partisans",
+			 subtitle = "Behavior and Knowledge Items",
+			 color = "Party",
+			 shape = "Party")
+gg_behavior_pooled
+
+ggsave("fig/gg-pooled-behavior.png", gg_behavior_pooled, width = 6, height = 8, units = "in")
 
 #major outparty vote or thirdparty outparty vote
 
