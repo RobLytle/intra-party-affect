@@ -414,6 +414,7 @@ gg_behavior_pooled <- ggplot(behavior_pooled_df, aes(x = prop_difference, y = fc
 																"Republican" = "firebrick3")) +
 	geom_vline(xintercept = 0.00) +
 	scale_x_continuous(limits = c(-.3, .3), n.breaks = 6) +
+	theme(legend.position = c(0.8, 0.3)) +
 	labs(x = "Difference",
 			 y = "Question",
 #			 title = "Difference in Proportion Whom Agree\n between Cold/Warm Partisans",
@@ -424,24 +425,29 @@ gg_behavior_pooled
 
 ggsave("fig/gg-pooled-behavior.png", gg_behavior_pooled, width = 6, height = 8, units = "in")
 
+#####
+## Putting them into one plot
+#####
+
+#Removing redundant formatting from the plots
 p1 <- gg_opinion_pooled + theme(legend.position = "none",
 													axis.title.x = element_blank(),
 													axis.title.y = element_blank(),
 													axis.text.x = element_blank())
-p2 <- gg_behavior_pooled + theme(legend.position="none",
+p2 <- gg_behavior_pooled + theme(
 													axis.title.x = element_blank(),
-													axis.title.y = element_blank(),
-													axis.text.x = element_blank(),)
+													axis.title.y = element_blank())
 
-pg <- plot_grid(p1, p2,  align = "v", nrow = 2, rel_heights = c(1/4, 3/4), label_x = "Difference") 
+pg <- plot_grid(p1, p2,  align = "v", nrow = 2, rel_heights = c(1/3, 2/3), label_x = "Difference") 
 pg
 
 
 gg_pooled_combined <- grid.arrange(arrangeGrob(pg,
-												 top = text_grob("Differences Between Cold/Warm Partisans", vjust = 1, face = "bold"),
-												 left = text_grob("Question Asked", rot = 90, vjust = 1)))
+												 top = text_grob("Difference in Proportion Between Cold and Warm Partisans", vjust = 1, face = "bold"),
+												 left = text_grob("Question Asked", rot = 90, vjust = 1, face = "bold"),
+												 bottom = text_grob("Cold - Warm / Total Affirmative", face = "bold")))
 gg_pooled_combined
-ggsave("fig/gg-pooled-combined.png", gg_pooled_combined, width = 4, height = 10, units = "in")
+ggsave("fig/gg-pooled-combined.png", gg_pooled_combined, width = 5, height = 10, units = "in")
 
 
 #major outparty vote or thirdparty outparty vote
