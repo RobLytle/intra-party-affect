@@ -449,7 +449,116 @@ ggsave("fig/gg-pooled-combined.png", gg_pooled_combined, width = 6, height = 12,
 ## Calculating the SEs with Bootstrapping
 #####
 
+behavior_boot_df <- read_rds("data/tidy-cdf.rds")%>%
+	filter(year >= 1978 & pid_3 != "Independent")%>%
+	select(weight,
+				 pid_3,
+				 below_50_qual_lax,
+				 ends_with("dum"))%>%
+	glimpse()
 
+x <- data.frame(boot = 1:1000)%>%
+	group_by(boot)%>%
+	do(sample_n(behavior_boot_df, nrow(behavior_boot_df), replace = TRUE))%>%
+	group_by(boot,
+					 pid_3,
+					 below_50_qual_lax)%>%
+	summarize(
+		prop_vote_general = weighted.mean(general_vote_dum, weight, na.rm = TRUE),
+		prop_split_ticket = weighted.mean(split_ticket_dum, weight, na.rm = TRUE),
+		prop_meetings = weighted.mean(meetings_dum, weight, na.rm = TRUE),
+		prop_work_cand = weighted.mean(work_cand_dum, weight, na.rm = TRUE),
+		prop_display_merch = weighted.mean(display_merch_dum, weight, na.rm = TRUE),
+		prop_donate = weighted.mean(donate_dum, weight, na.rm = TRUE),
+		prop_watch_campaign_tv = weighted.mean(watch_campaign_tv_dum, weight, na.rm = TRUE),
+		prop_know_house_pre = weighted.mean(knows_house_pre_dum, weight, na.rm = TRUE),
+		prop_know_house_post = weighted.mean(knows_house_post_dum, weight, na.rm = TRUE),
+		prop_talk_pol_most = weighted.mean(talk_politics_most_days_dum, weight, na.rm = TRUE),
+		prop_vote_primary = weighted.mean(primary_vote_dum, weight, na.rm = TRUE),
+		prop_early_vote = weighted.mean(early_vote_dum, weight, na.rm = TRUE),
+		prop_vote_inparty_house = weighted.mean(vote_inparty_house_dum, weight, na.rm = TRUE),
+		prop_vote_outparty_pres = weighted.mean(vote_outparty_pres_dum, weight, na.rm = TRUE),
+		prop_vote_thirdparty_pres = weighted.mean(vote_thirdparty_pres_dum, weight, na.rm = TRUE),
+		prop_vote_inparty_pres = weighted.mean(vote_inparty_pres_dum, weight, na.rm = TRUE)
+	)%>%
+	
+pivot_test <- x%>%
+	filter(!is.na(below_50_qual_lax))%>%
+	pivot_longer(prop_vote_general:prop_vote_inparty_pres,
+							 names_to = c("which_question"))%>%
+	mutate(below_50_qual_lax = as.factor(below_50_qual_lax),
+				 question = as.factor(which_question))%>%
+	group_by(below_50_qual_lax,
+					 pid_3,
+					 question)%>%
+	summarize(lower_ci = quantile(value, .025),
+						upper_ci = quantile(value, .975))%>%
+#	pivot_wider(pid_3)
+	glimpse()
+	
+
+
+	crossing(rep = seq(10))%>%
+	#	group_by( pid_3, below_50_qual_strict, pres_election)%>% #strict cutoff
+	group_by(
+		rep,
+		pid_3, 
+		below_50_qual_lax)%>% 
+	slice_sample(n = 5, replace = TRUE)%>%
+
+	pivot_wider(names_from = below_50_qual_lax,
+							values_from = prop_vote_general:prop_vote_inparty_pres)%>%
+	select(-ends_with("NA"))%>%
+	pivot_longer(prop_vote_general_cold:prop_vote_inparty_pres_warm, 
+							 names_to = c("which_question", ".value"), 
+							 names_pattern="(.*)_([a-z]*)")%>%
+	glimpse()
+
+	mutate(which_question = as.factor(which_question))%>%
+	group_by(
+		pid_3,
+		which_question)%>%
+	#	summarize(prop_dif = (cold - warm))%>%
+	summarize(prop_difference = (cold - warm)/(cold+warm)#,
+						#	se_dif
+	)%>% 
+	#	filter(!is.na(prop_dif))%>%
+	select(-starts_with("var"))%>%
+	mutate(which_question = recode(which_question,
+																 "prop_display_merch" = "Display Sticker/Pin",
+																 "prop_donate" = "Donate to Candidate/Campaign",
+																 "prop_early_vote" = "Vote Early",
+																 "prop_know_house_post" = "Know Party Won the House",
+																 "prop_know_house_pre" = "Know Party in Control Before Election",
+																 "prop_meetings" = "Attended Political Meetings/Rallies",
+																 "prop_split_ticket" = "Voted Split Ticket",
+																 "prop_talk_pol_most" = "Talk about Politics Most Days",
+																 "prop_vote_general" = "Voted in General Election",
+																 "prop_vote_primary" = "Voted in Primary Election",
+																 "prop_vote_inparty_house" = "Voted for Inparty House",
+																 "prop_vote_inparty_pres" = "Voted Inparty for President",
+																 "prop_vote_outparty_pres" = "Voted Outparty for President",
+																 "prop_vote_thirdparty_pres" = "Voted Thirdparty for President",
+																 "prop_watch_campaign_tv" = "Watch Campaign Related TV",
+																 "prop_work_cand" = "Worked for a Candidate/Campaign"))%>%
+	mutate(which_question = reorder(which_question, prop_difference))%>%
+	glimpse()
+###
+
+gg_behavior_pooled <- ggplot(behavior_pooled_df, aes(x = prop_difference, y = fct_relabel(which_question, str_wrap, width = 20))) +
+	geom_point(aes(color = pid_3, shape = pid_3), size = 3, position = dodge) +
+	scale_color_manual(values = c("Democrat" = "dodgerblue3",
+																"Republican" = "firebrick3")) +
+	geom_vline(xintercept = 0.00) +
+	scale_x_continuous(limits = c(-.3, .7), n.breaks = 6) +
+	theme(legend.position = c(0.8, 0.3)) +
+	labs(x = "Difference",
+			 y = "Question",
+			 #			 title = "Difference in Proportion Whom Agree\n between Cold/Warm Partisans",
+			 subtitle = "Behavior and Knowledge Items",
+			 color = "Party",
+			 shape = "Party")
+gg_behavior_pooled
 
 #major outparty vote or thirdparty outparty vote
 
