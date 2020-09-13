@@ -5,10 +5,7 @@ library(goji)
 #  select(V161095, V161096, V161086, V161087, V161126, V161128, V161129, V161130, V161131, V161021, V161021a)%>%
 #  glimpse()
 
-anes_raw <- read_rds("data/raw/cdf-raw-trim.rds")%>% # Loads RDS created in `anes-cdf-trim.R`
-	glimpse()
-
-anes_char <- anes_raw %>%
+anes_tidy <- read_rds("data/raw/cdf-raw-trim.rds")%>% # Loads RDS created in `anes-cdf-trim.R`
 	remove_all_labels()%>%
 	rename(year = VCF0004)%>% # Year of response
 	rename(pid_7 = VCF0301)%>% #7 scale Party ID val: 1-7. Strong Democrat 2. Weak Democrat3. Independent - Democrat4. Independent - Independent5. Independent - Republican6. Weak Republican7. Strong Republican
@@ -102,7 +99,7 @@ anes_char <- anes_raw %>%
   unite("case", year:case_id, remove = FALSE)%>%
   select(-case_id)%>%
   mutate(case = as.numeric(str_remove(case, "_")),
-  			 pres_election = if_else(year %in% seq(1964, 2016, by=4), 1, 0))%>%
+  			 pres_election = if_else(year %in% seq(1964, 2016, by=4), 1, 0))%>% #dummy variable for pres election
 	rename(female = VCF0104)%>%
   mutate(female = na_if(female, 3))%>%
   mutate(female = na_if(female, 0))%>%
@@ -252,9 +249,9 @@ anes_char <- anes_raw %>%
 	mutate(ideo_rep = na_if(ideo_rep, 0))%>%
 	mutate(ideo_dem = na_if(ideo_dem, 8))%>%
 	mutate(ideo_dem = na_if(ideo_dem, 0))%>%
-	mutate(primary_vote = na_if(primary_vote, -8))%>%
-	mutate(primary_vote = na_if(primary_vote, -9))%>%
-	mutate(primary_vote = as.numeric(recode(primary_vote, 
+	mutate(primary_vote_dum = na_if(primary_vote, -8))%>%
+	mutate(primary_vote_dum = na_if(primary_vote, -9))%>%
+	mutate(primary_vote_dum = as.numeric(recode(primary_vote, 
 																		"1" = "1",
 																		"2" = "0")))%>%
 	mutate(strong_partisan = if_else(pid_7 == 1|pid_7 ==7, 1, 0))%>%
@@ -498,8 +495,17 @@ anes_char <- anes_raw %>%
 				 vote_inparty_pres_dum = case_when(pres_election != 1 ~ NA_real_,
 				 																	 pid_3 == "Democrat" & VCF0705 == 1 ~ 1,
 				 																	 pid_3 == "Republican" & VCF0705 == 2 ~ 1,
-				 																	 VCF0705 == 3  & !is.na(VCF0705) ~ 0,
-				 																	 pid_3 != "Independent" ~ 0,
+				 																	 pid_3 != "Independent" & !is.na(VCF0705) ~ 0,
+				 																	 TRUE ~ NA_real_),
+				 vote_outparty_pres_dum = case_when(pres_election != 1 ~ NA_real_, #dummy for voting for MAJOR outparty
+				 																	pid_3 == "Democrat" & VCF0705 == 2 ~ 1, #dem votes for Rep
+				 																	pid_3 == "Republican" & VCF0705 == 1 ~ 1, #  Rep votes for dem
+				 																	pid_3 != "Independent" & !is.na(VCF0705)  ~ 0, #independents are 0
+				 																	TRUE ~ NA_real_),
+				 vote_thirdparty_pres_dum = case_when(pres_election != 1 ~ NA_real_, #VCF0705 Presidential vote
+				 																	 pid_3 == "Democrat" & VCF0705 == 3 ~ 1, # Dem votes for Thirdparty
+				 																	 pid_3 == "Republican" & VCF0705 == 3 ~ 1, # Rep votes for Thirdparty
+				 																	 pid_3 != "Independent" & !is.na(VCF0705) ~ 0, #independents are 0
 				 																	 TRUE ~ NA_real_),
 				 vote_inparty_house_dum = case_when(pid_3 == "Democrat" & VCF0736 == 1 ~ 1,
 				 																	 pid_3 == "Republican" & VCF0736 == 5 ~ 1,
@@ -518,7 +524,8 @@ anes_char <- anes_raw %>%
 #	mutate(cult_att = if_else(pid_3_num == 3, (1-cult_att), cult_att))%>%
 #	mutate(econ_att = if_else(pid_3_num == 3, (1-econ_att), econ_att))%>% #DO NOT USE UNLESS YOU ARE WORKING WITH DEMS AND REPS ONLY
 #	select(-ends_with("_num")) %>%   # drop the numeric versions of the factors that i used for reordering above
-	select(-starts_with("VCF"))%>%
+#	select(-starts_with("VCF"))%>%
+	filter(pres_election == 1)%>%
 	glimpse()%>%
 	write_rds("data/tidy-cdf.rds")%>%
 	write_csv("data/tidy-cdf.csv")

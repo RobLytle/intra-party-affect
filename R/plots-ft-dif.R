@@ -1,21 +1,20 @@
 library(tidyverse)
+library(broom)
+library(rsample)
 library(ggExtra)
 library(ggridges)
-library(goji)
 library(gridExtra)
 library(ggpubr)
 library(janitor)
 library(diagis)
 library(forcats)
 library(cowplot)
+set.seed(2001)
 theme_set(theme_minimal())
 
 #creating a df whith difference between cold/warm partisans (lax def of cold/warm)
 
-fct_wrap <- function(f, ...) {
-	base::levels(f) <- stringr::str_wrap(base::levels(f), ...)
-	f
-}
+
 
 opinion_proportions_df <- read_rds("data/tidy-cdf.rds")%>%
 	filter(year >= 1978 & pid_3 != "Independent")%>%
@@ -319,12 +318,15 @@ opinion_pooled_df <- read_rds("data/tidy-cdf.rds")%>%
 	mutate(which_question = reorder(which_question, prop_difference))%>%
 	glimpse()
 
+#The Plot
+dodge <- position_dodge(width=0.3)
+
 gg_opinion_pooled <- ggplot(opinion_pooled_df, aes(x = prop_difference, y = fct_relabel(which_question, str_wrap, width = 20))) +
-	geom_point(aes(color = pid_3, shape = pid_3), size = 3) +
+	geom_point(aes(color = pid_3, shape = pid_3), size = 3, position = dodge) +
 	scale_color_manual(values = c("Democrat" = "dodgerblue3",
 																"Republican" = "firebrick3")) +
 	geom_vline(xintercept = 0.00) +
-	scale_x_continuous(limits = c(-.3, .3), n.breaks = 6) +
+	scale_x_continuous(limits = c(-.3, .7), n.breaks = 6) +
 	labs(x = "Difference",
 			 y = "Question",
 #			 title = "Difference in Proportion Whom Agree\n between Cold/Warm Partisans",
@@ -357,22 +359,12 @@ behavior_pooled_df <- read_rds("data/tidy-cdf.rds")%>%
 		prop_know_house_pre = weighted.mean(knows_house_pre_dum, weight, na.rm = TRUE),
 		prop_know_house_post = weighted.mean(knows_house_post_dum, weight, na.rm = TRUE),
 		prop_talk_pol_most = weighted.mean(talk_politics_most_days_dum, weight, na.rm = TRUE),
+		prop_vote_primary = weighted.mean(primary_vote_dum, weight, na.rm = TRUE),
 		prop_early_vote = weighted.mean(early_vote_dum, weight, na.rm = TRUE),
 		prop_vote_inparty_house = weighted.mean(vote_inparty_house_dum, weight, na.rm = TRUE),
-		prop_vote_inparty_pres = weighted.mean(vote_inparty_pres_dum, weight, na.rm = TRUE),
-		# var_vote_general = var(general_vote_dum, na.rm = TRUE),
-		# var_split_ticket = var(split_ticket_dum, na.rm = TRUE),
-		# var_meetings = var(meetings_dum, na.rm = TRUE),
-		# var_work_cand = var(work_cand_dum, na.rm = TRUE),
-		# var_display_merch = var(display_merch_dum, na.rm = TRUE),
-		# var_donate = var(donate_dum, na.rm = TRUE),
-		# var_watch_campaign_tv = var(watch_campaign_tv_dum, na.rm = TRUE),
-		# var_know_house_pre = var(knows_house_pre_dum, na.rm = TRUE),
-		# var_know_house_post = var(knows_house_post_dum, na.rm = TRUE),
-		# var_talk_pol_most = var(talk_politics_most_days_dum, na.rm = TRUE),
-		# var_early_vote = var(early_vote_dum, na.rm = TRUE),
-		# var_vote_inparty_house = var(vote_inparty_house_dum, na.rm = TRUE),
-		# var_vote_inparty_pres = var(vote_inparty_pres_dum, na.rm = TRUE)
+		prop_vote_outparty_pres = weighted.mean(vote_outparty_pres_dum, weight, na.rm = TRUE),
+		prop_vote_thirdparty_pres = weighted.mean(vote_thirdparty_pres_dum, weight, na.rm = TRUE),
+		prop_vote_inparty_pres = weighted.mean(vote_inparty_pres_dum, weight, na.rm = TRUE)
 	)%>%
 	pivot_wider(names_from = below_50_qual_lax,
 							values_from = prop_vote_general:prop_vote_inparty_pres)%>%
@@ -400,8 +392,11 @@ behavior_pooled_df <- read_rds("data/tidy-cdf.rds")%>%
 														"prop_split_ticket" = "Voted Split Ticket",
 														"prop_talk_pol_most" = "Talk about Politics Most Days",
 														"prop_vote_general" = "Voted in General Election",
+														"prop_vote_primary" = "Voted in Primary Election",
 														"prop_vote_inparty_house" = "Voted for Inparty House",
 														"prop_vote_inparty_pres" = "Voted Inparty for President",
+														"prop_vote_outparty_pres" = "Voted Outparty for President",
+														"prop_vote_thirdparty_pres" = "Voted Thirdparty for President",
 														"prop_watch_campaign_tv" = "Watch Campaign Related TV",
 														"prop_work_cand" = "Worked for a Candidate/Campaign"))%>%
 	mutate(which_question = reorder(which_question, prop_difference))%>%
@@ -409,11 +404,11 @@ behavior_pooled_df <- read_rds("data/tidy-cdf.rds")%>%
 ###
 
 gg_behavior_pooled <- ggplot(behavior_pooled_df, aes(x = prop_difference, y = fct_relabel(which_question, str_wrap, width = 20))) +
-	geom_point(aes(color = pid_3, shape = pid_3), size = 3) +
+	geom_point(aes(color = pid_3, shape = pid_3), size = 3, position = dodge) +
 	scale_color_manual(values = c("Democrat" = "dodgerblue3",
 																"Republican" = "firebrick3")) +
 	geom_vline(xintercept = 0.00) +
-	scale_x_continuous(limits = c(-.3, .3), n.breaks = 6) +
+	scale_x_continuous(limits = c(-.3, .7), n.breaks = 6) +
 	theme(legend.position = c(0.8, 0.3)) +
 	labs(x = "Difference",
 			 y = "Question",
@@ -447,7 +442,13 @@ gg_pooled_combined <- grid.arrange(arrangeGrob(pg,
 												 left = text_grob("Question Asked", rot = 90, vjust = 1, face = "bold"),
 												 bottom = text_grob("Cold - Warm / Total Affirmative", face = "bold")))
 gg_pooled_combined
-ggsave("fig/gg-pooled-combined.png", gg_pooled_combined, width = 5, height = 10, units = "in")
+ggsave("fig/gg-pooled-combined.png", gg_pooled_combined, width = 6, height = 12, units = "in")
+
+
+#####
+## Calculating the SEs with Bootstrapping
+#####
+
 
 
 #major outparty vote or thirdparty outparty vote
