@@ -389,8 +389,8 @@ opinion_pooled_df <- full_join(opinion_means_df, se_op_df)%>%
 dodge <- position_dodge(width=0.5)
 
 gg_opinion_pooled <- ggplot(opinion_pooled_df, aes(x = prop_difference, y = fct_relabel(which_question, str_wrap, width = 20))) +
-	geom_linerange(aes(xmin = prop_difference - prop_se, xmax = prop_difference + prop_se, color = pid_3), position = dodge) +
-	geom_point(data=opinion_pooled_df[opinion_pooled_df$sig_dum == TRUE,],size=5, aes(position = pid_3), shape = 1, position = dodge) + #overlays a shape on sig 
+	geom_linerange(aes(xmin = prop_difference - 1.645*prop_se, xmax = prop_difference + 1.645*prop_se, color = pid_3), position = dodge) +
+#	geom_point(data=opinion_pooled_df[opinion_pooled_df$sig_dum == TRUE,],size=5, aes(position = pid_3), shape = 1, position = dodge) + #overlays a shape on sig 
 	geom_point(aes(color = pid_3, shape = pid_3), size = 3, position = dodge) +
 	scale_color_manual(values = c("Democrat" = "dodgerblue3",
 																"Republican" = "firebrick3")) +
@@ -569,8 +569,8 @@ behavior_pooled_df <- full_join(behavior_means_df, ci_df)%>%
 ###r
 
 gg_behavior_pooled <- ggplot(behavior_pooled_df, aes(x = prop_difference, y = fct_relabel(which_question, str_wrap, width = 20))) +
-	geom_linerange(aes(xmin = prop_difference - prop_se, xmax = prop_difference + prop_se, color = pid_3), position = dodge) +
-	geom_point(data=behavior_pooled_df[behavior_pooled_df$sig_dum == TRUE,],size=5, aes(position = pid_3), shape = 1, position = dodge) + #overlays a shape on sig 
+	geom_linerange(aes(xmin = prop_difference - 1.645*prop_se, xmax = prop_difference + 1.645*prop_se, color = pid_3), position = dodge) +
+#	geom_point(data=behavior_pooled_df[behavior_pooled_df$sig_dum == TRUE,],size=5, aes(position = pid_3), shape = 1, position = dodge) + #overlays a shape on sig 
 	geom_point(aes(color = pid_3, shape = pid_3), size = 3, position = dodge) +
 		scale_color_manual(values = c("Democrat" = "dodgerblue3",
 																"Republican" = "firebrick3")) +
@@ -580,9 +580,8 @@ gg_behavior_pooled <- ggplot(behavior_pooled_df, aes(x = prop_difference, y = fc
 	theme(legend.position = c(0.8, 0.3)) +
 	labs(x = "Difference",
 			 y = "Question",
-#			 title = "Difference in Proportion Whom Agree\n between Cold/Warm Partisans",
 			 subtitle = "Behavior and Knowledge Items",
-			 caption = "Significance at p < .10 indicated by circled points.\n Bootstrapped standard error given by horizontal bars",
+			 caption = "Bootstrapped 90% CI given by horizontal bars",
 			 color = "Party",
 			 shape = "Party")
 gg_behavior_pooled
