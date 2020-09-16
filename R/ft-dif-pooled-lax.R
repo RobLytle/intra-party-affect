@@ -202,6 +202,10 @@ write_csv("data/bootstrapped-behav-means.rds")
 
 ci_df <- behavior_boot_df%>% #putting this here so I don't have to run the resample every time
 	filter(!is.na(below_50_qual_lax))%>%
+	select(-prop_display_merch, #comment this select() to include vars captured in activist_6cat
+				 -prop_donate,
+				 -prop_meetings,
+				 -prop_work_cand)%>%
 	pivot_wider(names_from = below_50_qual_lax,
 							values_from = prop_vote_general:prop_vote_inparty_pres)%>%
 	pivot_longer(prop_vote_general_cold:prop_vote_inparty_pres_warm, 
@@ -218,7 +222,7 @@ ci_df <- behavior_boot_df%>% #putting this here so I don't have to run the resam
 	summarize(prop_se = sd(prop_dif))%>%
 	mutate(which_question = recode(which_question,
 																 "prop_display_merch" = "Display Sticker/Pin",
-																 "mean_activist_index" = "6-Item Activism Index",
+																 "mean_activist_index" = "6-Item Campaign Participation Index",
 																 "prop_donate" = "Donate to Candidate/Campaign",
 																 "prop_early_vote" = "Vote Early",
 																 "prop_know_house_post" = "Know Party Won the House",
@@ -233,8 +237,10 @@ ci_df <- behavior_boot_df%>% #putting this here so I don't have to run the resam
 																 "prop_vote_outparty_pres" = "Voted Outparty for President",
 																 "prop_vote_thirdparty_pres" = "Voted Thirdparty for President",
 																 "prop_watch_campaign_tv" = "Watch Campaign Related TV",
-																 "prop_work_cand" = "Worked for a Candidate/Campaign"))%>%
+																 "prop_work_cand" = "Worked for a Candidate/Campaign"
+																 ))%>%
 	glimpse()
+
 
 ####
 ## Now, calculating the simple proportions
@@ -264,6 +270,10 @@ behavior_means_df <- read_rds("data/tidy-cdf.rds")%>%
 		prop_vote_thirdparty_pres = weighted.mean(vote_thirdparty_pres_dum, weight, na.rm = TRUE),
 		prop_vote_inparty_pres = weighted.mean(vote_inparty_pres_dum, weight, na.rm = TRUE)
 	)%>%
+	select(-prop_display_merch, #comment this select() to include vars captured in activist_6cat
+				 -prop_donate,
+				 -prop_meetings,
+				 -prop_work_cand)%>%
 	pivot_wider(names_from = below_50_qual_lax,
 							values_from = prop_vote_general:prop_vote_inparty_pres)%>%
 	select(-ends_with("NA"))%>%
@@ -282,7 +292,7 @@ behavior_means_df <- read_rds("data/tidy-cdf.rds")%>%
 	select(-starts_with("var"))%>%
 	mutate(which_question = recode(which_question,
 																 "prop_display_merch" = "Display Sticker/Pin",
-																 "mean_activist_index" = "6-Item Activism Index",
+																 "mean_activist_index" = "6-Item Campaign Participation Index",
 																 "prop_donate" = "Donate to Candidate/Campaign",
 																 "prop_early_vote" = "Vote Early",
 																 "prop_know_house_post" = "Know Party Won the House",

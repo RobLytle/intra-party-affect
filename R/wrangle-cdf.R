@@ -512,7 +512,7 @@ anes_tidy <- read_rds("data/raw/cdf-raw-trim.rds")%>% # Loads RDS created in `an
 				 																	 pid_3 != "Independent" | VCF0736 == 7 ~ 0,
 				 																	 TRUE ~ NA_real_),
 				 activist_6cat = na_if(activist_6cat, 0),
-				 activist_6cat = ((activist_6cat - 1)/6), #rescale activ
+				 activist_6cat = ((activist_6cat - 1)/6), #rescale activism index to be between 0-1
 	 			 below_50_qual_lax = case_when(therm_inparty < 50 & pid_3 != "Independent" ~ "cold",
 																	 therm_parties_mean < 50 & pid_3 == "Independent" ~ "cold",
 																	 therm_inparty >= 50 | therm_parties_mean >= 50 ~ "warm",
