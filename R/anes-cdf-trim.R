@@ -5,6 +5,8 @@ library(sjlabelled)
 ######                                                                                                #########
 # This Script extracts only the relevant variables from the raw cdf file, then writes them to an rds          #
 # This is done to avoid the lengthy rio::import() from a zip file every time the wrangling dplyr pipe is run  #
+#codebook available here:                                                                                     #
+#https://electionstudies.org/wp-content/uploads/2018/12/anes_timeseries_cdf_codebook_var.pdf                  #
 ######                                                                                                #########
 
 cdf_raw_trim <- rio::import("data/raw/anes_timeseries_cdf_dta.zip", which = "anes_timeseries_cdf.dta")%>% #Imports the .dta file from the .zip file
