@@ -285,9 +285,6 @@ ggsave("fig/lax-cold-minus-warm-behav.png", gg_behav_lax_difs, width = 12, heigh
 #####
 
 
-
-
-
 #major outparty vote or thirdparty outparty vote
 
 # Look into local/state level behavior

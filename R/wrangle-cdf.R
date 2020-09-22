@@ -1,10 +1,11 @@
 library(tidyverse)
 library(sjlabelled)
 library(goji)
-#anes_df <- read_dta("data/raw/anes_timeseries_2016.dta")%>%
-#  select(V161095, V161096, V161086, V161087, V161126, V161128, V161129, V161130, V161131, V161021, V161021a)%>%
-#  glimpse()
 
+#codebook available here:
+#https://electionstudies.org/wp-content/uploads/2018/12/anes_timeseries_cdf_codebook_var.pdf
+
+# Changed coding strategy for renaming halfway through, forgive the inconsistency, might fix if I feel like procrastinating
 anes_tidy <- read_rds("data/raw/cdf-raw-trim.rds")%>% # Loads RDS created in `anes-cdf-trim.R`
 	remove_all_labels()%>%
 	rename(year = VCF0004)%>% # Year of response
@@ -66,7 +67,7 @@ anes_tidy <- read_rds("data/raw/cdf-raw-trim.rds")%>% # Loads RDS created in `an
 				 VCF0050b, # iwrpkpst (same above), take mean
 				 VCF9255, #satisfied_democ 1(very), 2(fairly), 3(not very), 4(not at all) -8,-9NA
 				 VCF9036, #know_sen 1-2(correct), 3-4(wrong), 7-9NA
-				 VCF0104,
+				 VCF0104, #gender 1 male, 2 female, 3 other (2016 only).
 				 therm_dem_old, #FT Democrats (old)
 				 therm_rep_old, #FT Republicans (old)
 				 therm_prot, #FT Protestants
@@ -167,6 +168,10 @@ anes_tidy <- read_rds("data/raw/cdf-raw-trim.rds")%>% # Loads RDS created in `an
                                  "6" = "Other",
                                  "7" = "Non-white and Non-black")))%>%
   mutate(black_white_flag = if_else(race=="Black", "Black", if_else(race=="White", "White", "other")))%>%
+	mutate(race_4cat = recode_factor(race, .default = levels(race), 
+																	 "Asian or Pacific Islander" = "Other",
+																	 "American Indian" = "Other",
+																	 "Non-white and Non-black" = "Other"))%>%
   mutate(black_white_flag = recode(race_num,
                                    .default = "other",
                                   "1" = "White",

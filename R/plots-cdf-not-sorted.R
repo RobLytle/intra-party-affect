@@ -10,29 +10,15 @@ tidy_cdf_ns <- read_rds("data/tidy-cdf.rds")%>%
   filter(year >= 1978)%>%
   glimpse()
 
-anes_2020 <- read_rds("data/tidy-anes-2020.rds")%>%
-  select(pid_3,
-         year,
-         therm_inparty,
-         therm_outparty,
-         therm_parties_mean,
-         weight,
-         )%>%
-  glimpse()
-
 cdf_trimmed <- tidy_cdf_ns%>% #I don't need 2020 data in all of these figures, so I'm making a seperate df to rbind with 2020
   select(pid_3,
          year,
+         race_4cat,
          therm_inparty,
          therm_outparty,
          therm_parties_mean,
          weight,
          )%>%
-  glimpse()
-
-cdf_extended <- rbind(cdf_trimmed, #don't use this, 2020 pilot not intended for cross-year comparison
-                       anes_2020
-                      )%>%
   glimpse()
 
 party_fts_ns <- tidy_cdf_ns%>% # Making a DF of the party-year SD
@@ -42,8 +28,12 @@ party_fts_ns <- tidy_cdf_ns%>% # Making a DF of the party-year SD
          pid_3,
          therm_inparty,
          therm_outparty,
-         pid_7)%>%
-  group_by(year, pid_3)%>%
+         pid_7,
+#         race_4cat
+         )%>%
+  group_by(year, 
+#           race_4cat, 
+           pid_3)%>%
   summarise(mean_in = weighted.mean(therm_inparty, weight, na.rm = TRUE),
             mean_out = weighted.mean(therm_outparty, weight, na.rm = TRUE),
             sd_in = radiant.data::weighted.sd(therm_inparty, weight, na.rm = TRUE),
@@ -90,7 +80,7 @@ cdf_sd_ns <- party_fts_ns%>%
   glimpse()
 
 gg_mean_ft_ns <- ggplot(cdf_mean_ns, aes(x = year, y = result)) +
-#  geom_smooth(aes(linetype = group, color = group), span = .3, se=F) + 
+#  geom_smooth(aes(linetype = group, color = group), span = .3, se=F) +
   geom_line(aes(linetype = group, color = group)) + 
   geom_point(aes(shape = group, color = group), size = 3) +
   scale_linetype_manual(values = c("Democrat - In Party" = "longdash",
