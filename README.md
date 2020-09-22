@@ -20,4 +20,4 @@ This project is in-progress; figures and findings are not final.
 ![The distribution of mean partisan feeling thermometers has shifted from right to left skew](fig/cdf-ridge-all.png)
 
 ## Cold partisans are pessimistic, but not necessarily disengaged, they participate at similar rates, but are less likely to support their party's candidates.
-![Differences between cold and warm partisans attitudes and behavior.](fig/gg-pooled-combined.png)
+![Differences between cold and warm partisans attitudes and behavior.](fig/gg-pooled-combined-strict.png)
