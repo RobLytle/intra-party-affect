@@ -90,7 +90,7 @@ The data from this study were taken from the American National Election Study Cu
 
 \begin{figure}[H]
 \centering
-\includegraphics[width=.8\textwidth]{cdf-mean-ns.png}
+\includegraphics[width=.8\textwidth]{gg-mean-ns.png}
 \caption{\label{fig:cdf-mean} \textit{\textbf{Mean of Partisans' in-party and out-party feeling thermometers as reported in the ANES, 1978--2016.}% Republicans tend to be colder in general.
 }}
 \end{figure}
@@ -98,7 +98,7 @@ As shown in Figure \ref{fig:cdf-mean}, mean out party feeling thermometers for D
 
 \begin{wrapfigure}{R}{.8\textwidth}
 \centering
-\includegraphics[width=.75\textwidth]{cdf-sd.png}
+\includegraphics[width=.75\textwidth]{gg-sd-ns.png}
 \caption{\label{fig:cdf-sd} \textit{\textbf{Standard Deviation of partisans' in party feeling thermometers as reported in the ANES, 1978--2016.} %After several decades of minimal change, the variation in in-party feeling thermometer ratings increased substantially between 2004 and 2016. This change is robust to both the Fligner-Killeen and Levene's tests of homogeneity of variance.
 }}
 \end{wrapfigure}
@@ -137,7 +137,7 @@ This raises troubling normative concerns regarding citizens' faith in democracy.
 
 \begin{wrapfigure}{R}{.7\textwidth}
 \centering
-\includegraphics[width=.7\textwidth]{cdf-ridge-all-dis.png}
+\includegraphics[width=.7\textwidth]{cdf-ridge-grid.png}
 \caption{\label{fig:ridge-dis} \textit{\textbf{Ridgeline plot of mean partisan feeling thermometers by reported satisfaction in democracy.} %Partisans' in-party/independents average FT. Plots show the distributions of mean partisan feeling thermometers---$(FT_D + FT_R)/2$---of those satisfied and dissatisfied with Democracy. Unsurprisingly, those dissatisfied are more likely to have a cold average FT
 }}
 \end{wrapfigure}
@@ -149,7 +149,7 @@ Setting aside issues of causal identification, clearly increasing dissatisfactio
 
 \begin{wrapfigure}{R}{.75\textwidth}
 \centering
-\includegraphics[width=.7\textwidth]{primary-dem.png}
+\includegraphics[width=.7\textwidth]{gg-primary-in-hist.png}
 \caption{\label{fig:primary-dem} \textit{\textbf{Density plots of in-party feeling thermometers by year and primary candidate preference.}}}
 \end{wrapfigure}
  Primary elections are substantively significant events, allowing partisans a voice in the presentation and direction of their party. In a political environment in which the presidential nominee becomes the de facto leader of the party, the primary process affords non-elite voters a voice in the ideological, political, and stylistic future of the party. The political products offered by primary candidates may reflect (or drive) extant divisions in the party. \cite{wronski2018tale} and \cite{bankert2020authoritarian} find that those scoring highly on measures authoritarian personality traits use their primary vote to ``protect" their party from factions they see as threatening group cohesion. Just as voters do not toss a coin to decide their general election vote, they do not randomly select their choice in the primary; these choices are likely to be meaningful. 
@@ -158,13 +158,15 @@ Figure \ref{fig:primary-dem} shows density plots of Democrats' in-party feeling 
 
 On the Republican side, the Trump campaign postured itself as openly hostile to the Republican party, perhaps even to a greater degree than did the Sanders campaign against the Democrats. Despite this, Trump supporters were the warmest group of Republican primary voters\footnote{[Figs will be updated to include reps]}---bad news for our \textit{a priori} disdain hypothesis---and good news for the sore loser hypothesis.
 
-\begin{figure}
-\centering
-\includegraphics[width=1\textwidth]{partisan-loess-all.png}
-\caption{\label{fig:loess} \textit{\textbf{LOESS model estimating probability of self-identifying as a strong partisan}}}
-\end{figure}
+
 
 \subsubsection{Panel Data}
+
+\begin{figure}
+\centering
+\includegraphics[width=1\textwidth]{gg-partisan-loess-08.png}
+\caption{\label{fig:loess} \textit{\textbf{LOESS model estimating probability of self-identifying as a strong partisan}}}
+\end{figure}
 
 Based on cross-sectional data alone it is unclear whether vote choice or a cold affect is prior to the other. Using panel data from the 2000 and 2008 presidential elections
 

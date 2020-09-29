@@ -1,59 +1,19 @@
 library(tidyverse)
-library(ggExtra)
 theme_set(theme_minimal())
 
-naes_08_wave <- read_rds("data/tidy-naes-08.rds")%>%
-	select(wave,
-				 pid3,
-				 loser_first,
-				 strong_part,
-				 wave)%>%
-	filter(pid3 == "Republican" | pid3 == "Democrat")%>%
-	group_by(wave, loser_first, pid3)%>%
-	summarize(prop_strong = mean(strong_part, na.rm = TRUE))%>%
-	mutate(wave = recode(wave,
-											 "1" = "first",
-											 "2" = "second",
-											 "3" = "third",
-											 "4" = "fourth",
-											 "5" = "fifth",
-											 "6" = "sixth"))%>%
-	pivot_wider(names_from = wave,
-							values_from = prop_strong)%>%
-	group_by(loser_first, pid3)%>%
-	summarize(diff_prop = fifth - third)%>%
-	glimpse()
-
-naes_08_date <- read_rds("data/tidy-naes-08.rds")%>%
-	select(convention_dummy,
-				 pid3,
-				 loser_first,
-				 strong_part,
-				 wave)%>%
-	mutate(convention_dummy = recode(convention_dummy,
-																	 'Post Convention' = "post_convention",
-																	 'Pre Convention' = "pre_convention"))%>%
-	filter(pid3 == "Republican" | pid3 == "Democrat")%>%
-	group_by(convention_dummy, loser_first, pid3)%>%
-	summarize(prop_strong = mean(strong_part, na.rm = TRUE))%>%
-	pivot_wider(names_from = convention_dummy,
-							values_from = prop_strong)%>%
-	group_by(pid3, loser_first)%>%
-	summarize(difference = post_convention - pre_convention)%>%
-	pivot_wider(names_from = loser_first,
-							values_from = difference)%>%
-	group_by(pid3)%>%
-	summarize(losers_dif_winners = loser - winner)%>%
-		glimpse()
 ##########################
 ########
 #########################
 
 
+naes_loess_08_df <- read_rds("data/tidy-naes-08-online.rds")%>%
+	filter(pid3 == "Republican" | pid3 == "Democrat")%>%
+	filter(!is.na(loser_first))%>%
+	glimpse()
 
 strong.model <- lm(strong_part ~ as.numeric(date), data = naes_loess_df)
-	summary(strong.model)
-	
+summary(strong.model)
+
 ggplot_loess_df <- cbind(naes_loess_df, predict(strong.model, interval = "confidence"))%>%
 	glimpse()
 
@@ -65,20 +25,41 @@ summary(cars.model)
 cars.predict <- cbind(cars, predict(cars.model, interval = 'confidence'))%>%
 	glimpse()
 
-naes_loess_08_df <- read_rds("data/tidy-naes-08-online.rds")%>%
-	filter(pid3 == "Republican" | pid3 == "Democrat")%>%
-	glimpse()
 
-ggplot(naes_loess_08_df, aes(x = date, y = strong_part, color = winner_loser_party)) +
-	#geom_point(position = "jitter") +
-#	geom_smooth(method = "lm", color = "blue") +
+partisan_loess_08 <- ggplot(naes_loess_08_df, aes(x = date, y = strong_part, color = loser_first)) +
+	#	geom_point() +
+	geom_smooth() +
+	#	tidyquant::geom_ma(n = 27625, ratio = 1/7) +
+	#stat_summary(aes(y = strong_part,group=1, colour=loser_first), fun.y=mean, geom="line",group=1) +
+	geom_vline(aes(xintercept = convention_end), linetype=4) + #last day of convention
+	geom_vline(aes(xintercept = presumptive_date), linetype=1) + # day candidate becomes presumptive nominee
+	geom_vline(aes(xintercept = general_election), linetype=2) + # general election
+	facet_wrap(vars(pid3)) +
+	scale_color_manual(values = c("Winner" = "#1E88E5", #colorblind safe palette
+																"Loser" = "#D21C1C",
+																"NA" = "#FFC107"))+
+	labs(x = "Date",
+			 y = "Strong Partisan",
+			 color = "Vote Choice",
+			 title = "LOESS Model of Partisanship Strength")
+partisan_loess_08
+
+ggsave("fig/gg-partisan-loess-08.png", plot = partisan_loess_08, width = 6, height = 4, units = "in")
+
+
+naes_rolling <- naes_08_date%>%
+	group_by(date, pid3, )%>%
+	summarize
+
+
+partisan_means_08 <- ggplot(ggplot_loess_df, aes(x = date, y = strong_part, color = loser_first)) +
+	geom_point() +
 	geom_smooth() +
 	geom_vline(aes(xintercept = convention_end), linetype=4) + #last day of convention
 	geom_vline(aes(xintercept = presumptive_date), linetype=1) + # day candidate becomes presumptive nominee
 	geom_vline(aes(xintercept = general_election), linetype=2) + # general election
 	facet_wrap(vars(pid3))
-
-ggsave("fig/partisan_loess_08.png", plot = partisan_loess_08, width = 6, height = 4, units = "in")
+partisan_means_08
 
 
 # dif in dif of about#parallel trends association
@@ -87,29 +68,25 @@ ggsave("fig/partisan_loess_08.png", plot = partisan_loess_08, width = 6, height 
 
 # Partisan Loess 2000
 naes_2000_df <- read_rds("data/tidy-naes-2000.rds")%>%
-	filter(pid3 == "Republican" | pid3 == "Democrat" & !is.na(winner_loser))%>%
+	filter(pid3 == "Republican" | pid3 == "Democrat")%>%
 	glimpse()
 
 
 partisan_loess_00 <- ggplot(naes_2000_df, aes(x = date, y = strong_part, color = loser_first)) +
-#	geom_point() +
+	#	geom_point() +
 	geom_smooth() +
 	#	tidyquant::geom_ma(n = 27625, ratio = 1/7) +
 	#stat_summary(aes(y = strong_part,group=1, colour=loser_first), fun.y=mean, geom="line",group=1) +
 	geom_vline(aes(xintercept = convention_end), linetype=4) + #last day of convention
 	geom_vline(aes(xintercept = presumptive_date), linetype=1) + # day candidate becomes presumptive nominee
 	geom_vline(aes(xintercept = general_election), linetype=2) + # general election
+	scale_color_manual(values = c("Winner" = "#1E88E5", #colorblind safe palette
+																"Loser" = "#D21C1C",
+																"Other/Third Party/Didn't Vote" = "#FFC107"))+
 	facet_wrap(vars(pid3))
 partisan_loess_00
+
 ggsave("fig/partisan_loess_00.png", plot = partisan_loess_00, width = 6, height = 4, units = "in")
 
 
 
-
-loess <- ggpubr::ggarrange(partisan_loess_00,
-													 partisan_loess_08,
-													 nrow = 2)
-loess
-ggsave("fig/partisan-loess-all.png", plot = loess, width = 6, height = 4, units = "in")
-
-# Voting intention/actual vote differences between
