@@ -1,0 +1,151 @@
+---
+title: "Intra-Party Affect"
+author: "Rob Lytle"
+output: pdf_document
+bibliography: references.bib
+header-includes:
+- \usepackage[margin=1in]{geometry}
+- \usepackage{caption}
+- \usepackage{multirow}
+- \usepackage{amsmath}
+- \usepackage{mathrsfs}
+- \usepackage{float}
+- \usepackage{natbib}
+- \bibliographystyle{apsr}
+- \usepackage{graphicx}
+- \graphicspath{ {../fig/} }
+- \usepackage{setspace}
+- \usepackage[super]{nth}
+- \usepackage{booktabs}
+- \usepackage{makecell}
+- \usepackage{amsmath}
+- \usepackage{dcolumn}
+- \usepackage{hyperref}
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(tidyverse) #tidyverse
+library(kableExtra) # one way to make tables
+library(stargazer) # Another way to make tables (can also output esttab to .tex--examples below)
+library(ggExtra)
+library(ggridges)
+library(goji)
+library(gridExtra)
+```
+
+In the last decade, factions like the Tea Party and alt-right in the Republican Party and Progressives and Democratic Socialists in the Democratic party have presented challenges to their party's status-quo. While factions like the "Blue Dog Democrats" or "Main Street Republicans" are nothing new and have long communicated a brand *separate* from their party [@clarke2017party], the brand being communicated has not necessarily been hostile to mainline party elites. The same cannot be said for more recently appearing caucuses like the Democratic Socialists or the Tea Party. Candidates from these factions often explicitly position themselves as adversarial to established, mainstream members of their party, challenging "establishment" representatives in primary battles and expressing dissatisfaction with or open hostility towards party leaders.
+
+There is evidence that the divisions between elite co-partisans are meaningful at the mass level as well. Using the case 2016 Democratic primary [@wronski2018tale] demonstrate that Democrats in 2016 primary were divided along authoritarian lines. Primary voters scoring high in authoritarian personality traits were more likely to support Hillary Clinton---those with few authoritarian tendencies were likely to be supporters of Bernie Sanders. [add more]
+
+Across this backdrop of apparent intra-party division partisans' as identified by \@klar2018affective, since 2004 not only has warmth towards the out-party declined but---particularly for Republicans---in party warmth as well. As in-party affect declines, so too has the role of positive partisanship (attachment to ones own party) been supplanted by hostility towards the out-party as a predictor of voting behavior [@iyengar2018strengthening]. With this research note, I describe in detail how the distribution of mass-level partisan affect has shifted to provide context for the above findings. I close by discussing the implications of this shift and suggest avenues for future research.
+
+# Introduction
+
+Clinton supporters' posture towards their party in 2016 bore little semblance to that of the '08 race. Bernie Sanders---a former independent and self-identified socialist---leaned into the role of an insurgent, anti-establishment candidate and predicating his campaign on a conflict between the working-class and the elites of both major parties. Sanders supporters, angry with the DNC and reluctant to support Clinton in November led a losely organized movement of Democratic party discontents to found groups like *Justice Democrats* and expand membership of organizations like the *Democratic Socialists of America* and various state and local progressive caucuses to protest perceived slights by the party establishment and support further left and anti-establishment downballot candidates. In the 2016 ANES time-series survey, Sanders supporters were about 20 points colder towards the Democratic party on a 100-point feeling thermometer than their Clinton supporting co-partisans.
+
+This is not particularly surprising on its own. Sanders campaigned against the party establishment---it follows that he would attract those disillusioned with the party. The story is more complicated. Republican supporters of Donald Trump---who's campaign even more explicitly, exuberantly hostile towards the Republican party---were warmer towards their party than any other candidates' supporters, despite the mutual hostility between Trump and established Republican elites.
+
+In 2008, despite her roll as Democratic standard-bearer (a role which *should* have enticed more enthusiastic Democrats to her camp in the primaries) Clinton's defeat by Barack Obama in June of 2008 (much like Bernie Sanders' defeat in 2016) spawned the \`\`Party Unity My Ass" movement, engaging in various forms of protest against the DNC and pledging *en masse* not to support the (relative) party outsider Barack Obama in the general election[^1]. The average in-party thermometer for Clinton voters was about about 10 points lower than that of Obama supporters' in '08, or indeed *Clinton* Supporters in 2016.
+
+[^1]: <https://www.washingtonpost.com/wpdyn/content/article/2008/06/26/AR200806260416_pf.html>
+
+It is likely that anti-establishment or outsider candidates should attract the support of disillusioned or alienated voters but the descriptive features of these recent cases suggest a second process whereby a candidate's victory or defeat in a primary causes an increase or decrease in their supporters' affect towards the party; explaining the tepid enthusiasm for the Democratic party among Hillary supporters in 2008 and the intense warmth felt by Trump supporters for their party in 2016.
+
+Affective and social distance between Democrats and Republicans has expanded dramatically. Scholars of affective polarization have largely considered partisans to be warm towards their parties and co-partisans and cold to members of the out party [\@iyengar2012affect; iyengar2018strengthening]
+
+Recent developments give us cause, however, to doubt the consistency of in-party warmth; Factions in both parties have received a great deal of attention in recent years. Groups like the Tea Party and alt-right in the Republican Party and progressives and socialists in the Democratic party have presented challenges to their party's status-quo, often acting in opposition to their party's elites [CITE]. In the midst of these in-party disagreements the 2016 and 2020 election cycles have been characterized by lengthy and contentious primary elections. There has been no shortage of media accounts describing chaos at party conventions [CITE] and increasingly salient divides between populist and establishment wings of both parties [CITE].
+
+Using the 2016 Democratic primary [@wronski2018tale] demonstrate that Democrats in 2016 primary were divided along autoritarian lines. Primary voters scoring high in authoritarian personality traits were more likely to support Hillary Clinton---those with few authoritarian tendencies were likely to be supporters of Bernie Sanders. For example, [@iyengar2018strengthening] find that the strength of partisans' out-party animus has supplanted in-party warmth as a predictor of voting behavior.
+
+By focusing on mean in-party feeling---rather than the distribution of partisan affect---researchers paint too optimistic a view of partisanship's strength. My findings bolster those of [@klar2018affective]---partisan warmth has declined across the board
+
+# Data
+
+The data from this study were taken from the American National Election Study Cumulative Data File[^2]. All data and replication materials will be made available on GitHub. Some figures have been built using samples \\textit{including} leaning partisans, while others \\textit{exclude} leaning partisans, despite the evidence that partisan leaning independents behave in much the same way as their sorted counterparts \\citep{klar2016independent}\\footnote{The upper left corner of each figure indicates whether leaning independents were included in the sample.This will certainly change before the paper is finished, I've generated figs for both and have been going back and forth}. By restricting the sample to avowed partisans, I am likely underestimating the variation/animosity present in in-party attitudes, and overestimating the proportion of Democrat and Republican voters who are lukewarm or ambivalent towards their party. Regardless of the samples used, the topline finding is the same: **An increasing number of Democrats and Republicans, voters and nonvoters, and partisans and non-partisans are lukewarm or cold---not just towards an out-party but towards both major parties**.
+
+[^2]: <https://electionstudies.org/data-center/anes-time-series-cumulative-data-file/>
+
+# Results
+
+## Trends in intra-party affect
+```{R, echo=FALSE}
+party_fts_ns <- read_rds("../data/tidy-cdf.rds")%>%
+  filter(year >= 1978)%>%
+  select(pid_3,
+         year,
+         race_4cat,
+         therm_inparty,
+         therm_outparty,
+         therm_parties_mean,
+         weight,
+         pid_7)%>%
+  filter(pid_3 != "Independent" & year != 2002)%>%
+  select(year,
+         weight,
+         pid_3,
+         therm_inparty,
+         therm_outparty,
+         pid_7,
+#         race_4cat
+         )%>%
+  group_by(year, 
+#           race_4cat, 
+           pid_3)%>%
+  summarise(mean_in = weighted.mean(therm_inparty, weight, na.rm = TRUE),
+            mean_out = weighted.mean(therm_outparty, weight, na.rm = TRUE),
+            sd_in = radiant.data::weighted.sd(therm_inparty, weight, na.rm = TRUE),
+            sd_out = radiant.data::weighted.sd(therm_outparty, weight, na.rm = TRUE))%>%
+  pivot_longer(mean_in:sd_out, names_to = "group", values_to = "result")%>%
+  unite("group", pid_3:group)%>%
+  mutate(stat = as.factor(if_else(str_detect(group, "mean"), "mean", "sd")))%>%
+  mutate(group = as.factor(recode(group,
+                       "Democrat_mean_in" = "Democrat - In Party",
+                       "Democrat_mean_out" = "Democrat - Out Party",
+                       "Democrat_sd_in" = "Democrat - In Party",
+                       "Democrat_sd_out" = "Democrat - Out Party",
+                       "Republican_mean_in" = "Republican - In Party",
+                       "Republican_mean_out" = "Republican - Out Party",
+                       "Republican_sd_in" = "Republican - In Party",
+                       "Republican_sd_out" = "Republican - Out Party")))%>%
+  glimpse()
+
+cdf_mean_ns <- party_fts_ns%>%
+  filter(stat == "mean")%>%
+  glimpse()
+
+gg_mean_ft_ns <- ggplot(cdf_mean_ns, aes(x = year, y = result)) +
+#  geom_smooth(aes(linetype = group, color = group), span = .3, se=F) +
+  geom_line(aes(linetype = group, color = group)) + 
+  geom_point(aes(shape = group, color = group), size = 3) +
+  scale_linetype_manual(values = c("Democrat - In Party" = "longdash",
+                                   "Democrat - Out Party" = "dotted",
+                                   "Republican - In Party" = "solid",
+                                   "Republican - Out Party" = "twodash")) +
+  scale_shape_manual(values = c("Democrat - In Party" = 17,
+                                   "Democrat - Out Party" = 2,
+                                   "Republican - In Party" = 16,
+                                   "Republican - Out Party" = 1)) +
+  scale_color_manual(values = c("Democrat - In Party" = "dodgerblue4",
+                                   "Democrat - Out Party" = "dodgerblue1",
+                                   "Republican - In Party" = "firebrick4",
+                                   "Republican - Out Party" = "firebrick1")) +
+  #scale_x_continuous(limits = c(1978,2020), breaks = c(0:5)) +
+  scale_x_continuous(breaks = seq(1976, 2020, by = 4)) +
+  scale_y_continuous(breaks = seq(20, 80, by = 5), limits = c(20,80)) +
+  labs(y = "Mean",
+       x = "Year",
+       title = "Mean Thermometer Ratings of Partisans",
+       subtitle = "Includes Leaning Independents",
+       linetype = " ",
+       color = " ",
+       shape = " ") +
+  theme(legend.position = c(0.2, 0.2)) +
+  guides(size = FALSE
+#         shape = guide_legend(override.aes = list(size = 1.5))
+         )
+gg_mean_ft_ns
+
+ggsave("fig/gg-mean-ns.png", gg_mean_ft_ns, width = 6, height = 4, units = "in")
+```
+# References

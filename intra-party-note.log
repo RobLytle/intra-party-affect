@@ -1,23 +1,27 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.19 (MiKTeX 2.9.6930 64-bit) (preloaded format=pdflatex 2019.9.29)  30 SEP 2020 18:36
+This is pdfTeX, Version 3.14159265-2.6-1.40.19 (MiKTeX 2.9.6930 64-bit) (preloaded format=pdflatex 2019.9.29)  1 OCT 2020 14:16
 entering extended mode
 **./intra-party-note.tex
 (intra-party-note.tex
 LaTeX2e <2018-12-01>
-("D:\Users\robly\AppData\Local\Programs\MiKTeX 2.9\tex/latex/base\article.cls"
-Document Class: article 2018/09/03 v1.4i Standard LaTeX document class
+("D:\Users\robly\AppData\Local\Programs\MiKTeX 2.9\tex/latex/paper\paper.cls"
+Document Class: paper 2008/05/30 1.0l LaTeX document class (wm).
+\hours=\count80
+\minutes=\count81
 ("D:\Users\robly\AppData\Local\Programs\MiKTeX 2.9\tex/latex/base\size10.clo"
 File: size10.clo 2018/09/03 v1.4i Standard LaTeX file (size option)
 )
-\c@part=\count80
-\c@section=\count81
-\c@subsection=\count82
-\c@subsubsection=\count83
-\c@paragraph=\count84
-\c@subparagraph=\count85
-\c@figure=\count86
-\c@table=\count87
-\abovecaptionskip=\skip41
-\belowcaptionskip=\skip42
+\beforetitlespace=\skip41
+\c@part=\count82
+\c@section=\count83
+\c@subsection=\count84
+\c@subsubsection=\count85
+\c@paragraph=\count86
+\c@subparagraph=\count87
+\exampleindent=\skip42
+\c@figure=\count88
+\c@table=\count89
+\abovecaptionskip=\skip43
+\belowcaptionskip=\skip44
 \bibindent=\dimen102
 ) ("D:\Users\robly\AppData\Local\Programs\MiKTeX 2.9\tex/latex/lm\lmodern.sty"
 Package: lmodern 2009/10/30 v1.6 Latin Modern Fonts
@@ -70,7 +74,7 @@ LaTeX Font Info:    Overwriting math alphabet `\mathfrak' in version `bold'
 ("D:\Users\robly\AppData\Local\Programs\MiKTeX 2.9\tex/latex/amsmath\amsmath.st
 y"
 Package: amsmath 2018/12/01 v2.17b AMS math features
-\@mathmargin=\skip43
+\@mathmargin=\skip45
 For additional information on amsmath, use the `?' option.
 
 ("D:\Users\robly\AppData\Local\Programs\MiKTeX 2.9\tex/latex/amsmath\amstext.st
@@ -89,13 +93,13 @@ Package: amsbsy 1999/11/29 v1.2d Bold Symbols
 ty"
 Package: amsopn 2016/03/08 v2.02 operator names
 )
-\inf@bad=\count88
+\inf@bad=\count90
 LaTeX Info: Redefining \frac on input line 223.
-\uproot@=\count89
-\leftroot@=\count90
+\uproot@=\count91
+\leftroot@=\count92
 LaTeX Info: Redefining \overline on input line 385.
-\classnum@=\count91
-\DOTSCASE@=\count92
+\classnum@=\count93
+\DOTSCASE@=\count94
 LaTeX Info: Redefining \ldots on input line 482.
 LaTeX Info: Redefining \dots on input line 485.
 LaTeX Info: Redefining \cdots on input line 606.
@@ -104,15 +108,15 @@ LaTeX Info: Redefining \cdots on input line 606.
 \big@size=\dimen105
 LaTeX Font Info:    Redeclaring font encoding OML on input line 729.
 LaTeX Font Info:    Redeclaring font encoding OMS on input line 730.
-\macc@depth=\count93
-\c@MaxMatrixCols=\count94
+\macc@depth=\count95
+\c@MaxMatrixCols=\count96
 \dotsspace@=\muskip10
-\c@parentequation=\count95
-\dspbrk@lvl=\count96
+\c@parentequation=\count97
+\dspbrk@lvl=\count98
 \tag@help=\toks16
-\row@=\count97
-\column@=\count98
-\maxfields@=\count99
+\row@=\count99
+\column@=\count100
+\maxfields@=\count101
 \andhelp@=\toks17
 \eqnshift@=\dimen106
 \alignsep@=\dimen107
@@ -121,8 +125,8 @@ LaTeX Font Info:    Redeclaring font encoding OMS on input line 730.
 \totwidth@=\dimen110
 \lineht@=\dimen111
 \@envbody=\toks18
-\multlinegap=\skip44
-\multlinetaggap=\skip45
+\multlinegap=\skip46
+\multlinetaggap=\skip47
 \mathdisplay@stack=\toks19
 LaTeX Info: Redefining \[ on input line 2844.
 LaTeX Info: Redefining \] on input line 2845.
@@ -318,11 +322,11 @@ Package: keyval 2014/10/28 v1.15 key=value parser (DPC)
 \KV@toks@=\toks22
 )
 \MT@toks=\toks23
-\MT@count=\count100
+\MT@count=\count102
 LaTeX Info: Redefining \textls on input line 790.
 \MT@outer@kern=\dimen112
 LaTeX Info: Redefining \textmicrotypecontext on input line 1347.
-\MT@listname@count=\count101
+\MT@listname@count=\count103
 
 ("D:\Users\robly\AppData\Local\Programs\MiKTeX 2.9\tex/latex/microtype\microtyp
 e-pdftex.def"
@@ -330,7 +334,7 @@ File: microtype-pdftex.def 2019/10/10 v2.7c Definitions specific to pdftex (RS)
 
 LaTeX Info: Redefining \lsstyle on input line 914.
 LaTeX Info: Redefining \lslig on input line 914.
-\MT@outer@space=\skip46
+\MT@outer@space=\skip48
 )
 Package microtype Info: Loading configuration file microtype.cfg.
 
@@ -365,7 +369,7 @@ Package: etexcmds 2016/05/16 v1.6 Avoid name clashes with e-TeX commands (HO)
 ("D:\Users\robly\AppData\Local\Programs\MiKTeX 2.9\tex/latex/etoolbox\etoolbox.
 sty"
 Package: etoolbox 2019/09/21 v2.5h e-TeX tools for LaTeX (JAW)
-\etb@tempcnta=\count102
+\etb@tempcnta=\count104
 )) ("D:\Users\robly\AppData\Local\Programs\MiKTeX 2.9\tex/latex/xcolor\xcolor.s
 ty"
 Package: xcolor 2016/05/11 v2.12 LaTeX color extensions (UK)
@@ -451,8 +455,8 @@ ty"
 Package: auxhook 2016/05/16 v1.4 Hooks for auxiliary files (HO)
 )
 \@linkdim=\dimen113
-\Hy@linkcounter=\count103
-\Hy@pagecounter=\count104
+\Hy@linkcounter=\count105
+\Hy@pagecounter=\count106
 
 ("D:\Users\robly\AppData\Local\Programs\MiKTeX 2.9\tex/latex/hyperref\pd1enc.de
 f"
@@ -464,7 +468,7 @@ Now handling font encoding PD1 ...
 .sty"
 Package: intcalc 2016/05/16 v1.2 Expandable calculations with integers (HO)
 )
-\Hy@SavedSpaceFactor=\count105
+\Hy@SavedSpaceFactor=\count107
 
 ("D:\Users\robly\AppData\Local\Programs\MiKTeX 2.9\tex/latex/00miktex\hyperref.
 cfg"
@@ -484,7 +488,7 @@ Package hyperref Info: Plain pages OFF on input line 4534.
 Package hyperref Info: Backreferencing OFF on input line 4539.
 Package hyperref Info: Implicit mode ON; LaTeX internals redefined.
 Package hyperref Info: Bookmarks ON on input line 4772.
-\c@Hy@tempcnt=\count106
+\c@Hy@tempcnt=\count108
 LaTeX Info: Redefining \url on input line 5125.
 \XeTeXLinkMargin=\dimen114
 
@@ -497,7 +501,7 @@ alc.sty"
 Package: bigintcalc 2016/05/16 v1.4 Expandable calculations on big integers (HO
 )
 ))
-\Fld@menulength=\count107
+\Fld@menulength=\count109
 \Field@Width=\dimen115
 \Fld@charsize=\dimen116
 Package hyperref Info: Hyper figures OFF on input line 6380.
@@ -514,9 +518,9 @@ LaTeX Info: Redefining \pageref on input line 6454.
 i.sty"
 Package: atbegshi 2016/06/09 v1.18 At begin shipout hook (HO)
 )
-\Hy@abspage=\count108
-\c@Item=\count109
-\c@Hfootnote=\count110
+\Hy@abspage=\count110
+\c@Item=\count111
+\c@Hfootnote=\count112
 )
 Package hyperref Info: Driver (autodetected): hpdftex.
 
@@ -528,8 +532,8 @@ File: hpdftex.def 2018/11/30 v6.88e Hyperref driver for pdfTeX
 .sty"
 Package: atveryend 2016/05/16 v1.9 Hooks at the very end of document (HO)
 )
-\Fld@listcount=\count111
-\c@bookmark@seq@number=\count112
+\Fld@listcount=\count113
+\c@bookmark@seq@number=\count114
 
 ("D:\Users\robly\AppData\Local\Programs\MiKTeX 2.9\tex/latex/oberdiek\rerunfile
 check.sty"
@@ -542,31 +546,13 @@ Package: uniquecounter 2016/05/16 v1.3 Provide unlimited unique counter (HO)
 Package uniquecounter Info: New unique counter `rerunfilecheck' on input line 2
 82.
 )
-\Hy@SectionHShift=\skip47
+\Hy@SectionHShift=\skip49
 )
 ("D:\Users\robly\AppData\Local\Programs\MiKTeX 2.9\tex/latex/oberdiek\bkm-pdfte
 x.def"
 File: bkm-pdftex.def 2016/05/17 v1.26 bookmark driver for pdfTeX (HO)
-\BKM@id=\count113
+\BKM@id=\count115
 ))
-("D:\Users\robly\AppData\Local\Programs\MiKTeX 2.9\tex/latex/geometry\geometry.
-sty"
-Package: geometry 2018/04/16 v5.8 Page Geometry
-\Gm@cnth=\count114
-\Gm@cntv=\count115
-\c@Gm@tempcnt=\count116
-\Gm@bindingoffset=\dimen117
-\Gm@wd@mp=\dimen118
-\Gm@odd@mp=\dimen119
-\Gm@even@mp=\dimen120
-\Gm@layoutwidth=\dimen121
-\Gm@layoutheight=\dimen122
-\Gm@layouthoffset=\dimen123
-\Gm@layoutvoffset=\dimen124
-\Gm@dimlist=\toks24
-
-("D:\Users\robly\AppData\Local\Programs\MiKTeX 2.9\tex/latex/geometry\geometry.
-cfg"))
 ("D:\Users\robly\AppData\Local\Programs\MiKTeX 2.9\tex/latex/graphics\graphicx.
 sty"
 Package: graphicx 2017/06/01 v1.1a Enhanced LaTeX Graphics (DPC,SPQR)
@@ -583,9 +569,27 @@ File: graphics.cfg 2016/06/04 v1.11 sample graphics configuration
 )
 Package graphics Info: Driver file: pdftex.def on input line 99.
 )
-\Gin@req@height=\dimen125
-\Gin@req@width=\dimen126
+\Gin@req@height=\dimen117
+\Gin@req@width=\dimen118
 )
+("D:\Users\robly\AppData\Local\Programs\MiKTeX 2.9\tex/latex/geometry\geometry.
+sty"
+Package: geometry 2018/04/16 v5.8 Page Geometry
+\Gm@cnth=\count116
+\Gm@cntv=\count117
+\c@Gm@tempcnt=\count118
+\Gm@bindingoffset=\dimen119
+\Gm@wd@mp=\dimen120
+\Gm@odd@mp=\dimen121
+\Gm@even@mp=\dimen122
+\Gm@layoutwidth=\dimen123
+\Gm@layoutheight=\dimen124
+\Gm@layouthoffset=\dimen125
+\Gm@layoutvoffset=\dimen126
+\Gm@dimlist=\toks24
+
+("D:\Users\robly\AppData\Local\Programs\MiKTeX 2.9\tex/latex/geometry\geometry.
+cfg"))
 ("D:\Users\robly\AppData\Local\Programs\MiKTeX 2.9\tex/latex/caption\caption.st
 y"
 Package: caption 2020/09/02 v3.5a Customizing captions (AR)
@@ -600,18 +604,23 @@ Package: caption3 2020/08/30 v2.0 caption3 kernel (AR)
 \caption@indent=\dimen131
 \caption@parindent=\dimen132
 \caption@hangindent=\dimen133
-Package caption Info: Standard document class detected.
-)
-\c@caption@flags=\count117
-\c@continuedfloat=\count118
+Package caption Info: thesis document class detected.
+
+("D:\Users\robly\AppData\Local\Programs\MiKTeX 2.9\tex/latex/caption\caption-th
+esis.sto"
+File: caption-thesis.sto 2020/08/22 v2.0 Adaption of the caption package to the
+ thesis document class (AR)
+))
+\c@caption@flags=\count119
+\c@continuedfloat=\count120
 Package caption Info: hyperref package is loaded.
 )
 ("D:\Users\robly\AppData\Local\Programs\MiKTeX 2.9\tex/latex/multirow\multirow.
 sty"
 Package: multirow 2019/01/01 v2.4 Span multiple rows of a table
-\multirow@colwidth=\skip48
-\multirow@cntb=\count119
-\multirow@dima=\skip49
+\multirow@colwidth=\skip50
+\multirow@cntb=\count121
+\multirow@dima=\skip51
 \bigstrutjot=\dimen134
 )
 ("D:\Users\robly\AppData\Local\Programs\MiKTeX 2.9\tex/latex/jknappen\mathrsfs.
@@ -620,7 +629,7 @@ Package: mathrsfs 1996/01/01 Math RSFS package v1.0 (jk)
 \symrsfs=\mathgroup6
 ) ("D:\Users\robly\AppData\Local\Programs\MiKTeX 2.9\tex/latex/float\float.sty"
 Package: float 2001/11/08 v1.3d Float enhancements (AL)
-\c@float@type=\count120
+\c@float@type=\count122
 \float@exts=\toks25
 \float@box=\box29
 \@float@everytoks=\toks26
@@ -628,10 +637,10 @@ Package: float 2001/11/08 v1.3d Float enhancements (AL)
 ) ("D:\Users\robly\AppData\Local\Programs\MiKTeX 2.9\tex/latex/natbib\natbib.st
 y"
 Package: natbib 2010/09/13 8.31b (PWD, AO)
-\bibhang=\skip50
-\bibsep=\skip51
+\bibhang=\skip52
+\bibsep=\skip53
 LaTeX Info: Redefining \cite on input line 694.
-\c@NAT@ctr=\count121
+\c@NAT@ctr=\count123
 )
 ("D:\Users\robly\AppData\Local\Programs\MiKTeX 2.9\tex/latex/setspace\setspace.
 sty"
@@ -653,12 +662,12 @@ Package: booktabs 2019/10/08 v1.6180339 publication quality tables
 \cmidrulesep=\dimen142
 \cmidrulekern=\dimen143
 \defaultaddspace=\dimen144
-\@cmidla=\count122
-\@cmidlb=\count123
+\@cmidla=\count124
+\@cmidlb=\count125
 \@aboverulesep=\dimen145
 \@belowrulesep=\dimen146
-\@thisruleclass=\count124
-\@lastruleclass=\count125
+\@thisruleclass=\count126
+\@lastruleclass=\count127
 \@thisrulewidth=\dimen147
 )
 ("D:\Users\robly\AppData\Local\Programs\MiKTeX 2.9\tex/latex/makecell\makecell.
@@ -670,12 +679,12 @@ Package: array 2018/11/13 v2.4j Tabular extension package (FMi)
 \ar@mcellbox=\box31
 \extrarowheight=\dimen149
 \NC@list=\toks27
-\extratabsurround=\skip52
-\backup@length=\skip53
+\extratabsurround=\skip54
+\backup@length=\skip55
 \ar@cellbox=\box32
 )
 \rotheadsize=\dimen150
-\c@nlinenum=\count126
+\c@nlinenum=\count128
 \TeXr@lab=\toks28
 ) ("D:\Users\robly\AppData\Local\Programs\MiKTeX 2.9\tex/latex/tools\dcolumn.st
 y"
@@ -684,27 +693,27 @@ Package: dcolumn 2014/10/28 v1.06 decimal alignment package (DPC)
 ("D:\Users\robly\AppData\Local\Programs\MiKTeX 2.9\tex/latex/tools\longtable.st
 y"
 Package: longtable 2014/10/28 v4.11 Multi-page Table package (DPC)
-\LTleft=\skip54
-\LTright=\skip55
-\LTpre=\skip56
-\LTpost=\skip57
-\LTchunksize=\count127
+\LTleft=\skip56
+\LTright=\skip57
+\LTpre=\skip58
+\LTpost=\skip59
+\LTchunksize=\count129
 \LTcapwidth=\dimen151
 \LT@head=\box33
 \LT@firsthead=\box34
 \LT@foot=\box35
 \LT@lastfoot=\box36
-\LT@cols=\count128
-\LT@rows=\count129
-\c@LT@tables=\count130
-\c@LT@chunks=\count131
+\LT@cols=\count130
+\LT@rows=\count131
+\c@LT@tables=\count132
+\c@LT@chunks=\count133
 \LT@p@ftn=\toks29
 )
 ("D:\Users\robly\AppData\Local\Programs\MiKTeX 2.9\tex/latex/wrapfig\wrapfig.st
 y"
 \wrapoverhang=\dimen152
 \WF@size=\dimen153
-\c@WF@wrappedlines=\count132
+\c@WF@wrappedlines=\count134
 \WF@box=\box37
 \WF@everypar=\toks30
 Package: wrapfig 2003/01/31  v 3.6
@@ -713,7 +722,7 @@ Package: wrapfig 2003/01/31  v 3.6
 sty"
 Package: colortbl 2018/12/12 v1.0d Color table columns (DPC)
 \everycr=\toks31
-\minrowclearance=\skip58
+\minrowclearance=\skip60
 )
 ("D:\Users\robly\AppData\Local\Programs\MiKTeX 2.9\tex/latex/oberdiek\pdflscape
 .sty"
@@ -731,16 +740,16 @@ Package: tabu 2019/01/11 v2.9 - flexible LaTeX tabulars (FC+tabu-fixed)
 sty"
 Package: varwidth 2009/03/30 ver 0.92;  Variable-width minipages
 \@vwid@box=\box38
-\sift@deathcycles=\count133
+\sift@deathcycles=\count135
 \@vwid@loff=\dimen154
 \@vwid@roff=\dimen155
 )
-\c@taburow=\count134
-\tabu@nbcols=\count135
-\tabu@cnt=\count136
-\tabu@Xcol=\count137
-\tabu@alloc=\count138
-\tabu@nested=\count139
+\c@taburow=\count136
+\tabu@nbcols=\count137
+\tabu@cnt=\count138
+\tabu@Xcol=\count139
+\tabu@alloc=\count140
+\tabu@nested=\count141
 \tabu@target=\dimen156
 \tabu@spreadtarget=\dimen157
 \tabu@naturalX=\dimen158
@@ -756,7 +765,7 @@ Package: varwidth 2009/03/30 ver 0.92;  Variable-width minipages
 \tabu@arstrutbox=\box40
 \tabu@hleads=\box41
 \tabu@vleads=\box42
-\tabu@cellskip=\skip59
+\tabu@cellskip=\skip61
 )
 ("D:\Users\robly\AppData\Local\Programs\MiKTeX 2.9\tex/latex/threeparttable\thr
 eeparttable.sty"
@@ -775,20 +784,24 @@ Package: environ 2014/05/04 v0.3 A new way to define environments
 ces.sty"
 Package: trimspaces 2009/09/17 v1.1 Trim spaces around a token list
 ))
-\TPTL@width=\skip60
+\TPTL@width=\skip62
 ) ("D:\Users\robly\AppData\Local\Programs\MiKTeX 2.9\tex/latex/ulem\ulem.sty"
 \UL@box=\box44
 \UL@hyphenbox=\box45
-\UL@skip=\skip61
+\UL@skip=\skip63
 \UL@hook=\toks34
 \UL@height=\dimen165
-\UL@pe=\count140
+\UL@pe=\count142
 \UL@pixel=\dimen166
 \ULC@box=\box46
 Package: ulem 2012/05/18
 \ULdepth=\dimen167
 )
-\cslhangindent=\skip62
+\cslhangindent=\skip64
+
+LaTeX Warning: Unused global option(s):
+    [12].
+
 (intra-party-note.aux)
 \openout1 = `intra-party-note.aux'.
 
@@ -838,16 +851,16 @@ File: mt-cmr.cfg 2013/05/19 v2.2 microtype config. file: Computer Modern Roman
 ("D:\Users\robly\AppData\Local\Programs\MiKTeX 2.9\tex/context/base/mkii\supp-p
 df.mkii"
 [Loading MPS to PDF converter (version 2006.09.02).]
-\scratchcounter=\count141
+\scratchcounter=\count143
 \scratchdimen=\dimen168
 \scratchbox=\box47
-\nofMPsegments=\count142
-\nofMParguments=\count143
+\nofMPsegments=\count144
+\nofMParguments=\count145
 \everyMPshowfont=\toks35
-\MPscratchCnt=\count144
+\MPscratchCnt=\count146
 \MPscratchDim=\dimen169
-\MPnumerator=\count145
-\makeMPintoPDFobject=\count146
+\MPnumerator=\count147
+\makeMPintoPDFobject=\count148
 \everyMPtoPDFconversion=\toks36
 )
 ("D:\Users\robly\AppData\Local\Programs\MiKTeX 2.9\tex/latex/oberdiek\epstopdf-
@@ -880,7 +893,7 @@ Package: refcount 2016/05/16 v3.5 Data extraction from label references (HO)
 estring.sty"
 Package: gettitlestring 2016/05/16 v1.5 Cleanup title references (HO)
 )
-\c@section@level=\count147
+\c@section@level=\count149
 )
 LaTeX Info: Redefining \ref on input line 103.
 LaTeX Info: Redefining \pageref on input line 103.
@@ -930,6 +943,11 @@ Package: ltcaption 2020/05/30 v1.4b longtable captions (AR)
 Package caption Info: threeparttable package is loaded.
 Package caption Info: wrapfig package is loaded.
 Package caption Info: End \AtBeginDocument code.
+LaTeX Font Info:    Try loading font information for T1+lmss on input line 105.
+
+("D:\Users\robly\AppData\Local\Programs\MiKTeX 2.9\tex/latex/lm\t1lmss.fd"
+File: t1lmss.fd 2009/10/30 v1.6 Font defs for Latin Modern
+)
 LaTeX Font Info:    Try loading font information for OT1+lmr on input line 105.
 
 ("D:\Users\robly\AppData\Local\Programs\MiKTeX 2.9\tex/latex/lm\ot1lmr.fd"
@@ -951,11 +969,11 @@ LaTeX Font Info:    Try loading font information for OMX+lmex on input line 105
 File: omxlmex.fd 2009/10/30 v1.6 Font defs for Latin Modern
 )
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <12> on input line 105.
+(Font)              <14.4> on input line 105.
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <8> on input line 105.
+(Font)              <10> on input line 105.
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <6> on input line 105.
+(Font)              <7> on input line 105.
 LaTeX Font Info:    Try loading font information for U+msa on input line 105.
 ("D:\Users\robly\AppData\Local\Programs\MiKTeX 2.9\tex/latex/amsfonts\umsa.fd"
 File: umsa.fd 2013/01/14 v3.01 AMS symbols A
@@ -976,54 +994,140 @@ LaTeX Font Info:    Try loading font information for U+rsfs on input line 105.
 ("D:\Users\robly\AppData\Local\Programs\MiKTeX 2.9\tex/latex/jknappen\ursfs.fd"
 File: ursfs.fd 1998/03/24 rsfs font definition file (jk)
 )
-
-Package natbib Warning: Citation `clark2017party' on page 1 undefined on input 
-line 112.
-
+Package microtype Info: Loading generic protrusion settings for font family
+(microtype)             `lmss' (encoding: T1).
+(microtype)             For optimal results, create family-specific settings.
+(microtype)             See the microtype manual for details.
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <10> on input line 173.
+(Font)              <5> on input line 172.
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <7> on input line 173.
+(Font)              <8> on input line 172.
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <5> on input line 173.
+(Font)              <6> on input line 172.
 [1
 
+
 {C:/Users/robly/AppData/Local/MiKTeX/2.9/pdftex/config/pdftex.map}]
+<intra-party-note_files/figure-latex/unnamed-chunk-2-1.pdf, id=18, 469.755pt x 
+325.215pt>
+File: intra-party-note_files/figure-latex/unnamed-chunk-2-1.pdf Graphic file (t
+ype pdf)
+<use intra-party-note_files/figure-latex/unnamed-chunk-2-1.pdf>
+Package pdftex.def Info: intra-party-note_files/figure-latex/unnamed-chunk-2-1.
+pdf  used on input line 248.
+(pdftex.def)             Requested size: 469.75386pt x 325.2142pt.
+[2]
+<intra-party-note_files/figure-latex/unnamed-chunk-3-1.pdf, id=34, 469.755pt x 
+325.215pt>
+File: intra-party-note_files/figure-latex/unnamed-chunk-3-1.pdf Graphic file (t
+ype pdf)
+<use intra-party-note_files/figure-latex/unnamed-chunk-3-1.pdf>
+Package pdftex.def Info: intra-party-note_files/figure-latex/unnamed-chunk-3-1.
+pdf  used on input line 260.
+(pdftex.def)             Requested size: 469.75386pt x 325.2142pt.
+[3 <./intra-party-note_files/figure-latex/unnamed-chunk-2-1.pdf>]
+<fig/gg-below-50-ns.png, id=48, 578.16pt x 433.62pt>
+File: fig/gg-below-50-ns.png Graphic file (type png)
+<use fig/gg-below-50-ns.png>
+Package pdftex.def Info: fig/gg-below-50-ns.png  used on input line 295.
+(pdftex.def)             Requested size: 469.75385pt x 352.31538pt.
+
+Underfull \hbox (badness 10000) in paragraph at lines 295--298
+[][]
+ []
+
+[4 <./intra-party-note_files/figure-latex/unnamed-chunk-3-1.pdf>]
+<fig/gg-ridge-grid.png, id=58, 722.7pt x 289.08pt>
+File: fig/gg-ridge-grid.png Graphic file (type png)
+<use fig/gg-ridge-grid.png>
+Package pdftex.def Info: fig/gg-ridge-grid.png  used on input line 311.
+(pdftex.def)             Requested size: 469.76045pt x 187.90417pt.
+[5 <./fig/gg-below-50-ns.png>]
+<fig/gg-pooled-combined-strict.png, id=64, 433.62pt x 722.7pt>
+File: fig/gg-pooled-combined-strict.png Graphic file (type png)
+<use fig/gg-pooled-combined-strict.png>
+Package pdftex.def Info: fig/gg-pooled-combined-strict.png  used on input line 
+329.
+(pdftex.def)             Requested size: 390.26102pt x 650.43501pt.
+[6 <./fig/gg-ridge-grid.png (PNG copy)>]
+Overfull \vbox (29.46324pt too high) has occurred while \output is active []
+
+[7 <./fig/gg-pooled-combined-strict.png>]
+<fig/gg-primary-in-hist.png, id=78, 578.16pt x 433.62pt>
+File: fig/gg-primary-in-hist.png Graphic file (type png)
+<use fig/gg-primary-in-hist.png>
+Package pdftex.def Info: fig/gg-primary-in-hist.png  used on input line 353.
+(pdftex.def)             Requested size: 469.75385pt x 352.31538pt.
+
+Underfull \hbox (badness 10000) in paragraph at lines 353--357
+[][]
+ []
+
+
+Package natbib Warning: Citation `wronski2018tale' on page 8 undefined on input
+ line 364.
+
+
+Package natbib Warning: Citation `bankert2020authoritarian' on page 8 undefined
+ on input line 365.
+
+[8 <./fig/gg-primary-in-hist.png>]
+
+LaTeX Warning: Reference `fig:primary-dem' on page 9 undefined on input line 37
+2.
+
+[9]
 
 Package natbib Warning: There were undefined citations.
 
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 245.
-[2]
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 245.
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 424.
+[10
+
+]
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 424.
 (intra-party-note.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 245.
-Package atveryend Info: Empty hook `AtEndAfterFileList' on input line 245.
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 424.
+Package atveryend Info: Empty hook `AtEndAfterFileList' on input line 424.
+
+LaTeX Warning: There were undefined references.
+
  ) 
 Here is how much of TeX's memory you used:
- 16083 strings out of 492946
- 243358 string characters out of 3126266
- 358083 words of memory out of 3000000
- 19568 multiletter control sequences out of 15000+200000
- 67979 words of font info for 106 fonts, out of 3000000 for 9000
+ 16388 strings out of 492946
+ 248320 string characters out of 3126266
+ 362501 words of memory out of 3000000
+ 19803 multiletter control sequences out of 15000+200000
+ 92945 words of font info for 126 fonts, out of 3000000 for 9000
  1141 hyphenation exceptions out of 8191
- 47i,8n,39p,817b,429s stack positions out of 5000i,500n,10000p,200000b,50000s
-pdfTeX warning (dest): name{Hfootnote.1} has been referenced but does not exi
+ 47i,9n,39p,817b,429s stack positions out of 5000i,500n,10000p,200000b,50000s
+pdfTeX warning (dest): name{Hfootnote.4} has been referenced but does not exi
 st, replaced by a fixed one
+
+pdfTeX warning (dest): name{Hfootnote.3} has been referenced but does not exist
+, replaced by a fixed one
+
+pdfTeX warning (dest): name{Hfootnote.2} has been referenced but does not exist
+, replaced by a fixed one
+
+pdfTeX warning (dest): name{Hfootnote.1} has been referenced but does not exist
+, replaced by a fixed one
 
 {D:/Users/robly/AppData/Local/Programs/MiKTeX 2.9/fonts/enc/dvips/lm/lm-ec.enc}
 <D:/Users/robly/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/public/lm/lmbx10.
 pfb><D:/Users/robly/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/public/lm/lmb
-x12.pfb><D:/Users/robly/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/public/lm
-/lmr10.pfb><D:/Users/robly/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/public
-/lm/lmr12.pfb><D:/Users/robly/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/pub
-lic/lm/lmr17.pfb><D:/Users/robly/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/
-public/lm/lmr6.pfb><D:/Users/robly/AppData/Local/Programs/MiKTeX 2.9/fonts/type
-1/public/lm/lmr7.pfb><D:/Users/robly/AppData/Local/Programs/MiKTeX 2.9/fonts/ty
-pe1/public/lm/lmr8.pfb><D:/Users/robly/AppData/Local/Programs/MiKTeX 2.9/fonts/
-type1/public/lm/lmri10.pfb>
-Output written on intra-party-note.pdf (2 pages, 216164 bytes).
+xi10.pfb><D:/Users/robly/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/public/l
+m/lmr10.pfb><D:/Users/robly/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/publi
+c/lm/lmr6.pfb><D:/Users/robly/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/pub
+lic/lm/lmr7.pfb><D:/Users/robly/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/p
+ublic/lm/lmr8.pfb><D:/Users/robly/AppData/Local/Programs/MiKTeX 2.9/fonts/type1
+/public/lm/lmr9.pfb><D:/Users/robly/AppData/Local/Programs/MiKTeX 2.9/fonts/typ
+e1/public/lm/lmri10.pfb><D:/Users/robly/AppData/Local/Programs/MiKTeX 2.9/fonts
+/type1/public/lm/lmss9.pfb><D:/Users/robly/AppData/Local/Programs/MiKTeX 2.9/fo
+nts/type1/public/lm/lmssbx10.pfb><D:/Users/robly/AppData/Local/Programs/MiKTeX 
+2.9/fonts/type1/public/lm/lmsso12.pfb>
+Output written on intra-party-note.pdf (10 pages, 623896 bytes).
 PDF statistics:
- 74 PDF objects out of 1000 (max. 8388607)
- 13 named destinations out of 1000 (max. 500000)
- 14353 words of extra memory for PDF output out of 14400 (max. 10000000)
+ 171 PDF objects out of 1000 (max. 8388607)
+ 35 named destinations out of 1000 (max. 500000)
+ 18519 words of extra memory for PDF output out of 20736 (max. 10000000)
 
