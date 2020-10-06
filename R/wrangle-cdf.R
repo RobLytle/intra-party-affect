@@ -532,7 +532,7 @@ anes_tidy <- read_rds("data/raw/cdf-raw-trim.rds")%>% # Loads RDS created in `an
 #	mutate(econ_att = if_else(pid_3_num == 3, (1-econ_att), econ_att))%>% #DO NOT USE UNLESS YOU ARE WORKING WITH DEMS AND REPS ONLY
 #	select(-ends_with("_num")) %>%   # drop the numeric versions of the factors that i used for reordering above
 #	select(-starts_with("VCF"))%>%
-	filter(pres_election == 1)%>%
+#	filter(pres_election == 1)%>% #BAD REMEMBER TO COMMENT OUT WHEN NOT USING BADBADNOTGOOD
 	glimpse()%>%
 	write_rds("data/tidy-cdf.rds")%>%
 	write_csv("data/tidy-cdf.csv")
