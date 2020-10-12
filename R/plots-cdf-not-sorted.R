@@ -1,10 +1,10 @@
-
 library(tidyverse)
 library(ggExtra)
 library(ggridges)
 library(goji)
 library(gridExtra)
 theme_set(theme_minimal())
+set.seed(2001)
 #### CDF Time Series Dataframe
 tidy_cdf_ns <- read_rds("data/tidy-cdf.rds")%>%
   filter(year >= 1978)%>%
@@ -66,22 +66,67 @@ n_df_ns <- tidy_cdf_ns%>% # Making a DF of the party-year SD
             sd_in = radiant.data::weighted.sd(therm_inparty, weight, na.rm = TRUE),
             sd_out = radiant.data::weighted.sd(therm_outparty, weight, na.rm = TRUE))%>%
   glimpse()
-  
-#print(party_fts_ns)
-### Replication of fig. 1a
 
-cdf_mean_ns <- party_fts_ns%>%
-  filter(stat == "mean")%>%
+
+df_for_sampling <- tidy_cdf_ns%>% # Making a DF of the party-year SD
+  filter(pid_3 != "Independent" & year != 2002)%>%
+  select(year,
+         weight,
+         pid_3,
+         therm_inparty,
+         therm_outparty,
+         pid_7
+  )%>%
+glimpse()
+#bootstrapping the SE of the SD
+boot_sd_in <- data.frame(boot = 1:500)%>%
+  group_by(boot)%>%
+  do(sample_n(df_for_sampling, 
+              nrow(df_for_sampling),
+              replace = TRUE))%>% #creating 100 new datasets of equal size to the original
+  group_by(boot,
+           year,
+           pid_3)%>%
+  summarise(mean_in = weighted.mean(therm_inparty, weight, na.rm = TRUE),
+            mean_out = weighted.mean(therm_outparty, weight, na.rm = TRUE),
+            sd_in = radiant.data::weighted.sd(therm_inparty, weight, na.rm = TRUE),
+            sd_out = radiant.data::weighted.sd(therm_outparty, weight, na.rm = TRUE))%>%
+  glimpse()
+  group_by(year,
+           pid_3)%>%
+  summarise(se_mean_in = sd(mean_in),
+            se_mean_out = sd(mean_out),
+            se_sd_in = sd(sd_in),
+            se_sd_out = sd(sd_out))%>%
+  pivot_longer(se_mean_in:se_sd_out, names_to = "group", values_to = "result")%>%
+  unite("group", pid_3:group)%>%
+  mutate(stat = as.factor(if_else(str_detect(group, "mean"), "se_mean", "se_sd")))%>%
+  mutate(group = as.factor(recode(group,
+                                  "Democrat_se_mean_in" = "Democrat - In Party",
+                                  "Democrat_se_mean_out" = "Democrat - Out Party",
+                                  "Democrat_se_sd_in" = "Democrat - In Party",
+                                  "Democrat_se_sd_out" = "Democrat - Out Party",
+                                  "Republican_se_mean_in" = "Republican - In Party",
+                                  "Republican_se_mean_out" = "Republican - Out Party",
+                                  "Republican_se_sd_in" = "Republican - In Party",
+                                  "Republican_se_sd_out" = "Republican - Out Party")))%>%
   glimpse()
 
-cdf_sd_ns <- party_fts_ns%>%
-  filter(group == "Democrat - In Party" | group == "Republican - In Party")%>%
-  filter(stat == "sd")%>%
+  ggplot(boot_sd_in, aes(x = sd_in)) +
+    geom_density() +
+    facet_grid(rows = vars(year),
+               cols = vars(pid_3))
+party_fts_ns_joined <- rbind(party_fts_ns, boot_sd_in)%>%
+#party_fts_ns_joined <- full_join(party_fts_ns, boot_sd_in)%>%
+  pivot_wider(names_from = stat,
+              values_from = result)%>%
   glimpse()
 
-gg_mean_ft_ns <- ggplot(cdf_mean_ns, aes(x = year, y = result)) +
+dodge <- position_dodge(width=0.75)
+
+gg_mean_ft_ns <- ggplot(party_fts_ns_joined, aes(x = year, y = mean)) +
 #  geom_smooth(aes(linetype = group, color = group), span = .3, se=F) +
-  geom_line(aes(linetype = group, color = group)) + 
+  geom_line(aes(linetype = group, color = group)) +
   geom_point(aes(shape = group, color = group), size = 3) +
   scale_linetype_manual(values = c("Democrat - In Party" = "longdash",
                                    "Democrat - Out Party" = "dotted",
@@ -113,27 +158,36 @@ gg_mean_ft_ns
 
 ggsave("fig/gg-mean-ns.png", gg_mean_ft_ns, width = 6, height = 4, units = "in")
 
-gg_sd_ft_ns <- ggplot(cdf_sd_ns, aes(x = year, y = result, color = group)) +
+
+gg_sd_ft_ns <- party_fts_ns_joined%>%
+  filter(!str_detect(group, "Out"))%>%
+  
+  ggplot(aes(x = year, y = sd, color = group)) +
 #  geom_smooth(aes(linetype = group), span = .3, se=F) + 
   geom_line(aes(linetype = group), size = 1) +
-  geom_point(aes(shape = group, size = 1)) +
+#  geom_errorbar(aes(ymin = sd - 1.96*se_sd, ymax = sd + 1.96*se_sd), width = 2, position = dodge) +
+  geom_linerange(aes(ymin = sd - 1.96*se_sd, ymax = sd + 1.96*se_sd, color = group), position = dodge) +
+  geom_point(aes(shape = group), position = dodge, size = 3) +
   scale_linetype_manual(values = c("Democrat - In Party" = "longdash",
                                    "Republican - In Party" = "solid")) +
-  scale_shape_manual(values = c("Democrat - In Party" = 3,
+  scale_shape_manual(values = c("Democrat - In Party" = 17,
                                 "Republican - In Party" = 16)) +
   scale_color_manual(values = c("Democrat - In Party" = "dodgerblue3",
                                 "Republican - In Party" = "firebrick3")) +
   #scale_x_continuous(limits = c(1978,2020), breaks = c(0:5)) +
   scale_x_continuous(breaks = seq(1976, 2020, by = 4)) +
-  scale_y_continuous(limits = c(15,25)) +
+  scale_y_continuous(limits = c(14,25)) +
   labs(y = "Standard Deviations",
        x = "Year",
        title = "Standard Deviation of In-Party Feeling Thermometers",
        subtitle = "Includes Leaning Independents",
        linetype = " ",
        color = " ",
-       shape = " ") +
-  theme(legend.position = c(0.2, 0.8))+
+       shape = " ",
+       caption = "Bootstrapped 95\% CI Given By Vertical Bars") +
+  theme(legend.position = c(0.2, 0.8),
+        legend.key.width = unit(.1, "npc"),
+        legend.key.height = unit(.075, "npc")) +
   guides(size = FALSE)
 gg_sd_ft_ns
 

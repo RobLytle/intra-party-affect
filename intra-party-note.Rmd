@@ -167,45 +167,15 @@ ggsave("fig/gg-mean-ns.png", gg_mean_ft_ns, width = 6, height = 4, units = "in")
 
 As shown in Figure 1, mean out party feeling thermometers for Democrats and Republicans have obviously declined. We also a see a decline in Republican's in party FTs since 2004, and only a slight decline in those of Democrats. Partisans remain much warmer (on average) towards their party than the opposition this---particularly in the case of Republicans---is in spite of a decline in average in-party FTs.
 
-```{R, echo = FALSE}
+!["Increasing heterogeneity of in-party affect"](fig/gg-sd-ns.png) ***Fig 2:** The variance within in-party feeling thermometers has increased since 2004.*
 
-gg_sd_ft_ns <- ggplot(cdf_sd_ns, aes(x = year, y = result, color = group)) +
-#  geom_smooth(aes(linetype = group), span = .3, se=F) + 
-  geom_line(aes(linetype = group), size = 1) +
-  geom_point(aes(shape = group, size = 1)) +
-  scale_linetype_manual(values = c("Democrat - In Party" = "longdash",
-                                   "Republican - In Party" = "solid")) +
-  scale_shape_manual(values = c("Democrat - In Party" = 3,
-                                "Republican - In Party" = 16)) +
-  scale_color_manual(values = c("Democrat - In Party" = "dodgerblue3",
-                                "Republican - In Party" = "firebrick3")) +
-  #scale_x_continuous(limits = c(1978,2020), breaks = c(0:5)) +
-  scale_x_continuous(breaks = seq(1976, 2020, by = 4)) +
-  scale_y_continuous(limits = c(15,25)) +
-  labs(y = "Standard Deviations",
-       x = "Year",
-       title = "Standard Deviation of In-Party Feeling Thermometers",
-       subtitle = "Includes Leaning Independents",
-       linetype = " ",
-       color = " ",
-       shape = " ") +
-  theme(legend.position = c(0.2, 0.8))+
-  guides(size = FALSE)
-gg_sd_ft_ns
-
-ggsave("fig/gg-sd-ns.png", gg_sd_ft_ns, width = 8, height = 6, units = "in")
-
-```
-
-***Fig 2:** The variance within in-party feeling thermometers has increased since 2004.*
-
-From 2004--2016 the variance of in-party Feeling thermometers has increased. the SD of Republicans' in-party FTsincreased from 14--21 in this period, while Democrats' increased from 15--19. Alone, these numbers are not all that impressive, but as is made clear by Figure 2, an increase in variation of this magnitude has never before been observed, nor has the trend continued for so many years.
+From 2004--2016 the variance of in-party Feeling thermometers has increased. the SD of Republicans' in-party FTs increased from 14--21 in this period, while Democrats' increased from 15--19. Alone, these numbers are not all that impressive, but as is made clear by Figure 2, an increase in variation of this magnitude has never before been observed, nor has the trend continued for so many years.
 
 As variance increases, so to has the proportion of partisans who rate their own party below a 50---a substantively meaningful threshold indicating that partisans are more cold than warm toward their own party. When leaning independents are included---following [@klar2016independent] ---10% of Democrats and almost 20% of Republicans are found to be cold towards their own party (up from 5% each in 2004), while a sample which excludes leaning independents indicates 13% of Republicans and 8% of Democrats to be cold. Regardless of the cut-off point used to indicate cold affect, or the strength of partisans' identification with their party, the trend is robust---more partisans were cold to their party than has been observed at any point across the available data.
 
 Negative evaluations of parties are increasingly common. The modal value of independents' average party FT has always been 50; in the late 20^th^ century, the distribution was characterized by a rightward tail. From 2000--2016 that tail has shifted left. Far more independents now have a net-negative disposition towards the two major parties. Similarly, when examining the distributions of in-party feeling thermometers the left skew has become more apparent; more Republicans and Democrats are now cold---below 50---toward their party than at any point in the range of data.
 
-!["Proportion of Partisans with sub 50 In-Party FT"](fig/gg-below-50-ns.png) ***Fig 3:** The partisans cold towards their own party has increased substantially since 2004.*
+!["Proportion of Partisans with sub 50 In-Party FT"](fig/gg-below-50-ns.png) ***Fig 3:** The proportion of partisans cold towards their own party has increased substantially since 2004.*
 
 The increasing frequency of cold in-party affect is shown in Figure 2 In 2004, less than 5% of Republicans and Democrats were cold toward their party, in 2016 that number increased to 10% of Democrats and almost 20% of Republicans. This trend is robust across all strengths of partisan identification and regardless of the score we deem to indicate coldness. Additional figures will made available in the appendix.
 
@@ -221,13 +191,13 @@ Figure 4 shows all respondents' mean partisan feeling thermometer (the average o
 
 ## Primaries
 
-Setting aside issues of causal identification, clearly increasing dissatisfaction with democracy does not fully explain the increase in those who are cold toward their (or both) parties\footnote{Nor does cold partisan affect explain all increasing dissatisfaction.}. I turn now to an examination of the relationship between primary vote choice and in-party affect. I argue that the increase in cold partisan affect can be explained in part by \`\`sore losers" in primary elections---as primaries become more salient, so to do the factions represented by supporters of particular candidates. In short, primary elections provide another layer of group-based political identity below the party, forcing partisans to see not just the out-party as adversarial, but members of their own party as well.
+Setting aside issues of causal identification, clearly increasing dissatisfaction with democracy does not fully explain the increase in those who are cold toward their (or both) parties\footnote{Nor does cold partisan affect explain all increasing dissatisfaction.}. I turn now to an examination of the relationship between primary vote choice and in-party affect. I argue that the increase in cold partisan affect can be explained in part by "sore losers" in primary elections---as primaries become more salient, so to do the factions represented by supporters of particular candidates. In short, primary elections provide another layer of group-based political identity below the party, forcing partisans to see not just the out-party as adversarial, but members of their own party as well.
 
 !["Affective Differences between primary winners and losers"](fig/gg-primaries-grid.png) ***Fig 6:** Losers in primaries are colder towards the in-party than winners.* There are not substantial differences between losers and winners in their attitudes towards the out-party.\*
 
-Primary elections are substantively significant events, allowing partisans a voice in the presentation and direction of their party. In a political environment in which the presidential nominee becomes the de facto leader of the party, the primary process affords non-elite voters a voice in the ideological, political, and stylistic future of the party. The political products offered by primary candidates may reflect (or drive) extant divisions in the party. [@wronski2018tale] and [@bankert2020authoritarian] find that those scoring highly on measures authoritarian personality traits use their primary vote to \`\`protect" their party from factions they see as threatening group cohesion. Just as voters do not toss a coin to decide their general election vote, they do not randomly select their choice in the primary; these choices are likely to be meaningful.
+Primary elections are substantively significant events, allowing partisans a voice in the presentation and direction of their party. In a political environment in which the presidential nominee becomes the de facto leader of the party, the primary process affords non-elite voters a voice in the ideological, political, and stylistic future of the party. The political products offered by primary candidates may reflect (or drive) extant divisions in the party. [@wronski2018tale] and [@bankert2020authoritarian] find that those scoring highly on measures authoritarian personality traits use their primary vote to \`\`protect" their party from factions they see as threatening group cohesion. Just as voters do not toss a coin to decide their general election vote, they do not randomly select their choice in the primary; these choices are likely to be meaningful; if not as matters of issue-ideology but of political identity.
 
-Figure 5 shows the distribution of in and out-party feeling thermometer between those who voted for the eventual winners and losers of their party's primary, as well as those who did not vote.
+Figure 6 shows the distribution of in and out-party feeling thermometer between those who voted for the eventual winners and losers of their party's primary, as well as those who did not vote.
 
 On the Republican side, the Trump campaign postured itself as openly hostile to the Republican party, perhaps even to a greater degree than did the Sanders campaign against the Democrats. Despite this, Trump supporters were the warmest group of Republican primary voters\footnote{[Figs will be updated to include reps]}---bad news for our \textit{a priori} disdain hypothesis---and good news for the sore loser hypothesis.
 
