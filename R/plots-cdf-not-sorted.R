@@ -79,7 +79,7 @@ df_for_sampling <- tidy_cdf_ns%>% # Making a DF of the party-year SD
   )%>%
 glimpse()
 #bootstrapping the SE of the SD
-boot_sd_in <- data.frame(boot = 1:500)%>%
+boot_sd_in <- data.frame(boot = 1:50)%>%
   group_by(boot)%>%
   do(sample_n(df_for_sampling, 
               nrow(df_for_sampling),
@@ -91,7 +91,6 @@ boot_sd_in <- data.frame(boot = 1:500)%>%
             mean_out = weighted.mean(therm_outparty, weight, na.rm = TRUE),
             sd_in = radiant.data::weighted.sd(therm_inparty, weight, na.rm = TRUE),
             sd_out = radiant.data::weighted.sd(therm_outparty, weight, na.rm = TRUE))%>%
-  glimpse()
   group_by(year,
            pid_3)%>%
   summarise(se_mean_in = sd(mean_in),
@@ -116,11 +115,14 @@ boot_sd_in <- data.frame(boot = 1:500)%>%
     geom_density() +
     facet_grid(rows = vars(year),
                cols = vars(pid_3))
+  
+  
 party_fts_ns_joined <- rbind(party_fts_ns, boot_sd_in)%>%
 #party_fts_ns_joined <- full_join(party_fts_ns, boot_sd_in)%>%
   pivot_wider(names_from = stat,
               values_from = result)%>%
   glimpse()
+
 
 dodge <- position_dodge(width=0.75)
 
@@ -161,7 +163,6 @@ ggsave("fig/gg-mean-ns.png", gg_mean_ft_ns, width = 6, height = 4, units = "in")
 
 gg_sd_ft_ns <- party_fts_ns_joined%>%
   filter(!str_detect(group, "Out"))%>%
-  
   ggplot(aes(x = year, y = sd, color = group)) +
 #  geom_smooth(aes(linetype = group), span = .3, se=F) + 
   geom_line(aes(linetype = group), size = 1) +
@@ -184,7 +185,7 @@ gg_sd_ft_ns <- party_fts_ns_joined%>%
        linetype = " ",
        color = " ",
        shape = " ",
-       caption = "Bootstrapped 95\% CI Given By Vertical Bars") +
+       caption = "Bootstrapped 95% CI Given By Vertical Bars") +
   theme(legend.position = c(0.2, 0.8),
         legend.key.width = unit(.1, "npc"),
         legend.key.height = unit(.075, "npc")) +
