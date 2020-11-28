@@ -33,7 +33,6 @@ library(stargazer) # Another way to make tables (can also output esttab to .tex-
 library(ggExtra)
 theme_set(theme_minimal())
 library(ggridges)
-library(goji)
 library(gridExtra)
 ```
 
