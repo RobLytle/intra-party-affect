@@ -32,6 +32,7 @@ naes_08 <- read_rds("data/raw/naes-trim-online.rds")%>%
 																																		 "Lean Republican",
 																																		 "Independent",
 																																		 "Lean Democrat",
+																																		 "Democrat",
 																																		 "Strong Democrat"))))%>%
 	mutate_at(vars(starts_with("party_id")), list(three = ~ case_when(
 		str_detect(., "Republican") ~ "Republican",
@@ -115,19 +116,42 @@ naes_08 <- read_rds("data/raw/naes-trim-online.rds")%>%
 																																			 "Voted Inparty" = "1",
 																																			 "Voted Outparty" = "0",
 																																			 "Didn't Vote/Skipped" = NA_character_))))%>%
-	
+	mutate(first_pid = pid_7_1)%>%
+	mutate_at(vars(starts_with("pid_7")), list(num = ~ as.numeric(.)))%>%
+	mutate_at(vars(matches("\\d_num")), list(generic = ~ if_else(str_detect(first_pid, "Rep"), as.numeric(recode(., #creating a partisanship measure relative to the first_pid where 1 is strong partisan of the frmr outparty, 7 is strong partisan of inparty
+																																																"1" = "7",
+																																																"2" = "6",
+																																																"3" = "5",
+																																																"4" = "4",
+																																																"5" = "3",
+																																																"6" = "2",
+																																																"7" = "1")), .)))%>%
+	mutate_at(vars(ends_with("generic")), list(dum = ~ if_else(. == 7, 1, 0)))%>%
+	rename(strong_part_dum_1 = pid_7_1_num_generic_dum)%>%
+	rename(strong_part_dum_2 = pid_7_2_num_generic_dum)%>%
+	rename(strong_part_dum_3 = pid_7_3_num_generic_dum)%>%
+	rename(strong_part_dum_4 = pid_7_4_num_generic_dum)%>%
+	rename(strong_part_dum_5 = pid_7_5_num_generic_dum)%>%
+	mutate(change_pid_1_2 = pid_7_2_num_generic - pid_7_1_num_generic)%>%
+	mutate(change_pid_2_3 = pid_7_3_num_generic - pid_7_2_num_generic)%>%
+	mutate(change_pid_3_4 = pid_7_4_num_generic - pid_7_3_num_generic)%>%
+	mutate(change_pid_4_5 = pid_7_5_num_generic - pid_7_4_num_generic)%>%
+#	select(-ends_with("generic"))%>%
+#	rename_at(vars(ends_with(pid_7_1_generic_.:pid_7_5_generic.), str_remove(., "_.")))%>%
+#	rename_all(list(~ str_replace(., "_.", "")))%>%
 	select(-starts_with("dems"),
 				 -starts_with("rep"),
 				 -contains("r3v"))%>%
+	mutate(convention_end = as.Date((case_when(
+																pid_3_1 == "Democrat" ~ "2008-08-28",
+																pid_3_1 == "Republican" ~ "2008-09-04",
+																TRUE ~ NA_character_))),
+				presumptive_date = as.Date((case_when(
+																pid_3_1 == "Democrat" ~ "2008-06-03",
+																pid_3_1 == "Republican" ~ "2008-03-04",
+																TRUE ~ NA_character_))),
+				general_election = as.Date("2008-11-04"),)%>%
+	mutate_at(vars(starts_with("date")), list( ~ as.Date(as.character(.),format="%Y%m%d")))%>%
 	write_rds("data/naes-08.rds")%>%
 	write_csv("data/naes-08.csv")%>%
 	glimpse()
-
-# contains("rCb05"), #For whom did you vote in the general? 1 mccain, 2 obama, 3 nader, 4, bob barr, 5 other, 999 skipped
-# contains("rCb04"), # did you vote in genearl? 1 no, 2 no, 3 yes, 4 yes, 999 skipped
-# contains("rcc01"), # did you vote for MC? 1 - Republican, 2 - Democrat, 3 other, 4 didn't vote, 999 - skipped, 9999- not asked
-# contains("rcc02"), #same coding as rcc01 but for senate
-# contains("rcc04"), #same as rcc01/2 but for governor
-
-	#mccain is 5
-	#OBama is 7
