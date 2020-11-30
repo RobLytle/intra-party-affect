@@ -136,7 +136,19 @@ naes_08 <- read_rds("data/raw/naes-trim-online.rds")%>%
 	mutate(change_pid_2_3 = pid_7_3_num_generic - pid_7_2_num_generic)%>%
 	mutate(change_pid_3_4 = pid_7_4_num_generic - pid_7_3_num_generic)%>%
 	mutate(change_pid_4_5 = pid_7_5_num_generic - pid_7_4_num_generic)%>%
-#	select(-ends_with("generic"))%>%
+	mutate(strong_part_1_2 = strong_part_dum_2 - strong_part_dum_1)%>%
+	mutate(strong_part_2_3 = strong_part_dum_3 - strong_part_dum_2)%>%
+	mutate(strong_part_3_4 = strong_part_dum_4 - strong_part_dum_3)%>%
+	mutate(strong_part_4_5 = strong_part_dum_5 - strong_part_dum_4)%>%
+	mutate(increase_pid_1_2 = if_else(change_pid_1_2 > 0, 1, 0))%>%
+	mutate(increase_pid_2_3 = if_else(change_pid_2_3 > 0, 1, 0))%>%
+	mutate(increase_pid_3_4 = if_else(change_pid_3_4 > 0, 1, 0))%>%
+	mutate(increase_pid_4_5 = if_else(change_pid_4_5 > 0, 1, 0))%>%
+	mutate(decrease_pid_1_2 = if_else(change_pid_1_2 < 0, 1, 0))%>%
+	mutate(decrease_pid_2_3 = if_else(change_pid_2_3 < 0, 1, 0))%>%
+	mutate(decrease_pid_3_4 = if_else(change_pid_3_4 < 0, 1, 0))%>%
+	mutate(decrease_pid_4_5 = if_else(change_pid_4_5 < 0, 1, 0))%>%
+	#	select(-ends_with("generic"))%>%
 #	rename_at(vars(ends_with(pid_7_1_generic_.:pid_7_5_generic.), str_remove(., "_.")))%>%
 #	rename_all(list(~ str_replace(., "_.", "")))%>%
 	select(-starts_with("dems"),
