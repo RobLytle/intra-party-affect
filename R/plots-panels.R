@@ -9,7 +9,10 @@ set.seed(2001)
 theme_set(theme_minimal())
 dodge <- position_dodge(width=0.5)
 
-behavior_outcomes_df <- read_rds("data/naes-08.rds")%>%
+naes_08 <- read_rds("data/naes-08.rds")%>%
+	glimpse()
+
+behavior_outcomes_df <- naes_08%>%
 	filter(pid_3_1 == "Republican" | pid_3_1 == "Democrat")%>%
 	group_by(first_choice_dum_1,
 					 pid_3_1)%>%
@@ -31,9 +34,9 @@ behavior_outcomes_df <- read_rds("data/naes-08.rds")%>%
 #	filter(!is.na(prop_inparty) & !is.na(first_choice_dum_1) & pid_3_1 != "Independent")%>%
 	glimpse()
 
-behavior_boot_df <- data.frame(boot = 1:20)%>%
+behavior_boot_df <- data.frame(boot = 1:1000)%>%
 	group_by(boot)%>%
-	do(sample_n(behavior_outcomes_df, nrow(behavior_outcomes_df), replace = TRUE))%>% #creating 2000 new datasets of equal size to the original
+	do(sample_n(naes_08, nrow(naes_08), replace = TRUE))%>% #creating 2000 new datasets of equal size to the original
 	group_by(boot,
 					 first_choice_dum_1,
 					 pid_3_1)%>%
@@ -41,19 +44,92 @@ behavior_boot_df <- data.frame(boot = 1:20)%>%
 						prop_inparty_mc = mean(mc_election_inparty_num, na.rm = TRUE),
 						prop_inparty_sen = mean(sen_election_inparty_num, na.rm = TRUE),
 						prop_inparty_gov = mean(gov_election_inparty_num, na.rm = TRUE))%>%
+	filter(!is.na(first_choice_dum_1))%>%
+	pivot_wider(names_from = first_choice_dum_1,
+							values_from = prop_inparty_pres:prop_inparty_gov)%>%
+	janitor::clean_names()%>%
+	pivot_longer(prop_inparty_pres_winner:prop_inparty_gov_loser, 
+							 names_to = c("election", ".value"), 
+							 names_pattern="(.*)_([a-z]*)")%>%
+	group_by(boot,
+					 pid_3_1,
+					 election)%>%
+	summarize(prop_dif = (loser-winner))%>%
+	group_by(
+		pid_3_1,
+		election)%>%
+	#	summarize(prop_se = parameters::standard_error(prop_dif))%>%
+	summarize(prop_se = sd(prop_dif))%>%
 	glimpse()
 
-ggplot(behavior_outcomes_df, aes(x = prop_difference, y = election, color = pid_3_1, shape = pid_3_1)) +
+behavior_joined <- left_join(behavior_outcomes_df, behavior_boot_df)%>%
+	mutate(election = recode(election,
+													 "prop_inparty_sen" = "Senate",
+													 "prop_inparty_pres" = "President",
+													 "prop_inparty_mc" = "House",
+													 "prop_inparty_gov" = "Governor"))%>%
+	glimpse()
+
+gg_behav_difs <- ggplot(behavior_joined, aes(x = prop_difference, y = election, color = pid_3_1, shape = pid_3_1)) +
+	geom_linerange(aes(xmin = prop_difference - 1.96*prop_se, 
+										 xmax = prop_difference + 1.96*prop_se,
+										 color = pid_3_1), 
+								 position = dodge) +
 	scale_color_manual(values = c("Democrat" = "dodgerblue3",
 																"Republican" = "firebrick3")) +
 	geom_vline(xintercept = 0.00) +
-	geom_point()
+	geom_point(position = dodge, size = 3) +
+	theme(legend.position = c(.2, .5),
+				legend.title = element_blank()) +
+	labs(title = "Difference in Voting Between Primary Winners/Losers",
+			 x = "Difference in Proportion Voting Inparty",
+			 y = "Election",
+			 color = "Party ID",
+			 shape = "Party ID",
+			 caption = "Bootstrapped 95% CIs")
+gg_behav_difs
+
+ggsave("fig/gg-behav-difs.png", gg_behav_difs, width = 6, height = 4, units = "in")
+
 
 
 #testing the effect of losing the primary on pid_str
 
 #Doing the strength change by group rather than paired. lots of right-censoring when paired
-pid_str_dum_df <- read_rds("data/naes-08.rds")%>%
+pid_str_boot_df <- data.frame(boot = 1:1000)%>%
+	group_by(boot)%>%
+	do(sample_n(naes_08, nrow(naes_08), replace = TRUE))%>% #creating 2000 new datasets of equal size to the original
+	group_by(boot,
+					 first_choice_dum_1,
+					 pid_3_1)%>%
+	summarize(prop_strong_1_2 = mean(strong_part_dum_2, na.rm=TRUE) - mean(strong_part_dum_1, na.rm=TRUE),
+						prop_strong_2_3 = mean(strong_part_dum_3, na.rm=TRUE) - mean(strong_part_dum_2, na.rm=TRUE),
+						prop_strong_3_4 = mean(strong_part_dum_4, na.rm=TRUE) - mean(strong_part_dum_3, na.rm=TRUE))%>%
+	group_by(first_choice_dum_1,
+					 pid_3_1)%>%
+	summarize(se_strong_1_2 = sd(prop_strong_1_2, na.rm=TRUE),
+						se_strong_2_3 =  sd(prop_strong_2_3, na.rm=TRUE),
+						se_strong_3_4 =  sd(prop_strong_3_4, na.rm=TRUE))%>%
+	pivot_longer(se_strong_1_2:se_strong_3_4, 
+							 names_to = c(".value", "wave"), 
+							 names_pattern="(^[a-z]+_[a-z]+).+(._.$)")%>%
+	mutate(wave = recode(wave,
+											 "1_2" = "Wave 1 to Wave 2",
+											 "2_3" = "Wave 2 to Wave 3",
+											 "3_4" = "Wave 3 to Wave 4"))%>%
+	ungroup()%>%
+	mutate(wave_presump = case_when(pid_3_1 == "Democrat" & wave == "Wave 2 to Wave 3" ~ "Before Presumptive",
+																	pid_3_1 == "Republican" & wave == "Wave 1 to Wave 2" ~ "Before Presumptive",
+																	pid_3_1 == "Democrat" & wave == "Wave 3 to Wave 4" ~ "After Presumptive",
+																	pid_3_1 == "Republican" & wave == "Wave 2 to Wave 3" ~ "After Presumptive",
+																	TRUE ~ NA_character_))%>%
+	#	rename(prop_strong_change = prop)%>%
+	filter(!is.na(wave_presump))%>%
+	mutate(wave_presump = fct_rev(as.factor(wave_presump)))%>%
+	glimpse()
+
+
+pid_str_dum_df <- naes_08%>%
 	filter(date_2 < presumptive_date & pid_3_1 == "Republican" | date_3 < presumptive_date & pid_3_1 == "Democrat")%>%
 	group_by(pid_3_1,
 					 first_choice_dum_1)%>%
@@ -78,6 +154,8 @@ pid_str_dum_df <- read_rds("data/naes-08.rds")%>%
 	mutate(wave_presump = fct_rev(as.factor(wave_presump)))%>%
 	glimpse()
 
+joined_prop_str_df <- left_join(pid_str_dum_df, pid_str_boot_df)%>%
+	glimpse()
 
 
 pid_str_df <- read_rds("data/naes-08.rds")%>%
@@ -123,30 +201,31 @@ pid_str_df <- read_rds("data/naes-08.rds")%>%
 	glimpse()
 
 #joining the vote choicedfs
-joined_df <- left_join(pid_str_df, pid_str_dum_df)%>%
+joined_df <- left_join(pid_str_df, joined_prop_str_df)%>%
 	glimpse()
 
 
 
 # Party ID STR dummy
 gg_three_wave_str <- ggplot(joined_df, aes(x = fct_rev(first_choice_dum_1), y = prop_strong, color = pid_3_1)) +
-#	geom_linerange(aes(ymin = prop_strong - 1.645*se_strong, ymax = prop_strong + 1.645*se_strong, color = pid_3_1), position = dodge) +
+	geom_linerange(aes(ymin = prop_strong - 1.95*se_strong, ymax = prop_strong + 1.95*se_strong, color = pid_3_1), position = dodge) +
 	geom_point(position = dodge) +
 	geom_hline(yintercept = 0) +
 	scale_color_manual(values = c("Democrat" = "dodgerblue3",
 																"Republican" = "firebrick3")) +
 	facet_wrap(vars(wave_presump)) +
 	theme(legend.position = c(0.12, 0.2)) +
-	coord_cartesian(ylim = c(-.5, .5)) +
-	labs(title = "Strength of Party ID",
+	coord_cartesian(ylim = c(-.3, .3)) +
+	labs(title = "Change in Proportion of Strong Partisans",
 			 subtitle = "Change Between Waves",
 			 x = "Primary Vote Choice",
-			 y = "Mean Change Between Waves",
-			 color = "Party ID at Wave 1") +
+			 y = "Difference Between Waves",
+			 color = "Party ID at Wave 1",
+			 caption = "Bootstrapped 95% CIs") +
 	scale_y_continuous(n.breaks = 10)
 gg_three_wave_str
 
-ggsave("fig/gg-three-wave-str.png", gg_three_wave_str, width = 4, height = 6, units = "in")
+ggsave("fig/gg-three-wave-str.png", gg_three_wave_str, width = 6, height = 4, units = "in")
 
 
 #Mean Party ID
@@ -158,11 +237,11 @@ gg_three_wave_mean <- ggplot(pid_str_df, aes(x = fct_rev(first_choice_dum_1), y 
 																"Republican" = "firebrick3")) +
 	facet_wrap(vars(wave_presump)) +
 	theme(legend.position = c(0.12, 0.2)) +
-	coord_cartesian(ylim = c(-.5, .5)) +
+	coord_cartesian(ylim = c(-.3, .3)) +
 	labs(title = "Effect of Primary Victory on Strength of Party ID",
 			 subtitle = "Change in Party Strength Between Waves",
 			 x = "Primary Vote Choice",
-			 y = "Mean Change in Partisanship Strength Between Waves",
+			 y = "Difference Between Waves",
 			 color = "Party ID at Wave 1") +
 	scale_y_continuous(n.breaks = 10)
 gg_three_wave_mean
@@ -178,7 +257,7 @@ gg_three_wave_increase <- ggplot(pid_str_df, aes(x = fct_rev(first_choice_dum_1)
 																"Republican" = "firebrick3")) +
 	facet_wrap(vars(wave_presump)) +
 	theme(legend.position = c(0.12, 0.2)) +
-	coord_cartesian(ylim = c(-.5, .5)) +
+	coord_cartesian(ylim = c(-.3, .3)) +
 	labs(title = "Prop. Increasing Partisans",
 #			 subtitle = "Change in Party Strength Between Waves",
 			 x = "Primary Vote Choice",
@@ -199,7 +278,7 @@ gg_three_wave_decrease <- ggplot(pid_str_df, aes(x = fct_rev(first_choice_dum_1)
 																"Republican" = "firebrick3")) +
 	facet_wrap(vars(wave_presump)) +
 	theme(legend.position = c(0.12, 0.2)) +
-	coord_cartesian(ylim = c(-.5, .5)) +
+	coord_cartesian(ylim = c(-.3, .3)) +
 	labs(title = "Effect of Primary Victory on Strength of Party ID",
 			 subtitle = "Change in Party Strength Between Waves",
 			 x = "Primary Vote Choice",
@@ -218,7 +297,7 @@ pid_str_dum_ug_df <- read_rds("data/naes-08.rds")%>%
 	group_by(pid_3_1)%>%
 	summarize(prop_strong_1_2 = mean(strong_part_dum_2, na.rm=TRUE) - mean(strong_part_dum_1, na.rm=TRUE),
 						prop_strong_2_3 = mean(strong_part_dum_3, na.rm=TRUE) - mean(strong_part_dum_2, na.rm=TRUE),
-						prop_strong_3_4 = mean(strong_part_dum_4, na.rm=TRUE) -mean(strong_part_dum_3, na.rm=TRUE))%>%
+						prop_strong_3_4 = mean(strong_part_dum_4, na.rm=TRUE) - mean(strong_part_dum_3, na.rm=TRUE))%>%
 	pivot_longer(prop_strong_1_2:prop_strong_3_4, 
 							 names_to = c(".value", "wave"), 
 							 names_pattern="(^[a-z]+_[a-z]+).+(._.$)")%>%
@@ -294,7 +373,7 @@ gg_ug_three_wave_str <- ggplot(joined_ug_df, aes(x = pid_3_1, y = prop_strong, c
 																"Republican" = "firebrick3")) +
 	facet_wrap(vars(wave_presump)) +
 	theme(legend.position = c(0.12, 0.2)) +
-	coord_cartesian(ylim = c(-.5, .5)) +
+	coord_cartesian(ylim = c(-.3, .3)) +
 	labs(title = "Effect of Primary Victory on Strength of Party ID",
 			 subtitle = "Change in Party Strength Between Waves",
 			 x = "Primary Vote Choice",
@@ -316,7 +395,7 @@ gg_ug_three_wave_mean <- ggplot(pid_str_ug_df, aes(x = pid_3_1, y = mean_change,
 	facet_wrap(vars(wave_presump)) +
 	theme(#legend.position = c(0.12, 0.2),
 		legend.position = "none") +	
-	coord_cartesian(ylim = c(-.5, .5)) +
+	coord_cartesian(ylim = c(-.3, .3)) +
 	labs(title = "Effect of Primary Victory on Strength of Party ID",
 #			 subtitle = "Change in Party Strength Between Waves",
 			 x = "Primary Vote Choice",
@@ -337,7 +416,7 @@ gg_ug_three_wave_increase <- ggplot(pid_str_ug_df, aes(x = pid_3_1, y = prop_inc
 	facet_wrap(vars(wave_presump)) +
 	theme(#legend.position = c(0.12, 0.2),
 		legend.position = "none") +
-	coord_cartesian(ylim = c(-.5, .5)) +
+	coord_cartesian(ylim = c(-.3, .3)) +
 	labs(title = "Proportion of Partisans Who Increased Partisan strength",
 #			 subtitle = "Change in Prop. Increase Between Waves",
 			 x = "Party",
@@ -359,7 +438,7 @@ gg_ug_three_wave_decrease <- ggplot(pid_str_ug_df, aes(x = pid_3_1, y = prop_dec
 	facet_wrap(vars(wave_presump)) +
 	theme(#legend.position = c(0.12, 0.2),
 				legend.position = "none") +
-	coord_cartesian(ylim = c(-.5, .5)) +
+	coord_cartesian(ylim = c(-.3, .3)) +
 	labs(title = "Proportion of Partisans Who Decreased Partisan Strength",
 #			 subtitle = "Change in Party Strength Between Waves",
 			 x = "Primary Vote Choice",
