@@ -11,13 +11,23 @@ library(forcats)
 library(cowplot)
 set.seed(2001)
 theme_set(theme_minimal())
-
+# Fix this so that we use 2020 in all of these
 
 ##
 # Differences in opinion and behavior between cold/warm partisans
 # Cold <50, warm greater=50
 ##
-
+tidy_2020_df <- read_rds("data/tidy-2020.rds")%>% # Including 
+	select(weight, #just selecting the relevant vars because the resampling takes a long time.
+				 pid_3,
+				 below_50_qual_strict,
+				 dis_democ_dum,
+				 distrust_gov_dum,
+				 gov_run_for_few_dum,
+				 wrong_track_dum,
+				 officials_dont_care_dum,
+				 wealth_gap_larger_dum)%>%
+	glimpse()
 ##
 # Bootstrapping opinion SEs
 #
@@ -32,6 +42,7 @@ opinion_df <- read_rds("data/tidy-cdf.rds")%>%
 				 wrong_track_dum,
 				 officials_dont_care_dum,
 				 wealth_gap_larger_dum)%>%
+	rbind(tidy_2020_df)%>%
 	glimpse()
 
 opinion_boot_df <- data.frame(boot = 1:2000)%>%
@@ -77,7 +88,8 @@ se_op_df <- opinion_boot_df%>% #putting this here so I don't have to run the res
 	glimpse()
 
 
-opinion_means_df <- read_rds("data/tidy-cdf.rds")%>%
+#opinion_means_df <- read_rds("data/tidy-cdf.rds")%>%
+opinion_df%>%
 	filter(year >= 1978 & pid_3 != "Independent")%>%
 	mutate(ltet_2004 = if_else(year <= 2004, 1, 0))%>%
 	group_by(pid_3, below_50_qual_strict)%>%
@@ -207,9 +219,10 @@ ci_df <- read_rds("data/bootstrapped-behav-means-strict.rds")%>% #putting this h
 				 -prop_donate,
 				 -prop_meetings,
 				 -prop_work_cand,
-				 -prop_split_ticket,
-				 -prop_early_vote,
-				 -prop_know_house_post)%>%
+#				 -prop_split_ticket,
+#				 -prop_early_vote,
+#				 -prop_know_house_post)%>%
+)%>%
 	pivot_wider(names_from = below_50_qual_strict,
 							values_from = prop_vote_general:prop_vote_inparty_pres)%>%
 	pivot_longer(prop_vote_general_cold:prop_vote_inparty_pres_warm, 

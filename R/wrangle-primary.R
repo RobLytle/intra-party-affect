@@ -6,19 +6,16 @@ library(rio)
 #2008
 
 df2008 <- import("data/raw/anes_timeseries_2008.zip", which = "anes_timeseries_2008_rawdata.txt")%>%
-  rename(weight = V081001,
+  select(weight = V081001,
          primary_vote_choice = V083077a,
          primary_vote = V083077,
+         ideo_self = V083069, #1-7 lib con, -na
+         ideo_rep  = V083071b,
+         ideo_dem = V083071a,
          therm_dem = V083044a, #1-100, 100 warmest. -99: NA
          therm_rep = V083044b, #1-100, 100 warmest. -99: NA
          pid_3 = V083097, #Party ID: Does R think of self as Dem, Rep, Ind or what 0: no pref, 1. Democrat, 2. Republican, 3. Independent
-  )%>%
-  select(weight,
-         primary_vote_choice, # Pulling out the variables we just renamed from the massive dataset
-         primary_vote,
-         therm_dem,
-         therm_rep,
-         pid_3
+#         date = V082001c
   )%>%
   mutate(pid_3 = recode(pid_3, 
                         "5" = "No Preference", 
@@ -104,19 +101,18 @@ df2008 <- import("data/raw/anes_timeseries_2008.zip", which = "anes_timeseries_2
 
 
 df2012 <- import("data/raw/anes_timeseries_2012.zip", which = "anes_timeseries_2012_rawdata.txt")%>%
-  rename(weight = weight_full,
+  select(weight = weight_full,
          primary_vote = prevote_primv,
          primary_vote_choice = prevote_primvwho,
          therm_dem = ft_dem, #1-100, 100 warmest. -99: NA
          therm_rep = ft_rep, #1-100, 100 warmest. -99: NA
-         pid_3 = pid_self #Party ID: Does R think of self as Dem, Rep, Ind or what 0: no pref, 1. Democrat, 2. Republican, 3. Independent
-  )%>%
-  select(weight,
-         primary_vote,
-         primary_vote_choice, # Pulling out the variables we just renamed from the massive dataset
-         therm_dem,
-         therm_rep,                                                                                                       
-         pid_3,
+         ideo_self = libcpre_self,
+         ideo_dem = libcpre_ptyd,
+         ideo_rep = libcpre_ptyr,
+         pid_3 = pid_self, #Party ID: Does R think of self as Dem, Rep, Ind or what 0: no pref, 1. Democrat, 2. Republican, 3. Independent
+         pre_ftf_date = admin_pre_ftf_iwdatebeg,
+         pre_web_1_date = admin_pre_web1_iwdatebeg,
+         pre_web_2_date = admin_pre_web2_iwdatebeg,
   )%>%
   mutate(pid_3 = recode(pid_3, 
                         "0" = "No Preference", 
@@ -168,7 +164,15 @@ df2012 <- import("data/raw/anes_timeseries_2012.zip", which = "anes_timeseries_2
                                          pid_3 != "Indpendent" & primary_vote_choice != "Didn't Vote" ~ "Loser",
                                          pid_3 != "Indpendent" & primary_vote_choice == "Didn't Vote" ~ "Didn't Vote",
                                          TRUE ~ NA_character_))%>%
-  mutate(year = 2012)%>%
+  mutate(year = 2012,
+         pre_ftf_date = ymd(pre_ftf_date),
+         pre_web_1_date = ymd(pre_web_1_date),
+         pre_web_2_date = ymd(pre_web_2_date),
+         num_w1 = as.numeric(pre_web_1_date),
+         num_w2 = as.numeric(pre_web_2_date),
+         web_date = as_date(round((num_w1 + num_w2)/2, 0)),
+         date = if_else(!is.na(pre_ftf_date), pre_ftf_date, web_date)
+)%>%
   select(colnames(df2008))%>%
   glimpse()%>%#
   write_rds("data/tidy-2012.rds")%>%
@@ -177,21 +181,17 @@ df2012 <- import("data/raw/anes_timeseries_2012.zip", which = "anes_timeseries_2
 
 #2016
 df2016 <- rio::import("data/raw/anes_timeseries_2016.zip", which = "anes_timeseries_2016_rawdata.txt")%>%
-  rename(weight = V160101,
+  select(weight = V160101,
          primary_vote = V161021,
          primary_vote_choice = V161021a,
          therm_dem = V161095, #1-100, 100 warmest. -99: NA
          therm_rep = V161096, #1-100, 100 warmest. -99: NA
+         ideo_self = V161126,
+         ideo_dem = V161130,
+         ideo_rep = V161131,
          pid_7 = V161158x, # Does R think of themeselves as a Dem, Rep, Ind or what? We are using this in addition to registration because we are interested in people's conceptions of party This is coded 1: strong-dem, 2: weak-dem 3: ind-dem, 4: ind, 5: ind-rep, 6: weak-rep, 7: strong-rep -8 DK, -9 NA
-         pid_3 = V161155#, #Party ID: Does R think of self as Dem, Rep, Ind or what 0: no pref, 1. Democrat, 2. Republican, 3. Independent
-  )%>%
-  select(weight,
-         primary_vote,
-         primary_vote_choice, # Pulling out the variables we just renamed from the massive dataset
-         therm_dem,
-         therm_rep,
-         pid_7,
-         pid_3
+         pid_3 = V161155,#, #Party ID: Does R think of self as Dem, Rep, Ind or what 0: no pref, 1. Democrat, 2. Republican, 3. Independent
+         date = V164002,
   )%>%
   mutate(pid_7 = na_if(pid_7, -9),
          pid_7 = na_if(pid_7, -8))%>%
@@ -263,7 +263,8 @@ df2016 <- rio::import("data/raw/anes_timeseries_2016.zip", which = "anes_timeser
                                          pid_3 != "Indpendent" & primary_vote_choice != "Didn't Vote" ~ "Loser",
                                          pid_3 != "Indpendent" & primary_vote_choice == "Didn't Vote" ~ "Didn't Vote",
                                          TRUE ~ NA_character_))%>%
-  mutate(year = 2016)%>%
+  mutate(year = 2016,
+         date = ymd(date),)%>%
   select(colnames(df2008))%>% #selecting only columns that exist in the 2008 dataset
   glimpse()%>%#
   write_rds("data/tidy-2016.rds")%>%
@@ -273,12 +274,16 @@ df2016 <- rio::import("data/raw/anes_timeseries_2016.zip", which = "anes_timeser
 ###########################
 ###########################
 
+df_2020 <- read_rds("data/tidy-2020.rds")%>%
+  select(colnames(df2008))%>%
+  glimpse()
+
 
 
 ####
 ####
 
-primaries <- rbind(df2016, df2008, df2012)%>%
+primaries <- rbind(df2016, df2008, df2012, df_2020)%>%
   mutate(pid_3 = factor(pid_3, 
                         levels = c("1" = "Democrat", 
                                    "2" = "Independent", 
@@ -295,6 +300,16 @@ primaries <- rbind(df2016, df2008, df2012)%>%
                                         "2" = "Republican",
                                         "3" = "Other/Third Party")),
          primary_vote_dum = as.numeric(primary_vote_dum))%>%
+  mutate(across(matches("ideo"), ~ if_else(. >= 1 & . <= 7, ., NA_integer_)),
+         ideo_inparty = case_when(pid_3 == "Democrat" ~ ideo_dem,
+                                  pid_3 == "Republican" ~ ideo_rep,
+                                  TRUE ~ NA_integer_),
+         ideo_outparty = case_when(pid_3 == "Democrat" ~ ideo_rep,
+                                  pid_3 == "Republican" ~ ideo_dem,
+                                  TRUE ~ NA_integer_),
+         ideo_self_in_dif = abs(ideo_self - ideo_inparty),
+         ideo_self_out_dif = abs(ideo_self - ideo_outparty),
+         ideo_in_out_dif = abs(ideo_inparty - ideo_outparty))%>%
   glimpse()%>%
   write_rds("data/tidy-primaries.rds")%>%
   write_csv("data/tidy-primaries.csv")

@@ -34,7 +34,7 @@ behavior_outcomes_df <- naes_08%>%
 #	filter(!is.na(prop_inparty) & !is.na(first_choice_dum_1) & pid_3_1 != "Independent")%>%
 	glimpse()
 
-behavior_boot_df <- data.frame(boot = 1:1000)%>%
+behavior_boot_df <- data.frame(boot = 1:500)%>%
 	group_by(boot)%>%
 	do(sample_n(naes_08, nrow(naes_08), replace = TRUE))%>% #creating 2000 new datasets of equal size to the original
 	group_by(boot,
@@ -96,7 +96,7 @@ ggsave("fig/gg-behav-difs.png", gg_behav_difs, width = 6, height = 4, units = "i
 #testing the effect of losing the primary on pid_str
 
 #Doing the strength change by group rather than paired. lots of right-censoring when paired
-pid_str_boot_df <- data.frame(boot = 1:1000)%>%
+pid_str_boot_df <- data.frame(boot = 1:500)%>%
 	group_by(boot)%>%
 	do(sample_n(naes_08, nrow(naes_08), replace = TRUE))%>% #creating 2000 new datasets of equal size to the original
 	group_by(boot,

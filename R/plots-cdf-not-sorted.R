@@ -6,22 +6,33 @@ library(gridExtra)
 theme_set(theme_minimal())
 set.seed(2001)
 #### CDF Time Series Dataframe
-tidy_cdf_ns <- read_rds("data/tidy-cdf.rds")%>%
-  filter(year >= 1978)%>%
-  glimpse()
-
-cdf_trimmed <- tidy_cdf_ns%>% #I don't need 2020 data in all of these figures, so I'm making a seperate df to rbind with 2020
+tidy_2020_df <- read_rds("data/tidy-2020.rds")%>%
   select(pid_3,
+         pid_7,
          year,
-         race_4cat,
          therm_inparty,
          therm_outparty,
-         therm_parties_mean,
-         weight,
-         )%>%
+#         therm_parties_mean,
+         weight)%>%
+  filter(pid_3 != "Independent")%>%
   glimpse()
 
-party_fts_ns <- tidy_cdf_ns%>% # Making a DF of the party-year SD
+
+cdf_trimmed <- read_rds("data/tidy-cdf.rds")%>%
+  filter(year >= 1978)%>%
+  select(pid_3,
+         pid_7,
+         year,
+#         race_4cat,
+         therm_inparty,
+         therm_outparty,
+#         therm_parties_mean,
+         weight,
+         )%>%
+  rbind(tidy_2020_df)%>%
+  glimpse()
+
+party_fts_ns <- cdf_trimmed%>% # Making a DF of the party-year SD
   filter(pid_3 != "Independent" & year != 2002)%>%
   select(year,
          weight,
@@ -31,6 +42,7 @@ party_fts_ns <- tidy_cdf_ns%>% # Making a DF of the party-year SD
          pid_7,
 #         race_4cat
          )%>%
+#  rbind(tidy_2020_df)%>%
   group_by(year, 
 #           race_4cat, 
            pid_3)%>%
@@ -52,7 +64,7 @@ party_fts_ns <- tidy_cdf_ns%>% # Making a DF of the party-year SD
                        "Republican_sd_out" = "Republican - Out Party")))%>%
   glimpse()
 
-n_df_ns <- tidy_cdf_ns%>% # Making a DF of the party-year SD
+n_df_ns <- cdf_trimmed%>% # Making a DF of the party-year SD
   filter(pid_3 != "Independent" & year != 2002)%>%
   select(year,
          weight,
@@ -68,7 +80,7 @@ n_df_ns <- tidy_cdf_ns%>% # Making a DF of the party-year SD
   glimpse()
 
 
-df_for_sampling <- tidy_cdf_ns%>% # Making a DF of the party-year SD
+df_for_sampling <- cdf_trimmed%>% # Making a DF of the party-year SD
   filter(pid_3 != "Independent" & year != 2002)%>%
   select(year,
          weight,
@@ -144,7 +156,7 @@ gg_mean_ft_ns <- ggplot(party_fts_ns_joined, aes(x = year, y = mean)) +
                                    "Republican - Out Party" = "firebrick1")) +
   #scale_x_continuous(limits = c(1978,2020), breaks = c(0:5)) +
   scale_x_continuous(breaks = seq(1976, 2020, by = 4)) +
-  scale_y_continuous(breaks = seq(20, 80, by = 5), limits = c(20,80)) +
+  scale_y_continuous(breaks = seq(15, 80, by = 5), limits = c(15,80)) +
   labs(y = "Mean",
        x = "Year",
        title = "Mean Thermometer Ratings of Partisans",
@@ -177,7 +189,7 @@ gg_sd_ft_ns <- party_fts_ns_joined%>%
                                 "Republican - In Party" = "firebrick3")) +
   #scale_x_continuous(limits = c(1978,2020), breaks = c(0:5)) +
   scale_x_continuous(breaks = seq(1976, 2020, by = 4)) +
-  scale_y_continuous(limits = c(14,25)) +
+#  scale_y_continuous(limits = c(14,25)) +
   labs(y = "Standard Deviations",
        x = "Year",
        title = "Standard Deviation of In-Party Feeling Thermometers",
@@ -197,7 +209,7 @@ ggsave("fig/gg-sd-ns.png", gg_sd_ft_ns, width = 8, height = 6, units = "in")
 
 
 
-ridge_df_partisan_ns <- tidy_cdf_ns%>%
+ridge_df_partisan_ns <- cdf_trimmed%>%
 #ridge_df_partisan_ns <- cdf_extended%>%
   filter(year != 2002 & pid_3 != is.na(TRUE) & pid_3 != "Independent")%>%
   mutate(year_fct = fct_rev(as.factor(year)))%>%
@@ -235,7 +247,7 @@ ggsave("fig/gg-ridge-ns.png", gg_ridge_ns, width = 8, height = 6, units = "in")
 
 
 # mean ft
-ridge_df_all <- tidy_cdf_ns%>%
+ridge_df_all <- cdf_trimmed%>%
 #ridge_df_all <- cdf_extended%>%
   filter(year != 2002)%>%
   mutate(year_fct = fct_rev(as.factor(year)))%>%
@@ -381,7 +393,7 @@ cdf_ridge_in_dis <- ggplot(ridge_in_dis, aes(x = therm_inparty,
   facet_grid(rows = vars(dis_democ_qual))
 cdf_ridge_in_dis
 
-ridge_df_ns <- tidy_cdf_ns%>%
+ridge_df_ns <- cdf_trimmed%>%
   filter(year != 2002 & pid_3 != is.na(TRUE))%>%
   mutate(year_fct = fct_rev(as.factor(year)))%>%
   glimpse()
@@ -429,7 +441,7 @@ ggsave("fig/gg-ridge-split-ns.png", cdf_ridge_ns, width = 8, height = 6, units =
 ### NPA Example
 ######
 
-npa_parties_df_ns <- tidy_cdf_ns%>% # Making a DF of the party-year SD
+npa_parties_df_ns <- cdf_trimmed%>% # Making a DF of the party-year SD
   filter(pid_3 != "Independent" & year != 2002)%>%
   select(year,
          weight,
@@ -466,20 +478,20 @@ ggsave("fig/gg-npa-ns.png", cdf_npa_ns, width = 6, height = 4, units = "in")
 ### Partisans Below Median
 ########
 
-# spatstat::weighted.median(tidy_cdf_ns$therm_inparty, weight, na.rm = TRUE)
-# weighted.mean(tidy_cdf_ns$therm_inparty, tidy_cdf_ns$weight, na.rm = TRUE)
+# spatstat::weighted.median(cdf_trimmed$therm_inparty, weight, na.rm = TRUE)
+# weighted.mean(cdf_trimmed$therm_inparty, cdf_trimmed$weight, na.rm = TRUE)
 
 ######################################################
 ### Party Medians (one for Dems and REps each)
 ###
 
 # These make it easy to get party medians without too much pivoting
-reps_df_ns <- tidy_cdf_ns%>%
+reps_df_ns <- cdf_trimmed%>%
   filter(pid_3 == "Republican")
-dems_df_ns <- tidy_cdf_ns%>%
+dems_df_ns <- cdf_trimmed%>%
   filter(pid_3 == "Democrat")
 
-below_med_party_ns <- tidy_cdf_ns%>%
+below_med_party_ns <- cdf_trimmed%>%
   select(year,
          weight,
          pid_3,
@@ -512,7 +524,7 @@ ggsave("fig/gg-below-parties-ns.png", cdf_below_party_meds_ns, width = 6, height
 ### Single Median
 ###
 
-below_mct_ns <- tidy_cdf_ns%>% # MCT = Measure of Central Tendency
+below_mct_ns <- cdf_trimmed%>% # MCT = Measure of Central Tendency
 #below_mct_ns <- cdf_extended%>% # with 2020
   select(year,
          weight,
@@ -523,50 +535,32 @@ below_mct_ns <- tidy_cdf_ns%>% # MCT = Measure of Central Tendency
          above_75_dum = if_else(therm_inparty > 75, 1, 0),
          above_mean_sd_dum = if_else(therm_inparty > weighted.mean(therm_inparty, weight, na.rm = TRUE) + radiant.data::weighted.sd(therm_inparty, weight, na.rm = TRUE), 1, 0),
          below_50_dum = if_else(therm_inparty < 50, 1, 0),
-         below_mean_dum = if_else(therm_inparty < weighted.mean(therm_inparty, weight, na.rm = TRUE), 1, 0),
-         below_mean_sd_dum = if_else(therm_inparty < weighted.mean(therm_inparty, weight, na.rm = TRUE) - radiant.data::weighted.sd(therm_inparty, weight, na.rm = TRUE), 1, 0),
-         below_med_dum = if_else(therm_inparty < spatstat::weighted.median(therm_inparty, weight, na.rm = TRUE), 1, 0),
-         below_med_sd_dum = if_else(therm_inparty < spatstat::weighted.median(therm_inparty, weight, na.rm = TRUE) - radiant.data::weighted.sd(therm_inparty, weight, na.rm = TRUE), 1, 0))%>%
+#         below_mean_dum = if_else(therm_inparty < weighted.mean(therm_inparty, weight, na.rm = TRUE), 1, 0),
+#         below_mean_sd_dum = if_else(therm_inparty < weighted.mean(therm_inparty, weight, na.rm = TRUE) - radiant.data::weighted.sd(therm_inparty, weight, na.rm = TRUE), 1, 0),
+#         below_med_dum = if_else(therm_inparty < spatstat::weighted.median(therm_inparty, weight, na.rm = TRUE), 1, 0),
+#         below_med_sd_dum = if_else(therm_inparty < spatstat::weighted.median(therm_inparty, weight, na.rm = TRUE) - radiant.data::weighted.sd(therm_inparty, weight, na.rm = TRUE), 1, 0)
+)%>%
   glimpse()
 
 mct_prop_ns <- below_mct_ns%>% #way more measures here than are needed
   group_by(year, pid_3)%>%
-  summarise(prop_mean_below = weighted.mean(below_mean_dum, weight, na.rm = TRUE),
-            prop_mean_sd_below = weighted.mean(below_mean_sd_dum, weight, na.rm = TRUE),
-            prop_med_below = weighted.mean(below_med_dum, weight, na.rm = TRUE), #prop_below is those below the MCT, prop_sd_below is those one SD below med
-            prop_med_below_sd = weighted.mean(below_med_sd_dum, weight, na.rm = TRUE),
+  summarise(#prop_mean_below = weighted.mean(below_mean_dum, weight, na.rm = TRUE),
+            #prop_mean_sd_below = weighted.mean(below_mean_sd_dum, weight, na.rm = TRUE),
+#            prop_med_below = weighted.mean(below_med_dum, weight, na.rm = TRUE), #prop_below is those below the MCT, prop_sd_below is those one SD below med
+#            prop_med_below_sd = weighted.mean(below_med_sd_dum, weight, na.rm = TRUE),
             prop_50_below = weighted.mean(below_50_dum, weight, na.rm = TRUE),
             prop_80_above = weighted.mean(above_80_dum, weight, na.rm = TRUE),
             prop_75_above = weighted.mean(above_80_dum, weight, na.rm = TRUE),
-            prop_mean_sd_above = weighted.mean(above_mean_sd_dum, weight, na.rm = TRUE),
-            se_mean_below = diagis::weighted_se(below_mean_dum, weight, na.rm = TRUE),
-            se_mean_sd_below = diagis::weighted_se(below_mean_sd_dum, weight, na.rm = TRUE),
-            se_med_below = diagis::weighted_se(below_med_dum, weight, na.rm = TRUE),
-            se_med_sd_below = diagis::weighted_se(below_med_sd_dum, weight, na.rm = TRUE),
+#            prop_mean_sd_above = weighted.mean(above_mean_sd_dum, weight, na.rm = TRUE),
+#            se_mean_below = diagis::weighted_se(below_mean_dum, weight, na.rm = TRUE),
+#            se_mean_sd_below = diagis::weighted_se(below_mean_sd_dum, weight, na.rm = TRUE),
+#            se_med_below = diagis::weighted_se(below_med_dum, weight, na.rm = TRUE),
+#            se_med_sd_below = diagis::weighted_se(below_med_sd_dum, weight, na.rm = TRUE),
             se_50_below = diagis::weighted_se(below_50_dum, weight, na.rm = TRUE),
             se_80_above = diagis::weighted_se(above_80_dum, weight, na.rm = TRUE),
-            se_mean_sd_above = diagis::weighted_se(above_mean_sd_dum, weight, na.rm = TRUE)
+#            se_mean_sd_above = diagis::weighted_se(above_mean_sd_dum, weight, na.rm = TRUE)
   )%>%
   glimpse()
-
-gg_med_below_ns <- ggplot(mct_prop_ns, aes(x = year, y = prop_med_below)) +
-  geom_errorbar(aes(ymin = prop_med_below - 2*se_med_below, ymax = prop_med_below + 2*se_med_below, width = .2)) +
-  geom_line(aes(linetype = pid_3, color = pid_3), size = 1) +
-  geom_point(aes(shape = pid_3, size = 1, color = pid_3)) +
-  scale_color_manual(values = c("Democrat" = "dodgerblue3",
-                                "Republican" = "firebrick3")) +
-  theme(legend.position = c(0.65, 0.9)) +
-  guides(size = FALSE) +
-  labs(x = "Year", 
-       y = "Proportion",
-       color = "Party ID",
-       linetype = "Party ID",
-       title = "Proportion of Partisans Below Global Median In-Party FT",
-       subtitle = "Includes Leaning Independents",
-       shape = "Party ID")
-gg_med_below_ns
-ggsave("fig/gg-below-med-ns.png", gg_med_below_ns, width = 6, height = 4, units = "in")
-
 
 ### Below 50:
 
@@ -615,4 +609,7 @@ gg_above_75_ns <- ggplot(mct_prop_ns, aes(x = year, y = prop_75_above)) +
 gg_above_75_ns
 
 ggsave("fig/gg-above-70-ns.png", gg_above_75_ns, width = 8, height = 6, units = "in")
+
+
+#histogram of therms by pid_str
 

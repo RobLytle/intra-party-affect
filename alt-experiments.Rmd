@@ -1,0 +1,172 @@
+---
+title: "alternative-designs"
+author: "Rob Lytle"
+date: "4/27/2021"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+# Primary Loss
+
+The experiment is a between-subjects design with a single treatment. 
+
+1. First, participants' sincere party ID is solicited. Following @klar2016independent, a participant will be defined as a "partisan" if they indicate being registered with a party or *leaning* towards one party or the other. True independents will be excluded from the study.
+2. Next, participants will be shown short vignettes of 10 policy positions of two counterfactual candidates, "Candidate A" and "Candidate B", running against each other in a congressional primary. 
+    - The participants will not be informed that the candidates are counterfactual. 
+    - The vignettes will be presented side-by-side, policy positions of each candidate will be randomized from a list of 20 neutrally worded positions. Democratic and Republican positions will be drawn from different lists.
+    - The participant will have one minute to review the vignettes.
+    - To ensure that participants do not attempt to consult outside information about the candidates, no identifying information about the candidates will be presented.
+    
+3. After reviewing the vignettes, the participant is asked which candidate they prefer. After making their choice, subjects are asked to write one or two sentences explaining what they find appealing about the candidate.
+
+1. Subjects in the treatment group are told that their candidate lost the election, candidates in the control group are presented with a brief loading screen. 
+
+4. Finally, each group is asked to rate their preferred party (whichever party the participant indicated a preference for at the beginning of the experiment) on the same 0-100 feeling thermometer scale.
+
+5. After the second partisan rating, the participant is debriefed that the candidate and election were counterfactual, at which point the session concludes.
+
+-------------------
+
+# Poll results
+
+The experiment is a between-subjects design with a single treatment. 
+
+1. First, participants' sincere party ID is solicited. Following @klar2016independent, a participant will be defined as a "partisan" if they indicate being registered with a party or *leaning* towards one party or the other. True independents will be excluded from the study.
+2. Next, participants will be shown short vignettes of 10 policy positions of two counterfactual candidates, "Candidate A" and "Candidate B", running against each other in a congressional primary. 
+    - The participants will not be informed that the candidates are counterfactual. 
+    - The vignettes will be presented side-by-side, policy positions of each candidate will be randomized from a list of 20 neutrally worded positions. Democratic and Republican positions will be drawn from different lists.
+    - The participant will have one minute to review the vignettes.
+    - To ensure that participants do not attempt to consult outside information about the candidates, no identifying information about the candidates will be presented.
+    
+3. After reviewing the vignettes, the participant is asked which candidate they prefer. After making their choice, subjects are asked to write one or two sentences explaining what they find appealing about the candidate.
+
+1. Subjects are shown the results of a counterfactual survey, indicating a proportion $s$ participants preferred their candidate and $1-s$ prefer the opposing candidate.
+
+4. Finally, each group is asked to rate their preferred party (whichever party the participant indicated a preference for at the beginning of the experiment) on the same 0-100 feeling thermometer scale.
+
+5. After the second partisan rating, the participant is debriefed that the candidate and election were counterfactual, at which point the session concludes.
+
+hyp: positive relationship between $s$ and feeling thermometer
+
+
+----------------
+
+
+# Poll results (CF candidate)
+
+1. First, participants' sincere party ID is solicited. Following @klar2016independent, a participant will be defined as a "partisan" if they indicate being registered with a party or *leaning* towards one party or the other. True independents will be excluded from the study.
+2. Next, participants will be shown short vignettes of 10 policy positions of two counterfactual candidates, "Candidate A" and "Candidate B", running against each other in a congressional primary. 
+    - The participants will not be informed that the candidates are counterfactual. 
+    - The vignettes will be presented side-by-side, policy positions of each candidate will be randomized from a list of 20 neutrally worded positions. Democratic and Republican positions will be drawn from different lists.
+    - The participant will have one minute to review the vignettes.
+    - To ensure that participants do not attempt to consult outside information about the candidates, no identifying information about the candidates will be presented.
+    
+3. After reviewing the vignettes, the participant is asked which candidate they prefer. After making their choice, subjects are asked to write one or two sentences explaining what they find appealing about the candidate.
+
+1. Subjects are shown the results of a counterfactual survey, indicating a proportion $s$ participants preferred their candidate and $1-s$ prefer the opposing candidate.
+
+4. Finally, each group is asked to rate their preferred party (whichever party the participant indicated a preference for at the beginning of the experiment) on the same 0-100 feeling thermometer scale.
+
+5. After the second partisan rating, the participant is debriefed that the candidate and election were counterfactual, at which point the session concludes.
+
+hyp: positive relationship between $s$ and feeling thermometer
+
+
+
+
+# Poll results True Preference
+
+1. First, participants' sincere party ID is solicited. Following @klar2016independent, a participant will be defined as a "partisan" if they indicate being registered with a party or *leaning* towards one party or the other. True independents will be excluded from the study.
+
+2. Next, participants will be asked for their preferred presidential primary candidate (2016 Cruz/Trump for Reps, 2020 Sanders/Biden for Dems).
+
+3. After reviewing the vignettes, the participant is asked which candidate they prefer. After making their choice, subjects are asked to write one or two sentences explaining what they find appealing about the candidate.
+
+1. Subjects are shown the results of a counterfactual "recent survey", indicating a proportion $s$ participants preferred their candidate and $1-s$ prefer the opposing candidate.
+
+4. Finally, each group is asked to rate their preferred party (whichever party the participant indicated a preference for at the beginning of the experiment) on the same 0-100 feeling thermometer scale.
+
+5. After the second partisan rating, the participant is debriefed that the candidate and election were counterfactual, at which point the session concludes.
+
+hyp: positive relationship between $s$ and feeling thermometer
+
+
+
+
+
+
+# Poll Results/primary
+
+## Subject preferences
+
+1. First, participants' sincere party ID is solicited. Following @klar2016independent, a participant will be defined as a "partisan" if they indicate being registered with a party or *leaning* towards one party or the other. True independents will be excluded from the study.
+
+1. Next, participants will be shown information regarding two candidates running in a co-partisan primary.
+    - subjects in one group are shown pictures of two candidates and the office for which they are running. Showing only pictures to participants allows us to calculate face advantage for images.
+    - subjects in the other are shown pictures and counterfactual policy preferences
+
+
+1. After reviewing the images, the participant is asked which candidate they prefer. After making their choice, subjects are asked to write one or two sentences explaining what they find appealing about the candidate. 
+
+## Information Treatments
+
+Either: 
+
+1. Participants are told their candidate lost the primary
+1. Subjects are shown the results of a counterfactual "recent survey", indicating a proportion $s$ participants preferred their candidate and $1-s$ prefer the opposing candidate. Maybe constrict these percentages to extremes?
+
+## Control
+
+1. Subjects in the control group are not provided with any information about election results and co-partisan attitudes.
+
+## Post-treatment questions (randomize the order of these)
+
+1. Likert Scale Questions:
+    - Officials don't care what people like me think
+    - How much do you trust the federal government?
+    - Given that your candidate lost, how likely would you be to support your party's nominee in the general election?
+
+1. rate the outparty on a 0-100 feeling thermometer
+
+1. Finally, each group is asked to rate their preferred party (whichever party the participant indicated a preference for at the beginning of the experiment) on the same 0-100 feeling thermometer scale.
+
+### Debriefing
+
+1. After the second partisan rating, the participant is debriefed that the candidates, poll results, and election results were counterfactual.
+
+1. Subjects presented with an comment text box, at which point the session concludes.
+
+hyp 1: lower FT in election loss group
+hyp 2: positive relationship between $s$ and feeling thermometer
+hyp 3: Less government trust in loss group
+hyp 4: Less likely to vote for nominee in loss group
+hyp 5: Magnitude of effects stronger in attachment condition
+
+
+```{r}
+library(pwr)
+
+# hyp 1
+pwr.t.test(n = NULL, d = .25, sig.level = .05, power = .9, type = "two.sample")
+
+# hyp 2
+pwr.r.test(n = NULL, r = .15, sig.level = .05, power = .9) 
+
+# hyp 3 & 4
+pwr.t.test(n = NULL, d = .25, sig.level = .05, power =  .9, type = "two.sample")
+
+# hyp 5 will require sample size to be doubled.
+
+tibble::tibble(condition = c("Losers", 
+                             "Survey Results", 
+                             "Control"),
+               n_per_treatment = c(350, 500, 500),
+               total_n = 2*n_per_treatment)
+
+```
+# Questions
+
+- Does it matter that the counterfactual candidates are bundles of policy positions?

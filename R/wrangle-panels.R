@@ -167,3 +167,27 @@ naes_08 <- read_rds("data/raw/naes-trim-online.rds")%>%
 	write_rds("data/naes-08.rds")%>%
 	write_csv("data/naes-08.csv")%>%
 	glimpse()
+
+anes_80 <- rio::import("data/raw/NES80PAN.dta")%>%
+	select(pid_7_1 = VMP0191,
+				 pid_7_2 = VMP2212,
+				 pid_7_3 = VMP3212,
+				 pid_3_1 = VMP0188,
+				 pid_3_2 = VMP2209,
+				 pid_3_3 = VMP3171,
+				 therm_dem_1 = VMP0052,
+				 therm_rep_1 = VMP0053,
+				 therm_dem_2 = VMP2052,
+				 therm_rep_2 = VMP2053,
+				 therm_dem_3 = VMP3109,
+				 therm_rep_4 = VMP3110,
+				 prim_vote_dummy = VMP2342,
+				 rep_prim_choice = VMP2348,
+				 dem_prim_choice = VMP2365)%>%
+	glimpse()
+
+x <- data.frame(year = 1789:2021,
+								congress = 1:233)%>%
+	mutate(congress2 = c(1, 1):c(117, 117))%>%
+	glimpse()
+

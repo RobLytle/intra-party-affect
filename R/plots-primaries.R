@@ -1,4 +1,5 @@
 library(tidyverse)
+library(tidymodels)
 theme_set(theme_minimal())
 library(ggthemes)
 library(ggExtra)
@@ -6,15 +7,35 @@ library(kableExtra)
 library(scales)
 library(gridExtra)
 library(ggpubr)
+library(ggridges)
+set.seed(1234)
 
+########
+#function to split into training and test dfs in one go
+split_rob <- function(df, vars, name, ...) {
+	split <- initial_split(df, ...)
+	
+	train_df <- training(split)%>%
+		glimpse()
+	
+	test_df <- testing(split)%>%
+		glimpse()
+	
+	assign(paste(name, sep = "_", "train_df"), train_df, envir = .GlobalEnv)
+	assign(paste(name, sep = "_", "test_df"), test_df, envir =  .GlobalEnv)
+}
+
+
+#########
 df_primaries <- read_rds("data/tidy-primaries.rds")%>%
 	filter(pid_3 != "Independent" & !is.na(primary_vote_simple))%>%
+	filter(!(pid_3 == "Republican" & primary_vote_simple == "Loser" & year == 2020))%>% # dropping republicans who didn't vote for trump because there are very few.
 	mutate(primary_vote_simple = recode(primary_vote_simple, .default = levels(primary_vote_simple),
 																			"Didn't Vote" = "Other/Third Party/\n Didn't Vote",
 																			"Voted in Other Party Primary" = "Other/Third Party/\n Didn't Vote"))%>%
 	mutate(primary_vote_simple = factor(primary_vote_simple,
 																			levels = c("Winner", "Loser", "Other/Third Party/\n Didn't Vote")))%>%
-#	filter(primary_vote_simple != "Other/Third Party/\n Didn't Vote")%>%
+	filter(primary_vote_simple != "Other/Third Party/\n Didn't Vote")%>%
 	glimpse()
 
 	###
@@ -123,4 +144,8 @@ gg_primaries <- grid.arrange(arrangeGrob(p2, p1,
 gg_primaries
 
 ggsave("fig/gg-primaries-grid.png", gg_primaries, width = 8, height = 6, units = "in")
+
+
+
+### Modeling
 

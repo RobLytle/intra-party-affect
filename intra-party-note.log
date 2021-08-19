@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.21 (MiKTeX 20.10) (preloaded format=pdflatex 2020.10.20)  20 OCT 2020 10:15
+This is pdfTeX, Version 3.14159265-2.6-1.40.21 (MiKTeX 20.10) (preloaded format=pdflatex 2020.10.20)  18 APR 2021 13:59
 entering extended mode
 **./intra-party-note.tex
 (intra-party-note.tex
@@ -552,35 +552,35 @@ File: l3backend-pdftex.def 2020-09-24 L3 backend support: PDF output (pdfTeX)
 LaTeX Warning: Unused global option(s):
     [12].
 
-No file intra-party-note.aux.
+(intra-party-note.aux)
 \openout1 = `intra-party-note.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 102.
-LaTeX Font Info:    ... okay on input line 102.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 102.
-LaTeX Font Info:    ... okay on input line 102.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 102.
-LaTeX Font Info:    ... okay on input line 102.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 102.
-LaTeX Font Info:    ... okay on input line 102.
-LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 102.
-LaTeX Font Info:    ... okay on input line 102.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 102.
-LaTeX Font Info:    ... okay on input line 102.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 102.
-LaTeX Font Info:    ... okay on input line 102.
-LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 102.
-LaTeX Font Info:    ... okay on input line 102.
-LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 102.
-LaTeX Font Info:    ... okay on input line 102.
-LaTeX Info: Redefining \microtypecontext on input line 102.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 110.
+LaTeX Font Info:    ... okay on input line 110.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 110.
+LaTeX Font Info:    ... okay on input line 110.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 110.
+LaTeX Font Info:    ... okay on input line 110.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 110.
+LaTeX Font Info:    ... okay on input line 110.
+LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 110.
+LaTeX Font Info:    ... okay on input line 110.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 110.
+LaTeX Font Info:    ... okay on input line 110.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 110.
+LaTeX Font Info:    ... okay on input line 110.
+LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 110.
+LaTeX Font Info:    ... okay on input line 110.
+LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 110.
+LaTeX Font Info:    ... okay on input line 110.
+LaTeX Info: Redefining \microtypecontext on input line 110.
 Package microtype Info: Generating PDF output.
 Package microtype Info: Character protrusion enabled (level 2).
 Package microtype Info: Using protrusion set `basicmath'.
 Package microtype Info: Automatic font expansion enabled (level 2),
 (microtype)             stretch: 20, shrink: 20, step: 1, non-selected.
 Package microtype Info: Using default expansion set `basictext'.
-LaTeX Info: Redefining \showhyphens on input line 102.
+LaTeX Info: Redefining \showhyphens on input line 110.
 Package microtype Info: No adjustment of tracking.
 Package microtype Info: No adjustment of interword spacing.
 Package microtype Info: No adjustment of character kerning.
@@ -616,7 +616,7 @@ Package grfext Info: Graphics extension search list:
 G,.JBIG2,.JB2,.eps]
 (grfext)             \AppendGraphicsExtensions on input line 504.
 )
-Package hyperref Info: Link coloring OFF on input line 102.
+Package hyperref Info: Link coloring OFF on input line 110.
 (C:\Users\robly\AppData\Local\Programs\MiKTeX\tex/latex/hyperref\nameref.sty
 Package: nameref 2019/09/16 v2.46 Cross-referencing by name of section
 (C:\Users\robly\AppData\Local\Programs\MiKTeX\tex/latex/refcount\refcount.sty
@@ -628,9 +628,9 @@ Package: gettitlestring 2019/12/15 v1.6 Cleanup title references (HO)
 )
 \c@section@level=\count311
 )
-LaTeX Info: Redefining \ref on input line 102.
-LaTeX Info: Redefining \pageref on input line 102.
-LaTeX Info: Redefining \nameref on input line 102.
+LaTeX Info: Redefining \ref on input line 110.
+LaTeX Info: Redefining \pageref on input line 110.
+LaTeX Info: Redefining \nameref on input line 110.
 *geometry* driver: auto-detecting
 *geometry* detected driver: pdftex
 *geometry* verbose mode - [ preamble ] result:
@@ -639,15 +639,15 @@ LaTeX Info: Redefining \nameref on input line 102.
 * layout: <same size as paper>
 * layoutoffset:(h,v)=(0.0pt,0.0pt)
 * modes: 
-* h-part:(L,W,R)=(72.26999pt, 469.75502pt, 72.26999pt)
-* v-part:(T,H,B)=(72.26999pt, 650.43001pt, 72.26999pt)
+* h-part:(L,W,R)=(86.72377pt, 440.84746pt, 86.72377pt)
+* v-part:(T,H,B)=(86.72377pt, 621.52245pt, 86.72377pt)
 * \paperwidth=614.295pt
 * \paperheight=794.96999pt
-* \textwidth=469.75502pt
-* \textheight=650.43001pt
-* \oddsidemargin=0.0pt
-* \evensidemargin=0.0pt
-* \topmargin=-37.0pt
+* \textwidth=440.84746pt
+* \textheight=621.52245pt
+* \oddsidemargin=14.45378pt
+* \evensidemargin=14.45378pt
+* \topmargin=-22.54622pt
 * \headheight=12.0pt
 * \headsep=25.0pt
 * \topskip=10.0pt
@@ -675,162 +675,209 @@ Package caption Info: threeparttable package is loaded.
 Package caption Info: wrapfig package is loaded.
 Package caption Info: End \AtBeginDocument code.
 LaTeX Font Info:    Trying to load font information for T1+lmss on input line 1
-04.
+12.
 (C:\Users\robly\AppData\Local\Programs\MiKTeX\tex/latex/lm\t1lmss.fd
 File: t1lmss.fd 2009/10/30 v1.6 Font defs for Latin Modern
 )
+Package microtype Info: Loading generic protrusion settings for font family
+(microtype)             `lmss' (encoding: T1).
+(microtype)             For optimal results, create family-specific settings.
+(microtype)             See the microtype manual for details.
 LaTeX Font Info:    Trying to load font information for OT1+lmr on input line 1
-04.
+12.
 (C:\Users\robly\AppData\Local\Programs\MiKTeX\tex/latex/lm\ot1lmr.fd
 File: ot1lmr.fd 2009/10/30 v1.6 Font defs for Latin Modern
 )
 LaTeX Font Info:    Trying to load font information for OML+lmm on input line 1
-04.
+12.
 (C:\Users\robly\AppData\Local\Programs\MiKTeX\tex/latex/lm\omllmm.fd
 File: omllmm.fd 2009/10/30 v1.6 Font defs for Latin Modern
 )
 LaTeX Font Info:    Trying to load font information for OMS+lmsy on input line 
-104.
+112.
 (C:\Users\robly\AppData\Local\Programs\MiKTeX\tex/latex/lm\omslmsy.fd
 File: omslmsy.fd 2009/10/30 v1.6 Font defs for Latin Modern
 )
 LaTeX Font Info:    Trying to load font information for OMX+lmex on input line 
-104.
+112.
 (C:\Users\robly\AppData\Local\Programs\MiKTeX\tex/latex/lm\omxlmex.fd
 File: omxlmex.fd 2009/10/30 v1.6 Font defs for Latin Modern
 )
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <14.4> on input line 104.
+(Font)              <14.4> on input line 112.
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <10> on input line 104.
+(Font)              <10> on input line 112.
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <7> on input line 104.
-LaTeX Font Info:    Trying to load font information for U+msa on input line 104
+(Font)              <7> on input line 112.
+LaTeX Font Info:    Trying to load font information for U+msa on input line 112
 .
 (C:\Users\robly\AppData\Local\Programs\MiKTeX\tex/latex/amsfonts\umsa.fd
 File: umsa.fd 2013/01/14 v3.01 AMS symbols A
 ) (C:\Users\robly\AppData\Local\Programs\MiKTeX\tex/latex/microtype\mt-msa.cfg
 File: mt-msa.cfg 2006/02/04 v1.1 microtype config. file: AMS symbols (a) (RS)
 )
-LaTeX Font Info:    Trying to load font information for U+msb on input line 104
+LaTeX Font Info:    Trying to load font information for U+msb on input line 112
 .
 (C:\Users\robly\AppData\Local\Programs\MiKTeX\tex/latex/amsfonts\umsb.fd
 File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 ) (C:\Users\robly\AppData\Local\Programs\MiKTeX\tex/latex/microtype\mt-msb.cfg
 File: mt-msb.cfg 2005/06/01 v1.0 microtype config. file: AMS symbols (b) (RS)
 )
-LaTeX Font Info:    Trying to load font information for U+rsfs on input line 10
-4.
+LaTeX Font Info:    Trying to load font information for U+rsfs on input line 11
+2.
 (C:\Users\robly\AppData\Local\Programs\MiKTeX\tex/latex/jknappen\ursfs.fd
 File: ursfs.fd 1998/03/24 rsfs font definition file (jk)
 )
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <5> on input line 114.
+(Font)              <5> on input line 125.
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <8> on input line 114.
+(Font)              <8> on input line 125.
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <6> on input line 114.
+(Font)              <6> on input line 125.
 [1
 
 
-{C:/Users/robly/AppData/Local/MiKTeX/pdftex/config/pdftex.map}]
-Package microtype Info: Loading generic protrusion settings for font family
-(microtype)             `lmss' (encoding: T1).
-(microtype)             For optimal results, create family-specific settings.
-(microtype)             See the microtype manual for details.
-<intra-party-note_files/figure-latex/unnamed-chunk-2-1.pdf, id=19, 469.755pt x 
+{C:/Users/robly/AppData/Local/MiKTeX/pdftex/config/pdftex.map}] [2]
+<intra-party-note_files/figure-latex/unnamed-chunk-2-1.pdf, id=30, 469.755pt x 
 325.215pt>
 File: intra-party-note_files/figure-latex/unnamed-chunk-2-1.pdf Graphic file (t
 ype pdf)
 <use intra-party-note_files/figure-latex/unnamed-chunk-2-1.pdf>
 Package pdftex.def Info: intra-party-note_files/figure-latex/unnamed-chunk-2-1.
-pdf  used on input line 197.
-(pdftex.def)             Requested size: 469.75386pt x 325.2142pt.
-[2]
-<fig/gg-sd-ns.png, id=28, 578.16pt x 433.62pt>
+pdf  used on input line 206.
+(pdftex.def)             Requested size: 440.84581pt x 305.20094pt.
+<fig/gg-sd-ns.png, id=31, 578.16pt x 433.62pt>
 File: fig/gg-sd-ns.png Graphic file (type png)
 <use fig/gg-sd-ns.png>
-Package pdftex.def Info: fig/gg-sd-ns.png  used on input line 209.
-(pdftex.def)             Requested size: 469.75385pt x 352.31538pt.
+Package pdftex.def Info: fig/gg-sd-ns.png  used on input line 218.
+(pdftex.def)             Requested size: 440.84415pt x 330.63312pt.
 
-Underfull \hbox (badness 10000) in paragraph at lines 209--211
+Underfull \hbox (badness 10000) in paragraph at lines 218--220
 [][]
  []
 
 [3 <./intra-party-note_files/figure-latex/unnamed-chunk-2-1.pdf>] [4 <./fig/gg-
 sd-ns.png>]
-<fig/gg-below-50-ns.png, id=48, 578.16pt x 433.62pt>
+<fig/gg-below-50-ns.png, id=51, 578.16pt x 433.62pt>
 File: fig/gg-below-50-ns.png Graphic file (type png)
 <use fig/gg-below-50-ns.png>
-Package pdftex.def Info: fig/gg-below-50-ns.png  used on input line 243.
-(pdftex.def)             Requested size: 469.75385pt x 352.31538pt.
+Package pdftex.def Info: fig/gg-below-50-ns.png  used on input line 258.
+(pdftex.def)             Requested size: 440.84415pt x 330.63312pt.
 
-Underfull \hbox (badness 10000) in paragraph at lines 243--246
+Underfull \hbox (badness 10000) in paragraph at lines 258--261
 [][]
  []
 
-<fig/gg-ridge-grid.png, id=49, 722.7pt x 289.08pt>
+[5 <./fig/gg-below-50-ns.png>]
+<fig/gg-ridge-grid.png, id=58, 722.7pt x 289.08pt>
 File: fig/gg-ridge-grid.png Graphic file (type png)
 <use fig/gg-ridge-grid.png>
-Package pdftex.def Info: fig/gg-ridge-grid.png  used on input line 259.
-(pdftex.def)             Requested size: 469.76045pt x 187.90417pt.
-[5 <./fig/gg-below-50-ns.png>]
-<fig/gg-pooled-combined-strict.png, id=55, 433.62pt x 722.7pt>
+Package pdftex.def Info: fig/gg-ridge-grid.png  used on input line 275.
+(pdftex.def)             Requested size: 440.84636pt x 176.33853pt.
+
+Underfull \hbox (badness 10000) in paragraph at lines 275--280
+[][]
+ []
+
+<fig/gg-pooled-combined-strict.png, id=59, 433.62pt x 722.7pt>
 File: fig/gg-pooled-combined-strict.png Graphic file (type png)
 <use fig/gg-pooled-combined-strict.png>
 Package pdftex.def Info: fig/gg-pooled-combined-strict.png  used on input line 
-277.
-(pdftex.def)             Requested size: 390.26102pt x 650.43501pt.
+285.
+(pdftex.def)             Requested size: 372.91255pt x 621.5209pt.
 [6 <./fig/gg-ridge-grid.png (PNG copy)>]
-Overfull \vbox (37.46733pt too high) has occurred while \output is active []
+Overfull \vbox (37.46078pt too high) has occurred while \output is active []
 
 [7 <./fig/gg-pooled-combined-strict.png>]
-<fig/gg-primaries-grid.png, id=68, 578.16pt x 433.62pt>
+<fig/gg-primaries-grid.png, id=73, 578.16pt x 433.62pt>
 File: fig/gg-primaries-grid.png Graphic file (type png)
 <use fig/gg-primaries-grid.png>
-Package pdftex.def Info: fig/gg-primaries-grid.png  used on input line 303.
-(pdftex.def)             Requested size: 469.75385pt x 352.31538pt.
+Package pdftex.def Info: fig/gg-primaries-grid.png  used on input line 328.
+(pdftex.def)             Requested size: 440.84415pt x 330.63312pt.
 
-Underfull \hbox (badness 10000) in paragraph at lines 303--307
+Underfull \hbox (badness 10000) in paragraph at lines 328--332
 [][]
  []
 
-[8 <./fig/gg-primaries-grid.png (PNG copy)>] [9] [10
+[8] [9 <./fig/gg-primaries-grid.png>] [10] [11] [12]
+<fig/gg-str-therm.png, id=105, 433.62pt x 289.08pt>
+File: fig/gg-str-therm.png Graphic file (type png)
+<use fig/gg-str-therm.png>
+Package pdftex.def Info: fig/gg-str-therm.png  used on input line 494.
+(pdftex.def)             Requested size: 433.63878pt x 289.09251pt.
 
-] (intra-party-note.aux)
+Underfull \hbox (badness 10000) in paragraph at lines 494--495
+[][]
+ []
 
-LaTeX Warning: Label(s) may have changed. Rerun to get cross-references right.
+<fig/gg-three-wave-str.png, id=106, 433.62pt x 289.08pt>
+File: fig/gg-three-wave-str.png Graphic file (type png)
+<use fig/gg-three-wave-str.png>
+Package pdftex.def Info: fig/gg-three-wave-str.png  used on input line 505.
+(pdftex.def)             Requested size: 433.63878pt x 289.09251pt.
 
- ) 
+Underfull \hbox (badness 10000) in paragraph at lines 505--511
+[][]
+ []
+
+[13 <./fig/gg-str-therm.png>] [14 <./fig/gg-three-wave-str.png>]
+<fig/gg-behav-difs.png, id=123, 433.62pt x 289.08pt>
+File: fig/gg-behav-difs.png Graphic file (type png)
+<use fig/gg-behav-difs.png>
+Package pdftex.def Info: fig/gg-behav-difs.png  used on input line 540.
+(pdftex.def)             Requested size: 433.63878pt x 289.09251pt.
+
+Underfull \hbox (badness 10000) in paragraph at lines 540--543
+[][]
+ []
+
+[15 <./fig/gg-behav-difs.png>] [16] [17
+
+] (intra-party-note.aux) ) 
 Here is how much of TeX's memory you used:
- 16373 strings out of 480236
- 248943 string characters out of 2880557
- 580756 words of memory out of 3000000
- 32446 multiletter control sequences out of 15000+200000
- 629500 words of font info for 145 fonts, out of 3000000 for 9000
+ 16445 strings out of 480236
+ 250078 string characters out of 2880557
+ 582460 words of memory out of 3000000
+ 32467 multiletter control sequences out of 15000+200000
+ 630970 words of font info for 161 fonts, out of 3000000 for 9000
  1141 hyphenation exceptions out of 8191
- 71i,9n,77p,604b,426s stack positions out of 5000i,500n,10000p,200000b,50000s
-pdfTeX warning (dest): name{Hfootnote.2} has been referenced but does not exi
-st, replaced by a fixed one
+ 71i,9n,77p,604b,428s stack positions out of 5000i,500n,10000p,200000b,50000s
+pdfTeX warning (dest): name{Hfootnote.4} has been ref
+erenced but does not exist, replaced by a fixed one
+
+pdfTeX warning (dest): name{Hfootnote.3} has been referenced but does not exist
+, replaced by a fixed one
+
+pdfTeX warning (dest): name{Hfootnote.2} has been referenced but does not exist
+, replaced by a fixed one
 
 pdfTeX warning (dest): name{Hfootnote.1} has been referenced but does not exist
 , replaced by a fixed one
 
-{C:/Users/robly/AppData/Local/Programs/MiKTeX/fonts/enc/dvips/lm/lm-ec.enc}<C:/
-Users/robly/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmbx10.pfb><C:/
-Users/robly/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmbxi10.pfb><C:
-/Users/robly/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmr10.pfb><C:/
-Users/robly/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmr6.pfb><C:/Us
-ers/robly/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmr7.pfb><C:/User
-s/robly/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmr8.pfb><C:/Users/
-robly/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmr9.pfb><C:/Users/ro
-bly/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmri10.pfb><C:/Users/ro
-bly/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmss9.pfb><C:/Users/rob
-ly/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmssbx10.pfb><C:/Users/r
-obly/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmsso12.pfb>
-Output written on intra-party-note.pdf (10 pages, 785752 bytes).
+{C:/Users/robly/AppData/Local/Programs/MiKTeX/fonts/enc/dvips/lm/lm-mathit.enc}
+{C:/Users/robly/AppData/Local/Programs/MiKTeX/fonts/enc/dvips/lm/lm-mathsy.enc}
+{C:/Users/robly/AppData/Local/Programs/MiKTeX/fonts/enc/dvips/lm/lm-rm.enc}{C:/
+Users/robly/AppData/Local/Programs/MiKTeX/fonts/enc/dvips/lm/lm-ec.enc}<C:/User
+s/robly/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmbx10.pfb><C:/User
+s/robly/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmbxi10.pfb><C:/Use
+rs/robly/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmmi10.pfb><C:/Use
+rs/robly/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmmi7.pfb><C:/User
+s/robly/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmr10.pfb><C:/Users
+/robly/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmr6.pfb><C:/Users/r
+obly/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmr7.pfb><C:/Users/rob
+ly/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmr8.pfb><C:/Users/robly
+/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmr9.pfb><C:/Users/robly/A
+ppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmri10.pfb><C:/Users/robly/A
+ppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmss12.pfb><C:/Users/robly/A
+ppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmss9.pfb><C:/Users/robly/Ap
+pData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmssbx10.pfb><C:/Users/robly/
+AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmsso12.pfb><C:/Users/robly
+/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmsy10.pfb>
+Output written on intra-party-note.pdf (17 pages, 868212 bytes).
 PDF statistics:
- 164 PDF objects out of 1000 (max. 8388607)
- 36 named destinations out of 1000 (max. 500000)
- 20567 words of extra memory for PDF output out of 20736 (max. 10000000)
+ 245 PDF objects out of 1000 (max. 8388607)
+ 50 named destinations out of 1000 (max. 500000)
+ 20598 words of extra memory for PDF output out of 20736 (max. 10000000)
 
+
+! pdflatex: security risk: running with elevated privileges
