@@ -1,18 +1,23 @@
 library(tidyverse)
+library(lubridate)
 
 df_2020 <- import("data/raw/anes_timeseries_2020_csv_20210719.zip", which = "anes_timeseries_2020_csv_20210719.csv")%>%
 	select(pid_7 = V201231x,
 				 ft_dem = V201156,
 				 ft_rep = V201157,
+				 ideo_self = V201200, #1-7 lib con, -na
+				 ideo_dem = V201206,
+				 ideo_rep = V201207,
 				 primary_vote = V201020,
-				 primary_vote_choice = V201021,
+				 primary_vote_choice_num = V201021,
 				 dis_democ = V202440,
 				 distrust_gov = V201233,
 				 wrong_track_dum  = V201114,
 				 gov_run_for_few_dum = V201234,
 				 gov_care_post = V202212,
 				 wealth_gap_larger = V201397,
-				 weight = V200010a)%>%
+				 weight = V200010a,
+				 date = V203053)%>%
 	mutate(pid_7_num = as.numeric(pid_7),
 				 pid_7 = recode(pid_7, .default = NA_character_,
 				 							 "1" = "Strong Democrat", 
@@ -27,16 +32,17 @@ df_2020 <- import("data/raw/anes_timeseries_2020_csv_20210719.zip", which = "ane
 				 									str_detect(pid_7, "Rep") ~ "Republican",
 				 									str_detect(pid_7, "Ind") ~ "Independent",
 				 									TRUE ~ NA_character_),
-				 ft_dem = recode(ft_dem, .default = ft_dem,
+				 therm_dem = recode(ft_dem, .default = ft_dem,
 				 								"-9" = NA_integer_,
 				 								"998" = NA_integer_),
-				 ft_rep = recode(ft_rep, .default = ft_rep,
+				 therm_rep = recode(ft_rep, .default = ft_rep,
 				 								"-9" = NA_integer_,
 				 								"998" = NA_integer_),
 				 primary_vote_dum = as.numeric(recode(primary_vote, .default = NA_character_,
 				 											"1" = "0",
 				 											"2" = "1")),
-				 primary_vote_choice = as.factor(recode(primary_vote_choice, .default = NA_character_,
+				 primary_vote_choice_num = if_else(primary_vote_choice_num < 0, NA_integer_, primary_vote_choice_num),
+				 primary_vote_choice = as.factor(recode(primary_vote_choice_num, .default = NA_character_,
 				 														 "1" = "Joe Biden",
 				 														 "2" = "Michael Bloomberg",
 				 														 "3" = "Pete Buttigieg",
@@ -47,6 +53,10 @@ df_2020 <- import("data/raw/anes_timeseries_2020_csv_20210719.zip", which = "ane
 				 														 "8" = "Donald Trump",
 				 														 "9" = "Other Republican",
 				 														 "10" = "Someone Neither Dem. Nor Rep.")),
+				 cand_party = case_when(primary_vote_choice_num <= 7 ~ "Democrat",
+				 											 primary_vote_choice_num == 10 ~ "Other Party",
+				 											 primary_vote_choice_num == 8 | primary_vote_choice_num == 9 ~ "Republican",
+				 											 TRUE ~ NA_character_),
 				 dis_democ_dum = as.integer(recode(dis_democ, .default = NA_character_,
 				 									 "1" = "0",
 				 									 "2" = "0",
@@ -88,7 +98,14 @@ df_2020 <- import("data/raw/anes_timeseries_2020_csv_20210719.zip", which = "ane
 				 wealth_gap_larger_dum = as.numeric(recode(wealth_gap_larger, .default = NA_character_,
 				 															 "1" = "1",
 				 															 "2" = "0",
-				 															 "3" = "0")))%>% # 1 means R thinksgov run for a few 
+				 															 "3" = "0")),
+				 date = ymd(date))%>% # 1 means R thinksgov run for a few  #pre interview date
+	mutate(primary_vote_simple = case_when(pid_3 != cand_party ~ "Voted in Other Party Primary",
+																				 pid_3 == "Democrat" & primary_vote_choice == "Joe Biden" ~ "Winner",
+																				 pid_3 == "Republican" & primary_vote_choice == "Donald Trump" ~ "Winner",
+																				 pid_3 != "Indpendent" & primary_vote_choice != "Didn't Vote" ~ "Loser",
+																				 pid_3 != "Indpendent" & primary_vote_choice == "Didn't Vote" ~ "Didn't Vote",
+																				 TRUE ~ NA_character_))%>%
 
 	glimpse()%>%
 	write_rds("data/tidy-2020.rds")%>%

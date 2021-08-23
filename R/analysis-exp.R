@@ -2,13 +2,24 @@ library(lubridate)
 library(MASS)
 library(brglm)
 library(tidyverse)
+library(modelsummary)
+library(AER)
 set.seed(1234)
 
-exp_df <- read_csv("data/raw/ap-experiment-08-21.csv")%>%
+# Function to extract p from polr
+tidy_custom.polr <- function(x, ...) {
+	s <- coeftest(x)
+	out <- data.frame(
+		term = row.names(s),
+		p.value = s[, "Pr(>|z|)"])
+	out
+}
+
+exp_df <- read_csv("data/raw/ap-experiment-08-22.csv")%>%
 #	glimpse()#%>%
 	select(StartDate,
-				 party_id,
-				 -party_id_1,
+#				 party_id...66,
+				 party_id = party_id...18, #not sure why this is happening... something on the qtrix side of things. THis seems to be the correct pid variable.
 					lean_party,
 					d_loss,
 					d_win,
@@ -51,15 +62,15 @@ exp_df <- read_csv("data/raw/ap-experiment-08-21.csv")%>%
 				 												TRUE ~ NA_character_),
 				 										 levels = c("Extremely unlikely",
 				 										 					 "Somewhat unlikely",
-				 										 					 "Neither likely nor unlikely", 
+				 										 					 "Neither likely nor unlikely",
 				 										 					 "Somewhat likely",
 				 										 					 "Extremely likely")),
 				 satisfied_democracy = factor(satisfied_democracy,
-				 														 levels = c("Extremely Dissatisfied",
+				 														 levels = c("Very Dissatisfied",
 				 														 					 "Somewhat Dissatisfied",
-				 														 					 "Neither Satisfied nor Dissatisfied", 
+				 														 					 "Neither Satisfied nor Dissatisfied",
 				 														 					 "Somewhat Satisfied",
-				 														 					 "Extremely Satisfied")),
+				 														 					 "Very Satisfied")),
 				 trust_gov = factor(trust_gov,
 				 									 levels = c("Not at all",
 				 									 					 "A little",
@@ -76,26 +87,60 @@ group_df <- exp_df%>%
 	group_by(group,
 					 pid_3)%>%
 	summarize(ft_in = mean(therm_inparty),
-						se_in = sd(therm_inparty)/sqrt(length(therm_inparty)))%>%
+						se_in = sd(therm_inparty)/sqrt(length(therm_inparty)),
+						n = n())%>%
 	glimpse()
 
 m1 <- exp_df%>%
 	filter(pid_3 != "Independent")%>%
+#	glimpse()
 #	filter(pid_3 == "Republican")%>%
-lm(therm_inparty ~ group, data = .)
+
+
 
 summary(m1)
 
-m2 <-exp_df%>%
+m_df <- exp_df%>%
 	filter(pid_3 != "Independent")%>%
 	select(vote_likely,
+				 therm_inparty,
+				 therm_outparty,
 				 group,
-				 loss_dum_nc)%>%
-	glimpse()
-	MASS::polr(vote_likely ~ group, data = ., Hess = TRUE)
+				 loss_dum_nc,
+				 satisfied_democracy,
+				 trust_gov)
 
-ctable <- coef(summary(m2))
-p <- pnorm(abs(ctable[, "t value"]), lower.tail = FALSE * 2)
+ggplot(m_df, aes(x = therm_inparty)) +
+	geom_density() + 
+	facet_wrap(vars(group))
 
-table <- cbind(ctable, "p_value" = p)%>%
-	glimpse()
+
+# In and outparty therms
+
+cm_1 <- c("(Intercept)" = "Constant", "groupLoss" = "Loss", "groupWin" = "Win" )
+
+list("Inparty" = lm(therm_inparty ~ group, data = m_df),
+		 "Outparty" = lm(therm_outparty ~ group, data = m_df))%>%
+	modelsummary(output = "gt",
+							 stars = TRUE,
+							 coef_map = cm_1)
+
+
+# comparing Winners and Losers Political Optimism
+cm_2 <- c("loss_dum_nc" = "Primary Loss")
+gm_2 <- tibble::tribble(
+	~raw,        ~clean,          ~fmt,
+	"nobs",      "N",             0,
+	"AIC", "AIC", 2,
+	"logLik" , "Log Likelihood", 2)
+
+list("Vote General" = polr(vote_likely ~ loss_dum_nc, data = m_df, Hess = TRUE),
+			 "Trust Gov." = polr(trust_gov ~ loss_dum_nc, data = m_df, Hess = TRUE),
+			 "Democ. Satisfaction" = polr(satisfied_democracy ~ loss_dum_nc, data = m_df, Hess = TRUE))%>%
+modelsummary(coef_map = cm_2,
+						 gof_map = gm_2,
+						 stars = TRUE)
+
+
+
+	
