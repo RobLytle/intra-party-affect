@@ -33,9 +33,9 @@ df_primaries <- read_rds("data/tidy-primaries.rds")%>%
 	mutate(primary_vote_simple = recode(primary_vote_simple, .default = levels(primary_vote_simple),
 																			"Didn't Vote" = "Other/Third Party/\n Didn't Vote",
 																			"Voted in Other Party Primary" = "Other/Third Party/\n Didn't Vote"))%>%
-	mutate(primary_vote_simple = factor(primary_vote_simple,
-																			levels = c("Winner", "Loser", "Other/Third Party/\n Didn't Vote")))%>%
 	filter(primary_vote_simple != "Other/Third Party/\n Didn't Vote")%>%
+	mutate(primary_vote_simple = factor(primary_vote_simple,
+																			levels = c("Winner", "Loser")))%>%
 	glimpse()
 
 	###
@@ -46,9 +46,9 @@ df_in_means <- df_primaries%>%
 	summarize(mean_ft = weighted.mean(therm_inparty, weight, na.rm = TRUE))%>%
 	glimpse()
 
-gg_primary_in <- ggplot(df_primaries, aes(x = therm_inparty, color = primary_vote_simple)) +
-	geom_density(size = .75,
-							 alpha = .0) +
+gg_primary_in <- ggplot(df_primaries, aes(x = therm_inparty, color = primary_vote_simple, linetype = primary_vote_simple)) +
+	geom_density(size = 1.1,
+							 alpha = 1) +
 	facet_grid(rows = c(vars(year)), 
 						 cols = c(vars(pid_3))) +
 #	geom_vline(aes(color = primary_vote_simple, xintercept = mean(therm_inparty, na.rm = TRUE)))
@@ -63,10 +63,9 @@ gg_primary_in <- ggplot(df_primaries, aes(x = therm_inparty, color = primary_vot
 				legend.text = element_text(size = 8),
 				legend.title = element_text(size = 8),
 				plot.title = element_text(hjust = 0.5)) +
-	scale_color_manual(values = c("Winner" = "#1E88E5", #colorblind safe palette
-										 "Loser" = "#D21C1C",
-										 "Other/Third Party/\n Didn't Vote" = "#FFC107"))+
-	scale_linetype_manual(values = c("Other/Third Party/\n Didn't Vote" = "solid",
+	scale_color_manual(values = c("Winner" = "#FFC20A", #colorblind safe palette
+										 "Loser" = "#0C7BDC"))+
+	scale_linetype_manual(values = c(
 																	 "Winner" = "longdash",
 																	 "Loser" = "dotted")) +
 	labs(x = "Inparty FT",
@@ -87,7 +86,7 @@ df_out_means <- df_primaries%>%
 	glimpse()
 
 gg_primary_out <- ggplot(df_primaries, aes(x = therm_outparty, color = primary_vote_simple)) +
-	geom_density(size = .75) +
+	geom_density(size = 1.1, aes(linetype = primary_vote_simple)) +
 	facet_grid(rows = vars(year), 
 						 cols = vars(pid_3)) +
 #	facet_grid(year ~ pid_3) +
@@ -99,15 +98,14 @@ gg_primary_out <- ggplot(df_primaries, aes(x = therm_outparty, color = primary_v
 						 		alpha = .5),
 						 size = 1) +
 	theme(legend.key.height = unit(.05, "npc"),
-				legend.position = c(1, .23), # legend position optimized for the two plots together
+				legend.position = c(1, .9), # legend position optimized for the two plots together
 				legend.text = element_text(size = 8),
 				legend.title = element_text(size = 8),
 				plot.title = element_text(hjust = 0.5)) +
 	guides(alpha = FALSE) +
-	scale_color_manual(values = c("Winner" = "#1E88E5", #colorblind safe palette
-																"Loser" = "#D21C1C",
-																"Other/Third Party/\n Didn't Vote" = "#FFC107"))+
-	scale_linetype_manual(values = c("Other/Third Party/\n Didn't Vote" = "solid",
+	scale_color_manual(values = c("Winner" = "#FFC20A", #colorblind safe palette
+																"Loser" = "#0C7BDC"))+
+	scale_linetype_manual(values = c(#"Other/Third Party/\n Didn't Vote" = "solid",
 																	 "Winner" = "longdash",
 																	 "Loser" = "dotted")) +
 	labs(x = "Outparty FT",

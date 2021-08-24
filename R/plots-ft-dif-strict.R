@@ -89,9 +89,9 @@ se_op_df <- opinion_boot_df%>% #putting this here so I don't have to run the res
 
 
 #opinion_means_df <- read_rds("data/tidy-cdf.rds")%>%
-opinion_df%>%
-	filter(year >= 1978 & pid_3 != "Independent")%>%
-	mutate(ltet_2004 = if_else(year <= 2004, 1, 0))%>%
+opinion_means_df <- opinion_df%>%
+	filter(pid_3 != "Independent")%>%
+#	mutate(ltet_2004 = if_else(year <= 2004, 1, 0))%>%
 	group_by(pid_3, below_50_qual_strict)%>%
 	summarize(prop_dissat = weighted.mean(dis_democ_dum, weight, na.rm = TRUE),
 						prop_distrust = weighted.mean(distrust_gov_dum, weight, na.rm = TRUE),
@@ -130,6 +130,7 @@ opinion_pooled_df <- full_join(opinion_means_df, se_op_df)%>%
 				 sig_dum = case_when(prop_difference < 0 & prop_difference + 1.645*prop_se < 0 ~ TRUE,
 				 										prop_difference > 0 & prop_difference - 1.645*prop_se > 0 ~ TRUE,
 				 										TRUE ~ FALSE))%>%
+	write_rds("data/tidy-opinion.rds")%>%
 	glimpse()
 
 #The Plot
@@ -336,6 +337,7 @@ behavior_pooled_df <- full_join(behavior_means_df, ci_df)%>%
 				 sig_dum = case_when(prop_difference < 0 & prop_difference + 1.645*prop_se < 0 ~ TRUE,
 				 										prop_difference > 0 & prop_difference - 1.645*prop_se > 0 ~ TRUE,
 				 										TRUE ~ FALSE))%>%
+	write_rds("data/tidy-behavior.rds")%>%
 	glimpse()
 
 ###r

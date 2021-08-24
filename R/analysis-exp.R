@@ -4,6 +4,7 @@ library(brglm)
 library(tidyverse)
 library(modelsummary)
 library(AER)
+
 set.seed(1234)
 
 # Function to extract p from polr
@@ -79,6 +80,7 @@ exp_df <- read_csv("data/raw/ap-experiment-08-22.csv")%>%
 				 									 					 "A great deal")))%>%
 	filter(date > ymd("2021-08-19"))%>%
 	filter(!is.na(group))%>%
+	write_rds("data/tidy-exp.rds")%>%
 #	filter(comments == "test")%>%
 	glimpse()
 

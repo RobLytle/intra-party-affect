@@ -1,7 +1,6 @@
 library(tidyverse)
 library(ggExtra)
 library(ggridges)
-library(goji)
 library(gridExtra)
 theme_set(theme_minimal())
 set.seed(2001)
@@ -50,10 +49,11 @@ party_fts_ns <- cdf_trimmed%>% # Making a DF of the party-year SD
             mean_out = weighted.mean(therm_outparty, weight, na.rm = TRUE),
             sd_in = radiant.data::weighted.sd(therm_inparty, weight, na.rm = TRUE),
             sd_out = radiant.data::weighted.sd(therm_outparty, weight, na.rm = TRUE))%>%
-  pivot_longer(mean_in:sd_out, names_to = "group", values_to = "result")%>%
-  unite("group", pid_3:group)%>%
-  mutate(stat = as.factor(if_else(str_detect(group, "mean"), "mean", "sd")))%>%
-  mutate(group = as.factor(recode(group,
+  pivot_longer(mean_in:sd_out, names_to = "subset", values_to = "result")%>%
+  unite("subset", pid_3:subset)%>%
+  ungroup()%>%
+  mutate(stat = as.factor(if_else(str_detect(subset, "mean"), "mean", "sd")))%>%
+  mutate(group = recode(subset,
                        "Democrat_mean_in" = "Democrat - In Party",
                        "Democrat_mean_out" = "Democrat - Out Party",
                        "Democrat_sd_in" = "Democrat - In Party",
@@ -61,7 +61,7 @@ party_fts_ns <- cdf_trimmed%>% # Making a DF of the party-year SD
                        "Republican_mean_in" = "Republican - In Party",
                        "Republican_mean_out" = "Republican - Out Party",
                        "Republican_sd_in" = "Republican - In Party",
-                       "Republican_sd_out" = "Republican - Out Party")))%>%
+                       "Republican_sd_out" = "Republican - Out Party"))%>%
   glimpse()
 
 n_df_ns <- cdf_trimmed%>% # Making a DF of the party-year SD
@@ -72,7 +72,7 @@ n_df_ns <- cdf_trimmed%>% # Making a DF of the party-year SD
          therm_inparty,
          therm_outparty)%>%
   group_by(year, pid_3)%>%
-  summarise(n(),
+  summarise(n = n(),
             mean_in = weighted.mean(therm_inparty, weight, na.rm = TRUE),
             mean_out = weighted.mean(therm_outparty, weight, na.rm = TRUE),
             sd_in = radiant.data::weighted.sd(therm_inparty, weight, na.rm = TRUE),
@@ -215,34 +215,7 @@ ridge_df_partisan_ns <- cdf_trimmed%>%
   mutate(year_fct = fct_rev(as.factor(year)))%>%
   glimpse()
   
-gg_ridge_ns <- ggplot(ridge_df_partisan_ns, aes(x = therm_inparty, 
-                                        y = year_fct, 
-                                        color = "white",
-                                        fill = stat(x),
-                                        weight = weight)) +
-  geom_density_ridges_gradient(scale = 3, rel_min_height = 0.02, gradient_lwd = 1) +
-  coord_cartesian(clip = "off") +
-  scale_x_continuous(limits = c(0,100), breaks = seq(0, 100, by = 10)) +
-  scale_fill_gradient(
-    low = "blue4",
-    high = "red1")+
-  scale_discrete_manual(aesthetics = "color",
-                       values = c("white")) +
-  geom_vline(xintercept = 50, color = "white") +
-  guides(color = FALSE,
-         fill = FALSE) +
-  labs(title = "In-Party Feeling Thermometers",
-       subtitle = "Republicans and Democrats",
-       y = "Year",
-       x = "Feeling Thermometer",
-       caption = " ") +
-  theme(panel.grid.major = element_blank(), 
-        panel.grid.minor = element_blank(),
-        panel.background = element_blank(),
-        axis.title.y = element_blank(),
-        axis.text.y = element_blank(), #removing y axes since I'm combining two plots
-        axis.ticks.y = element_blank())
-gg_ridge_ns
+
 ggsave("fig/gg-ridge-ns.png", gg_ridge_ns, width = 8, height = 6, units = "in")
 
 
@@ -264,7 +237,7 @@ gg_ridge_all <- ggplot(ridge_df_all, aes(x = therm_parties_mean,
   scale_fill_gradient(
     low = "blue4",
     high = "red1"
-  )+
+  )
   scale_discrete_manual(aesthetics = "color",
                         values = c("white")) +
   geom_vline(xintercept = 50, color = "white") +

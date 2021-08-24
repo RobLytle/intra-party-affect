@@ -1,0 +1,608 @@
+---
+title: "Intra-Party Affect"
+author: "Rob Lytle"
+output: pdf_document
+abstract: "Are in-party attitudes stable? Inter-party affective divisions have been widely identified by scholars of partisanship and public opinion. Increasingly, Republican and Democratic partisans have come to dislike members of their political outgroup. What has been lost in these discussions is an appraisal of individuals perceptions of and attitudes towards their in-party, which are generally held to be both stable and broadly positive. In this study, I leverage time-series survey data to identify substantively meaningful shifts in voters' attitudes towards their own party. Additionally, I an original survey experiment interrogating the role played by primary elections in driving behavioral and attitudinal differences between co-partisans." 
+bibliography: references.bib
+header-includes:
+- \usepackage[margin=1in]{geometry}
+- \usepackage{caption}
+- \usepackage{multirow}
+- \usepackage{amsmath}
+- \usepackage{mathrsfs}
+- \usepackage{float}
+- \usepackage{natbib}
+- \bibliographystyle{apsr}
+- \usepackage{graphicx}
+- \graphicspath{ {../fig/} }
+- \usepackage{setspace}
+- \usepackage[super]{nth}
+- \usepackage{booktabs}
+- \usepackage{makecell}
+- \usepackage{amsmath}
+- \usepackage{dcolumn}
+- \usepackage{hyperref}
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE, message = FALSE, warning = FALSE)
+library(lubridate)
+#library(MASS)
+library(brglm)
+library(modelsummary)
+library(gt)
+library(gtsummary)
+library(AER)
+library(tidyverse) #tidyverse
+library(tidymodels)
+library(kableExtra) # one way to make tables
+library(stargazer) # Another way to make tables (can also output esttab to .tex--examples below)
+library(ggExtra)
+library(ggridges)
+library(gridExtra)
+library(ggpubr)
+library(cowplot)
+set.seed(2001)
+theme_set(theme_minimal())
+dodge <- position_dodge(width=0.75)
+
+
+```
+
+# Introduction
+
+
+In 2008, despite her position as Democratic standard-bearer, supporters of Hillary Clinton's primary campaign were colder towards their party than any other group of Democratic primary voters on the ANES 100-point Feeling Thermometer. Clinton's defeat by Barack Obama in June of 2008 spawned the "Party Unity My Ass" movement, which engaged in various forms of protest against the DNC and pledging *en masse* not to support the (relative) party outsider Barack Obama in the general election^[https://www.washingtonpost.com/wp-dyn/content/article/2008/06/26/AR2008062604162.html?tid=a_inl_manual].
+Clinton supporters' posture towards their party in 2016 bore little semblance to that of the '08 race. Bernie Sanders---a former independent and self-identified socialist---leaned into the role of an insurgent, anti-establishment candidate; predicating his campaign on a conflict between the working-class and the elites of both major parties. Sanders supporters, angry with the DNC and reluctant to support Clinton in November led a loosely organized movement of Democratic party discontents to found groups like *Justice Democrats* and expand membership of organizations like the *Democratic Socialists of America* and various state and local progressive caucuses to protest perceived slights by the party establishment and support further left and anti-establishment down-ballot candidates. 
+
+This is not particularly surprising on its own. Sanders campaigned against the party establishment---it is not a stretch that he would attract those disillusioned or unhappy with the party. The story is more complicated. Republican supporters of Donald Trump---whose campaign was even more exuberantly hostile towards the Republican party than Sanders' was toward the Democrats---were *warmer* towards their party than any other candidates' supporters, despite the mutual hostility between Trump and established Republican elites. As shown in Fig. 1, supporters of winning candidates tend to be warmer towards their own party than are losers---there is little difference in distributions of out-party affect.
+
+## Partisanship
+
+# Data and Methods
+
+The data use
+
+
+## Observational Data
+
+```{r, include = FALSE}
+tidy_2020_df <- read_rds("data/tidy-2020.rds")%>%
+  select(pid_3,
+         pid_7,
+         year,
+         therm_inparty,
+         therm_outparty,
+#         therm_parties_mean,
+         weight)%>%
+  filter(pid_3 != "Independent")%>%
+  glimpse()
+
+
+cdf_trimmed <- read_rds("data/tidy-cdf.rds")%>%
+  filter(year >= 1978)%>%
+  select(pid_3,
+         pid_7,
+         year,
+#         race_4cat,
+         therm_inparty,
+         therm_outparty,
+#         therm_parties_mean,
+         weight,
+         )%>%
+  rbind(tidy_2020_df)%>%
+  glimpse()
+
+party_fts_ns <- cdf_trimmed%>% # Making a DF of the party-year SD
+  filter(pid_3 != "Independent" & year != 2002)%>%
+  select(year,
+         weight,
+         pid_3,
+         therm_inparty,
+         therm_outparty,
+         pid_7,
+         )%>%
+  group_by(year, 
+           pid_3)%>%
+  summarise(mean_in = weighted.mean(therm_inparty, weight, na.rm = TRUE),
+            mean_out = weighted.mean(therm_outparty, weight, na.rm = TRUE),
+            sd_in = radiant.data::weighted.sd(therm_inparty, weight, na.rm = TRUE),
+            sd_out = radiant.data::weighted.sd(therm_outparty, weight, na.rm = TRUE))%>%
+  pivot_longer(mean_in:sd_out, names_to = "group", values_to = "result")%>%
+  unite("group", pid_3:group)%>%
+  ungroup()%>%
+  mutate(stat = as.factor(if_else(str_detect(group, "mean"), "mean", "sd")))%>%
+  mutate(group = recode(group, .default = group,
+                       "Democrat_mean_in" = "Democrat - In Party",
+                       "Democrat_mean_out" = "Democrat - Out Party",
+                       "Democrat_sd_in" = "Democrat - In Party",
+                       "Democrat_sd_out" = "Democrat - Out Party",
+                       "Republican_mean_in" = "Republican - In Party",
+                       "Republican_mean_out" = "Republican - Out Party",
+                       "Republican_sd_in" = "Republican - In Party",
+                       "Republican_sd_out" = "Republican - Out Party"))%>%
+  glimpse()
+
+n_df_ns <- cdf_trimmed%>% # Making a DF of the party-year SD
+  filter(pid_3 != "Independent" & year != 2002)%>%
+  select(year,
+         weight,
+         pid_3,
+         therm_inparty,
+         therm_outparty)%>%
+  group_by(year, pid_3)%>%
+  summarise(n = n(),
+            mean_in = weighted.mean(therm_inparty, weight, na.rm = TRUE),
+            mean_out = weighted.mean(therm_outparty, weight, na.rm = TRUE),
+            sd_in = radiant.data::weighted.sd(therm_inparty, weight, na.rm = TRUE),
+            sd_out = radiant.data::weighted.sd(therm_outparty, weight, na.rm = TRUE))%>%
+  glimpse()
+
+
+df_for_sampling <- cdf_trimmed%>% # Making a DF of the party-year SD
+  filter(pid_3 != "Independent" & year != 2002)%>%
+  select(year,
+         weight,
+         pid_3,
+         therm_inparty,
+         therm_outparty,
+         pid_7
+  )%>%
+glimpse()
+
+
+#bootstrapping the SE of the SD
+boot_sd_in <- data.frame(boot = 1:50)%>%
+  group_by(boot)%>%
+  do(sample_n(df_for_sampling, 
+              nrow(df_for_sampling),
+              replace = TRUE))%>% #creating 100 new datasets of equal size to the original
+  group_by(boot,
+           year,
+           pid_3)%>%
+  summarise(mean_in = weighted.mean(therm_inparty, weight, na.rm = TRUE),
+            mean_out = weighted.mean(therm_outparty, weight, na.rm = TRUE),
+            sd_in = radiant.data::weighted.sd(therm_inparty, weight, na.rm = TRUE),
+            sd_out = radiant.data::weighted.sd(therm_outparty, weight, na.rm = TRUE))%>%
+  group_by(year,
+           pid_3)%>%
+  summarise(se_mean_in = sd(mean_in),
+            se_mean_out = sd(mean_out),
+            se_sd_in = sd(sd_in),
+            se_sd_out = sd(sd_out))%>%
+  pivot_longer(se_mean_in:se_sd_out, names_to = "group", values_to = "result")%>%
+  unite("group", pid_3:group)%>%
+  mutate(stat = as.factor(if_else(str_detect(group, "mean"), "se_mean", "se_sd")))%>%
+  mutate(group = as.factor(recode(group,
+                                  "Democrat_se_mean_in" = "Democrat - In Party",
+                                  "Democrat_se_mean_out" = "Democrat - Out Party",
+                                  "Democrat_se_sd_in" = "Democrat - In Party",
+                                  "Democrat_se_sd_out" = "Democrat - Out Party",
+                                  "Republican_se_mean_in" = "Republican - In Party",
+                                  "Republican_se_mean_out" = "Republican - Out Party",
+                                  "Republican_se_sd_in" = "Republican - In Party",
+                                  "Republican_se_sd_out" = "Republican - Out Party")))%>%
+  glimpse()
+
+  
+party_fts_ns_joined <- rbind(party_fts_ns, boot_sd_in)%>%
+#party_fts_ns_joined <- full_join(party_fts_ns, boot_sd_in)%>%
+  pivot_wider(names_from = stat,
+              values_from = result)%>%
+  glimpse()
+
+## Primaries Wrangling
+
+
+df_primaries <- read_rds("data/tidy-primaries.rds")%>%
+	filter(pid_3 != "Independent" & !is.na(primary_vote_simple))%>%
+	filter(!(pid_3 == "Republican" & primary_vote_simple == "Loser" & year == 2020))%>% # dropping republicans who didn't vote for trump because there are very few.
+	mutate(primary_vote_simple = recode(primary_vote_simple, .default = levels(primary_vote_simple),
+																			"Didn't Vote" = "Other/Third Party/\n Didn't Vote",
+																			"Voted in Other Party Primary" = "Other/Third Party/\n Didn't Vote"))%>%
+	filter(primary_vote_simple != "Other/Third Party/\n Didn't Vote")%>%
+	mutate(primary_vote_simple = factor(primary_vote_simple,
+																			levels = c("Winner", "Loser")))%>%
+	glimpse()
+
+df_out_means <- df_primaries%>%
+	group_by(primary_vote_simple, year, pid_3)%>%
+	summarize(mean_ft = weighted.mean(therm_outparty, weight, na.rm = TRUE))%>%
+	glimpse()
+
+	###
+	# Inparty FT
+	###
+df_in_means <- df_primaries%>%
+	group_by(primary_vote_simple, year, pid_3)%>%
+	summarize(mean_ft = weighted.mean(therm_inparty, weight, na.rm = TRUE))%>%
+	glimpse()
+
+
+```
+
+```{r cdf-means, echo = FALSE, warning=FALSE}
+
+gg_mean_ft_ns <- ggplot(party_fts_ns_joined, aes(x = year, y = mean)) +
+#  geom_smooth(aes(linetype = group, color = group), span = .3, se=F) +
+  geom_line(aes(linetype = group, color = group)) +
+#  geom_errorbar(aes(ymin = mean-sd, ymax = mean+sd)) +
+  geom_point(aes(shape = group, color = group), size = 3, position = dodge) +
+  scale_linetype_manual(values = c("Democrat - In Party" = "longdash",
+                                   "Democrat - Out Party" = "dotted",
+                                   "Republican - In Party" = "solid",
+                                   "Republican - Out Party" = "twodash")) +
+  scale_shape_manual(values = c("Democrat - In Party" = 17,
+                                   "Democrat - Out Party" = 2,
+                                   "Republican - In Party" = 16,
+                                   "Republican - Out Party" = 1)) +
+  scale_color_manual(values = c("Democrat - In Party" = "dodgerblue4",
+                                   "Democrat - Out Party" = "dodgerblue1",
+                                   "Republican - In Party" = "firebrick4",
+                                   "Republican - Out Party" = "firebrick1")) +
+  #scale_x_continuous(limits = c(1978,2020), breaks = c(0:5)) +
+  scale_x_continuous(breaks = seq(1976, 2020, by = 4)) +
+  scale_y_continuous(breaks = seq(15, 80, by = 5), limits = c(15,80)) +
+  labs(y = "Mean",
+       x = "Year",
+       title = "Mean Thermometer Ratings of Partisans",
+       subtitle = "Includes Leaning Independents",
+       linetype = " ",
+       color = " ",
+       shape = " ") +
+  theme(legend.position = c(0.2, 0.2)) +
+  guides(size = FALSE
+#         shape = guide_legend(override.aes = list(size = 1.5))
+         )
+gg_mean_ft_ns
+```
+
+```{r ridge-plot}
+
+# Might ditch this for the plot of prop cold
+ridge_df_all <- cdf_trimmed%>%
+#ridge_df_all <- cdf_extended%>%
+  filter(year != 2002)%>%
+  mutate(year_fct = fct_rev(as.factor(year)))
+
+ggplot(ridge_df_all, aes(x = therm_inparty, y = year_fct, fill = stat(x), color = "white")) +
+  geom_density_ridges_gradient(scale = 3, rel_min_height = 0.02, gradient_lwd = 1) +
+  coord_cartesian(clip = "off") +
+  scale_x_continuous(limits = c(0,100), breaks = seq(0, 100, by = 10)) +
+  scale_fill_gradient(
+    low = "blue1",
+    high = "red4"
+  ) +
+  scale_discrete_manual(aesthetics = "color",
+                        values = c("white")) +
+  geom_vline(xintercept = 50, color = "white") +
+  guides(color = "none",
+         fill = "none") +
+  labs(title = "Changing distribution of in-party feeling thermometers",
+       subtitle = "All Respondents",
+       y = "Year",
+       x = "Feeling Thermometer",
+       caption = " ") +
+  theme(#panel.grid.major = element_blank(), 
+        panel.grid.minor = element_blank(),
+        panel.background = element_blank())
+```
+
+```{r primaries-plots, echo=FALSE,warning=FALSE}
+gg_primary_in <- ggplot(df_primaries, aes(x = therm_inparty, color = primary_vote_simple, linetype = primary_vote_simple)) +
+	geom_density(size = 1.1,
+							 alpha = 1) +
+	facet_grid(rows = c(vars(year)), 
+						 cols = c(vars(pid_3))) +
+#	geom_vline(aes(color = primary_vote_simple, xintercept = mean(therm_inparty, na.rm = TRUE)))
+	geom_vline(data = df_in_means, 
+						 aes(xintercept=mean_ft, 
+								 color = primary_vote_simple,
+								 linetype = primary_vote_simple),
+						 size = 1,
+						 alpha = .5) +
+	theme(legend.key.height = unit(.05, "npc"),
+				legend.position = c(.15, .55),
+				legend.text = element_text(size = 8),
+				legend.title = element_text(size = 8),
+				plot.title = element_text(hjust = 0.5)) +
+	scale_color_manual(values = c("Winner" = "#FFC20A", #colorblind safe palette
+										 "Loser" = "#0C7BDC"))+
+	scale_linetype_manual(values = c(
+																	 "Winner" = "longdash",
+																	 "Loser" = "dotted")) +
+	labs(x = "Inparty FT",
+			 y = "Density",
+			 title = "In Party",
+			 color = "Primary Vote",
+			 linetype = "Primary Vote")
+
+gg_primary_out <- ggplot(df_primaries, aes(x = therm_outparty, color = primary_vote_simple)) +
+	geom_density(size = 1.1, aes(linetype = primary_vote_simple)) +
+	facet_grid(rows = vars(year), 
+						 cols = vars(pid_3)) +
+#	facet_grid(year ~ pid_3) +
+	#	geom_vline(aes(color = primary_vote_simple, xintercept = mean(therm_inparty, na.rm = TRUE)))
+	geom_vline(data = df_out_means, 
+						 aes(xintercept=mean_ft, 
+						 		color = primary_vote_simple,
+						 		linetype = primary_vote_simple,
+						 		alpha = .5),
+						 size = 1) +
+	theme(legend.key.height = unit(.05, "npc"),
+				legend.position = c(1, .9), # legend position optimized for the two plots together
+				legend.text = element_text(size = 8),
+				legend.title = element_text(size = 8),
+				plot.title = element_text(hjust = 0.5)) +
+	guides(alpha = FALSE) +
+	scale_color_manual(values = c("Winner" = "#FFC20A", #colorblind safe palette
+																"Loser" = "#0C7BDC"))+
+	scale_linetype_manual(values = c(#"Other/Third Party/\n Didn't Vote" = "solid",
+																	 "Winner" = "longdash",
+																	 "Loser" = "dotted")) +
+	labs(x = "Outparty FT",
+			 y = "Density",
+			 title = "Out Party",
+			 color = " ",
+			 linetype = " ")
+
+#putting them together
+
+p1 <- gg_primary_in + theme(legend.position = "none",
+														axis.title.x = element_blank(),
+													  axis.title.y = element_blank(),
+														axis.text.y = element_blank(),
+												#		title = element_text(size = 8)
+														)
+
+
+p2 <- gg_primary_out + theme(
+	axis.title.x = element_blank(),
+	axis.title.y = element_blank(),
+	strip.text.y = element_blank()
+#	title = element_text(size = 8)
+)
+
+
+
+grid.arrange(arrangeGrob(p2, p1,
+																				 ncol = 2,
+																				 top = text_grob("Distribution of Partisan Warmth\n by Primary Vote", vjust = 1, face = "bold"),
+																				 left = text_grob("Density", rot = 90, vjust = 1, face = "bold"),
+																			   bottom = text_grob("Feeling Thermometer", face = "bold")))
+```
+
+
+## Experimental Data
+
+```{r, include = FALSE}
+
+# Function to extract p from polr
+tidy_custom.polr <- function(x, ...) {
+	s <- coeftest(x)
+	out <- data.frame(
+		term = row.names(s),
+		p.value = s[, "Pr(>|z|)"])
+	out
+}
+
+exp_df <- read_csv("data/raw/ap-experiment-08-22.csv")%>%
+#	glimpse()#%>%
+	select(StartDate,
+#				 party_id...66,
+				 party_id = party_id...18, #not sure why this is happening... something on the qtrix side of things. THis seems to be the correct pid variable.
+					lean_party,
+					d_loss,
+					d_win,
+					r_loss,
+					r_win,
+					control,
+					therm_dem = therms_1,
+					therm_rep = therms_2,
+					therm_ind = therms_3,
+					satisfied_democracy,
+					trust_gov,
+					r_gen_vote_loss:d_gen_vote_win_con,
+				 comments)%>%
+	.[-1,]%>%
+	.[-1,]%>% #trimming off the label rows from qualtrics
+	mutate(pid_3 = case_when(party_id != "Independent" & party_id != "Something Else" ~ party_id,
+													 lean_party == "Neither Republican or Democrat" ~ "Independent",
+													 lean_party == "Democratic" ~ "Democrat",
+													 lean_party == "Republican" ~ "Republican",
+													 lean_party == "Something Else" ~ "Independent",
+													 TRUE ~ lean_party),
+				 loss_dum = if_else(!is.na(d_loss) | !is.na(r_loss), 1, 0),
+				 win_dum = if_else(!is.na(d_win) | !is.na(r_win), 1, 0),
+				 control_dum = if_else(!is.na(control), 1, 0),
+				 loss_dum_nc = if_else(control_dum == "1", NA_real_, loss_dum),
+				 group = as.factor(case_when(loss_dum == "1" ~ "Loss",
+				 									win_dum == "1" ~ "Win",
+				 									control_dum == "1" ~ "Control")),
+				 date = ymd_hms(StartDate),
+				 therm_inparty = as.numeric(case_when(pid_3 == "Democrat" ~ therm_dem,
+				 													pid_3 == "Republican" ~ therm_rep,
+				 													TRUE ~ NA_character_)),
+				 therm_outparty = as.numeric(case_when(pid_3 == "Democrat" ~ therm_rep,
+				 																		 pid_3 == "Republican" ~ therm_dem,
+				 																		 TRUE ~ NA_character_)),
+				 vote_likely = factor(case_when(pid_3 == "Democrat" & group == "Loss" ~ d_gen_vote_loss,
+				 												pid_3 == "Democrat" & group == "Win" ~ d_gen_vote_win_con,
+				 												pid_3 == "Republican" & group == "Loss" ~ r_gen_vote_loss,
+				 												pid_3 == "Republican" & group == "Win" ~ d_gen_vote_loss,
+				 												TRUE ~ NA_character_),
+				 										 levels = c("Extremely unlikely",
+				 										 					 "Somewhat unlikely",
+				 										 					 "Neither likely nor unlikely",
+				 										 					 "Somewhat likely",
+				 										 					 "Extremely likely")),
+				 satisfied_democracy = factor(satisfied_democracy,
+				 														 levels = c("Very Dissatisfied",
+				 														 					 "Somewhat Dissatisfied",
+				 														 					 "Neither Satisfied nor Dissatisfied",
+				 														 					 "Somewhat Satisfied",
+				 														 					 "Very Satisfied")),
+				 trust_gov = factor(trust_gov,
+				 									 levels = c("Not at all",
+				 									 					 "A little",
+				 									 					 "A moderate amount",
+				 									 					 "A lot",
+				 									 					 "A great deal")))%>%
+	filter(date > ymd("2021-08-19"))%>%
+	filter(!is.na(group))%>%
+	write_rds("data/tidy-exp.rds")%>%
+#	filter(comments == "test")%>%
+	glimpse()
+
+group_df <- exp_df%>%
+	filter(pid_3 != "Independent")%>%
+	group_by(group,
+					 pid_3)%>%
+	summarize(ft_in = mean(therm_inparty),
+						se_in = sd(therm_inparty)/sqrt(length(therm_inparty)),
+						n = n())%>%
+	glimpse()
+
+m1 <- exp_df%>%
+	filter(pid_3 != "Independent")%>%
+	glimpse()
+#	filter(pid_3 == "Republican")%>%
+
+
+
+summary(m1)
+
+m_df <- exp_df%>%
+	filter(pid_3 != "Independent")%>%
+	select(vote_likely,
+				 therm_inparty,
+				 therm_outparty,
+				 group,
+				 loss_dum_nc,
+				 satisfied_democracy,
+				 trust_gov)
+
+ggplot(m_df, aes(x = therm_inparty)) +
+	geom_density() + 
+	facet_wrap(vars(group))
+
+```
+
+```{r therms-exp}
+
+# In and outparty therms
+
+cm_1 <- c("(Intercept)" = "Constant", "groupLoss" = "Loss", "groupWin" = "Win" )
+gm_1 <- tibble::tribble(
+	~raw,        ~clean,          ~fmt,
+	"nobs",      "N",             0,
+	"adj.r.squared", "Adj. R2", 2,
+	"r.squared" , "R2", 2)
+
+
+list("Inparty" = lm(therm_inparty ~ group, data = m_df),
+		 "Outparty" = lm(therm_outparty ~ group, data = m_df))%>%
+	modelsummary(output = "gt",
+							 stars = TRUE,
+							 coef_map = cm_1,
+							 gof_map = gm_1)
+
+
+```
+
+```{r political-efficacy-exp}
+
+# comparing Winners and Losers Political Optimism
+cm_2 <- c("loss_dum_nc" = "Primary Loss")
+gm_2 <- tibble::tribble(
+	~raw,        ~clean,          ~fmt,
+	"nobs",      "N",             0,
+	"AIC", "AIC", 2,
+	"logLik" , "Log Likelihood", 2)
+
+list("Vote General" = MASS::polr(vote_likely ~ loss_dum_nc, data = m_df, Hess = TRUE),
+			 "Trust Gov." = MASS::polr(trust_gov ~ loss_dum_nc, data = m_df, Hess = TRUE),
+			 "Democ. Satisfaction" = MASS::polr(satisfied_democracy ~ loss_dum_nc, data = m_df, Hess = TRUE))%>%
+modelsummary(output = "gt",
+             coef_map = cm_2,
+						 gof_map = gm_2,
+						 stars = TRUE)
+```
+
+
+```{r ft-difs, fig.height=8.5, fig.width=4, fig.align='center'}
+
+#First calling the bootstrapped dfs written in plots-ft-dif-strict.R
+behavior_pooled_df <- read_rds("data/tidy-behavior.rds")
+opinion_pooled_df <- 	read_rds("data/tidy-opinion.rds")
+
+
+gg_strict_opinion_pooled <- ggplot(opinion_pooled_df, aes(x = prop_difference, y = fct_relabel(which_question, str_wrap, width = 20))) +
+	geom_linerange(aes(xmin = prop_difference - 1.645*prop_se, xmax = prop_difference + 1.645*prop_se, color = pid_3), position = dodge) +
+	#	geom_point(data=opinion_pooled_df[opinion_pooled_df$sig_dum == TRUE,],size=5, aes(position = pid_3), shape = 1, position = dodge) + #overlays a shape on sig 
+	geom_point(aes(color = pid_3, shape = pid_3), size = 3, position = dodge) +
+	scale_color_manual(values = c("Democrat" = "dodgerblue3",
+																"Republican" = "firebrick3")) +
+	geom_vline(xintercept = 0.00) +
+	coord_cartesian(xlim = c(-.75, .75)) +
+	scale_x_continuous(n.breaks = 6) +	
+	labs(x = "Difference",
+			 y = "Question",
+			 #			 title = "Difference in Proportion Whom Agree\n between Cold/Warm Partisans",
+			 subtitle = "Opinion Items",
+			 color = "Party",
+			 shape = "Party")
+
+
+
+gg_strict_behavior_pooled <- ggplot(behavior_pooled_df, aes(x = prop_difference, y = fct_relabel(which_question, str_wrap, width = 20))) +
+	geom_linerange(aes(xmin = prop_difference - 1.645*prop_se, xmax = prop_difference + 1.645*prop_se, color = pid_3), position = dodge) +
+	#	geom_point(data=behavior_pooled_df[behavior_pooled_df$sig_dum == TRUE,],size=5, aes(position = pid_3), shape = 1, position = dodge) + #overlays a shape on sig 
+	geom_point(aes(color = pid_3, shape = pid_3), size = 3, position = dodge) +
+	scale_color_manual(values = c("Democrat" = "dodgerblue3",
+																"Republican" = "firebrick3")) +
+	geom_vline(xintercept = 0.00) +
+	coord_cartesian(xlim = c(-.75, .75)) +
+	scale_x_continuous(n.breaks = 10) +	
+	theme(legend.position = c(0.8, 0.3)) +
+	labs(x = "Difference",
+			 y = "Question",
+			 subtitle = "Behavior and Knowledge Items",
+			 caption = "Bootstrapped 90% CI given by horizontal bars \n Cold Partisans < 50 inparty FT, Warm >= 70",
+			 color = "Party",
+			 shape = "Party")
+
+
+#####
+## Putting them into one plot
+#####
+
+#Removing redundant formatting from the plots
+p1 <- gg_strict_opinion_pooled + theme(legend.position = "none",
+																axis.title.x = element_blank(),
+																axis.title.y = element_blank(),
+																axis.text.x = element_blank())
+p2 <- gg_strict_behavior_pooled + theme(
+	axis.title.x = element_blank(),
+	axis.title.y = element_blank())
+
+pg <- plot_grid(p1, p2,  align = "v", nrow = 2, rel_heights = c(1/3, 2/3), label_x = "Difference") 
+
+
+
+gg_strict_pooled_combined <- grid.arrange(arrangeGrob(pg,
+																							 top = text_grob("Difference in Proportion Between Cold and Warm Partisans", vjust = 1, face = "bold"),
+																							 left = text_grob("Question Asked", rot = 90, vjust = 1, face = "bold"),
+																							 bottom = text_grob("Cold - Warm / Total Affirmative", face = "bold")))
+gg_strict_pooled_combined
+
+```
+
+# References
+
+
+
+
+
+
+
