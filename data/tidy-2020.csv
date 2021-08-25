@@ -40,7 +40,7 @@ Independent - Democrat,40,10,1,3,6,2,NA,4,4,1,1,4,1,0.906734619149226,2020-08-18
 Strong Democrat,85,0,1,3,7,2,NA,5,4,1,1,2,1,0.636937050188872,2020-09-09,1,Democrat,85,0,1,NA,NA,1,Some of the Time,1,1,42.5,85,0,2020,warm,1,NA
 Strong Republican,0,60,6,1,5,1,8,2,4,0,1,2,1,0.495365787236377,2020-09-08,7,Republican,0,60,0,Donald Trump,Republican,0,Some of the Time,1,1,30,60,0,2020,NA,1,Winner
 Strong Republican,30,85,6,2,6,2,NA,2,3,1,1,2,3,0.462153603329595,2020-08-23,7,Republican,30,85,1,NA,NA,0,About Half the time,0,1,57.5,85,30,2020,warm,0,NA
-Strong Democrat,78,-9,4,1,7,1,1,2,3,1,1,2,1,0.437801400169371,2020-08-23,1,Democrat,78,NA,0,Joe Biden,Democrat,0,About Half the time,0,1,34.5,78,-9,2020,warm,1,Winner
+Strong Democrat,78,-9,4,1,7,1,1,2,3,1,1,2,1,0.437801400169371,2020-08-23,1,Democrat,78,NA,0,Joe Biden,Democrat,0,About Half the time,0,1,34.5,78,NA,2020,warm,1,Winner
 Strong Republican,0,15,7,1,3,2,NA,4,4,0,1,1,1,0.66320240246696,2020-09-05,7,Republican,0,15,1,NA,NA,1,Some of the Time,1,1,7.5,15,0,2020,cold,1,NA
 Strong Republican,10,95,7,2,6,2,NA,2,4,0,0,4,3,0.656590175237121,2020-08-18,7,Republican,10,95,1,NA,NA,0,Some of the Time,1,0,52.5,95,10,2020,warm,0,NA
 Independent - Republican,40,85,3,2,4,2,NA,4,3,1,0,3,1,0.87475696960029,2020-09-18,5,Republican,40,85,1,NA,NA,1,About Half the time,0,0,62.5,85,40,2020,warm,1,NA
@@ -72,7 +72,7 @@ Weak Democrat,70,30,2,1,7,1,1,4,4,1,1,2,1,0.220768415861182,2020-08-18,2,Democra
 Strong Democrat,100,0,2,2,7,1,1,2,4,1,1,4,1,0.280324733013225,2020-09-11,1,Democrat,100,0,0,Joe Biden,Democrat,0,Some of the Time,1,0,50,100,0,2020,warm,1,Winner
 Weak Democrat,70,15,3,2,6,2,NA,4,4,1,1,2,1,0.546992994162963,2020-08-18,2,Democrat,70,15,1,NA,NA,1,Some of the Time,1,1,42.5,70,15,2020,warm,1,NA
 Strong Democrat,85,0,99,4,6,2,NA,2,4,1,0,4,1,0.972439410192644,2020-10-12,1,Democrat,85,0,1,NA,NA,0,Some of the Time,1,0,42.5,85,0,2020,warm,1,NA
-Weak Democrat,-9,-9,99,4,7,2,NA,2,3,1,0,4,1,1.92022907341613,2020-09-08,2,Democrat,NA,NA,1,NA,NA,0,About Half the time,0,0,-9,-9,-9,2020,cold,1,NA
+Weak Democrat,-9,-9,99,4,7,2,NA,2,3,1,0,4,1,1.92022907341613,2020-09-08,2,Democrat,NA,NA,1,NA,NA,0,About Half the time,0,0,-9,NA,NA,2020,NA,1,NA
 Strong Republican,0,75,6,2,6,2,NA,2,3,1,1,1,1,0.737358797324829,2020-08-26,7,Republican,0,75,1,NA,NA,0,About Half the time,0,1,37.5,75,0,2020,warm,1,NA
 Independent - Independent,25,15,99,1,7,1,5,4,4,1,1,3,2,1.71056578424405,2020-09-11,4,Independent,25,15,0,Bernie Sanders,Democrat,1,Some of the Time,1,0,20,NA,NA,2020,NA,0,Voted in Other Party Primary
 Strong Democrat,100,0,4,1,4,2,NA,1,3,1,0,2,3,1.286294831389,2020-09-11,1,Democrat,100,0,1,NA,NA,0,About Half the time,0,1,50,100,0,2020,warm,0,NA
@@ -120,7 +120,7 @@ Strong Republican,0,85,6,1,6,1,8,2,3,0,1,1,2,1.30416691774625,2020-09-09,7,Repub
 Independent - Democrat,50,50,99,4,5,1,5,4,5,1,1,2,1,2.30588457350419,2020-09-20,3,Democrat,50,50,0,Bernie Sanders,Democrat,1,Never,1,1,50,50,50,2020,NA,1,Loser
 Weak Republican,0,70,6,2,5,1,8,2,2,0,1,2,3,0.544453409022902,2020-10-13,6,Republican,0,70,0,Donald Trump,Republican,0,Most of the Time,0,1,35,70,0,2020,warm,0,Winner
 Strong Republican,15,70,6,2,6,1,8,2,3,0,1,2,1,1.22502344287356,2020-08-18,7,Republican,15,70,0,Donald Trump,Republican,0,About Half the time,0,1,42.5,70,15,2020,warm,1,Winner
-Strong Democrat,-9,50,99,2,6,1,1,2,3,1,1,3,1,0.828419110857867,2020-10-20,1,Democrat,NA,50,0,Joe Biden,Democrat,0,About Half the time,0,0,20.5,-9,50,2020,cold,1,Winner
+Strong Democrat,-9,50,99,2,6,1,1,2,3,1,1,3,1,0.828419110857867,2020-10-20,1,Democrat,NA,50,0,Joe Biden,Democrat,0,About Half the time,0,0,20.5,NA,50,2020,NA,1,Winner
 Strong Democrat,95,100,1,1,2,1,1,-6,2,0,0,-6,1,2.19913820199411,2020-10-27,1,Democrat,95,100,0,Joe Biden,Democrat,NA,Most of the Time,0,NA,97.5,95,100,2020,warm,1,Winner
 Weak Republican,40,60,99,1,6,2,NA,4,3,0,1,1,3,0.302401504500201,2020-08-18,6,Republican,40,60,1,NA,NA,1,About Half the time,0,1,50,60,40,2020,NA,0,NA
 Independent - Independent,60,60,5,3,4,2,NA,2,5,1,0,3,1,3.69460256512041,2020-09-08,4,Independent,60,60,1,NA,NA,0,Never,1,0,60,NA,NA,2020,NA,1,NA
@@ -204,7 +204,7 @@ Strong Republican,0,100,6,1,6,1,8,1,2,0,0,2,3,0.864186826509357,2020-10-14,7,Rep
 Independent - Independent,40,60,4,6,6,2,NA,2,4,1,1,1,1,2.41467756048478,2020-08-21,4,Independent,40,60,1,NA,NA,0,Some of the Time,1,1,50,NA,NA,2020,NA,1,NA
 Independent - Independent,60,85,4,5,4,2,NA,2,4,1,1,2,3,0.401067044743191,2020-10-28,4,Independent,60,85,1,NA,NA,0,Some of the Time,1,1,72.5,NA,NA,2020,NA,0,NA
 Independent - Independent,40,40,5,4,4,2,NA,5,5,1,1,3,3,3.3499937007586,2020-10-17,4,Independent,40,40,1,NA,NA,1,Never,1,0,40,NA,NA,2020,NA,0,NA
-Independent - Republican,-9,-9,3,5,6,2,NA,5,5,1,1,2,3,0.576060675812042,2020-08-18,5,Republican,NA,NA,1,NA,NA,1,Never,1,1,-9,-9,-9,2020,cold,0,NA
+Independent - Republican,-9,-9,3,5,6,2,NA,5,5,1,1,2,3,0.576060675812042,2020-08-18,5,Republican,NA,NA,1,NA,NA,1,Never,1,1,-9,NA,NA,2020,NA,0,NA
 Strong Democrat,60,30,99,2,6,2,NA,4,4,1,1,1,1,0.48935955647552,2020-09-23,1,Democrat,60,30,1,NA,NA,1,Some of the Time,1,1,45,60,30,2020,NA,1,NA
 Independent - Democrat,30,10,2,4,7,2,NA,2,3,1,0,3,1,0.448450401664933,2020-08-20,3,Democrat,30,10,1,NA,NA,0,About Half the time,0,0,20,30,10,2020,cold,1,NA
 Strong Democrat,70,40,4,3,6,2,NA,2,2,1,0,4,1,0.507317564667042,2020-11-01,1,Democrat,70,40,1,NA,NA,0,Most of the Time,0,0,55,70,40,2020,warm,1,NA
@@ -214,7 +214,7 @@ Strong Democrat,75,2,2,3,7,1,1,2,3,1,1,4,1,0.323443858411008,2020-08-23,1,Democr
 Strong Democrat,85,15,3,2,6,1,1,2,4,1,1,4,1,1.36101531666596,2020-08-18,1,Democrat,85,15,0,Joe Biden,Democrat,0,Some of the Time,1,0,50,85,15,2020,warm,1,Winner
 Weak Republican,20,60,4,1,5,1,8,2,4,0,1,3,1,0.69814152026849,2020-08-23,6,Republican,20,60,0,Donald Trump,Republican,0,Some of the Time,1,0,40,60,20,2020,NA,1,Winner
 Independent - Republican,50,50,99,3,6,2,NA,2,4,1,1,2,3,0.636722760544733,2020-09-15,5,Republican,50,50,1,NA,NA,0,Some of the Time,1,1,50,50,50,2020,NA,0,NA
-Strong Republican,-9,100,99,2,7,2,NA,-5,4,0,1,-5,3,2.84167743992868,2020-10-12,7,Republican,NA,100,1,NA,NA,NA,Some of the Time,1,NA,45.5,100,-9,2020,warm,0,NA
+Strong Republican,-9,100,99,2,7,2,NA,-5,4,0,1,-5,3,2.84167743992868,2020-10-12,7,Republican,NA,100,1,NA,NA,NA,Some of the Time,1,NA,45.5,100,NA,2020,warm,0,NA
 Independent - Independent,15,0,1,4,6,2,NA,-7,5,1,1,-7,1,1.53774980262191,2020-09-15,4,Independent,15,0,1,NA,NA,NA,Never,1,NA,7.5,NA,NA,2020,NA,1,NA
 Weak Republican,40,100,4,1,5,1,8,2,3,0,1,3,3,0.628273461892618,2020-08-24,6,Republican,40,100,0,Donald Trump,Republican,0,About Half the time,0,0,70,100,40,2020,warm,0,Winner
 Weak Republican,15,40,6,2,7,2,NA,4,5,1,1,1,1,1.0139576234155,2020-08-23,6,Republican,15,40,1,NA,NA,1,Never,1,1,27.5,40,15,2020,cold,1,NA
@@ -252,7 +252,7 @@ Strong Democrat,85,30,4,2,6,1,1,2,5,1,1,2,1,0.793388106664886,2020-08-18,1,Democ
 Strong Democrat,85,50,3,1,7,2,NA,-6,4,1,1,-6,1,1.82049892612918,2020-10-04,1,Democrat,85,50,1,NA,NA,NA,Some of the Time,1,NA,67.5,85,50,2020,warm,1,NA
 Weak Democrat,85,30,99,1,1,2,NA,2,4,1,1,3,3,0.99103503766335,2020-10-13,2,Democrat,85,30,1,NA,NA,0,Some of the Time,1,0,57.5,85,30,2020,warm,0,NA
 Strong Democrat,100,0,2,2,7,1,1,4,3,1,1,2,1,0.527810266598194,2020-10-04,1,Democrat,100,0,0,Joe Biden,Democrat,1,About Half the time,0,1,50,100,0,2020,warm,1,Winner
-Weak Republican,-9,-9,99,5,5,1,10,-6,4,1,1,-6,1,0.897598111267564,2020-08-27,6,Republican,NA,NA,0,Someone Neither Dem. Nor Rep.,Other Party,NA,Some of the Time,1,NA,-9,-9,-9,2020,cold,1,Voted in Other Party Primary
+Weak Republican,-9,-9,99,5,5,1,10,-6,4,1,1,-6,1,0.897598111267564,2020-08-27,6,Republican,NA,NA,0,Someone Neither Dem. Nor Rep.,Other Party,NA,Some of the Time,1,NA,-9,NA,NA,2020,NA,1,Voted in Other Party Primary
 Independent - Independent,-9,-9,4,4,4,2,NA,4,3,1,1,2,2,0.968447907353421,2020-08-20,4,Independent,NA,NA,1,NA,NA,1,About Half the time,0,1,-9,NA,NA,2020,NA,0,NA
 Weak Republican,0,60,6,1,6,1,8,4,5,1,1,2,3,1.80771944067513,2020-08-20,6,Republican,0,60,0,Donald Trump,Republican,1,Never,1,1,30,60,0,2020,NA,0,Winner
 Independent - Republican,30,40,6,1,3,1,10,2,4,1,1,2,3,0.392350857271193,2020-08-18,5,Republican,30,40,0,Someone Neither Dem. Nor Rep.,Other Party,0,Some of the Time,1,1,35,40,30,2020,cold,0,Voted in Other Party Primary
@@ -321,7 +321,7 @@ Strong Republican,30,85,5,1,6,1,8,2,4,0,1,3,1,0.382367381674033,2020-10-27,7,Rep
 Independent - Democrat,70,40,3,2,6,1,1,2,4,1,1,2,1,0.880571151432073,2020-08-25,3,Democrat,70,40,0,Joe Biden,Democrat,0,Some of the Time,1,1,55,70,40,2020,warm,1,Winner
 Strong Democrat,70,30,2,2,6,1,5,4,4,1,1,4,1,0.722642617903169,2020-08-22,1,Democrat,70,30,0,Bernie Sanders,Democrat,1,Some of the Time,1,0,50,70,30,2020,warm,1,Loser
 Strong Democrat,100,1,6,4,2,2,NA,2,-9,1,NA,3,2,0.71262202406850494,2020-10-26,1,Democrat,100,1,1,NA,NA,0,NA,NA,0,50.5,100,1,2020,warm,0,NA
-Strong Democrat,-9,-9,99,4,4,1,1,1,3,1,1,3,1,1.1804263220549,2020-09-21,1,Democrat,NA,NA,0,Joe Biden,Democrat,0,About Half the time,0,0,-9,-9,-9,2020,cold,1,Winner
+Strong Democrat,-9,-9,99,4,4,1,1,1,3,1,1,3,1,1.1804263220549,2020-09-21,1,Democrat,NA,NA,0,Joe Biden,Democrat,0,About Half the time,0,0,-9,NA,NA,2020,NA,1,Winner
 Strong Republican,0,85,7,1,7,1,8,4,2,0,1,2,1,1.27665663046703,2020-09-10,7,Republican,0,85,0,Donald Trump,Republican,1,Most of the Time,0,1,42.5,85,0,2020,warm,1,Winner
 Independent - Independent,50,50,99,4,4,2,NA,-6,2,0,0,-6,3,0.666361164699549,2020-10-25,4,Independent,50,50,1,NA,NA,NA,Most of the Time,0,NA,50,NA,NA,2020,NA,0,NA
 Weak Democrat,70,0,4,4,5,1,5,5,4,1,1,1,1,0.623783927519343,2020-08-23,2,Democrat,70,0,0,Bernie Sanders,Democrat,1,Some of the Time,1,1,35,70,0,2020,warm,1,Loser
@@ -362,7 +362,7 @@ Weak Democrat,55,40,3,2,6,1,1,2,4,1,1,3,1,0.587905234192778,2020-08-21,2,Democra
 Strong Democrat,100,0,4,1,7,2,NA,1,3,1,0,2,1,0.61089200380222,2020-08-18,1,Democrat,100,0,1,NA,NA,0,About Half the time,0,1,50,100,0,2020,warm,1,NA
 Strong Republican,40,85,6,6,6,2,NA,4,2,1,1,2,1,0.272459413999685,2020-08-22,7,Republican,40,85,1,NA,NA,1,Most of the Time,0,1,62.5,85,40,2020,warm,1,NA
 Weak Democrat,65,40,4,2,7,1,9,2,4,1,1,2,1,0.402928724942699,2020-08-22,2,Democrat,65,40,0,Other Republican,Republican,0,Some of the Time,1,1,52.5,65,40,2020,NA,1,Voted in Other Party Primary
-Weak Democrat,-9,-9,99,-9,-9,2,NA,-6,5,1,1,-6,2,1.16846939348782,2020-10-13,2,Democrat,NA,NA,1,NA,NA,NA,Never,1,NA,-9,-9,-9,2020,cold,0,NA
+Weak Democrat,-9,-9,99,-9,-9,2,NA,-6,5,1,1,-6,2,1.16846939348782,2020-10-13,2,Democrat,NA,NA,1,NA,NA,NA,Never,1,NA,-9,NA,NA,2020,NA,0,NA
 Strong Republican,30,70,6,1,7,1,8,4,3,1,1,2,1,0.930560595494941,2020-08-24,7,Republican,30,70,0,Donald Trump,Republican,1,About Half the time,0,1,50,70,30,2020,warm,1,Winner
 Strong Republican,0,60,7,2,5,2,NA,2,4,0,1,4,1,0.846493630511186,2020-08-29,7,Republican,0,60,1,NA,NA,0,Some of the Time,1,0,30,60,0,2020,NA,1,NA
 Independent - Democrat,60,15,3,1,7,2,NA,-6,4,1,1,-6,1,0.375313082259338,2020-08-19,3,Democrat,60,15,1,NA,NA,NA,Some of the Time,1,NA,37.5,60,15,2020,NA,1,NA
@@ -387,7 +387,7 @@ Strong Democrat,85,50,99,4,2,2,NA,4,4,1,1,3,-9,0.351506369950574,2020-09-29,1,De
 Weak Republican,70,35,6,2,7,1,9,2,4,1,1,2,3,1.92431745248586,2020-08-22,6,Republican,70,35,0,Other Republican,Republican,0,Some of the Time,1,1,52.5,35,70,2020,cold,0,Loser
 Independent - Democrat,80,0,3,2,7,1,2,2,4,1,0,4,1,1.01059882196737,2020-08-28,3,Democrat,80,0,0,Michael Bloomberg,Democrat,0,Some of the Time,1,0,40,80,0,2020,warm,1,Loser
 Strong Democrat,70,0,2,3,7,1,6,2,4,1,1,3,1,0.572262340428303,2020-08-19,1,Democrat,70,0,0,Elizabeth Warren,Democrat,0,Some of the Time,1,0,35,70,0,2020,warm,1,Loser
-Weak Democrat,70,-9,3,3,7,2,NA,4,4,1,1,2,1,0.652116456885948,2020-08-18,2,Democrat,70,NA,1,NA,NA,1,Some of the Time,1,1,30.5,70,-9,2020,warm,1,NA
+Weak Democrat,70,-9,3,3,7,2,NA,4,4,1,1,2,1,0.652116456885948,2020-08-18,2,Democrat,70,NA,1,NA,NA,1,Some of the Time,1,1,30.5,70,NA,2020,warm,1,NA
 Independent - Independent,40,40,99,2,6,2,NA,2,4,1,1,1,1,1.46242501477737,2020-11-01,4,Independent,40,40,1,NA,NA,0,Some of the Time,1,1,40,NA,NA,2020,NA,1,NA
 Strong Republican,0,85,7,1,7,1,8,4,2,1,1,2,1,1.25184665900564,2020-08-31,7,Republican,0,85,0,Donald Trump,Republican,1,Most of the Time,0,1,42.5,85,0,2020,warm,1,Winner
 Strong Democrat,100,0,4,4,1,1,1,2,3,1,1,2,1,0.409210471698768,2020-09-08,1,Democrat,100,0,0,Joe Biden,Democrat,0,About Half the time,0,1,50,100,0,2020,warm,1,Winner
@@ -426,7 +426,7 @@ Strong Democrat,100,0,99,2,7,2,NA,2,3,1,1,2,1,0.692966803229904,2020-09-23,1,Dem
 Independent - Republican,2,60,4,1,4,2,NA,5,5,1,1,2,1,0.446279987372712,2020-08-26,5,Republican,2,60,1,NA,NA,1,Never,1,1,31,60,2,2020,NA,1,NA
 Strong Democrat,100,15,99,4,1,1,1,4,3,1,1,5,1,0.666116292792044,2020-10-29,1,Democrat,100,15,0,Joe Biden,Democrat,1,About Half the time,0,0,57.5,100,15,2020,warm,1,Winner
 Weak Republican,15,60,7,2,5,1,8,-6,4,0,1,-6,1,1.80698744241414,2020-08-23,6,Republican,15,60,0,Donald Trump,Republican,NA,Some of the Time,1,NA,37.5,60,15,2020,NA,1,Winner
-Independent - Republican,40,-9,5,1,6,2,NA,2,4,1,0,2,1,0.657185427038172,2020-10-13,5,Republican,40,NA,1,NA,NA,0,Some of the Time,1,1,15.5,-9,40,2020,cold,1,NA
+Independent - Republican,40,-9,5,1,6,2,NA,2,4,1,0,2,1,0.657185427038172,2020-10-13,5,Republican,40,NA,1,NA,NA,0,Some of the Time,1,1,15.5,NA,40,2020,NA,1,NA
 Strong Democrat,100,0,7,7,1,2,NA,1,2,1,1,1,3,0.430863698312689,2020-09-11,1,Democrat,100,0,1,NA,NA,0,Most of the Time,0,1,50,100,0,2020,warm,0,NA
 Independent - Independent,30,40,5,2,5,1,8,4,4,1,1,2,1,0.816407847619731,2020-10-12,4,Independent,30,40,0,Donald Trump,Republican,1,Some of the Time,1,1,35,NA,NA,2020,NA,1,Voted in Other Party Primary
 Independent - Republican,0,70,6,1,7,1,8,2,2,0,0,3,3,1.0079829847971,2020-08-25,5,Republican,0,70,0,Donald Trump,Republican,0,Most of the Time,0,0,35,70,0,2020,warm,0,Winner
@@ -661,20 +661,20 @@ Strong Democrat,100,0,4,3,7,1,1,2,2,1,1,2,1,2.46307319501098,2020-09-22,1,Democr
 Strong Republican,15,85,7,1,6,1,8,2,4,1,1,3,1,0.448737027087412,2020-09-14,7,Republican,15,85,0,Donald Trump,Republican,0,Some of the Time,1,0,50,85,15,2020,warm,1,Winner
 Strong Republican,40,70,5,1,6,2,NA,2,3,0,1,2,1,0.698530559388655,2020-10-01,7,Republican,40,70,1,NA,NA,0,About Half the time,0,1,55,70,40,2020,warm,1,NA
 Strong Democrat,70,10,2,1,7,1,6,2,4,1,1,4,1,0.334807592250758,2020-09-08,1,Democrat,70,10,0,Elizabeth Warren,Democrat,0,Some of the Time,1,0,40,70,10,2020,warm,1,Loser
-Weak Democrat,60,-9,99,5,2,2,NA,2,4,1,1,2,1,1.07129352914878,2020-08-31,2,Democrat,60,NA,1,NA,NA,0,Some of the Time,1,1,25.5,60,-9,2020,NA,1,NA
+Weak Democrat,60,-9,99,5,2,2,NA,2,4,1,1,2,1,1.07129352914878,2020-08-31,2,Democrat,60,NA,1,NA,NA,0,Some of the Time,1,1,25.5,60,NA,2020,NA,1,NA
 Independent - Independent,40,40,4,2,6,2,NA,2,3,0,1,2,1,1.08322829740017,2020-08-25,4,Independent,40,40,1,NA,NA,0,About Half the time,0,1,40,NA,NA,2020,NA,1,NA
 Strong Democrat,80,0,1,2,7,1,1,4,4,1,1,4,1,0.402689965744053,2020-09-09,1,Democrat,80,0,0,Joe Biden,Democrat,1,Some of the Time,1,0,40,80,0,2020,warm,1,Winner
 Strong Democrat,100,0,1,2,7,2,NA,4,4,1,1,1,1,0.590440694829673,2020-09-09,1,Democrat,100,0,1,NA,NA,1,Some of the Time,1,1,50,100,0,2020,warm,1,NA
 Strong Democrat,70,0,2,3,7,1,5,4,4,1,1,2,1,0.522814764974881,2020-08-18,1,Democrat,70,0,0,Bernie Sanders,Democrat,1,Some of the Time,1,1,35,70,0,2020,warm,1,Loser
 Strong Republican,10,90,7,1,6,1,8,4,3,0,0,4,3,0.390877945089337,2020-08-18,7,Republican,10,90,0,Donald Trump,Republican,1,About Half the time,0,0,50,90,10,2020,warm,0,Winner
 Strong Republican,40,60,6,1,5,1,8,2,4,0,1,2,3,0.457499383136531,2020-10-16,7,Republican,40,60,0,Donald Trump,Republican,0,Some of the Time,1,1,50,60,40,2020,NA,0,Winner
-Strong Republican,15,-9,6,1,6,2,NA,2,4,0,1,2,-9,0.725501586546209,2020-10-12,7,Republican,15,NA,1,NA,NA,0,Some of the Time,1,1,3,-9,15,2020,cold,NA,NA
+Strong Republican,15,-9,6,1,6,2,NA,2,4,0,1,2,-9,0.725501586546209,2020-10-12,7,Republican,15,NA,1,NA,NA,0,Some of the Time,1,1,3,NA,15,2020,NA,NA,NA
 Weak Republican,70,0,6,3,7,1,4,2,3,1,1,3,1,0.831687870034384,2020-08-21,6,Republican,70,0,0,Amy Klobuchar,Democrat,0,About Half the time,0,0,35,0,70,2020,cold,1,Voted in Other Party Primary
 Strong Democrat,85,25,2,2,7,1,5,-6,3,1,1,-6,1,0.900461037834757,2020-08-23,1,Democrat,85,25,0,Bernie Sanders,Democrat,NA,About Half the time,0,NA,55,85,25,2020,warm,1,Loser
 Strong Republican,30,70,5,1,5,1,8,5,3,0,1,2,3,0.430821590465958,2020-08-25,7,Republican,30,70,0,Donald Trump,Republican,1,About Half the time,0,1,50,70,30,2020,warm,0,Winner
 Independent - Republican,0,70,7,2,5,1,8,2,3,0,1,2,3,0.478005523319873,2020-09-11,5,Republican,0,70,0,Donald Trump,Republican,0,About Half the time,0,1,35,70,0,2020,warm,0,Winner
 Independent - Independent,60,0,1,3,7,1,5,4,4,1,1,3,1,0.387070228348889,2020-08-21,4,Independent,60,0,0,Bernie Sanders,Democrat,1,Some of the Time,1,0,30,NA,NA,2020,NA,1,Voted in Other Party Primary
-Weak Democrat,50,-9,7,4,4,2,NA,2,4,1,1,2,3,0.471180696811791,2020-09-13,2,Democrat,50,NA,1,NA,NA,0,Some of the Time,1,1,20.5,50,-9,2020,NA,0,NA
+Weak Democrat,50,-9,7,4,4,2,NA,2,4,1,1,2,3,0.471180696811791,2020-09-13,2,Democrat,50,NA,1,NA,NA,0,Some of the Time,1,1,20.5,50,NA,2020,NA,0,NA
 Independent - Republican,20,70,6,1,5,1,8,4,3,1,1,1,1,0.821284279994807,2020-09-14,5,Republican,20,70,0,Donald Trump,Republican,1,About Half the time,0,1,45,70,20,2020,warm,1,Winner
 Weak Democrat,100,60,4,1,7,1,1,2,1,0,0,2,1,0.853128006508707,2020-09-27,2,Democrat,100,60,0,Joe Biden,Democrat,0,Always,0,1,80,100,60,2020,warm,1,Winner
 Weak Republican,15,85,4,2,6,2,NA,-6,3,1,1,-6,3,1.1659759343916,2020-10-12,6,Republican,15,85,1,NA,NA,NA,About Half the time,0,NA,50,85,15,2020,warm,0,NA
@@ -773,7 +773,7 @@ Strong Democrat,70,0,2,2,7,1,6,4,4,1,1,3,1,0.438413091875925,2020-09-10,1,Democr
 Strong Democrat,100,15,1,2,7,2,NA,4,3,1,1,1,1,0.768267544347846,2020-09-27,1,Democrat,100,15,1,NA,NA,1,About Half the time,0,1,57.5,100,15,2020,warm,1,NA
 Strong Democrat,70,0,99,4,6,1,1,4,5,1,1,2,1,0.536566906411625,2020-11-02,1,Democrat,70,0,0,Joe Biden,Democrat,1,Never,1,1,35,70,0,2020,warm,1,Winner
 Strong Democrat,75,10,2,2,7,2,NA,2,4,1,1,4,1,0.603386075713768,2020-08-22,1,Democrat,75,10,1,NA,NA,0,Some of the Time,1,0,42.5,75,10,2020,warm,1,NA
-Strong Democrat,-9,15,2,2,4,1,1,2,2,1,1,5,1,0.310758190348777,2020-10-13,1,Democrat,NA,15,0,Joe Biden,Democrat,0,Most of the Time,0,0,3,-9,15,2020,cold,1,Winner
+Strong Democrat,-9,15,2,2,4,1,1,2,2,1,1,5,1,0.310758190348777,2020-10-13,1,Democrat,NA,15,0,Joe Biden,Democrat,0,Most of the Time,0,0,3,NA,15,2020,NA,1,Winner
 Strong Republican,15,85,7,1,6,2,NA,2,3,0,1,2,2,0.35806831614748,2020-08-21,7,Republican,15,85,1,NA,NA,0,About Half the time,0,1,50,85,15,2020,warm,0,NA
 Independent - Independent,80,80,99,2,6,2,NA,2,4,1,1,5,1,0.678909777732172,2020-10-23,4,Independent,80,80,1,NA,NA,0,Some of the Time,1,0,80,NA,NA,2020,NA,1,NA
 Strong Republican,0,70,7,1,6,1,8,4,2,0,0,1,3,0.433192761540867,2020-08-21,7,Republican,0,70,0,Donald Trump,Republican,1,Most of the Time,0,1,35,70,0,2020,warm,0,Winner
@@ -825,7 +825,7 @@ Weak Republican,20,85,99,3,-9,2,NA,-9,2,0,0,3,3,0.826937221010824,2020-09-21,6,R
 Strong Democrat,85,15,2,2,7,1,1,2,4,1,1,3,1,3.2929775114746,2020-09-10,1,Democrat,85,15,0,Joe Biden,Democrat,0,Some of the Time,1,0,50,85,15,2020,warm,1,Winner
 Strong Democrat,60,30,4,4,4,2,NA,-6,4,1,0,-6,1,1.72619597407751,2020-09-28,1,Democrat,60,30,1,NA,NA,NA,Some of the Time,1,NA,45,60,30,2020,NA,1,NA
 Strong Democrat,70,10,4,4,6,2,NA,-7,3,1,1,-7,1,0.876589305135624,2020-10-05,1,Democrat,70,10,1,NA,NA,NA,About Half the time,0,NA,40,70,10,2020,warm,1,NA
-Strong Republican,0,-9,6,-9,-9,2,NA,2,4,0,1,2,2,0.495372394386767,2020-08-31,7,Republican,0,NA,1,NA,NA,0,Some of the Time,1,1,-4.5,-9,0,2020,cold,0,NA
+Strong Republican,0,-9,6,-9,-9,2,NA,2,4,0,1,2,2,0.495372394386767,2020-08-31,7,Republican,0,NA,1,NA,NA,0,Some of the Time,1,1,-4.5,NA,0,2020,NA,0,NA
 Independent - Democrat,50,50,99,2,6,1,1,1,4,1,1,2,1,1.87421846495425,2020-08-29,3,Democrat,50,50,0,Joe Biden,Democrat,0,Some of the Time,1,1,50,50,50,2020,NA,1,Winner
 Strong Democrat,85,15,2,2,7,1,1,4,3,1,1,2,1,1.11546149692768,2020-09-15,1,Democrat,85,15,0,Joe Biden,Democrat,1,About Half the time,0,1,50,85,15,2020,warm,1,Winner
 Strong Republican,0,85,6,1,5,2,NA,2,4,1,1,1,1,0.558980084489905,2020-08-27,7,Republican,0,85,1,NA,NA,0,Some of the Time,1,1,42.5,85,0,2020,warm,1,NA
@@ -922,7 +922,7 @@ Independent - Republican,15,70,6,2,5,2,NA,2,3,0,0,1,1,1.48996457899401,2020-08-2
 Weak Republican,0,25,5,5,5,1,8,2,4,0,1,3,2,0.650948332301592,2020-08-18,6,Republican,0,25,0,Donald Trump,Republican,0,Some of the Time,1,0,12.5,25,0,2020,cold,0,Winner
 Weak Republican,15,70,6,2,6,2,NA,2,2,1,0,1,1,0.412543737448048,2020-09-23,6,Republican,15,70,1,NA,NA,0,Most of the Time,0,1,42.5,70,15,2020,warm,1,NA
 Independent - Democrat,60,20,3,3,6,1,1,-6,2,1,1,-6,1,0.692811321815383,2020-10-30,3,Democrat,60,20,0,Joe Biden,Democrat,NA,Most of the Time,0,NA,40,60,20,2020,NA,1,Winner
-Independent - Republican,-9,-9,99,2,6,2,NA,2,4,0,1,3,1,0.924423420735937,2020-08-21,5,Republican,NA,NA,1,NA,NA,0,Some of the Time,1,0,-9,-9,-9,2020,cold,1,NA
+Independent - Republican,-9,-9,99,2,6,2,NA,2,4,0,1,3,1,0.924423420735937,2020-08-21,5,Republican,NA,NA,1,NA,NA,0,Some of the Time,1,0,-9,NA,NA,2020,NA,1,NA
 Independent - Republican,60,40,5,2,7,2,NA,2,4,1,1,2,1,0.586110105956786,2020-09-14,5,Republican,60,40,1,NA,NA,0,Some of the Time,1,1,50,40,60,2020,cold,1,NA
 Weak Republican,70,100,4,4,2,2,NA,2,2,0,0,3,1,0.718615240740124,2020-09-21,6,Republican,70,100,1,NA,NA,0,Most of the Time,0,0,85,100,70,2020,warm,1,NA
 Strong Democrat,85,60,2,1,7,1,5,2,3,1,1,2,1,0.519025389892703,2020-08-28,1,Democrat,85,60,0,Bernie Sanders,Democrat,0,About Half the time,0,1,72.5,85,60,2020,warm,1,Loser
@@ -934,7 +934,7 @@ Independent - Democrat,40,30,3,1,7,1,5,4,4,1,1,2,1,0.668158529522645,2020-09-24,
 Weak Democrat,50,60,3,3,4,2,NA,-6,4,1,1,-6,1,0.9957225867741,2020-09-24,2,Democrat,50,60,1,NA,NA,NA,Some of the Time,1,NA,55,50,60,2020,NA,1,NA
 Independent - Democrat,60,15,4,2,5,2,NA,2,4,1,1,5,1,0.3320375526694,2020-09-18,3,Democrat,60,15,1,NA,NA,0,Some of the Time,1,0,37.5,60,15,2020,NA,1,NA
 Strong Democrat,85,15,3,3,6,1,1,2,2,1,1,4,1,0.634108719302983,2020-08-23,1,Democrat,85,15,0,Joe Biden,Democrat,0,Most of the Time,0,0,50,85,15,2020,warm,1,Winner
-Independent - Democrat,-9,-9,99,-9,-9,2,NA,2,2,1,1,4,1,0.224044009305351,2020-08-21,3,Democrat,NA,NA,1,NA,NA,0,Most of the Time,0,0,-9,-9,-9,2020,cold,1,NA
+Independent - Democrat,-9,-9,99,-9,-9,2,NA,2,2,1,1,4,1,0.224044009305351,2020-08-21,3,Democrat,NA,NA,1,NA,NA,0,Most of the Time,0,0,-9,NA,NA,2020,NA,1,NA
 Strong Republican,0,70,7,1,6,1,8,2,3,1,1,1,3,1.28410703320003,2020-08-18,7,Republican,0,70,0,Donald Trump,Republican,0,About Half the time,0,1,35,70,0,2020,warm,0,Winner
 Strong Republican,0,85,6,2,6,2,NA,4,4,1,1,1,1,2.62552097675835,2020-08-28,7,Republican,0,85,1,NA,NA,1,Some of the Time,1,1,42.5,85,0,2020,warm,1,NA
 Independent - Independent,0,30,4,1,7,1,10,2,4,1,1,1,1,1.30296905044712,2020-08-20,4,Independent,0,30,0,Someone Neither Dem. Nor Rep.,Other Party,0,Some of the Time,1,1,15,NA,NA,2020,NA,1,Voted in Other Party Primary
@@ -1065,7 +1065,7 @@ Strong Democrat,100,70,6,5,6,2,NA,2,3,1,0,4,1,0.455041416560874,2020-08-22,1,Dem
 Independent - Republican,60,30,3,3,6,1,1,2,3,1,0,4,1,1.05477767365236,2020-09-09,5,Republican,60,30,0,Joe Biden,Democrat,0,About Half the time,0,0,45,30,60,2020,cold,1,Voted in Other Party Primary
 Independent - Republican,40,70,6,1,6,2,NA,2,4,1,1,1,1,0.178958636129227,2020-08-24,5,Republican,40,70,1,NA,NA,0,Some of the Time,1,1,55,70,40,2020,warm,1,NA
 Strong Democrat,100,0,99,2,7,1,1,1,4,1,1,4,1,0.874409170586966,2020-09-27,1,Democrat,100,0,0,Joe Biden,Democrat,0,Some of the Time,1,0,50,100,0,2020,warm,1,Winner
-Weak Democrat,-9,-9,99,4,4,2,NA,-7,3,1,1,-7,1,0.510412328271558,2020-08-23,2,Democrat,NA,NA,1,NA,NA,NA,About Half the time,0,NA,-9,-9,-9,2020,cold,1,NA
+Weak Democrat,-9,-9,99,4,4,2,NA,-7,3,1,1,-7,1,0.510412328271558,2020-08-23,2,Democrat,NA,NA,1,NA,NA,NA,About Half the time,0,NA,-9,NA,NA,2020,NA,1,NA
 Strong Republican,15,60,6,1,3,1,8,-6,4,0,1,-6,3,2.06866440300561,2020-09-19,7,Republican,15,60,0,Donald Trump,Republican,NA,Some of the Time,1,NA,37.5,60,15,2020,NA,0,Winner
 Strong Republican,0,100,6,1,4,2,NA,2,3,1,1,3,1,0.718764038492085,2020-09-13,7,Republican,0,100,1,NA,NA,0,About Half the time,0,0,50,100,0,2020,warm,1,NA
 Independent - Democrat,50,50,3,1,7,2,NA,2,3,1,0,2,1,1.83838072839237,2020-08-18,3,Democrat,50,50,1,NA,NA,0,About Half the time,0,1,50,50,50,2020,NA,1,NA
@@ -1086,7 +1086,7 @@ Weak Democrat,85,10,2,2,7,2,NA,4,4,1,1,2,1,1.61250258093506,2020-09-10,2,Democra
 Strong Republican,40,85,6,2,6,2,NA,2,2,0,0,3,3,0.863261945444576,2020-09-05,7,Republican,40,85,1,NA,NA,0,Most of the Time,0,0,62.5,85,40,2020,warm,0,NA
 Strong Republican,0,100,7,1,6,1,8,-6,3,0,1,-6,1,0.439590472697741,2020-09-10,7,Republican,0,100,0,Donald Trump,Republican,NA,About Half the time,0,NA,50,100,0,2020,warm,1,Winner
 Independent - Democrat,40,30,4,2,6,2,NA,2,4,1,1,1,1,0.602875702724805,2020-09-17,3,Democrat,40,30,1,NA,NA,0,Some of the Time,1,1,35,40,30,2020,cold,1,NA
-Strong Republican,-9,0,6,2,5,1,8,-6,3,0,0,-6,1,0.438937193560017,2020-10-13,7,Republican,NA,0,0,Donald Trump,Republican,NA,About Half the time,0,NA,-4.5,0,-9,2020,cold,1,Winner
+Strong Republican,-9,0,6,2,5,1,8,-6,3,0,0,-6,1,0.438937193560017,2020-10-13,7,Republican,NA,0,0,Donald Trump,Republican,NA,About Half the time,0,NA,-4.5,0,NA,2020,cold,1,Winner
 Weak Democrat,50,40,3,1,7,1,5,2,3,1,1,1,1,2.52772753642147,2020-09-08,2,Democrat,50,40,0,Bernie Sanders,Democrat,0,About Half the time,0,1,45,50,40,2020,NA,1,Loser
 Independent - Republican,0,70,6,1,5,2,NA,4,4,0,1,2,1,0.858532320555153,2020-09-02,5,Republican,0,70,1,NA,NA,1,Some of the Time,1,1,35,70,0,2020,warm,1,NA
 Independent - Democrat,70,50,3,3,6,2,NA,4,3,1,1,1,1,0.440542770185157,2020-10-13,3,Democrat,70,50,1,NA,NA,1,About Half the time,0,1,60,70,50,2020,warm,1,NA
@@ -1140,7 +1140,7 @@ Strong Republican,0,85,6,1,6,2,NA,5,2,0,1,4,2,0.488045713933889,2020-08-25,7,Rep
 Independent - Republican,25,70,99,7,2,2,NA,-9,4,1,1,1,1,0.989155024210168,2020-08-21,5,Republican,25,70,1,NA,NA,NA,Some of the Time,1,1,47.5,70,25,2020,warm,1,NA
 Independent - Republican,15,15,99,4,4,2,NA,2,4,1,1,1,1,0.663731212625946,2020-08-24,5,Republican,15,15,1,NA,NA,0,Some of the Time,1,1,15,15,15,2020,cold,1,NA
 Strong Democrat,100,0,4,4,4,1,1,4,3,1,1,1,1,0.402761918251959,2020-09-08,1,Democrat,100,0,0,Joe Biden,Democrat,1,About Half the time,0,1,50,100,0,2020,warm,1,Winner
-Independent - Democrat,-9,-9,1,4,7,1,5,4,5,1,1,2,1,0.365538886649387,2020-08-18,3,Democrat,NA,NA,0,Bernie Sanders,Democrat,1,Never,1,1,-9,-9,-9,2020,cold,1,Loser
+Independent - Democrat,-9,-9,1,4,7,1,5,4,5,1,1,2,1,0.365538886649387,2020-08-18,3,Democrat,NA,NA,0,Bernie Sanders,Democrat,1,Never,1,1,-9,NA,NA,2020,NA,1,Loser
 Independent - Republican,45,55,5,1,6,2,NA,4,5,1,1,1,1,0.418868490738482,2020-10-01,5,Republican,45,55,1,NA,NA,1,Never,1,1,50,55,45,2020,NA,1,NA
 Independent - Republican,40,60,5,2,6,2,NA,1,2,0,0,4,1,0.708350446642608,2020-10-13,5,Republican,40,60,1,NA,NA,0,Most of the Time,0,0,50,60,40,2020,NA,1,NA
 Strong Democrat,85,15,4,2,3,2,NA,2,4,1,0,1,1,1.19906546666036,2020-10-01,1,Democrat,85,15,1,NA,NA,0,Some of the Time,1,1,50,85,15,2020,warm,1,NA
@@ -1169,7 +1169,7 @@ Strong Democrat,85,0,1,3,7,1,1,4,4,1,1,2,1,0.667664251034403,2020-08-23,1,Democr
 Strong Republican,0,100,5,1,7,1,8,2,1,0,1,2,3,0.53753277355195,2020-08-24,7,Republican,0,100,0,Donald Trump,Republican,0,Always,0,1,50,100,0,2020,warm,0,Winner
 Strong Democrat,85,0,2,3,7,1,1,2,5,1,1,4,1,1.6719822964541,2020-08-31,1,Democrat,85,0,0,Joe Biden,Democrat,0,Never,1,0,42.5,85,0,2020,warm,1,Winner
 Strong Democrat,85,0,2,2,7,1,5,4,3,1,1,3,1,1.13683799267635,2020-08-24,1,Democrat,85,0,0,Bernie Sanders,Democrat,1,About Half the time,0,0,42.5,85,0,2020,warm,1,Loser
-Independent - Republican,-9,-9,4,1,6,2,NA,2,3,1,1,3,3,0.498034546130928,2020-09-23,5,Republican,NA,NA,1,NA,NA,0,About Half the time,0,0,-9,-9,-9,2020,cold,0,NA
+Independent - Republican,-9,-9,4,1,6,2,NA,2,3,1,1,3,3,0.498034546130928,2020-09-23,5,Republican,NA,NA,1,NA,NA,0,About Half the time,0,0,-9,NA,NA,2020,NA,0,NA
 Strong Republican,10,85,6,1,6,1,8,2,4,0,0,4,3,1.3769380202633,2020-08-28,7,Republican,10,85,0,Donald Trump,Republican,0,Some of the Time,1,0,47.5,85,10,2020,warm,0,Winner
 Weak Republican,0,85,6,1,5,1,8,2,4,0,1,2,1,0.519012970396316,2020-09-14,6,Republican,0,85,0,Donald Trump,Republican,0,Some of the Time,1,1,42.5,85,0,2020,warm,1,Winner
 Independent - Independent,60,60,99,3,4,2,NA,2,4,1,0,3,3,0.429499245808439,2020-08-29,4,Independent,60,60,1,NA,NA,0,Some of the Time,1,0,60,NA,NA,2020,NA,0,NA
@@ -1210,7 +1210,7 @@ Strong Republican,0,100,6,1,6,1,8,-6,3,0,1,-6,1,0.519011959983432,2020-08-27,7,R
 Independent - Independent,50,60,99,2,6,1,8,2,4,1,1,5,1,3.0180601889147,2020-09-13,4,Independent,50,60,0,Donald Trump,Republican,0,Some of the Time,1,0,55,NA,NA,2020,NA,1,Voted in Other Party Primary
 Independent - Democrat,40,15,1,5,6,1,5,5,5,1,1,2,1,0.560816367732744,2020-08-18,3,Democrat,40,15,0,Bernie Sanders,Democrat,1,Never,1,1,27.5,40,15,2020,cold,1,Loser
 Strong Democrat,50,10,2,3,6,1,5,2,3,1,1,2,1,0.510890201605504,2020-09-24,1,Democrat,50,10,0,Bernie Sanders,Democrat,0,About Half the time,0,1,30,50,10,2020,NA,1,Loser
-Strong Republican,-9,-9,7,1,6,2,NA,4,4,1,1,1,1,0.740796134127994,2020-09-08,7,Republican,NA,NA,1,NA,NA,1,Some of the Time,1,1,-9,-9,-9,2020,cold,1,NA
+Strong Republican,-9,-9,7,1,6,2,NA,4,4,1,1,1,1,0.740796134127994,2020-09-08,7,Republican,NA,NA,1,NA,NA,1,Some of the Time,1,1,-9,NA,NA,2020,NA,1,NA
 Independent - Republican,30,70,6,1,6,2,NA,4,4,1,1,2,1,0.679258208022947,2020-09-08,5,Republican,30,70,1,NA,NA,1,Some of the Time,1,1,50,70,30,2020,warm,1,NA
 Weak Democrat,60,50,2,2,5,2,NA,2,3,1,1,4,1,0.943861211187601,2020-08-23,2,Democrat,60,50,1,NA,NA,0,About Half the time,0,0,55,60,50,2020,NA,1,NA
 Independent - Republican,0,85,6,1,6,1,8,2,4,0,0,5,2,0.863815463404461,2020-09-23,5,Republican,0,85,0,Donald Trump,Republican,0,Some of the Time,1,0,42.5,85,0,2020,warm,0,Winner
@@ -1413,7 +1413,7 @@ Strong Democrat,85,40,3,2,6,2,NA,2,2,1,1,4,3,0.623964760106105,2020-10-01,1,Demo
 Strong Democrat,70,25,3,3,6,1,1,2,3,1,1,2,1,0.891017548299198,2020-08-27,1,Democrat,70,25,0,Joe Biden,Democrat,0,About Half the time,0,1,47.5,70,25,2020,warm,1,Winner
 Strong Democrat,70,15,2,3,7,1,1,5,4,1,1,2,1,0.693231657529551,2020-09-13,1,Democrat,70,15,0,Joe Biden,Democrat,1,Some of the Time,1,1,42.5,70,15,2020,warm,1,Winner
 Strong Republican,15,85,4,1,5,2,NA,4,3,1,1,1,1,1.00833073609588,2020-08-18,7,Republican,15,85,1,NA,NA,1,About Half the time,0,1,50,85,15,2020,warm,1,NA
-Weak Democrat,70,-9,6,4,7,1,6,4,2,1,1,1,1,0.352383440662515,2020-08-18,2,Democrat,70,NA,0,Elizabeth Warren,Democrat,1,Most of the Time,0,1,30.5,70,-9,2020,warm,1,Loser
+Weak Democrat,70,-9,6,4,7,1,6,4,2,1,1,1,1,0.352383440662515,2020-08-18,2,Democrat,70,NA,0,Elizabeth Warren,Democrat,1,Most of the Time,0,1,30.5,70,NA,2020,warm,1,Loser
 Strong Republican,0,85,99,4,4,1,8,4,3,0,1,1,1,1.51371909064382,2020-09-20,7,Republican,0,85,0,Donald Trump,Republican,1,About Half the time,0,1,42.5,85,0,2020,warm,1,Winner
 Weak Republican,40,70,99,2,6,2,NA,2,4,1,1,2,1,0.861627589360117,2020-09-10,6,Republican,40,70,1,NA,NA,0,Some of the Time,1,1,55,70,40,2020,warm,1,NA
 Independent - Republican,50,50,7,1,6,2,NA,2,4,1,1,2,2,2.44272247887078,2020-09-11,5,Republican,50,50,1,NA,NA,0,Some of the Time,1,1,50,50,50,2020,NA,0,NA
@@ -1574,7 +1574,7 @@ Weak Republican,30,70,6,1,5,2,NA,2,4,0,1,1,1,1.05751211052447,2020-08-23,6,Repub
 Weak Democrat,70,15,3,3,6,2,NA,4,4,1,1,2,1,0.279360567166186,2020-09-20,2,Democrat,70,15,1,NA,NA,1,Some of the Time,1,1,42.5,70,15,2020,warm,1,NA
 Strong Democrat,70,40,3,3,6,1,3,4,4,1,1,2,1,0.880468522884672,2020-09-10,1,Democrat,70,40,0,Pete Buttigieg,Democrat,1,Some of the Time,1,1,55,70,40,2020,warm,1,Loser
 Strong Republican,0,90,7,2,6,1,8,4,4,1,1,2,1,1.2859091437637,2020-08-23,7,Republican,0,90,0,Donald Trump,Republican,1,Some of the Time,1,1,45,90,0,2020,warm,1,Winner
-Strong Democrat,-9,-9,4,4,4,2,NA,4,4,0,1,1,1,1.78804478172218,2020-08-21,1,Democrat,NA,NA,1,NA,NA,1,Some of the Time,1,1,-9,-9,-9,2020,cold,1,NA
+Strong Democrat,-9,-9,4,4,4,2,NA,4,4,0,1,1,1,1.78804478172218,2020-08-21,1,Democrat,NA,NA,1,NA,NA,1,Some of the Time,1,1,-9,NA,NA,2020,NA,1,NA
 Weak Republican,60,85,99,2,6,2,NA,1,4,0,0,3,1,0.528333884661645,2020-08-29,6,Republican,60,85,1,NA,NA,0,Some of the Time,1,0,72.5,85,60,2020,warm,1,NA
 Weak Republican,0,100,99,7,7,2,NA,-5,5,1,0,-5,2,1.06363614514122,2020-08-19,6,Republican,0,100,1,NA,NA,NA,Never,1,NA,50,100,0,2020,warm,0,NA
 Independent - Independent,15,60,1,7,4,2,NA,2,4,0,1,2,1,0.990469075439028,2020-08-29,4,Independent,15,60,1,NA,NA,0,Some of the Time,1,1,37.5,NA,NA,2020,NA,1,NA
@@ -1654,7 +1654,7 @@ Strong Republican,0,85,7,1,6,1,8,2,2,0,0,1,3,0.770656730685065,2020-09-22,7,Repu
 Independent - Republican,15,85,7,1,5,1,8,4,4,0,1,1,3,0.386002192604264,2020-08-18,5,Republican,15,85,0,Donald Trump,Republican,1,Some of the Time,1,1,50,85,15,2020,warm,0,Winner
 Strong Democrat,85,35,99,2,6,1,1,2,3,1,0,4,1,0.585289447477994,2020-09-14,1,Democrat,85,35,0,Joe Biden,Democrat,0,About Half the time,0,0,60,85,35,2020,warm,1,Winner
 Strong Democrat,80,5,2,3,6,1,5,4,4,1,1,4,1,0.768741271335546,2020-09-27,1,Democrat,80,5,0,Bernie Sanders,Democrat,1,Some of the Time,1,0,42.5,80,5,2020,warm,1,Loser
-Strong Republican,-9,-9,99,3,7,1,8,2,1,0,1,4,3,1.42251171068142,2020-09-15,7,Republican,NA,NA,0,Donald Trump,Republican,0,Always,0,0,-9,-9,-9,2020,cold,0,Winner
+Strong Republican,-9,-9,99,3,7,1,8,2,1,0,1,4,3,1.42251171068142,2020-09-15,7,Republican,NA,NA,0,Donald Trump,Republican,0,Always,0,0,-9,NA,NA,2020,NA,0,Winner
 Strong Republican,0,40,3,1,6,1,8,2,2,0,0,5,1,0.647263309363853,2020-09-02,7,Republican,0,40,0,Donald Trump,Republican,0,Most of the Time,0,0,20,40,0,2020,cold,1,Winner
 Strong Democrat,85,0,2,2,7,1,1,4,4,1,1,4,1,0.255620150283882,2020-08-18,1,Democrat,85,0,0,Joe Biden,Democrat,1,Some of the Time,1,0,42.5,85,0,2020,warm,1,Winner
 Strong Democrat,85,15,2,3,6,1,1,2,4,1,1,2,1,0.579264828964849,2020-09-11,1,Democrat,85,15,0,Joe Biden,Democrat,0,Some of the Time,1,1,50,85,15,2020,warm,1,Winner
@@ -1676,7 +1676,7 @@ Independent - Republican,50,50,3,4,4,2,NA,1,3,1,1,3,3,2.84334541296828,2020-10-1
 Independent - Republican,30,30,3,2,5,2,NA,2,4,1,1,2,1,0.530985241969526,2020-09-09,5,Republican,30,30,1,NA,NA,0,Some of the Time,1,1,30,30,30,2020,cold,1,NA
 Weak Republican,15,66,5,1,6,2,NA,1,4,0,1,2,1,0.621725306440475,2020-08-23,6,Republican,15,66,1,NA,NA,0,Some of the Time,1,1,40.5,66,15,2020,NA,1,NA
 Weak Democrat,60,15,4,3,7,1,1,4,4,1,1,2,1,0.411774394196293,2020-10-13,2,Democrat,60,15,0,Joe Biden,Democrat,1,Some of the Time,1,1,37.5,60,15,2020,NA,1,Winner
-Strong Republican,-9,-9,7,1,6,1,8,2,3,0,1,2,3,0.585618008483814,2020-08-23,7,Republican,NA,NA,0,Donald Trump,Republican,0,About Half the time,0,1,-9,-9,-9,2020,cold,0,Winner
+Strong Republican,-9,-9,7,1,6,1,8,2,3,0,1,2,3,0.585618008483814,2020-08-23,7,Republican,NA,NA,0,Donald Trump,Republican,0,About Half the time,0,1,-9,NA,NA,2020,NA,0,Winner
 Independent - Democrat,40,30,3,2,6,1,3,2,5,1,1,1,1,0.473113214345795,2020-08-28,3,Democrat,40,30,0,Pete Buttigieg,Democrat,0,Never,1,1,35,40,30,2020,cold,1,Loser
 Independent - Republican,0,80,5,1,6,2,NA,2,4,1,1,1,1,1.20336192165149,2020-08-28,5,Republican,0,80,1,NA,NA,0,Some of the Time,1,1,40,80,0,2020,warm,1,NA
 Strong Democrat,85,15,2,3,6,2,NA,2,4,1,1,2,1,1.25707495346942,2020-08-23,1,Democrat,85,15,1,NA,NA,0,Some of the Time,1,1,50,85,15,2020,warm,1,NA
@@ -1717,7 +1717,7 @@ Weak Republican,50,40,4,7,6,2,NA,4,3,1,1,1,1,0.406866345678023,2020-08-21,6,Repu
 Strong Republican,0,70,7,1,5,2,NA,2,4,0,1,3,3,1.65434720924598,2020-09-15,7,Republican,0,70,1,NA,NA,0,Some of the Time,1,0,35,70,0,2020,warm,0,NA
 Independent - Democrat,70,5,2,4,7,2,NA,4,3,1,1,2,1,1.15490595224627,2020-09-08,3,Democrat,70,5,1,NA,NA,1,About Half the time,0,1,37.5,70,5,2020,warm,1,NA
 Independent - Independent,50,50,99,4,4,2,NA,4,3,1,1,3,3,0.439989801134831,2020-10-06,4,Independent,50,50,1,NA,NA,1,About Half the time,0,0,50,NA,NA,2020,NA,0,NA
-Strong Republican,0,-9,7,1,7,2,NA,1,3,1,1,3,1,0.705094121400993,2020-08-18,7,Republican,0,NA,1,NA,NA,0,About Half the time,0,0,-4.5,-9,0,2020,cold,1,NA
+Strong Republican,0,-9,7,1,7,2,NA,1,3,1,1,3,1,0.705094121400993,2020-08-18,7,Republican,0,NA,1,NA,NA,0,About Half the time,0,0,-4.5,NA,0,2020,NA,1,NA
 Strong Democrat,85,30,5,5,2,1,1,2,2,1,1,1,2,1.80986221530189,2020-10-16,1,Democrat,85,30,0,Joe Biden,Democrat,0,Most of the Time,0,1,57.5,85,30,2020,warm,0,Winner
 Strong Democrat,70,20,99,3,7,1,1,-6,3,0,1,-6,1,0.626051205089525,2020-10-14,1,Democrat,70,20,0,Joe Biden,Democrat,NA,About Half the time,0,NA,45,70,20,2020,warm,1,Winner
 Independent - Republican,0,70,4,1,5,2,NA,-6,5,1,1,-6,1,1.46800012935794,2020-09-28,5,Republican,0,70,1,NA,NA,NA,Never,1,NA,35,70,0,2020,warm,1,NA
@@ -1741,7 +1741,7 @@ Independent - Independent,80,15,4,3,7,1,5,1,4,1,1,5,1,0.691592485362902,2020-09-
 Weak Republican,20,80,6,1,5,2,NA,2,2,0,0,4,3,2.04614769523114,2020-08-18,6,Republican,20,80,1,NA,NA,0,Most of the Time,0,0,50,80,20,2020,warm,0,NA
 Strong Democrat,85,0,1,2,7,1,1,1,3,1,1,2,1,1.24030218216436,2020-10-14,1,Democrat,85,0,0,Joe Biden,Democrat,0,About Half the time,0,1,42.5,85,0,2020,warm,1,Winner
 Independent - Independent,0,0,99,7,7,2,NA,1,5,1,1,1,1,0.394729196061977,2020-10-16,4,Independent,0,0,1,NA,NA,0,Never,1,1,0,NA,NA,2020,NA,1,NA
-Weak Republican,-9,70,6,1,7,2,NA,4,4,1,0,2,1,1.0186013233233,2020-09-08,6,Republican,NA,70,1,NA,NA,1,Some of the Time,1,1,30.5,70,-9,2020,warm,1,NA
+Weak Republican,-9,70,6,1,7,2,NA,4,4,1,0,2,1,1.0186013233233,2020-09-08,6,Republican,NA,70,1,NA,NA,1,Some of the Time,1,1,30.5,70,NA,2020,warm,1,NA
 Weak Republican,50,60,5,2,6,2,NA,-6,4,1,1,-6,3,0.639301768324201,2020-09-29,6,Republican,50,60,1,NA,NA,NA,Some of the Time,1,NA,55,60,50,2020,NA,0,NA
 Strong Democrat,85,15,1,3,7,1,3,4,4,1,1,3,1,0.458179884010416,2020-09-21,1,Democrat,85,15,0,Pete Buttigieg,Democrat,1,Some of the Time,1,0,50,85,15,2020,warm,1,Loser
 Independent - Republican,0,85,3,4,4,2,NA,4,4,1,1,1,1,0.345779274491481,2020-08-27,5,Republican,0,85,1,NA,NA,1,Some of the Time,1,1,42.5,85,0,2020,warm,1,NA
@@ -1784,7 +1784,7 @@ Strong Democrat,70,60,4,3,5,2,NA,2,4,1,1,2,1,2.12314278466568,2020-08-24,1,Democ
 Weak Republican,0,85,5,1,5,1,8,4,3,0,1,1,3,0.71546577079317,2020-08-26,6,Republican,0,85,0,Donald Trump,Republican,1,About Half the time,0,1,42.5,85,0,2020,warm,0,Winner
 Strong Democrat,85,15,2,2,7,1,6,2,3,1,0,4,1,0.614190553162933,2020-08-23,1,Democrat,85,15,0,Elizabeth Warren,Democrat,0,About Half the time,0,0,50,85,15,2020,warm,1,Loser
 Weak Democrat,70,0,2,2,7,1,6,2,4,1,1,2,1,1.55696284729233,2020-08-20,2,Democrat,70,0,0,Elizabeth Warren,Democrat,0,Some of the Time,1,1,35,70,0,2020,warm,1,Loser
-Strong Democrat,-9,60,2,2,2,2,NA,2,4,1,1,2,1,0.605626258784911,2020-09-24,1,Democrat,NA,60,1,NA,NA,0,Some of the Time,1,1,25.5,-9,60,2020,cold,1,NA
+Strong Democrat,-9,60,2,2,2,2,NA,2,4,1,1,2,1,0.605626258784911,2020-09-24,1,Democrat,NA,60,1,NA,NA,0,Some of the Time,1,1,25.5,NA,60,2020,NA,1,NA
 Independent - Independent,50,50,4,-9,-9,2,NA,-6,5,1,1,-6,1,1.86251537481643,2020-08-23,4,Independent,50,50,1,NA,NA,NA,Never,1,NA,50,NA,NA,2020,NA,1,NA
 Strong Democrat,85,0,1,7,6,2,NA,2,4,1,1,1,1,0.524680960146384,2020-09-01,1,Democrat,85,0,1,NA,NA,0,Some of the Time,1,1,42.5,85,0,2020,warm,1,NA
 Strong Republican,0,100,6,1,6,1,8,1,2,1,0,3,1,0.675375264980062,2020-10-27,7,Republican,0,100,0,Donald Trump,Republican,0,Most of the Time,0,0,50,100,0,2020,warm,1,Winner
@@ -1866,7 +1866,7 @@ Independent - Republican,10,40,5,2,5,2,NA,2,4,0,1,2,3,0.992475999850288,2020-09-
 Independent - Democrat,30,0,2,3,7,2,NA,4,4,1,1,1,1,0.506197721970736,2020-09-09,3,Democrat,30,0,1,NA,NA,1,Some of the Time,1,1,15,30,0,2020,cold,1,NA
 Independent - Republican,40,70,6,2,6,1,8,1,2,0,1,2,1,1.2564896569576,2020-09-19,5,Republican,40,70,0,Donald Trump,Republican,0,Most of the Time,0,1,55,70,40,2020,warm,1,Winner
 Strong Republican,15,70,4,2,6,1,8,2,3,0,1,3,3,3.43109927384532,2020-08-18,7,Republican,15,70,0,Donald Trump,Republican,0,About Half the time,0,0,42.5,70,15,2020,warm,0,Winner
-Strong Democrat,-9,0,2,2,7,2,NA,4,4,1,1,4,1,0.558320518789429,2020-08-23,1,Democrat,NA,0,1,NA,NA,1,Some of the Time,1,0,-4.5,-9,0,2020,cold,1,NA
+Strong Democrat,-9,0,2,2,7,2,NA,4,4,1,1,4,1,0.558320518789429,2020-08-23,1,Democrat,NA,0,1,NA,NA,1,Some of the Time,1,0,-4.5,NA,0,2020,NA,1,NA
 Weak Republican,30,40,4,2,6,2,NA,1,2,1,0,5,1,0.577612504567989,2020-08-18,6,Republican,30,40,1,NA,NA,0,Most of the Time,0,0,35,40,30,2020,cold,1,NA
 Weak Republican,40,60,5,2,6,2,NA,2,4,1,0,2,1,0.905150166427476,2020-09-09,6,Republican,40,60,1,NA,NA,0,Some of the Time,1,1,50,60,40,2020,NA,1,NA
 Strong Democrat,70,30,2,2,7,1,1,1,2,1,0,4,1,0.482608096556201,2020-08-23,1,Democrat,70,30,0,Joe Biden,Democrat,0,Most of the Time,0,0,50,70,30,2020,warm,1,Winner
@@ -2034,7 +2034,7 @@ Strong Republican,15,85,6,2,6,1,8,2,2,0,0,4,3,0.435443748147337,2020-10-13,7,Rep
 Independent - Republican,30,70,6,1,5,1,8,4,4,1,1,1,1,3.26310626242321,2020-08-18,5,Republican,30,70,0,Donald Trump,Republican,1,Some of the Time,1,1,50,70,30,2020,warm,1,Winner
 Weak Republican,70,15,4,3,7,1,1,4,4,1,1,2,1,1.20362785526815,2020-08-29,6,Republican,70,15,0,Joe Biden,Democrat,1,Some of the Time,1,1,42.5,15,70,2020,cold,1,Voted in Other Party Primary
 Independent - Republican,0,40,5,1,6,2,NA,2,3,1,1,2,3,0.69075491613423,2020-08-19,5,Republican,0,40,1,NA,NA,0,About Half the time,0,1,20,40,0,2020,cold,0,NA
-Independent - Republican,-9,50,6,1,6,1,8,1,2,1,0,4,1,2.81620168297149,2020-08-18,5,Republican,NA,50,0,Donald Trump,Republican,0,Most of the Time,0,0,20.5,50,-9,2020,NA,1,Winner
+Independent - Republican,-9,50,6,1,6,1,8,1,2,1,0,4,1,2.81620168297149,2020-08-18,5,Republican,NA,50,0,Donald Trump,Republican,0,Most of the Time,0,0,20.5,50,NA,2020,NA,1,Winner
 Strong Republican,0,85,6,2,6,1,8,-5,3,1,1,4,1,0.977065247487091,2020-09-23,7,Republican,0,85,0,Donald Trump,Republican,NA,About Half the time,0,0,42.5,85,0,2020,warm,1,Winner
 Strong Democrat,85,15,99,1,7,1,1,-5,3,1,1,4,1,0.638981844533889,2020-10-14,1,Democrat,85,15,0,Joe Biden,Democrat,NA,About Half the time,0,0,50,85,15,2020,warm,1,Winner
 Independent - Independent,0,60,5,2,5,2,NA,5,4,0,1,1,3,0.700914828152541,2020-08-18,4,Independent,0,60,1,NA,NA,1,Some of the Time,1,1,30,NA,NA,2020,NA,0,NA
@@ -2077,7 +2077,7 @@ Weak Democrat,50,15,99,1,7,2,NA,2,3,1,1,2,1,1.27102529177393,2020-10-03,2,Democr
 Independent - Independent,60,30,4,4,4,2,NA,2,4,1,1,2,1,0.406654741183658,2020-08-18,4,Independent,60,30,1,NA,NA,0,Some of the Time,1,1,45,NA,NA,2020,NA,1,NA
 Independent - Independent,0,60,6,1,7,2,NA,4,4,1,1,2,3,3.04554159962452,2020-09-24,4,Independent,0,60,1,NA,NA,1,Some of the Time,1,1,30,NA,NA,2020,NA,0,NA
 Independent - Republican,60,70,99,2,6,2,NA,2,4,0,1,1,1,0.551055135363287,2020-08-25,5,Republican,60,70,1,NA,NA,0,Some of the Time,1,1,65,70,60,2020,warm,1,NA
-Strong Democrat,-9,30,4,2,6,1,1,1,2,1,0,5,1,0.523601201904584,2020-08-18,1,Democrat,NA,30,0,Joe Biden,Democrat,0,Most of the Time,0,0,10.5,-9,30,2020,cold,1,Winner
+Strong Democrat,-9,30,4,2,6,1,1,1,2,1,0,5,1,0.523601201904584,2020-08-18,1,Democrat,NA,30,0,Joe Biden,Democrat,0,Most of the Time,0,0,10.5,NA,30,2020,NA,1,Winner
 Weak Democrat,50,50,3,3,7,2,NA,2,3,1,1,3,1,0.299783376783413,2020-10-01,2,Democrat,50,50,1,NA,NA,0,About Half the time,0,0,50,50,50,2020,NA,1,NA
 Strong Republican,0,60,6,1,6,1,8,5,3,0,1,4,1,0.588106185246119,2020-10-16,7,Republican,0,60,0,Donald Trump,Republican,1,About Half the time,0,0,30,60,0,2020,NA,1,Winner
 Strong Democrat,60,0,1,3,7,1,6,4,2,1,1,4,1,1.418784608624,2020-08-20,1,Democrat,60,0,0,Elizabeth Warren,Democrat,1,Most of the Time,0,0,30,60,0,2020,NA,1,Loser
@@ -2151,15 +2151,15 @@ Strong Democrat,85,50,2,3,6,2,NA,2,2,1,1,1,1,0.237779909912945,2020-10-27,1,Demo
 Strong Republican,0,100,6,1,6,1,8,2,4,0,1,2,1,0.6496158567202,2020-08-18,7,Republican,0,100,0,Donald Trump,Republican,0,Some of the Time,1,1,50,100,0,2020,warm,1,Winner
 Strong Democrat,70,40,1,2,6,1,5,2,3,1,1,4,1,0.503923462790838,2020-08-18,1,Democrat,70,40,0,Bernie Sanders,Democrat,0,About Half the time,0,0,55,70,40,2020,warm,1,Loser
 Weak Democrat,85,15,4,2,6,2,NA,2,4,1,1,4,1,1.14312458666023,2020-09-08,2,Democrat,85,15,1,NA,NA,0,Some of the Time,1,0,50,85,15,2020,warm,1,NA
-Independent - Republican,-9,-9,2,7,4,2,NA,4,4,1,1,1,1,0.607338046526671,2020-09-11,5,Republican,NA,NA,1,NA,NA,1,Some of the Time,1,1,-9,-9,-9,2020,cold,1,NA
-Strong Republican,15,-9,4,1,4,1,9,4,2,0,0,2,1,0.495711686159539,2020-08-22,7,Republican,15,NA,0,Other Republican,Republican,1,Most of the Time,0,1,3,-9,15,2020,cold,1,Loser
+Independent - Republican,-9,-9,2,7,4,2,NA,4,4,1,1,1,1,0.607338046526671,2020-09-11,5,Republican,NA,NA,1,NA,NA,1,Some of the Time,1,1,-9,NA,NA,2020,NA,1,NA
+Strong Republican,15,-9,4,1,4,1,9,4,2,0,0,2,1,0.495711686159539,2020-08-22,7,Republican,15,NA,0,Other Republican,Republican,1,Most of the Time,0,1,3,NA,15,2020,NA,1,Loser
 Strong Republican,0,90,7,1,6,2,NA,4,2,0,1,1,1,0.905910762904652,2020-08-30,7,Republican,0,90,1,NA,NA,1,Most of the Time,0,1,45,90,0,2020,warm,1,NA
 Weak Republican,15,60,5,1,6,2,NA,2,4,1,1,1,1,0.42847763792278,2020-08-18,6,Republican,15,60,1,NA,NA,0,Some of the Time,1,1,37.5,60,15,2020,NA,1,NA
 Independent - Independent,0,60,99,1,5,1,8,4,4,1,1,1,1,0.409372163020914,2020-09-09,4,Independent,0,60,0,Donald Trump,Republican,1,Some of the Time,1,1,30,NA,NA,2020,NA,1,Voted in Other Party Primary
 Weak Democrat,70,4,99,4,4,2,NA,4,4,1,1,2,1,1.94762503732587,2020-08-18,2,Democrat,70,4,1,NA,NA,1,Some of the Time,1,1,37,70,4,2020,warm,1,NA
 Weak Democrat,75,10,2,3,6,1,3,2,3,1,1,3,1,0.809513802053449,2020-08-20,2,Democrat,75,10,0,Pete Buttigieg,Democrat,0,About Half the time,0,0,42.5,75,10,2020,warm,1,Loser
 Strong Democrat,60,30,3,4,6,1,5,2,4,1,1,2,1,0.323404402672578,2020-10-13,1,Democrat,60,30,0,Bernie Sanders,Democrat,0,Some of the Time,1,1,45,60,30,2020,NA,1,Loser
-Weak Republican,-9,-9,4,3,4,2,NA,2,4,1,NA,4,3,0.536220710901581,2020-09-15,6,Republican,NA,NA,1,NA,NA,0,Some of the Time,1,0,-9,-9,-9,2020,cold,0,NA
+Weak Republican,-9,-9,4,3,4,2,NA,2,4,1,NA,4,3,0.536220710901581,2020-09-15,6,Republican,NA,NA,1,NA,NA,0,Some of the Time,1,0,-9,NA,NA,2020,NA,0,NA
 Independent - Democrat,30,0,1,5,7,1,5,4,4,1,1,2,1,0.975587220955616,2020-08-25,3,Democrat,30,0,0,Bernie Sanders,Democrat,1,Some of the Time,1,1,15,30,0,2020,cold,1,Loser
 Weak Republican,0,70,6,2,6,1,8,4,4,0,1,2,1,0.618292727968801,2020-08-18,6,Republican,0,70,0,Donald Trump,Republican,1,Some of the Time,1,1,35,70,0,2020,warm,1,Winner
 Independent - Independent,60,60,2,1,7,2,NA,2,5,1,1,4,3,1.53775401986738,2020-09-11,4,Independent,60,60,1,NA,NA,0,Never,1,0,60,NA,NA,2020,NA,0,NA
@@ -2305,7 +2305,7 @@ Independent - Republican,40,70,6,1,6,1,8,2,3,1,1,1,1,0.486254098733405,2020-08-3
 Strong Democrat,85,40,4,4,6,1,1,2,4,1,1,2,1,0.404102987332119,2020-09-08,1,Democrat,85,40,0,Joe Biden,Democrat,0,Some of the Time,1,1,62.5,85,40,2020,warm,1,Winner
 Strong Democrat,100,0,99,4,7,1,1,2,3,1,1,5,1,0.968978449616653,2020-10-28,1,Democrat,100,0,0,Joe Biden,Democrat,0,About Half the time,0,0,50,100,0,2020,warm,1,Winner
 Independent - Independent,15,15,4,1,7,2,NA,4,3,1,1,1,1,0.813868965324365,2020-08-20,4,Independent,15,15,1,NA,NA,1,About Half the time,0,1,15,NA,NA,2020,NA,1,NA
-Strong Democrat,-9,-9,4,2,7,1,1,4,2,1,0,4,1,0.523201063054984,2020-09-09,1,Democrat,NA,NA,0,Joe Biden,Democrat,1,Most of the Time,0,0,-9,-9,-9,2020,cold,1,Winner
+Strong Democrat,-9,-9,4,2,7,1,1,4,2,1,0,4,1,0.523201063054984,2020-09-09,1,Democrat,NA,NA,0,Joe Biden,Democrat,1,Most of the Time,0,0,-9,NA,NA,2020,NA,1,Winner
 Independent - Democrat,55,55,4,2,6,2,NA,2,3,0,1,4,1,2.79520018972822,2020-09-26,3,Democrat,55,55,1,NA,NA,0,About Half the time,0,0,55,55,55,2020,NA,1,NA
 Strong Republican,30,60,6,2,5,1,8,4,4,1,1,4,1,0.304790634917235,2020-08-18,7,Republican,30,60,0,Donald Trump,Republican,1,Some of the Time,1,0,45,60,30,2020,NA,1,Winner
 Weak Democrat,45,0,1,4,7,1,5,4,4,1,1,2,1,1.29470344200947,2020-08-20,2,Democrat,45,0,0,Bernie Sanders,Democrat,1,Some of the Time,1,1,22.5,45,0,2020,cold,1,Loser
@@ -2377,7 +2377,7 @@ Strong Democrat,100,30,3,2,2,1,1,4,3,1,1,4,1,0.548387153634417,2020-08-22,1,Demo
 Weak Democrat,60,15,2,3,7,1,6,-5,-9,1,NA,2,1,0.768619716853713,2020-08-18,2,Democrat,60,15,0,Elizabeth Warren,Democrat,NA,NA,NA,1,37.5,60,15,2020,NA,1,Loser
 Independent - Republican,15,30,4,2,7,1,9,2,4,1,1,4,1,0.846363587000706,2020-08-18,5,Republican,15,30,0,Other Republican,Republican,0,Some of the Time,1,0,22.5,30,15,2020,cold,1,Loser
 Independent - Republican,15,60,5,2,6,2,NA,2,4,1,1,1,3,0.694148791413891,2020-10-12,5,Republican,15,60,1,NA,NA,0,Some of the Time,1,1,37.5,60,15,2020,NA,0,NA
-Strong Democrat,70,-9,4,3,6,1,8,4,4,0,1,2,3,0.657844688961828,2020-09-15,1,Democrat,70,NA,0,Donald Trump,Republican,1,Some of the Time,1,1,30.5,70,-9,2020,warm,0,Voted in Other Party Primary
+Strong Democrat,70,-9,4,3,6,1,8,4,4,0,1,2,3,0.657844688961828,2020-09-15,1,Democrat,70,NA,0,Donald Trump,Republican,1,Some of the Time,1,1,30.5,70,NA,2020,warm,0,Voted in Other Party Primary
 Independent - Democrat,70,15,3,2,7,2,NA,2,2,1,1,5,1,1.0867581797448,2020-10-17,3,Democrat,70,15,1,NA,NA,0,Most of the Time,0,0,42.5,70,15,2020,warm,1,NA
 Weak Republican,30,50,4,4,4,2,NA,2,4,1,0,3,1,0.276112967744911,2020-09-08,6,Republican,30,50,1,NA,NA,0,Some of the Time,1,0,40,50,30,2020,NA,1,NA
 Weak Republican,50,100,99,1,7,2,NA,2,2,0,0,3,1,0.684212725179606,2020-10-15,6,Republican,50,100,1,NA,NA,0,Most of the Time,0,0,75,100,50,2020,warm,1,NA
@@ -2582,14 +2582,14 @@ Independent - Republican,0,60,6,1,5,1,8,4,5,0,1,3,3,0.633252220495039,2020-08-28
 Weak Republican,0,70,4,1,4,2,NA,4,3,1,1,2,1,0.512641200058828,2020-08-18,6,Republican,0,70,1,NA,NA,1,About Half the time,0,1,35,70,0,2020,warm,1,NA
 Strong Democrat,100,0,3,2,6,1,1,-7,4,1,NA,-7,2,1.30896761247328,2020-08-24,1,Democrat,100,0,0,Joe Biden,Democrat,NA,Some of the Time,1,NA,50,100,0,2020,warm,0,Winner
 Independent - Republican,0,60,5,1,5,2,NA,2,5,1,1,2,1,0.598178598290533,2020-09-08,5,Republican,0,60,1,NA,NA,0,Never,1,1,30,60,0,2020,NA,1,NA
-Strong Republican,-9,-9,6,1,6,1,8,4,4,0,1,1,3,0.962242836932661,2020-08-27,7,Republican,NA,NA,0,Donald Trump,Republican,1,Some of the Time,1,1,-9,-9,-9,2020,cold,0,Winner
+Strong Republican,-9,-9,6,1,6,1,8,4,4,0,1,1,3,0.962242836932661,2020-08-27,7,Republican,NA,NA,0,Donald Trump,Republican,1,Some of the Time,1,1,-9,NA,NA,2020,NA,0,Winner
 Independent - Democrat,50,50,3,5,6,2,NA,2,4,1,1,1,1,0.729626735152716,2020-09-20,3,Democrat,50,50,1,NA,NA,0,Some of the Time,1,1,50,50,50,2020,NA,1,NA
 Weak Democrat,60,30,6,4,7,1,1,2,4,1,1,2,1,0.736635414684102,2020-08-29,2,Democrat,60,30,0,Joe Biden,Democrat,0,Some of the Time,1,1,45,60,30,2020,NA,1,Winner
 Independent - Republican,30,70,99,1,6,2,NA,2,2,1,0,2,1,0.42817142707456,2020-08-28,5,Republican,30,70,1,NA,NA,0,Most of the Time,0,1,50,70,30,2020,warm,1,NA
 Strong Republican,0,100,7,1,7,1,8,1,2,0,0,2,3,0.30303579151181,2020-09-26,7,Republican,0,100,0,Donald Trump,Republican,0,Most of the Time,0,1,50,100,0,2020,warm,0,Winner
 Independent - Democrat,60,40,5,1,7,2,NA,2,3,1,1,2,1,0.398835833877031,2020-08-21,3,Democrat,60,40,1,NA,NA,0,About Half the time,0,1,50,60,40,2020,NA,1,NA
 Strong Democrat,85,0,4,3,7,1,4,2,4,1,1,4,1,0.343072838168387,2020-10-01,1,Democrat,85,0,0,Amy Klobuchar,Democrat,0,Some of the Time,1,0,42.5,85,0,2020,warm,1,Loser
-Strong Republican,0,85,6,1,6,1,8,4,5,0,1,5,3,1.7642055294791401,2020-09-29,7,Republican,0,85,0,Donald Trump,Republican,1,Never,1,0,42.5,85,0,2020,warm,0,Winner
+Strong Republican,0,85,6,1,6,1,8,4,5,0,1,5,3,1.7642055294791399,2020-09-29,7,Republican,0,85,0,Donald Trump,Republican,1,Never,1,0,42.5,85,0,2020,warm,0,Winner
 Strong Democrat,95,0,2,2,7,1,1,2,2,1,0,4,1,0.416689933798773,2020-09-10,1,Democrat,95,0,0,Joe Biden,Democrat,0,Most of the Time,0,0,47.5,95,0,2020,warm,1,Winner
 Independent - Republican,0,70,6,1,5,2,NA,2,4,0,1,1,1,1.04614708733409,2020-08-20,5,Republican,0,70,1,NA,NA,0,Some of the Time,1,1,35,70,0,2020,warm,1,NA
 Independent - Democrat,50,30,3,4,4,2,NA,-6,4,0,0,-6,1,0.375061386359411,2020-10-12,3,Democrat,50,30,1,NA,NA,NA,Some of the Time,1,NA,40,50,30,2020,NA,1,NA
@@ -2662,7 +2662,7 @@ Strong Republican,0,100,6,2,6,2,NA,4,5,0,1,1,3,0.94299136182236,2020-08-26,7,Rep
 Independent - Republican,50,70,99,1,6,2,NA,5,3,0,1,1,2,0.622851627079193,2020-08-20,5,Republican,50,70,1,NA,NA,1,About Half the time,0,1,60,70,50,2020,warm,0,NA
 Independent - Republican,60,40,4,2,6,1,9,2,4,1,1,2,1,0.879077727300322,2020-08-23,5,Republican,60,40,0,Other Republican,Republican,0,Some of the Time,1,1,50,40,60,2020,cold,1,Loser
 Weak Democrat,65,10,2,3,7,1,5,4,3,1,1,2,1,1.03942486831034,2020-08-18,2,Democrat,65,10,0,Bernie Sanders,Democrat,1,About Half the time,0,1,37.5,65,10,2020,NA,1,Loser
-Independent - Democrat,50,-9,2,3,6,2,NA,4,-9,1,NA,3,1,1.32757599185261,2020-08-23,3,Democrat,50,NA,1,NA,NA,1,NA,NA,0,20.5,50,-9,2020,NA,1,NA
+Independent - Democrat,50,-9,2,3,6,2,NA,4,-9,1,NA,3,1,1.32757599185261,2020-08-23,3,Democrat,50,NA,1,NA,NA,1,NA,NA,0,20.5,50,NA,2020,NA,1,NA
 Independent - Republican,30,60,5,1,4,2,NA,2,2,0,0,2,3,0.313280837262649,2020-08-27,5,Republican,30,60,1,NA,NA,0,Most of the Time,0,1,45,60,30,2020,NA,0,NA
 Strong Republican,0,70,6,1,6,1,8,-7,4,0,1,-7,3,2.3486295621062,2020-10-20,7,Republican,0,70,0,Donald Trump,Republican,NA,Some of the Time,1,NA,35,70,0,2020,warm,0,Winner
 Strong Republican,80,70,6,1,6,1,8,5,3,0,0,1,3,0.268044519008698,2020-10-29,7,Republican,80,70,0,Donald Trump,Republican,1,About Half the time,0,1,75,70,80,2020,warm,0,Winner
@@ -2675,7 +2675,7 @@ Strong Republican,30,85,6,2,6,1,8,5,3,0,1,4,2,0.834103091325568,2020-08-18,7,Rep
 Strong Republican,30,70,6,1,6,1,8,4,4,1,1,2,1,0.853286323118164,2020-09-11,7,Republican,30,70,0,Donald Trump,Republican,1,Some of the Time,1,1,50,70,30,2020,warm,1,Winner
 Strong Democrat,85,15,2,2,6,2,NA,2,5,1,1,4,1,0.575862506708925,2020-09-07,1,Democrat,85,15,1,NA,NA,0,Never,1,0,50,85,15,2020,warm,1,NA
 Strong Republican,0,100,5,1,7,1,8,2,2,0,1,2,1,0.849862770974985,2020-09-13,7,Republican,0,100,0,Donald Trump,Republican,0,Most of the Time,0,1,50,100,0,2020,warm,1,Winner
-Strong Republican,-9,0,6,1,6,1,8,2,3,0,1,2,3,1.41197168318686,2020-09-30,7,Republican,NA,0,0,Donald Trump,Republican,0,About Half the time,0,1,-4.5,0,-9,2020,cold,0,Winner
+Strong Republican,-9,0,6,1,6,1,8,2,3,0,1,2,3,1.41197168318686,2020-09-30,7,Republican,NA,0,0,Donald Trump,Republican,0,About Half the time,0,1,-4.5,0,NA,2020,cold,0,Winner
 Strong Democrat,70,0,2,3,6,1,1,2,4,1,1,2,1,0.52539043712145,2020-08-26,1,Democrat,70,0,0,Joe Biden,Democrat,0,Some of the Time,1,1,35,70,0,2020,warm,1,Winner
 Strong Democrat,30,70,4,2,6,1,5,2,2,0,0,1,3,0.625804204534101,2020-09-26,1,Democrat,30,70,0,Bernie Sanders,Democrat,0,Most of the Time,0,1,50,30,70,2020,cold,0,Loser
 Independent - Independent,40,0,99,4,7,2,NA,2,5,1,1,1,1,2.73669336692528,2020-09-10,4,Independent,40,0,1,NA,NA,0,Never,1,1,20,NA,NA,2020,NA,1,NA
@@ -2738,7 +2738,7 @@ Strong Republican,0,85,6,2,6,1,8,2,3,1,1,4,2,0.746187535596147,2020-08-23,7,Repu
 Strong Republican,0,75,6,1,5,1,8,4,4,0,1,4,3,1.08577290064573,2020-10-13,7,Republican,0,75,0,Donald Trump,Republican,1,Some of the Time,1,0,37.5,75,0,2020,warm,0,Winner
 Strong Democrat,85,0,2,2,7,1,1,2,5,1,1,3,1,0.426301497292055,2020-08-18,1,Democrat,85,0,0,Joe Biden,Democrat,0,Never,1,0,42.5,85,0,2020,warm,1,Winner
 Strong Democrat,70,20,2,2,6,1,1,4,3,1,1,4,1,1.03090849543247,2020-08-18,1,Democrat,70,20,0,Joe Biden,Democrat,1,About Half the time,0,0,45,70,20,2020,warm,1,Winner
-Strong Republican,0,-9,7,1,6,2,NA,2,4,1,1,2,1,0.35898283530205,2020-09-08,7,Republican,0,NA,1,NA,NA,0,Some of the Time,1,1,-4.5,-9,0,2020,cold,1,NA
+Strong Republican,0,-9,7,1,6,2,NA,2,4,1,1,2,1,0.35898283530205,2020-09-08,7,Republican,0,NA,1,NA,NA,0,Some of the Time,1,1,-4.5,NA,0,2020,NA,1,NA
 Independent - Democrat,60,0,3,3,6,2,NA,4,5,1,1,1,1,0.498190151686201,2020-08-19,3,Democrat,60,0,1,NA,NA,1,Never,1,1,30,60,0,2020,NA,1,NA
 Weak Democrat,15,15,4,2,6,2,NA,1,4,0,1,2,3,1.84023244426185,2020-09-02,2,Democrat,15,15,1,NA,NA,0,Some of the Time,1,1,15,15,15,2020,cold,0,NA
 Strong Republican,0,100,6,1,6,2,NA,1,5,0,1,2,1,0.525947381367322,2020-08-23,7,Republican,0,100,1,NA,NA,0,Never,1,1,50,100,0,2020,warm,1,NA
@@ -2750,7 +2750,7 @@ Strong Republican,0,85,6,1,6,1,8,2,3,1,1,1,1,0.516623424436447,2020-10-28,7,Repu
 Strong Democrat,100,0,99,3,6,2,NA,2,3,1,1,3,1,0.458715214292773,2020-08-19,1,Democrat,100,0,1,NA,NA,0,About Half the time,0,0,50,100,0,2020,warm,1,NA
 Weak Democrat,50,50,4,4,5,2,NA,2,4,1,1,2,1,0.211302230700254,2020-09-08,2,Democrat,50,50,1,NA,NA,0,Some of the Time,1,1,50,50,50,2020,NA,1,NA
 Independent - Democrat,100,0,1,4,7,2,NA,5,4,1,1,1,1,1.3097626329879,2020-09-11,3,Democrat,100,0,1,NA,NA,1,Some of the Time,1,1,50,100,0,2020,warm,1,NA
-Strong Republican,-9,70,6,1,6,1,8,4,4,1,1,1,1,0.693250406060944,2020-09-10,7,Republican,NA,70,0,Donald Trump,Republican,1,Some of the Time,1,1,30.5,70,-9,2020,warm,1,Winner
+Strong Republican,-9,70,6,1,6,1,8,4,4,1,1,1,1,0.693250406060944,2020-09-10,7,Republican,NA,70,0,Donald Trump,Republican,1,Some of the Time,1,1,30.5,70,NA,2020,warm,1,Winner
 Independent - Republican,77,77,4,3,6,2,NA,2,2,1,1,3,1,1.76163527944109,2020-08-18,5,Republican,77,77,1,NA,NA,0,Most of the Time,0,0,77,77,77,2020,warm,1,NA
 Independent - Independent,50,50,99,4,4,2,NA,4,4,0,0,2,1,0.784368332256279,2020-08-21,4,Independent,50,50,1,NA,NA,1,Some of the Time,1,1,50,NA,NA,2020,NA,1,NA
 Strong Republican,0,70,99,2,4,1,8,2,2,0,0,2,1,0.507249390554135,2020-09-02,7,Republican,0,70,0,Donald Trump,Republican,0,Most of the Time,0,1,35,70,0,2020,warm,1,Winner
@@ -2976,7 +2976,7 @@ Independent - Independent,50,30,4,3,7,1,1,-6,5,1,1,-6,1,1.17846242710947,2020-10
 Strong Democrat,85,30,2,2,7,1,1,4,4,1,1,3,3,0.475442758384888,2020-08-26,1,Democrat,85,30,0,Joe Biden,Democrat,1,Some of the Time,1,0,57.5,85,30,2020,warm,0,Winner
 Independent - Independent,40,40,4,4,4,1,1,4,4,1,1,5,1,0.895831785193069,2020-10-24,4,Independent,40,40,0,Joe Biden,Democrat,1,Some of the Time,1,0,40,NA,NA,2020,NA,1,Voted in Other Party Primary
 Strong Republican,10,90,6,2,6,1,8,2,4,0,1,2,1,0.987559174994582,2020-10-26,7,Republican,10,90,0,Donald Trump,Republican,0,Some of the Time,1,1,50,90,10,2020,warm,1,Winner
-Independent - Republican,-9,-9,5,1,-9,1,8,2,3,NA,1,2,3,1.16790165154838,2020-09-13,5,Republican,NA,NA,0,Donald Trump,Republican,0,About Half the time,0,1,-9,-9,-9,2020,cold,0,Winner
+Independent - Republican,-9,-9,5,1,-9,1,8,2,3,NA,1,2,3,1.16790165154838,2020-09-13,5,Republican,NA,NA,0,Donald Trump,Republican,0,About Half the time,0,1,-9,NA,NA,2020,NA,0,Winner
 Independent - Republican,40,50,4,2,6,2,NA,2,3,0,1,4,1,1.41850801113875,2020-09-13,5,Republican,40,50,1,NA,NA,0,About Half the time,0,0,45,50,40,2020,NA,1,NA
 Strong Democrat,70,5,2,3,7,1,6,4,2,1,1,3,1,1.31918534092529,2020-09-24,1,Democrat,70,5,0,Elizabeth Warren,Democrat,1,Most of the Time,0,0,37.5,70,5,2020,warm,1,Loser
 Strong Republican,15,85,7,1,6,2,NA,4,3,0,0,5,3,0.423943376568156,2020-09-13,7,Republican,15,85,1,NA,NA,1,About Half the time,0,0,50,85,15,2020,warm,0,NA
@@ -2990,7 +2990,7 @@ Independent - Independent,15,60,4,1,6,1,10,5,5,0,1,1,3,0.954431834462157,2020-09
 Strong Republican,15,85,6,2,6,2,NA,2,5,1,1,2,1,1.49948108358278,2020-10-01,7,Republican,15,85,1,NA,NA,0,Never,1,1,50,85,15,2020,warm,1,NA
 Strong Democrat,100,0,4,4,7,2,NA,2,4,1,1,1,1,1.77159353498202,2020-09-22,1,Democrat,100,0,1,NA,NA,0,Some of the Time,1,1,50,100,0,2020,warm,1,NA
 Weak Democrat,70,25,2,2,7,2,NA,-7,4,1,1,-7,1,0.46651040000377,2020-10-02,2,Democrat,70,25,1,NA,NA,NA,Some of the Time,1,NA,47.5,70,25,2020,warm,1,NA
-Weak Democrat,-9,30,2,4,6,2,NA,5,5,1,1,5,1,0.544053478352486,2020-09-14,2,Democrat,NA,30,1,NA,NA,1,Never,1,0,10.5,-9,30,2020,cold,1,NA
+Weak Democrat,-9,30,2,4,6,2,NA,5,5,1,1,5,1,0.544053478352486,2020-09-14,2,Democrat,NA,30,1,NA,NA,1,Never,1,0,10.5,NA,30,2020,NA,1,NA
 Independent - Democrat,30,50,3,1,6,2,NA,2,4,1,1,4,1,2.29518324002357,2020-10-30,3,Democrat,30,50,1,NA,NA,0,Some of the Time,1,0,40,30,50,2020,cold,1,NA
 Weak Democrat,50,60,99,1,7,1,8,4,4,0,1,2,1,1.57943587761737,2020-10-14,2,Democrat,50,60,0,Donald Trump,Republican,1,Some of the Time,1,1,55,50,60,2020,NA,1,Voted in Other Party Primary
 Weak Republican,15,70,5,1,6,1,8,2,4,0,1,2,1,1.45866231515588,2020-09-18,6,Republican,15,70,0,Donald Trump,Republican,0,Some of the Time,1,1,42.5,70,15,2020,warm,1,Winner
@@ -3355,7 +3355,7 @@ Independent - Independent,50,50,4,4,4,2,NA,-6,5,0,1,-6,3,0.0740619918310002,2020
 Independent - Republican,40,50,4,2,5,1,1,2,4,1,1,3,1,1.01597440025169,2020-09-17,5,Republican,40,50,0,Joe Biden,Democrat,0,Some of the Time,1,0,45,50,40,2020,NA,1,Voted in Other Party Primary
 Strong Democrat,50,0,99,4,7,2,NA,4,4,1,1,2,1,3.30783241321045,2020-09-22,1,Democrat,50,0,1,NA,NA,1,Some of the Time,1,1,25,50,0,2020,NA,1,NA
 Independent - Independent,50,50,4,2,6,2,NA,1,3,1,1,2,1,1.05322129918206,2020-08-24,4,Independent,50,50,1,NA,NA,0,About Half the time,0,1,50,NA,NA,2020,NA,1,NA
-Weak Republican,-9,-9,99,-9,-9,2,NA,2,2,0,1,4,1,0.462931353052872,2020-08-26,6,Republican,NA,NA,1,NA,NA,0,Most of the Time,0,0,-9,-9,-9,2020,cold,1,NA
+Weak Republican,-9,-9,99,-9,-9,2,NA,2,2,0,1,4,1,0.462931353052872,2020-08-26,6,Republican,NA,NA,1,NA,NA,0,Most of the Time,0,0,-9,NA,NA,2020,NA,1,NA
 Strong Republican,0,100,99,1,6,2,NA,5,4,1,1,1,1,0.12923505983983,2020-09-09,7,Republican,0,100,1,NA,NA,1,Some of the Time,1,1,50,100,0,2020,warm,1,NA
 Independent - Independent,50,50,4,1,7,2,NA,2,5,1,1,4,3,0.266719824882152,2020-08-28,4,Independent,50,50,1,NA,NA,0,Never,1,0,50,NA,NA,2020,NA,0,NA
 Independent - Independent,60,40,3,2,6,2,NA,5,4,1,1,2,1,1.12843989992542,2020-09-01,4,Independent,60,40,1,NA,NA,1,Some of the Time,1,1,50,NA,NA,2020,NA,1,NA
@@ -3381,14 +3381,14 @@ Independent - Democrat,85,50,99,2,6,2,NA,4,4,1,1,4,1,2.37278971008226,2020-08-28
 Independent - Independent,15,15,2,1,6,1,2,2,4,1,NA,1,3,1.28486255915492,2020-09-14,4,Independent,15,15,0,Michael Bloomberg,Democrat,0,Some of the Time,1,1,15,NA,NA,2020,NA,0,Voted in Other Party Primary
 Independent - Republican,0,60,5,1,6,2,NA,4,4,1,1,2,3,0.888594277874216,2020-10-07,5,Republican,0,60,1,NA,NA,1,Some of the Time,1,1,30,60,0,2020,NA,0,NA
 Strong Democrat,100,30,3,3,7,1,5,2,3,1,1,5,1,0.190362262145318,2020-09-29,1,Democrat,100,30,0,Bernie Sanders,Democrat,0,About Half the time,0,0,65,100,30,2020,warm,1,Loser
-Strong Republican,-9,-9,4,1,7,2,NA,4,3,0,1,1,1,0.189425357791231,2020-09-22,7,Republican,NA,NA,1,NA,NA,1,About Half the time,0,1,-9,-9,-9,2020,cold,1,NA
+Strong Republican,-9,-9,4,1,7,2,NA,4,3,0,1,1,1,0.189425357791231,2020-09-22,7,Republican,NA,NA,1,NA,NA,1,About Half the time,0,1,-9,NA,NA,2020,NA,1,NA
 Strong Democrat,78,0,4,2,6,1,6,2,3,1,1,4,1,0.383830431613261,2020-09-20,1,Democrat,78,0,0,Elizabeth Warren,Democrat,0,About Half the time,0,0,39,78,0,2020,warm,1,Loser
 Strong Democrat,85,0,4,3,3,2,NA,2,5,1,1,3,3,1.87083273428599,2020-09-22,1,Democrat,85,0,1,NA,NA,0,Never,1,0,42.5,85,0,2020,warm,0,NA
 Independent - Independent,50,50,99,2,2,2,NA,5,2,1,1,1,1,0.22095575935788,2020-09-03,4,Independent,50,50,1,NA,NA,1,Most of the Time,0,1,50,NA,NA,2020,NA,1,NA
 Independent - Independent,60,40,5,2,6,1,2,2,4,1,1,4,1,0.302259399025703,2020-08-24,4,Independent,60,40,0,Michael Bloomberg,Democrat,0,Some of the Time,1,0,50,NA,NA,2020,NA,1,Voted in Other Party Primary
 Strong Democrat,100,0,99,1,1,2,NA,4,2,1,0,3,2,0.621567743403619,2020-10-14,1,Democrat,100,0,1,NA,NA,1,Most of the Time,0,0,50,100,0,2020,warm,0,NA
 Weak Democrat,60,50,99,3,6,2,NA,5,4,1,1,1,1,0.593309518296795,2020-08-20,2,Democrat,60,50,1,NA,NA,1,Some of the Time,1,1,55,60,50,2020,NA,1,NA
-Strong Democrat,-9,-9,4,5,1,1,1,2,2,1,1,2,1,0.408657253035673,2020-09-19,1,Democrat,NA,NA,0,Joe Biden,Democrat,0,Most of the Time,0,1,-9,-9,-9,2020,cold,1,Winner
+Strong Democrat,-9,-9,4,5,1,1,1,2,2,1,1,2,1,0.408657253035673,2020-09-19,1,Democrat,NA,NA,0,Joe Biden,Democrat,0,Most of the Time,0,1,-9,NA,NA,2020,NA,1,Winner
 Weak Democrat,100,0,4,4,6,1,6,2,3,1,1,2,1,0.264886639434295,2020-09-06,2,Democrat,100,0,0,Elizabeth Warren,Democrat,0,About Half the time,0,1,50,100,0,2020,warm,1,Loser
 Strong Republican,40,100,7,3,5,1,8,2,3,0,1,2,3,0.840499697261951,2020-08-24,7,Republican,40,100,0,Donald Trump,Republican,0,About Half the time,0,1,70,100,40,2020,warm,0,Winner
 Independent - Democrat,70,0,4,2,7,2,NA,2,4,1,1,4,1,1.21207209195312,2020-08-23,3,Democrat,70,0,1,NA,NA,0,Some of the Time,1,0,35,70,0,2020,warm,1,NA
@@ -3423,10 +3423,10 @@ Weak Republican,30,85,6,1,7,2,NA,-6,4,1,1,-6,3,1.07061833483273,2020-10-08,6,Rep
 Strong Republican,30,60,7,2,6,2,NA,5,3,0,1,1,3,1.07451934059157,2020-09-01,7,Republican,30,60,1,NA,NA,1,About Half the time,0,1,45,60,30,2020,NA,0,NA
 Strong Democrat,70,30,2,3,7,1,1,4,3,1,1,2,1,2.50018795425169,2020-09-06,1,Democrat,70,30,0,Joe Biden,Democrat,1,About Half the time,0,1,50,70,30,2020,warm,1,Winner
 Strong Democrat,85,0,2,2,6,1,1,2,4,1,1,4,1,0.462933234377404,2020-09-16,1,Democrat,85,0,0,Joe Biden,Democrat,0,Some of the Time,1,0,42.5,85,0,2020,warm,1,Winner
-Strong Democrat,-9,-9,4,2,7,2,NA,4,2,1,0,4,1,0.0930231447018832,2020-09-15,1,Democrat,NA,NA,1,NA,NA,1,Most of the Time,0,0,-9,-9,-9,2020,cold,1,NA
+Strong Democrat,-9,-9,4,2,7,2,NA,4,2,1,0,4,1,0.0930231447018832,2020-09-15,1,Democrat,NA,NA,1,NA,NA,1,Most of the Time,0,0,-9,NA,NA,2020,NA,1,NA
 Weak Democrat,70,15,99,4,6,2,NA,2,4,1,1,2,1,1.29891584051912,2020-09-29,2,Democrat,70,15,1,NA,NA,0,Some of the Time,1,1,42.5,70,15,2020,warm,1,NA
 Independent - Independent,50,50,4,1,7,1,8,2,3,1,1,3,1,0.381282112029189,2020-10-14,4,Independent,50,50,0,Donald Trump,Republican,0,About Half the time,0,0,50,NA,NA,2020,NA,1,Voted in Other Party Primary
-Strong Republican,-9,-9,99,4,6,2,NA,5,2,0,1,1,1,0.397580556512352,2020-09-14,7,Republican,NA,NA,1,NA,NA,1,Most of the Time,0,1,-9,-9,-9,2020,cold,1,NA
+Strong Republican,-9,-9,99,4,6,2,NA,5,2,0,1,1,1,0.397580556512352,2020-09-14,7,Republican,NA,NA,1,NA,NA,1,Most of the Time,0,1,-9,NA,NA,2020,NA,1,NA
 Strong Democrat,85,0,2,2,7,1,1,2,4,1,1,4,1,1.08671755104402,2020-09-02,1,Democrat,85,0,0,Joe Biden,Democrat,0,Some of the Time,1,0,42.5,85,0,2020,warm,1,Winner
 Strong Republican,0,100,6,1,6,2,NA,1,3,0,0,1,2,0.94846999958684,2020-09-14,7,Republican,0,100,1,NA,NA,0,About Half the time,0,1,50,100,0,2020,warm,0,NA
 Strong Republican,0,85,6,1,6,1,8,1,3,0,1,1,1,0.664202293051974,2020-09-22,7,Republican,0,85,0,Donald Trump,Republican,0,About Half the time,0,1,42.5,85,0,2020,warm,1,Winner
@@ -3475,7 +3475,7 @@ Independent - Independent,50,50,4,2,6,1,8,2,3,0,1,2,3,3.48394213155378,2020-09-2
 Strong Democrat,85,50,2,2,6,2,NA,2,3,1,1,3,1,0.357885608945589,2020-09-18,1,Democrat,85,50,1,NA,NA,0,About Half the time,0,0,67.5,85,50,2020,warm,1,NA
 Weak Republican,0,70,6,1,6,2,NA,1,3,0,1,3,1,0.661485970464519,2020-10-04,6,Republican,0,70,1,NA,NA,0,About Half the time,0,0,35,70,0,2020,warm,1,NA
 Weak Democrat,100,20,4,1,7,2,NA,4,1,1,1,2,2,0.978919065990581,2020-10-17,2,Democrat,100,20,1,NA,NA,1,Always,0,1,60,100,20,2020,warm,0,NA
-Strong Democrat,-9,-9,5,3,3,2,NA,4,5,1,1,2,3,0.345067616747397,2020-10-14,1,Democrat,NA,NA,1,NA,NA,1,Never,1,1,-9,-9,-9,2020,cold,0,NA
+Strong Democrat,-9,-9,5,3,3,2,NA,4,5,1,1,2,3,0.345067616747397,2020-10-14,1,Democrat,NA,NA,1,NA,NA,1,Never,1,1,-9,NA,NA,2020,NA,0,NA
 Strong Democrat,70,15,99,2,6,1,1,2,5,1,1,1,1,1.28348740413248,2020-09-14,1,Democrat,70,15,0,Joe Biden,Democrat,0,Never,1,1,42.5,70,15,2020,warm,1,Winner
 Strong Republican,0,100,99,1,6,2,NA,4,2,1,1,5,3,0.198429379762384,2020-09-15,7,Republican,0,100,1,NA,NA,1,Most of the Time,0,0,50,100,0,2020,warm,0,NA
 Strong Republican,30,85,6,1,6,1,8,2,3,1,0,1,3,1.36123287533508,2020-09-16,7,Republican,30,85,0,Donald Trump,Republican,0,About Half the time,0,1,57.5,85,30,2020,warm,0,Winner
@@ -3498,7 +3498,7 @@ Strong Democrat,85,30,3,2,6,1,1,2,4,1,1,2,1,1.06495573602876,2020-08-19,1,Democr
 Strong Democrat,85,15,2,3,7,1,1,2,3,1,1,4,1,0.982245213543241,2020-08-24,1,Democrat,85,15,0,Joe Biden,Democrat,0,About Half the time,0,0,50,85,15,2020,warm,1,Winner
 Strong Democrat,85,0,1,2,6,1,1,2,4,1,1,3,1,0.434228219926406,2020-09-19,1,Democrat,85,0,0,Joe Biden,Democrat,0,Some of the Time,1,0,42.5,85,0,2020,warm,1,Winner
 Independent - Democrat,60,40,3,2,6,2,NA,4,4,1,1,1,1,0.343372828564562,2020-09-22,3,Democrat,60,40,1,NA,NA,1,Some of the Time,1,1,50,60,40,2020,NA,1,NA
-Weak Democrat,-9,-9,99,5,4,1,10,2,4,1,1,-9,3,0.174148706582456,2020-09-13,2,Democrat,NA,NA,0,Someone Neither Dem. Nor Rep.,Other Party,0,Some of the Time,1,NA,-9,-9,-9,2020,cold,0,Voted in Other Party Primary
+Weak Democrat,-9,-9,99,5,4,1,10,2,4,1,1,-9,3,0.174148706582456,2020-09-13,2,Democrat,NA,NA,0,Someone Neither Dem. Nor Rep.,Other Party,0,Some of the Time,1,NA,-9,NA,NA,2020,NA,0,Voted in Other Party Primary
 Strong Republican,0,100,7,7,1,2,NA,5,2,0,0,2,1,0.320349663571169,2020-09-22,7,Republican,0,100,1,NA,NA,1,Most of the Time,0,1,50,100,0,2020,warm,1,NA
 Strong Republican,5,70,6,1,6,1,8,2,4,1,1,2,3,2.72376956958938,2020-09-22,7,Republican,5,70,0,Donald Trump,Republican,0,Some of the Time,1,1,37.5,70,5,2020,warm,0,Winner
 Independent - Democrat,70,30,2,2,7,2,NA,1,2,1,1,2,1,0.740928477078293,2020-08-29,3,Democrat,70,30,1,NA,NA,0,Most of the Time,0,1,50,70,30,2020,warm,1,NA
@@ -3609,9 +3609,9 @@ Weak Democrat,85,0,4,1,7,2,NA,2,3,1,1,4,3,2.49284959708791,2020-10-05,2,Democrat
 Strong Republican,0,85,99,1,6,2,NA,2,5,0,1,1,3,0.237234100750232,2020-09-15,7,Republican,0,85,1,NA,NA,0,Never,1,1,42.5,85,0,2020,warm,0,NA
 Strong Democrat,75,5,2,2,7,1,6,2,4,1,1,2,1,1.60410660410224,2020-09-13,1,Democrat,75,5,0,Elizabeth Warren,Democrat,0,Some of the Time,1,1,40,75,5,2020,warm,1,Loser
 Independent - Democrat,80,40,99,2,6,2,NA,2,3,1,1,2,3,1.09103343686517,2020-08-24,3,Democrat,80,40,1,NA,NA,0,About Half the time,0,1,60,80,40,2020,warm,0,NA
-Strong Republican,15,-9,5,1,5,1,9,2,3,1,1,2,3,0.775309624492807,2020-08-24,7,Republican,15,NA,0,Other Republican,Republican,0,About Half the time,0,1,3,-9,15,2020,cold,0,Loser
+Strong Republican,15,-9,5,1,5,1,9,2,3,1,1,2,3,0.775309624492807,2020-08-24,7,Republican,15,NA,0,Other Republican,Republican,0,About Half the time,0,1,3,NA,15,2020,NA,0,Loser
 Independent - Independent,-9,-9,99,-9,-9,1,10,-6,-9,0,NA,-6,3,0.451038371385802,2020-09-23,4,Independent,NA,NA,0,Someone Neither Dem. Nor Rep.,Other Party,NA,NA,NA,NA,-9,NA,NA,2020,NA,0,Voted in Other Party Primary
-Strong Republican,95,-9,6,1,6,1,8,1,2,0,0,4,2,1.66448222220207,2020-10-15,7,Republican,95,NA,0,Donald Trump,Republican,0,Most of the Time,0,0,43,-9,95,2020,cold,0,Winner
+Strong Republican,95,-9,6,1,6,1,8,1,2,0,0,4,2,1.66448222220207,2020-10-15,7,Republican,95,NA,0,Donald Trump,Republican,0,Most of the Time,0,0,43,NA,95,2020,NA,0,Winner
 Weak Republican,10,70,6,1,6,2,NA,2,4,1,1,1,1,0.807252703351806,2020-08-19,6,Republican,10,70,1,NA,NA,0,Some of the Time,1,1,40,70,10,2020,warm,1,NA
 NA,80,0,99,2,7,-9,NA,-7,4,1,1,-7,1,2.44696811241453,2020-08-25,-9,NA,80,0,NA,NA,NA,NA,Some of the Time,1,NA,40,NA,NA,2020,NA,1,NA
 Strong Democrat,60,15,4,4,7,2,NA,2,4,1,1,4,1,2.12563144990279,2020-09-23,1,Democrat,60,15,1,NA,NA,0,Some of the Time,1,0,37.5,60,15,2020,NA,1,NA
@@ -3835,7 +3835,7 @@ Independent - Independent,0,0,99,4,4,1,10,2,5,1,1,2,2,0.488253722483987,2020-10-
 Strong Republican,0,85,6,1,6,1,8,1,2,0,0,4,1,1.22528094200733,2020-09-14,7,Republican,0,85,0,Donald Trump,Republican,0,Most of the Time,0,0,42.5,85,0,2020,warm,1,Winner
 Strong Democrat,85,15,2,2,6,1,1,4,4,1,1,2,1,0.542754137008914,2020-08-25,1,Democrat,85,15,0,Joe Biden,Democrat,1,Some of the Time,1,1,50,85,15,2020,warm,1,Winner
 Strong Democrat,85,0,1,4,6,1,1,4,4,1,1,2,3,1.10013340977621,2020-08-24,1,Democrat,85,0,0,Joe Biden,Democrat,1,Some of the Time,1,1,42.5,85,0,2020,warm,0,Winner
-Strong Democrat,-9,0,99,4,6,1,1,4,3,1,1,3,1,0.958567525664879,2020-09-14,1,Democrat,NA,0,0,Joe Biden,Democrat,1,About Half the time,0,0,-4.5,-9,0,2020,cold,1,Winner
+Strong Democrat,-9,0,99,4,6,1,1,4,3,1,1,3,1,0.958567525664879,2020-09-14,1,Democrat,NA,0,0,Joe Biden,Democrat,1,About Half the time,0,0,-4.5,NA,0,2020,NA,1,Winner
 Independent - Democrat,40,60,3,1,6,1,7,4,4,1,1,1,1,1.14695952592816,2020-09-26,3,Democrat,40,60,0,Other Democrat,Democrat,1,Some of the Time,1,1,50,40,60,2020,cold,1,Loser
 Independent - Democrat,85,50,4,3,6,1,7,2,4,1,1,3,1,0.200999605932813,2020-10-27,3,Democrat,85,50,0,Other Democrat,Democrat,0,Some of the Time,1,0,67.5,85,50,2020,warm,1,Loser
 Strong Republican,0,70,5,1,6,1,NA,2,3,0,1,4,3,0.616079182881699,2020-10-06,7,Republican,0,70,0,NA,NA,0,About Half the time,0,0,35,70,0,2020,warm,0,NA
@@ -3924,7 +3924,7 @@ Strong Democrat,70,0,4,4,3,1,1,2,3,1,1,3,1,0.219219976523592,2020-08-23,1,Democr
 Strong Democrat,85,0,3,2,7,1,1,4,3,1,1,3,1,0.273763765559886,2020-10-05,1,Democrat,85,0,0,Joe Biden,Democrat,1,About Half the time,0,0,42.5,85,0,2020,warm,1,Winner
 Independent - Independent,70,70,99,6,3,2,NA,4,3,1,1,3,2,0.928671583581937,2020-09-18,4,Independent,70,70,1,NA,NA,1,About Half the time,0,0,70,NA,NA,2020,NA,0,NA
 Independent - Independent,50,50,99,1,7,2,NA,2,3,1,1,2,1,0.952499643516101,2020-09-15,4,Independent,50,50,1,NA,NA,0,About Half the time,0,1,50,NA,NA,2020,NA,1,NA
-Strong Democrat,-9,-9,3,2,6,1,1,2,2,1,1,3,1,0.150603753504323,2020-08-28,1,Democrat,NA,NA,0,Joe Biden,Democrat,0,Most of the Time,0,0,-9,-9,-9,2020,cold,1,Winner
+Strong Democrat,-9,-9,3,2,6,1,1,2,2,1,1,3,1,0.150603753504323,2020-08-28,1,Democrat,NA,NA,0,Joe Biden,Democrat,0,Most of the Time,0,0,-9,NA,NA,2020,NA,1,Winner
 Strong Democrat,70,0,2,2,6,1,6,4,4,1,1,2,1,0.463210950989439,2020-11-01,1,Democrat,70,0,0,Elizabeth Warren,Democrat,1,Some of the Time,1,1,35,70,0,2020,warm,1,Loser
 Strong Democrat,100,0,99,4,1,1,6,-6,4,1,0,-6,1,0.48751813834912,2020-08-22,1,Democrat,100,0,0,Elizabeth Warren,Democrat,NA,Some of the Time,1,NA,50,100,0,2020,warm,1,Loser
 Independent - Independent,50,50,3,4,4,2,NA,5,5,1,1,1,1,0.116847290017262,2020-09-16,4,Independent,50,50,1,NA,NA,1,Never,1,1,50,NA,NA,2020,NA,1,NA
@@ -3945,7 +3945,7 @@ Strong Republican,0,85,6,1,7,1,8,-7,3,0,1,-7,3,0.565422855420439,2020-09-09,7,Re
 Strong Democrat,70,40,2,2,6,1,1,4,2,1,0,1,1,0.172519892048776,2020-09-22,1,Democrat,70,40,0,Joe Biden,Democrat,1,Most of the Time,0,1,55,70,40,2020,warm,1,Winner
 Strong Democrat,85,0,2,2,6,2,NA,4,3,1,1,4,1,0.877096774870944,2020-09-14,1,Democrat,85,0,1,NA,NA,1,About Half the time,0,0,42.5,85,0,2020,warm,1,NA
 Independent - Republican,0,70,6,1,6,1,8,2,4,0,1,3,2,4.8617471024943,2020-08-26,5,Republican,0,70,0,Donald Trump,Republican,0,Some of the Time,1,0,35,70,0,2020,warm,0,Winner
-Weak Democrat,-9,50,4,5,4,2,NA,2,3,0,1,3,1,0.344057591296022,2020-08-24,2,Democrat,NA,50,1,NA,NA,0,About Half the time,0,0,20.5,-9,50,2020,cold,1,NA
+Weak Democrat,-9,50,4,5,4,2,NA,2,3,0,1,3,1,0.344057591296022,2020-08-24,2,Democrat,NA,50,1,NA,NA,0,About Half the time,0,0,20.5,NA,50,2020,NA,1,NA
 Independent - Democrat,60,30,99,3,5,2,NA,2,4,1,1,3,2,0.263588682434217,2020-10-14,3,Democrat,60,30,1,NA,NA,0,Some of the Time,1,0,45,60,30,2020,NA,0,NA
 Strong Democrat,80,50,99,2,7,2,NA,2,4,1,1,1,1,0.301882183800342,2020-08-29,1,Democrat,80,50,1,NA,NA,0,Some of the Time,1,1,65,80,50,2020,warm,1,NA
 Independent - Independent,20,20,4,1,6,2,NA,4,5,1,1,1,1,2.55035368549219,2020-09-22,4,Independent,20,20,1,NA,NA,1,Never,1,1,20,NA,NA,2020,NA,1,NA
@@ -3956,7 +3956,7 @@ Strong Republican,0,70,6,1,6,2,NA,2,2,1,0,4,3,0.648869583738476,2020-10-14,7,Rep
 Strong Democrat,100,0,6,6,1,1,1,1,4,1,1,1,1,1.20085849704886,2020-08-24,1,Democrat,100,0,0,Joe Biden,Democrat,0,Some of the Time,1,1,50,100,0,2020,warm,1,Winner
 Weak Democrat,50,0,1,5,-9,1,6,4,4,1,1,1,1,0.427041074182319,2020-09-19,2,Democrat,50,0,0,Elizabeth Warren,Democrat,1,Some of the Time,1,1,25,50,0,2020,NA,1,Loser
 Weak Democrat,70,35,3,3,7,1,5,2,3,1,1,2,1,0.550128478021722,2020-09-15,2,Democrat,70,35,0,Bernie Sanders,Democrat,0,About Half the time,0,1,52.5,70,35,2020,warm,1,Loser
-Independent - Republican,-9,-9,5,1,6,1,8,2,2,1,0,4,1,1.14448392094029,2020-09-21,5,Republican,NA,NA,0,Donald Trump,Republican,0,Most of the Time,0,0,-9,-9,-9,2020,cold,1,Winner
+Independent - Republican,-9,-9,5,1,6,1,8,2,2,1,0,4,1,1.14448392094029,2020-09-21,5,Republican,NA,NA,0,Donald Trump,Republican,0,Most of the Time,0,0,-9,NA,NA,2020,NA,1,Winner
 Independent - Independent,30,30,4,1,7,2,NA,2,5,1,1,1,1,0.882246183097448,2020-08-20,4,Independent,30,30,1,NA,NA,0,Never,1,1,30,NA,NA,2020,NA,1,NA
 Strong Democrat,85,25,2,4,7,2,NA,4,3,1,1,1,1,0.837913647395816,2020-09-14,1,Democrat,85,25,1,NA,NA,1,About Half the time,0,1,55,85,25,2020,warm,1,NA
 Strong Republican,0,100,6,1,6,1,8,2,3,0,1,2,3,1.4999525365468,2020-09-16,7,Republican,0,100,0,Donald Trump,Republican,0,About Half the time,0,1,50,100,0,2020,warm,0,Winner
@@ -3997,7 +3997,7 @@ Strong Republican,0,85,7,1,6,2,NA,4,4,0,1,1,1,1.47469540083897,2020-09-13,7,Repu
 Strong Democrat,85,15,1,2,6,2,NA,2,4,1,1,1,1,0.19604574981566,2020-09-18,1,Democrat,85,15,1,NA,NA,0,Some of the Time,1,1,50,85,15,2020,warm,1,NA
 Independent - Democrat,60,15,3,3,7,1,1,4,4,1,1,4,1,1.60886040029823,2020-09-07,3,Democrat,60,15,0,Joe Biden,Democrat,1,Some of the Time,1,0,37.5,60,15,2020,NA,1,Winner
 Strong Democrat,70,0,1,4,7,1,6,4,4,1,1,2,1,0.483067898038922,2020-09-16,1,Democrat,70,0,0,Elizabeth Warren,Democrat,1,Some of the Time,1,1,35,70,0,2020,warm,1,Loser
-Independent - Republican,-9,-9,4,2,4,2,NA,2,3,1,0,3,1,0.198142696358977,2020-08-25,5,Republican,NA,NA,1,NA,NA,0,About Half the time,0,0,-9,-9,-9,2020,cold,1,NA
+Independent - Republican,-9,-9,4,2,4,2,NA,2,3,1,0,3,1,0.198142696358977,2020-08-25,5,Republican,NA,NA,1,NA,NA,0,About Half the time,0,0,-9,NA,NA,2020,NA,1,NA
 Weak Democrat,50,20,2,2,6,1,1,2,4,1,1,3,1,0.359630520731038,2020-08-22,2,Democrat,50,20,0,Joe Biden,Democrat,0,Some of the Time,1,0,35,50,20,2020,NA,1,Winner
 Independent - Democrat,40,40,99,3,2,2,NA,-6,4,1,1,-6,1,1.01944853352381,2020-09-15,3,Democrat,40,40,1,NA,NA,NA,Some of the Time,1,NA,40,40,40,2020,cold,1,NA
 Independent - Democrat,85,0,3,2,7,1,1,4,4,1,1,2,1,2.11285127879088,2020-09-11,3,Democrat,85,0,0,Joe Biden,Democrat,1,Some of the Time,1,1,42.5,85,0,2020,warm,1,Winner
@@ -4031,7 +4031,7 @@ Independent - Independent,50,50,2,4,4,2,NA,-9,4,1,1,2,1,0.470180409766526,2020-1
 Weak Republican,50,50,3,4,4,2,NA,2,4,0,1,2,1,0.943100648488125,2020-09-23,6,Republican,50,50,1,NA,NA,0,Some of the Time,1,1,50,50,50,2020,NA,1,NA
 Weak Republican,15,60,5,2,6,2,NA,2,3,0,1,2,1,1.17834841549884,2020-09-14,6,Republican,15,60,1,NA,NA,0,About Half the time,0,1,37.5,60,15,2020,NA,1,NA
 Strong Democrat,75,25,4,2,7,1,1,4,3,1,1,3,1,0.95891409842726,2020-09-18,1,Democrat,75,25,0,Joe Biden,Democrat,1,About Half the time,0,0,50,75,25,2020,warm,1,Winner
-Weak Republican,-9,-9,4,4,4,1,8,2,4,1,1,1,1,2.6587510482391,2020-10-14,6,Republican,NA,NA,0,Donald Trump,Republican,0,Some of the Time,1,1,-9,-9,-9,2020,cold,1,Winner
+Weak Republican,-9,-9,4,4,4,1,8,2,4,1,1,1,1,2.6587510482391,2020-10-14,6,Republican,NA,NA,0,Donald Trump,Republican,0,Some of the Time,1,1,-9,NA,NA,2020,NA,1,Winner
 Independent - Democrat,60,10,3,2,6,1,1,2,3,1,1,4,1,0.4504284576987,2020-09-21,3,Democrat,60,10,0,Joe Biden,Democrat,0,About Half the time,0,0,35,60,10,2020,NA,1,Winner
 Strong Democrat,100,70,4,2,6,1,4,-6,3,1,1,-6,1,0.498453009956457,2020-08-24,1,Democrat,100,70,0,Amy Klobuchar,Democrat,NA,About Half the time,0,NA,85,100,70,2020,warm,1,Loser
 Weak Democrat,70,0,99,7,4,2,NA,2,3,1,1,3,1,0.16055282901107,2020-10-15,2,Democrat,70,0,1,NA,NA,0,About Half the time,0,0,35,70,0,2020,warm,1,NA
@@ -4086,7 +4086,7 @@ Strong Democrat,90,0,2,3,7,1,1,4,3,1,0,4,1,0.442801528701316,2020-10-01,1,Democr
 Strong Republican,15,100,6,3,6,1,8,2,1,0,0,4,1,2.95917533627966,2020-10-16,7,Republican,15,100,0,Donald Trump,Republican,0,Always,0,0,57.5,100,15,2020,warm,1,Winner
 Strong Republican,0,70,6,1,5,1,8,2,4,0,1,2,2,0.29526813440048,2020-09-16,7,Republican,0,70,0,Donald Trump,Republican,0,Some of the Time,1,1,35,70,0,2020,warm,0,Winner
 Strong Republican,40,85,99,2,6,1,8,1,2,0,0,2,2,0.539335029156636,2020-09-11,7,Republican,40,85,0,Donald Trump,Republican,0,Most of the Time,0,1,62.5,85,40,2020,warm,0,Winner
-Weak Democrat,-9,30,4,6,2,1,3,2,2,1,1,4,1,0.374577427598419,2020-08-24,2,Democrat,NA,30,0,Pete Buttigieg,Democrat,0,Most of the Time,0,0,10.5,-9,30,2020,cold,1,Loser
+Weak Democrat,-9,30,4,6,2,1,3,2,2,1,1,4,1,0.374577427598419,2020-08-24,2,Democrat,NA,30,0,Pete Buttigieg,Democrat,0,Most of the Time,0,0,10.5,NA,30,2020,NA,1,Loser
 Independent - Democrat,85,0,2,3,7,1,1,4,4,1,1,1,1,0.587370448852447,2020-08-21,3,Democrat,85,0,0,Joe Biden,Democrat,1,Some of the Time,1,1,42.5,85,0,2020,warm,1,Winner
 Independent - Independent,40,40,3,2,6,2,NA,4,4,1,1,2,1,0.125097226732602,2020-09-15,4,Independent,40,40,1,NA,NA,1,Some of the Time,1,1,40,NA,NA,2020,NA,1,NA
 Strong Democrat,100,0,99,2,4,1,1,4,2,1,1,1,1,0.257905385098883,2020-09-29,1,Democrat,100,0,0,Joe Biden,Democrat,1,Most of the Time,0,1,50,100,0,2020,warm,1,Winner
@@ -4109,7 +4109,7 @@ Independent - Democrat,40,0,2,3,7,1,5,5,4,1,1,2,1,1.74281833500414,2020-09-08,3,
 Independent - Democrat,50,30,2,4,7,1,5,4,5,1,1,1,1,2.74957098195984,2020-09-23,3,Democrat,50,30,0,Bernie Sanders,Democrat,1,Never,1,1,40,50,30,2020,NA,1,Loser
 Strong Democrat,85,0,1,1,-9,1,1,2,3,1,1,2,1,1.18519520123563,2020-10-14,1,Democrat,85,0,0,Joe Biden,Democrat,0,About Half the time,0,1,42.5,85,0,2020,warm,1,Winner
 Independent - Democrat,75,0,1,4,7,2,NA,2,3,1,1,2,1,0.33289949885275,2020-08-23,3,Democrat,75,0,1,NA,NA,0,About Half the time,0,1,37.5,75,0,2020,warm,1,NA
-Strong Republican,-9,5,5,1,7,2,NA,5,2,0,0,4,1,0.56009376773302,2020-09-05,7,Republican,NA,5,1,NA,NA,1,Most of the Time,0,0,-2,5,-9,2020,cold,1,NA
+Strong Republican,-9,5,5,1,7,2,NA,5,2,0,0,4,1,0.56009376773302,2020-09-05,7,Republican,NA,5,1,NA,NA,1,Most of the Time,0,0,-2,5,NA,2020,cold,1,NA
 Weak Republican,65,15,4,1,7,2,NA,4,4,1,1,1,1,0.113765059580419,2020-09-16,6,Republican,65,15,1,NA,NA,1,Some of the Time,1,1,40,15,65,2020,cold,1,NA
 Strong Democrat,70,15,3,2,7,1,1,5,4,1,1,4,1,0.80471883790178,2020-09-26,1,Democrat,70,15,0,Joe Biden,Democrat,1,Some of the Time,1,0,42.5,70,15,2020,warm,1,Winner
 Strong Republican,0,60,7,1,5,1,8,-6,3,1,1,-6,3,0.37167321058816,2020-09-02,7,Republican,0,60,0,Donald Trump,Republican,NA,About Half the time,0,NA,30,60,0,2020,NA,0,Winner
@@ -4144,7 +4144,7 @@ Weak Republican,15,70,5,1,4,1,8,2,3,0,0,2,3,0.80390262128276,2020-10-15,6,Republ
 Strong Democrat,70,60,5,3,7,1,1,1,4,1,1,3,1,1.27249437287249,2020-09-16,1,Democrat,70,60,0,Joe Biden,Democrat,0,Some of the Time,1,0,65,70,60,2020,warm,1,Winner
 Weak Republican,15,70,7,1,6,1,8,-7,4,1,1,-7,1,0.537664503773946,2020-08-27,6,Republican,15,70,0,Donald Trump,Republican,NA,Some of the Time,1,NA,42.5,70,15,2020,warm,1,Winner
 Strong Democrat,70,15,1,3,7,1,5,2,4,1,1,2,1,1.36063612205899,2020-10-16,1,Democrat,70,15,0,Bernie Sanders,Democrat,0,Some of the Time,1,1,42.5,70,15,2020,warm,1,Loser
-Strong Democrat,-9,-9,2,2,7,1,1,2,2,1,1,3,1,0.310625262711109,2020-09-26,1,Democrat,NA,NA,0,Joe Biden,Democrat,0,Most of the Time,0,0,-9,-9,-9,2020,cold,1,Winner
+Strong Democrat,-9,-9,2,2,7,1,1,2,2,1,1,3,1,0.310625262711109,2020-09-26,1,Democrat,NA,NA,0,Joe Biden,Democrat,0,Most of the Time,0,0,-9,NA,NA,2020,NA,1,Winner
 Strong Republican,40,85,99,3,7,1,8,4,2,0,1,2,1,0.734495747468775,2020-09-15,7,Republican,40,85,0,Donald Trump,Republican,1,Most of the Time,0,1,62.5,85,40,2020,warm,1,Winner
 Weak Democrat,60,60,3,2,5,2,NA,-6,4,1,1,-6,1,2.68571593552565,2020-10-01,2,Democrat,60,60,1,NA,NA,NA,Some of the Time,1,NA,60,60,60,2020,NA,1,NA
 Weak Democrat,85,15,3,1,6,1,4,-6,3,1,1,-6,3,1.14765419055264,2020-09-14,2,Democrat,85,15,0,Amy Klobuchar,Democrat,NA,About Half the time,0,NA,50,85,15,2020,warm,0,Loser
@@ -4176,7 +4176,7 @@ Strong Republican,15,85,6,1,6,1,8,2,3,0,1,2,1,1.38540463947536,2020-10-21,7,Repu
 Strong Democrat,60,15,2,4,7,1,1,-6,4,1,1,-6,1,0.310135760771264,2020-09-09,1,Democrat,60,15,0,Joe Biden,Democrat,NA,Some of the Time,1,NA,37.5,60,15,2020,NA,1,Winner
 Independent - Democrat,60,20,2,3,6,2,NA,4,3,1,1,4,1,0.97325909891107,2020-10-07,3,Democrat,60,20,1,NA,NA,1,About Half the time,0,0,40,60,20,2020,NA,1,NA
 Strong Republican,0,70,7,2,6,1,8,-6,3,0,1,-6,3,1.79389191633143,2020-09-17,7,Republican,0,70,0,Donald Trump,Republican,NA,About Half the time,0,NA,35,70,0,2020,warm,0,Winner
-Strong Democrat,60,-9,4,2,6,1,5,-6,3,0,1,-6,1,1.54277261713078,2020-08-20,1,Democrat,60,NA,0,Bernie Sanders,Democrat,NA,About Half the time,0,NA,25.5,60,-9,2020,NA,1,Loser
+Strong Democrat,60,-9,4,2,6,1,5,-6,3,0,1,-6,1,1.54277261713078,2020-08-20,1,Democrat,60,NA,0,Bernie Sanders,Democrat,NA,About Half the time,0,NA,25.5,60,NA,2020,NA,1,Loser
 Weak Republican,50,50,5,2,6,2,NA,2,4,1,1,3,3,2.1795601403435,2020-09-28,6,Republican,50,50,1,NA,NA,0,Some of the Time,1,0,50,50,50,2020,NA,0,NA
 Independent - Independent,-9,-9,99,-9,-9,2,NA,4,-9,NA,NA,1,-9,0.0804712265720225,2020-09-17,4,Independent,NA,NA,1,NA,NA,1,NA,NA,1,-9,NA,NA,2020,NA,NA,NA
 Strong Democrat,100,0,99,4,4,1,1,1,4,1,1,1,3,6.93292869912978,2020-10-15,1,Democrat,100,0,0,Joe Biden,Democrat,0,Some of the Time,1,1,50,100,0,2020,warm,0,Winner
@@ -4501,7 +4501,7 @@ Strong Republican,0,70,4,3,4,1,8,4,2,1,1,1,1,0.255248882185282,2020-08-21,7,Repu
 Strong Democrat,100,0,99,1,4,2,NA,1,5,1,0,1,1,0.420267954804429,2020-09-05,1,Democrat,100,0,1,NA,NA,0,Never,1,1,50,100,0,2020,warm,1,NA
 Weak Democrat,75,0,99,4,4,1,10,4,4,1,1,3,3,0.852750522787174,2020-09-01,2,Democrat,75,0,0,Someone Neither Dem. Nor Rep.,Other Party,1,Some of the Time,1,0,37.5,75,0,2020,warm,0,Voted in Other Party Primary
 Independent - Democrat,30,0,1,5,7,1,5,4,4,1,1,1,1,1.60183449660823,2020-10-14,3,Democrat,30,0,0,Bernie Sanders,Democrat,1,Some of the Time,1,1,15,30,0,2020,cold,1,Loser
-Strong Democrat,60,-9,2,3,7,1,4,2,4,1,1,4,1,0.344488944236488,2020-09-15,1,Democrat,60,NA,0,Amy Klobuchar,Democrat,0,Some of the Time,1,0,25.5,60,-9,2020,NA,1,Loser
+Strong Democrat,60,-9,2,3,7,1,4,2,4,1,1,4,1,0.344488944236488,2020-09-15,1,Democrat,60,NA,0,Amy Klobuchar,Democrat,0,Some of the Time,1,0,25.5,60,NA,2020,NA,1,Loser
 Independent - Independent,50,85,99,1,6,2,NA,4,5,1,1,2,1,3.07484943008695,2020-09-15,4,Independent,50,85,1,NA,NA,1,Never,1,1,67.5,NA,NA,2020,NA,1,NA
 Strong Republican,0,70,6,1,6,2,NA,1,3,0,1,1,3,0.447803987766982,2020-08-27,7,Republican,0,70,1,NA,NA,0,About Half the time,0,1,35,70,0,2020,warm,0,NA
 Weak Democrat,50,30,2,1,7,1,6,4,4,1,1,4,1,2.20221486340554,2020-09-22,2,Democrat,50,30,0,Elizabeth Warren,Democrat,1,Some of the Time,1,0,40,50,30,2020,NA,1,Loser
@@ -4552,7 +4552,7 @@ Independent - Independent,50,50,4,2,5,2,NA,-6,4,1,1,-6,1,0.626613270565618,2020-
 Weak Republican,60,60,4,4,3,1,8,4,2,0,1,1,3,0.832697820778588,2020-10-17,6,Republican,60,60,0,Donald Trump,Republican,1,Most of the Time,0,1,60,60,60,2020,NA,0,Winner
 Strong Democrat,75,40,2,2,7,1,6,2,4,1,1,4,1,1.33518660081986,2020-08-29,1,Democrat,75,40,0,Elizabeth Warren,Democrat,0,Some of the Time,1,0,57.5,75,40,2020,warm,1,Loser
 Strong Republican,0,100,7,1,6,2,NA,4,4,0,1,1,1,0.582697700204864,2020-10-14,7,Republican,0,100,1,NA,NA,1,Some of the Time,1,1,50,100,0,2020,warm,1,NA
-Strong Democrat,-9,30,3,3,6,1,1,2,2,1,0,2,1,0.611545343618122,2020-08-21,1,Democrat,NA,30,0,Joe Biden,Democrat,0,Most of the Time,0,1,10.5,-9,30,2020,cold,1,Winner
+Strong Democrat,-9,30,3,3,6,1,1,2,2,1,0,2,1,0.611545343618122,2020-08-21,1,Democrat,NA,30,0,Joe Biden,Democrat,0,Most of the Time,0,1,10.5,NA,30,2020,NA,1,Winner
 Strong Republican,0,85,5,1,6,1,8,2,2,0,1,3,3,0.546905026834788,2020-10-19,7,Republican,0,85,0,Donald Trump,Republican,0,Most of the Time,0,0,42.5,85,0,2020,warm,0,Winner
 Independent - Republican,0,50,4,2,6,1,8,2,5,1,1,1,3,2.41837790184798,2020-10-15,5,Republican,0,50,0,Donald Trump,Republican,0,Never,1,1,25,50,0,2020,NA,0,Winner
 Strong Democrat,85,0,6,5,2,1,1,1,4,1,1,5,1,0.28169110684738,2020-10-29,1,Democrat,85,0,0,Joe Biden,Democrat,0,Some of the Time,1,0,42.5,85,0,2020,warm,1,Winner
@@ -4602,11 +4602,11 @@ Independent - Republican,70,70,99,4,4,2,NA,-6,3,1,0,-6,3,0.349028044359298,2020-
 Independent - Independent,50,50,99,3,3,2,NA,1,5,1,1,1,1,0.57290470060344,2020-09-15,4,Independent,50,50,1,NA,NA,0,Never,1,1,50,NA,NA,2020,NA,1,NA
 Weak Republican,20,85,6,1,7,2,NA,2,4,1,1,1,1,1.33438453905283,2020-09-15,6,Republican,20,85,1,NA,NA,0,Some of the Time,1,1,52.5,85,20,2020,warm,1,NA
 Strong Republican,0,60,6,1,6,2,NA,4,4,1,1,3,1,0.599785861602903,2020-08-27,7,Republican,0,60,1,NA,NA,1,Some of the Time,1,0,30,60,0,2020,NA,1,NA
-Weak Republican,-9,-9,4,5,3,2,NA,2,4,1,1,1,1,1.73989275466299,2020-09-14,6,Republican,NA,NA,1,NA,NA,0,Some of the Time,1,1,-9,-9,-9,2020,cold,1,NA
+Weak Republican,-9,-9,4,5,3,2,NA,2,4,1,1,1,1,1.73989275466299,2020-09-14,6,Republican,NA,NA,1,NA,NA,0,Some of the Time,1,1,-9,NA,NA,2020,NA,1,NA
 Weak Republican,30,85,6,1,6,2,NA,2,3,1,0,5,1,1.06280645761142,2020-09-16,6,Republican,30,85,1,NA,NA,0,About Half the time,0,0,57.5,85,30,2020,warm,1,NA
 Strong Republican,0,90,6,1,6,2,NA,2,2,0,1,4,3,1.02008336332729,2020-10-14,7,Republican,0,90,1,NA,NA,0,Most of the Time,0,0,45,90,0,2020,warm,0,NA
 Strong Democrat,100,40,99,7,1,2,NA,2,2,1,1,4,1,0.589073968632785,2020-08-28,1,Democrat,100,40,1,NA,NA,0,Most of the Time,0,0,70,100,40,2020,warm,1,NA
-Independent - Republican,-9,-9,5,1,5,1,8,-6,2,0,NA,-6,3,0.546859438044921,2020-09-22,5,Republican,NA,NA,0,Donald Trump,Republican,NA,Most of the Time,0,NA,-9,-9,-9,2020,cold,0,Winner
+Independent - Republican,-9,-9,5,1,5,1,8,-6,2,0,NA,-6,3,0.546859438044921,2020-09-22,5,Republican,NA,NA,0,Donald Trump,Republican,NA,Most of the Time,0,NA,-9,NA,NA,2020,NA,0,Winner
 Weak Republican,50,50,5,2,6,2,NA,2,4,1,1,1,1,0.649896134608456,2020-09-15,6,Republican,50,50,1,NA,NA,0,Some of the Time,1,1,50,50,50,2020,NA,1,NA
 Strong Democrat,60,15,3,1,7,2,NA,2,4,1,1,2,1,0.566893813123376,2020-09-22,1,Democrat,60,15,1,NA,NA,0,Some of the Time,1,1,37.5,60,15,2020,NA,1,NA
 Independent - Republican,2,70,6,1,6,1,8,2,3,1,0,4,3,0.586854321148419,2020-09-15,5,Republican,2,70,0,Donald Trump,Republican,0,About Half the time,0,0,36,70,2,2020,warm,0,Winner
@@ -4839,7 +4839,7 @@ Strong Democrat,85,0,2,2,7,1,5,4,4,1,1,2,1,0.0990115138782921,2020-08-21,1,Democ
 Weak Democrat,100,0,99,1,1,2,NA,2,1,1,0,5,3,0.862786777667409,2020-09-11,2,Democrat,100,0,1,NA,NA,0,Always,0,0,50,100,0,2020,warm,0,NA
 Strong Democrat,85,15,2,1,7,2,NA,4,3,1,1,3,1,2.68109837217515,2020-10-14,1,Democrat,85,15,1,NA,NA,1,About Half the time,0,0,50,85,15,2020,warm,1,NA
 Independent - Democrat,70,0,99,4,7,2,NA,-6,4,1,1,-6,1,3.87873129567549,2020-09-13,3,Democrat,70,0,1,NA,NA,NA,Some of the Time,1,NA,35,70,0,2020,warm,1,NA
-Strong Democrat,-9,-9,99,4,7,2,NA,2,4,1,1,2,1,0.245420684214317,2020-08-25,1,Democrat,NA,NA,1,NA,NA,0,Some of the Time,1,1,-9,-9,-9,2020,cold,1,NA
+Strong Democrat,-9,-9,99,4,7,2,NA,2,4,1,1,2,1,0.245420684214317,2020-08-25,1,Democrat,NA,NA,1,NA,NA,0,Some of the Time,1,1,-9,NA,NA,2020,NA,1,NA
 Independent - Democrat,70,30,4,4,7,1,1,2,2,1,1,1,1,0.30976623896939,2020-08-22,3,Democrat,70,30,0,Joe Biden,Democrat,0,Most of the Time,0,1,50,70,30,2020,warm,1,Winner
 Strong Democrat,70,40,5,4,7,1,1,4,2,1,0,2,1,3.62018752547638,2020-10-14,1,Democrat,70,40,0,Joe Biden,Democrat,1,Most of the Time,0,1,55,70,40,2020,warm,1,Winner
 Weak Democrat,60,0,2,2,7,1,1,4,5,1,1,4,1,0.887824086885487,2020-09-26,2,Democrat,60,0,0,Joe Biden,Democrat,1,Never,1,0,30,60,0,2020,NA,1,Winner
@@ -4884,7 +4884,7 @@ Strong Democrat,85,50,5,3,6,1,1,2,4,1,1,1,1,0.809197247981102,2020-09-14,1,Democ
 Independent - Democrat,85,0,2,2,7,2,NA,2,3,1,1,1,1,1.98223690297081,2020-09-29,3,Democrat,85,0,1,NA,NA,0,About Half the time,0,1,42.5,85,0,2020,warm,1,NA
 Weak Republican,30,50,5,1,6,2,NA,-6,3,0,1,-6,1,1.43928929123904,2020-08-22,6,Republican,30,50,1,NA,NA,NA,About Half the time,0,NA,40,50,30,2020,NA,1,NA
 Strong Republican,0,85,6,1,6,1,8,4,4,0,1,2,1,0.369137519150618,2020-08-24,7,Republican,0,85,0,Donald Trump,Republican,1,Some of the Time,1,1,42.5,85,0,2020,warm,1,Winner
-Independent - Democrat,60,-9,4,2,7,2,NA,-6,4,1,1,-6,1,1.12737796187809,2020-09-22,3,Democrat,60,NA,1,NA,NA,NA,Some of the Time,1,NA,25.5,60,-9,2020,NA,1,NA
+Independent - Democrat,60,-9,4,2,7,2,NA,-6,4,1,1,-6,1,1.12737796187809,2020-09-22,3,Democrat,60,NA,1,NA,NA,NA,Some of the Time,1,NA,25.5,60,NA,2020,NA,1,NA
 Strong Republican,0,100,99,2,6,2,NA,4,4,0,1,4,3,0.812768791069153,2020-10-15,7,Republican,0,100,1,NA,NA,1,Some of the Time,1,0,50,100,0,2020,warm,0,NA
 Strong Democrat,85,50,5,5,3,1,7,2,3,1,1,4,1,0.652731807956104,2020-10-14,1,Democrat,85,50,0,Other Democrat,Democrat,0,About Half the time,0,0,67.5,85,50,2020,warm,1,Loser
 Strong Democrat,100,50,5,6,6,1,4,4,2,1,1,3,1,0.204192036456178,2020-09-23,1,Democrat,100,50,0,Amy Klobuchar,Democrat,1,Most of the Time,0,0,75,100,50,2020,warm,1,Loser
@@ -4899,7 +4899,7 @@ Independent - Independent,0,0,4,7,1,2,NA,5,5,1,1,1,3,1.36770979061148,2020-09-15
 Strong Democrat,100,50,3,3,5,2,NA,1,2,1,1,4,1,0.536616855417221,2020-08-24,1,Democrat,100,50,1,NA,NA,0,Most of the Time,0,0,75,100,50,2020,warm,1,NA
 Independent - Democrat,60,30,99,4,1,2,NA,2,4,1,1,2,2,0.1351596478824,2020-08-26,3,Democrat,60,30,1,NA,NA,0,Some of the Time,1,1,45,60,30,2020,NA,0,NA
 Weak Republican,20,20,5,1,6,1,10,2,3,0,1,4,1,0.239572415975919,2020-09-15,6,Republican,20,20,0,Someone Neither Dem. Nor Rep.,Other Party,0,About Half the time,0,0,20,20,20,2020,cold,1,Voted in Other Party Primary
-Independent - Republican,60,-9,4,1,4,2,NA,1,2,1,1,3,3,0.23373948652416,2020-09-19,5,Republican,60,NA,1,NA,NA,0,Most of the Time,0,0,25.5,-9,60,2020,cold,0,NA
+Independent - Republican,60,-9,4,1,4,2,NA,1,2,1,1,3,3,0.23373948652416,2020-09-19,5,Republican,60,NA,1,NA,NA,0,Most of the Time,0,0,25.5,NA,60,2020,NA,0,NA
 Strong Republican,0,70,6,1,6,1,8,-6,3,1,1,-6,3,0.715769604258553,2020-08-20,7,Republican,0,70,0,Donald Trump,Republican,NA,About Half the time,0,NA,35,70,0,2020,warm,0,Winner
 Strong Democrat,85,25,99,4,6,1,1,2,4,1,1,2,1,1.22671009943576,2020-08-22,1,Democrat,85,25,0,Joe Biden,Democrat,0,Some of the Time,1,1,55,85,25,2020,warm,1,Winner
 Independent - Independent,-9,-9,99,4,4,2,NA,2,4,1,1,1,1,0.250355920419166,2020-09-19,4,Independent,NA,NA,1,NA,NA,0,Some of the Time,1,1,-9,NA,NA,2020,NA,1,NA
@@ -5006,7 +5006,7 @@ Independent - Democrat,70,0,3,2,6,2,NA,4,4,1,1,1,1,1.88833566458934,2020-10-14,3
 Strong Republican,30,60,5,2,6,2,NA,2,2,1,0,4,3,1.9891449062122,2020-09-10,7,Republican,30,60,1,NA,NA,0,Most of the Time,0,0,45,60,30,2020,NA,0,NA
 Strong Republican,0,85,5,2,6,1,8,5,4,1,1,1,3,0.235071680918397,2020-09-13,7,Republican,0,85,0,Donald Trump,Republican,1,Some of the Time,1,1,42.5,85,0,2020,warm,0,Winner
 Independent - Independent,30,15,5,2,6,1,5,4,4,1,1,1,1,1.27327651038514,2020-08-28,4,Independent,30,15,0,Bernie Sanders,Democrat,1,Some of the Time,1,1,22.5,NA,NA,2020,NA,1,Voted in Other Party Primary
-Independent - Democrat,-9,30,3,2,6,2,NA,2,3,1,1,2,1,0.18846651787343,2020-08-21,3,Democrat,NA,30,1,NA,NA,0,About Half the time,0,1,10.5,-9,30,2020,cold,1,NA
+Independent - Democrat,-9,30,3,2,6,2,NA,2,3,1,1,2,1,0.18846651787343,2020-08-21,3,Democrat,NA,30,1,NA,NA,0,About Half the time,0,1,10.5,NA,30,2020,NA,1,NA
 Strong Republican,0,85,4,1,6,1,8,-6,2,1,1,-6,2,0.845866925377367,2020-09-18,7,Republican,0,85,0,Donald Trump,Republican,NA,Most of the Time,0,NA,42.5,85,0,2020,warm,0,Winner
 Independent - Democrat,60,50,4,2,4,2,NA,2,3,NA,NA,3,-9,3.09164331766789,2020-10-14,3,Democrat,60,50,1,NA,NA,0,About Half the time,0,0,55,60,50,2020,NA,NA,NA
 Strong Republican,0,100,6,1,6,2,NA,-6,4,1,1,-6,1,0.206186708046401,2020-10-15,7,Republican,0,100,1,NA,NA,NA,Some of the Time,1,NA,50,100,0,2020,warm,1,NA
@@ -5116,12 +5116,12 @@ Strong Democrat,50,0,7,2,6,1,1,4,4,1,1,3,1,2.52626877028088,2020-10-13,1,Democra
 Independent - Independent,70,60,3,2,6,2,NA,1,4,1,1,2,1,1.03618443519062,2020-09-16,4,Independent,70,60,1,NA,NA,0,Some of the Time,1,1,65,NA,NA,2020,NA,1,NA
 Strong Republican,0,85,6,2,5,1,8,4,3,1,1,2,3,1.93716573402105,2020-09-13,7,Republican,0,85,0,Donald Trump,Republican,1,About Half the time,0,1,42.5,85,0,2020,warm,0,Winner
 Independent - Independent,15,70,6,1,6,1,8,2,4,0,1,2,2,1.89166384042969,2020-09-22,4,Independent,15,70,0,Donald Trump,Republican,0,Some of the Time,1,1,42.5,NA,NA,2020,NA,0,Voted in Other Party Primary
-Strong Democrat,85,-9,99,4,7,1,1,2,4,1,1,2,1,2.00011963269323,2020-09-14,1,Democrat,85,NA,0,Joe Biden,Democrat,0,Some of the Time,1,1,38,85,-9,2020,warm,1,Winner
+Strong Democrat,85,-9,99,4,7,1,1,2,4,1,1,2,1,2.00011963269323,2020-09-14,1,Democrat,85,NA,0,Joe Biden,Democrat,0,Some of the Time,1,1,38,85,NA,2020,warm,1,Winner
 Strong Republican,15,85,6,1,6,2,NA,1,4,0,1,2,1,0.354996247856207,2020-09-15,7,Republican,15,85,1,NA,NA,0,Some of the Time,1,1,50,85,15,2020,warm,1,NA
 Strong Democrat,100,0,1,2,7,2,NA,2,4,1,1,2,1,0.210529470305262,2020-10-14,1,Democrat,100,0,1,NA,NA,0,Some of the Time,1,1,50,100,0,2020,warm,1,NA
 Strong Republican,15,85,6,2,6,2,NA,2,3,1,0,4,1,0.347201116904526,2020-08-22,7,Republican,15,85,1,NA,NA,0,About Half the time,0,0,50,85,15,2020,warm,1,NA
 Strong Republican,0,85,6,1,6,1,8,2,4,0,1,4,2,0.458184755446258,2020-10-14,7,Republican,0,85,0,Donald Trump,Republican,0,Some of the Time,1,0,42.5,85,0,2020,warm,0,Winner
-Strong Republican,1,-9,6,2,6,1,8,1,1,0,0,2,3,0.881063042495129,2020-09-06,7,Republican,1,NA,0,Donald Trump,Republican,0,Always,0,1,-4,-9,1,2020,cold,0,Winner
+Strong Republican,1,-9,6,2,6,1,8,1,1,0,0,2,3,0.881063042495129,2020-09-06,7,Republican,1,NA,0,Donald Trump,Republican,0,Always,0,1,-4,NA,1,2020,NA,0,Winner
 Strong Democrat,70,65,99,2,7,2,NA,-6,4,1,1,-6,1,1.84937594899571,2020-09-21,1,Democrat,70,65,1,NA,NA,NA,Some of the Time,1,NA,67.5,70,65,2020,warm,1,NA
 Independent - Independent,90,90,6,1,6,1,8,2,2,0,0,5,1,0.143467773359921,2020-11-02,4,Independent,90,90,0,Donald Trump,Republican,0,Most of the Time,0,0,90,NA,NA,2020,NA,1,Voted in Other Party Primary
 Strong Republican,0,100,99,6,2,2,NA,2,4,1,1,2,1,0.182185095623604,2020-08-20,7,Republican,0,100,1,NA,NA,0,Some of the Time,1,1,50,100,0,2020,warm,1,NA
@@ -5171,7 +5171,7 @@ Strong Democrat,85,0,6,4,5,2,NA,-5,5,1,1,1,1,0.390426201680499,2020-09-23,1,Demo
 Weak Democrat,70,0,4,2,6,1,3,2,4,1,1,2,1,0.801090671203605,2020-10-02,2,Democrat,70,0,0,Pete Buttigieg,Democrat,0,Some of the Time,1,1,35,70,0,2020,warm,1,Loser
 Strong Republican,15,70,6,1,6,1,8,2,3,0,0,2,3,0.841448856334403,2020-09-01,7,Republican,15,70,0,Donald Trump,Republican,0,About Half the time,0,1,42.5,70,15,2020,warm,0,Winner
 Independent - Democrat,50,60,99,6,5,2,NA,-6,2,0,1,-6,3,0.376973266115289,2020-08-31,3,Democrat,50,60,1,NA,NA,NA,Most of the Time,0,NA,55,50,60,2020,NA,0,NA
-Strong Republican,-9,-9,7,1,7,1,8,2,2,1,0,1,3,0.467551871972672,2020-08-31,7,Republican,NA,NA,0,Donald Trump,Republican,0,Most of the Time,0,1,-9,-9,-9,2020,cold,0,Winner
+Strong Republican,-9,-9,7,1,7,1,8,2,2,1,0,1,3,0.467551871972672,2020-08-31,7,Republican,NA,NA,0,Donald Trump,Republican,0,Most of the Time,0,1,-9,NA,NA,2020,NA,0,Winner
 Weak Democrat,75,35,3,2,6,1,2,2,4,1,1,5,1,0.984289884900493,2020-09-21,2,Democrat,75,35,0,Michael Bloomberg,Democrat,0,Some of the Time,1,0,55,75,35,2020,warm,1,Loser
 Strong Republican,25,75,6,2,6,2,NA,2,3,0,1,2,3,0.765123429148361,2020-08-25,7,Republican,25,75,1,NA,NA,0,About Half the time,0,1,50,75,25,2020,warm,0,NA
 Strong Democrat,100,0,2,2,7,1,2,5,5,1,1,1,1,1.88215317371708,2020-08-27,1,Democrat,100,0,0,Michael Bloomberg,Democrat,1,Never,1,1,50,100,0,2020,warm,1,Loser
@@ -5228,7 +5228,7 @@ Strong Republican,0,100,6,1,6,1,8,2,2,1,1,1,3,0.119380696247256,2020-09-10,7,Rep
 Independent - Independent,50,50,4,1,7,2,NA,4,2,1,0,3,3,2.01431675584822,2020-08-25,4,Independent,50,50,1,NA,NA,1,Most of the Time,0,0,50,NA,NA,2020,NA,0,NA
 Weak Republican,85,30,3,2,6,2,NA,2,4,1,1,2,3,0.840531026570813,2020-09-22,6,Republican,85,30,1,NA,NA,0,Some of the Time,1,1,57.5,30,85,2020,cold,0,NA
 Independent - Democrat,70,15,1,3,7,1,6,-6,3,1,1,-6,1,1.36248123892736,2020-09-21,3,Democrat,70,15,0,Elizabeth Warren,Democrat,NA,About Half the time,0,NA,42.5,70,15,2020,warm,1,Loser
-Independent - Democrat,-9,50,2,2,6,2,NA,2,3,1,1,2,1,0.857503302072827,2020-10-07,3,Democrat,NA,50,1,NA,NA,0,About Half the time,0,1,20.5,-9,50,2020,cold,1,NA
+Independent - Democrat,-9,50,2,2,6,2,NA,2,3,1,1,2,1,0.857503302072827,2020-10-07,3,Democrat,NA,50,1,NA,NA,0,About Half the time,0,1,20.5,NA,50,2020,NA,1,NA
 Strong Democrat,62,0,3,2,7,2,NA,2,4,1,1,3,1,0.137742207073929,2020-08-28,1,Democrat,62,0,1,NA,NA,0,Some of the Time,1,0,31,62,0,2020,NA,1,NA
 Strong Democrat,60,0,3,4,1,1,1,2,3,1,1,1,1,2.52003782158408,2020-09-08,1,Democrat,60,0,0,Joe Biden,Democrat,0,About Half the time,0,1,30,60,0,2020,NA,1,Winner
 Independent - Republican,40,70,5,2,6,2,NA,2,3,1,1,3,1,1.77621742551215,2020-08-30,5,Republican,40,70,1,NA,NA,0,About Half the time,0,0,55,70,40,2020,warm,1,NA
@@ -5276,7 +5276,7 @@ Independent - Independent,60,60,2,1,2,2,NA,2,5,1,0,1,1,0.132618534229458,2020-08
 Independent - Republican,0,85,6,1,6,2,NA,2,2,0,1,2,2,2.03626685450624,2020-08-26,5,Republican,0,85,1,NA,NA,0,Most of the Time,0,1,42.5,85,0,2020,warm,0,NA
 Strong Republican,10,100,4,1,7,1,8,-6,2,0,0,-6,3,0.418117189589262,2020-08-21,7,Republican,10,100,0,Donald Trump,Republican,NA,Most of the Time,0,NA,55,100,10,2020,warm,0,Winner
 Independent - Republican,0,60,6,1,6,2,NA,2,4,1,1,1,1,0.393993722751106,2020-09-09,5,Republican,0,60,1,NA,NA,0,Some of the Time,1,1,30,60,0,2020,NA,1,NA
-Strong Democrat,-9,0,2,2,7,1,1,4,4,1,1,4,1,0.837799893918965,2020-08-28,1,Democrat,NA,0,0,Joe Biden,Democrat,1,Some of the Time,1,0,-4.5,-9,0,2020,cold,1,Winner
+Strong Democrat,-9,0,2,2,7,1,1,4,4,1,1,4,1,0.837799893918965,2020-08-28,1,Democrat,NA,0,0,Joe Biden,Democrat,1,Some of the Time,1,0,-4.5,NA,0,2020,NA,1,Winner
 Strong Republican,0,70,6,2,6,1,8,4,3,0,1,4,3,1.14729159203253,2020-10-13,7,Republican,0,70,0,Donald Trump,Republican,1,About Half the time,0,0,35,70,0,2020,warm,0,Winner
 Weak Democrat,60,15,99,3,6,1,6,2,4,1,0,4,1,1.26973068308187,2020-09-03,2,Democrat,60,15,0,Elizabeth Warren,Democrat,0,Some of the Time,1,0,37.5,60,15,2020,NA,1,Loser
 Independent - Democrat,75,30,2,3,6,1,5,4,4,1,1,1,1,0.335955463619402,2020-08-26,3,Democrat,75,30,0,Bernie Sanders,Democrat,1,Some of the Time,1,1,52.5,75,30,2020,warm,1,Loser
@@ -5460,7 +5460,7 @@ Strong Republican,50,85,6,2,6,2,NA,-6,3,1,1,-6,1,1.85297032219167,2020-08-29,7,R
 Weak Republican,85,85,4,4,4,1,7,2,4,0,0,3,3,0.372615600733183,2020-08-28,6,Republican,85,85,0,Other Democrat,Democrat,0,Some of the Time,1,0,85,85,85,2020,warm,0,Voted in Other Party Primary
 Strong Democrat,85,40,2,2,6,1,1,2,2,1,0,2,1,0.324837756700672,2020-08-25,1,Democrat,85,40,0,Joe Biden,Democrat,0,Most of the Time,0,1,62.5,85,40,2020,warm,1,Winner
 Weak Democrat,40,40,3,1,6,2,NA,2,3,1,1,2,1,0.860397300434766,2020-08-28,2,Democrat,40,40,1,NA,NA,0,About Half the time,0,1,40,40,40,2020,cold,1,NA
-Strong Republican,30,-9,6,2,6,2,NA,2,3,1,0,2,2,0.819592469700849,2020-09-03,7,Republican,30,NA,1,NA,NA,0,About Half the time,0,1,10.5,-9,30,2020,cold,0,NA
+Strong Republican,30,-9,6,2,6,2,NA,2,3,1,0,2,2,0.819592469700849,2020-09-03,7,Republican,30,NA,1,NA,NA,0,About Half the time,0,1,10.5,NA,30,2020,NA,0,NA
 Strong Republican,0,100,6,1,7,2,NA,4,2,0,0,3,3,1.14191982289602,2020-10-18,7,Republican,0,100,1,NA,NA,1,Most of the Time,0,0,50,100,0,2020,warm,0,NA
 Independent - Democrat,85,0,4,3,7,2,NA,2,5,1,1,2,1,0.973558509219195,2020-08-24,3,Democrat,85,0,1,NA,NA,0,Never,1,1,42.5,85,0,2020,warm,1,NA
 Independent - Republican,0,85,99,2,6,2,NA,4,3,1,0,-9,2,1.57954258592317,2020-08-24,5,Republican,0,85,1,NA,NA,1,About Half the time,0,NA,42.5,85,0,2020,warm,0,NA
@@ -5619,7 +5619,7 @@ Independent - Democrat,15,15,4,1,6,2,NA,2,3,1,1,2,1,0.250114962719117,2020-09-24
 Independent - Independent,70,0,4,2,6,1,9,2,4,1,1,1,1,0.477044407870139,2020-08-26,4,Independent,70,0,0,Other Republican,Republican,0,Some of the Time,1,1,35,NA,NA,2020,NA,1,Voted in Other Party Primary
 Strong Democrat,70,30,3,2,6,1,3,2,4,1,1,2,1,2.06786139321985,2020-09-22,1,Democrat,70,30,0,Pete Buttigieg,Democrat,0,Some of the Time,1,1,50,70,30,2020,warm,1,Loser
 Strong Democrat,80,50,99,6,1,1,1,5,5,1,1,2,3,5.6530555904844,2020-10-28,1,Democrat,80,50,0,Joe Biden,Democrat,1,Never,1,1,65,80,50,2020,warm,0,Winner
-Independent - Democrat,60,-9,4,3,7,2,NA,2,2,1,1,4,1,0.460346114111935,2020-09-06,3,Democrat,60,NA,1,NA,NA,0,Most of the Time,0,0,25.5,60,-9,2020,NA,1,NA
+Independent - Democrat,60,-9,4,3,7,2,NA,2,2,1,1,4,1,0.460346114111935,2020-09-06,3,Democrat,60,NA,1,NA,NA,0,Most of the Time,0,0,25.5,60,NA,2020,NA,1,NA
 Independent - Republican,0,70,5,1,7,2,NA,-6,3,1,1,-6,1,0.903102025146776,2020-08-28,5,Republican,0,70,1,NA,NA,NA,About Half the time,0,NA,35,70,0,2020,warm,1,NA
 Strong Democrat,60,15,2,2,7,1,6,4,3,1,1,4,1,1.23145329968428,2020-08-31,1,Democrat,60,15,0,Elizabeth Warren,Democrat,1,About Half the time,0,0,37.5,60,15,2020,NA,1,Loser
 Strong Democrat,70,30,2,3,6,1,1,4,4,1,1,1,1,0.326171901728903,2020-09-02,1,Democrat,70,30,0,Joe Biden,Democrat,1,Some of the Time,1,1,50,70,30,2020,warm,1,Winner
@@ -5785,7 +5785,7 @@ Strong Democrat,95,0,2,2,7,1,1,4,4,1,1,5,1,1.79402832335307,2020-09-21,1,Democra
 Independent - Democrat,50,50,99,4,3,2,NA,2,5,1,0,1,1,1.2400681798561,2020-08-22,3,Democrat,50,50,1,NA,NA,0,Never,1,1,50,50,50,2020,NA,1,NA
 Weak Democrat,15,0,4,2,7,2,NA,2,4,1,1,4,1,2.85235853968492,2020-09-21,2,Democrat,15,0,1,NA,NA,0,Some of the Time,1,0,7.5,15,0,2020,cold,1,NA
 Strong Democrat,100,0,6,7,1,1,1,1,2,1,1,1,1,0.29818968025692,2020-09-21,1,Democrat,100,0,0,Joe Biden,Democrat,0,Most of the Time,0,1,50,100,0,2020,warm,1,Winner
-Strong Democrat,-9,-9,3,2,2,2,NA,-5,3,1,1,-5,2,1.46292188714878,2020-08-26,1,Democrat,NA,NA,1,NA,NA,NA,About Half the time,0,NA,-9,-9,-9,2020,cold,0,NA
+Strong Democrat,-9,-9,3,2,2,2,NA,-5,3,1,1,-5,2,1.46292188714878,2020-08-26,1,Democrat,NA,NA,1,NA,NA,NA,About Half the time,0,NA,-9,NA,NA,2020,NA,0,NA
 Weak Republican,40,55,4,7,1,2,NA,2,5,1,1,2,1,1.66949355661028,2020-08-28,6,Republican,40,55,1,NA,NA,0,Never,1,1,47.5,55,40,2020,NA,1,NA
 Strong Democrat,50,50,2,2,-9,1,1,2,4,1,0,4,1,1.40899927150459,2020-09-01,1,Democrat,50,50,0,Joe Biden,Democrat,0,Some of the Time,1,0,50,50,50,2020,NA,1,Winner
 Strong Republican,0,70,4,1,6,2,NA,2,3,1,1,2,3,0.836715677728679,2020-09-05,7,Republican,0,70,1,NA,NA,0,About Half the time,0,1,35,70,0,2020,warm,0,NA
@@ -5943,7 +5943,7 @@ Strong Democrat,100,0,2,3,7,1,1,5,2,1,0,2,1,0.523273706148077,2020-08-26,1,Democ
 Weak Democrat,65,0,2,3,6,1,1,4,4,1,1,4,1,1.26192098226347,2020-08-25,2,Democrat,65,0,0,Joe Biden,Democrat,1,Some of the Time,1,0,32.5,65,0,2020,NA,1,Winner
 Independent - Independent,85,0,99,7,1,2,NA,2,1,0,0,2,2,0.158396688074177,2020-08-23,4,Independent,85,0,1,NA,NA,0,Always,0,1,42.5,NA,NA,2020,NA,0,NA
 Strong Republican,15,85,5,2,5,2,NA,1,3,0,0,3,3,0.351596328734402,2020-09-21,7,Republican,15,85,1,NA,NA,0,About Half the time,0,0,50,85,15,2020,warm,0,NA
-Independent - Republican,-9,-9,6,1,6,2,NA,-5,4,1,1,-5,1,1.07687416183861,2020-08-24,5,Republican,NA,NA,1,NA,NA,NA,Some of the Time,1,NA,-9,-9,-9,2020,cold,1,NA
+Independent - Republican,-9,-9,6,1,6,2,NA,-5,4,1,1,-5,1,1.07687416183861,2020-08-24,5,Republican,NA,NA,1,NA,NA,NA,Some of the Time,1,NA,-9,NA,NA,2020,NA,1,NA
 Strong Democrat,70,0,2,2,7,2,NA,5,3,1,1,4,1,0.676607558973573,2020-08-28,1,Democrat,70,0,1,NA,NA,1,About Half the time,0,0,35,70,0,2020,warm,1,NA
 Independent - Democrat,70,50,4,4,1,2,NA,4,4,1,1,1,1,5.80379813538872,2020-08-20,3,Democrat,70,50,1,NA,NA,1,Some of the Time,1,1,60,70,50,2020,warm,1,NA
 Weak Republican,40,85,2,3,4,2,NA,4,4,0,1,4,1,1.56923585512157,2020-09-11,6,Republican,40,85,1,NA,NA,1,Some of the Time,1,0,62.5,85,40,2020,warm,1,NA
@@ -6000,7 +6000,7 @@ Independent - Democrat,7,5,4,3,6,1,3,2,3,1,1,2,1,0.240429263272358,2020-08-25,3,
 Independent - Republican,30,40,4,1,7,2,NA,2,2,1,1,3,1,0.942094832894294,2020-09-09,5,Republican,30,40,1,NA,NA,0,Most of the Time,0,0,35,40,30,2020,cold,1,NA
 Independent - Independent,60,30,2,4,7,2,NA,5,3,1,1,4,1,1.67764842949067,2020-09-29,4,Independent,60,30,1,NA,NA,1,About Half the time,0,0,45,NA,NA,2020,NA,1,NA
 Independent - Independent,20,10,4,2,7,1,3,4,4,1,1,2,1,0.897145239980233,2020-08-28,4,Independent,20,10,0,Pete Buttigieg,Democrat,1,Some of the Time,1,1,15,NA,NA,2020,NA,1,Voted in Other Party Primary
-Independent - Democrat,100,-9,3,4,1,1,1,2,4,1,1,2,1,0.920614559659284,2020-08-24,3,Democrat,100,NA,0,Joe Biden,Democrat,0,Some of the Time,1,1,45.5,100,-9,2020,warm,1,Winner
+Independent - Democrat,100,-9,3,4,1,1,1,2,4,1,1,2,1,0.920614559659284,2020-08-24,3,Democrat,100,NA,0,Joe Biden,Democrat,0,Some of the Time,1,1,45.5,100,NA,2020,warm,1,Winner
 Strong Democrat,100,0,1,3,7,1,3,1,4,1,1,2,1,1.60630787184811,2020-08-25,1,Democrat,100,0,0,Pete Buttigieg,Democrat,0,Some of the Time,1,1,50,100,0,2020,warm,1,Loser
 Weak Democrat,85,0,3,4,7,2,NA,2,4,1,1,2,1,0.35880800370439,2020-10-31,2,Democrat,85,0,1,NA,NA,0,Some of the Time,1,1,42.5,85,0,2020,warm,1,NA
 Independent - Independent,15,30,6,1,5,2,NA,2,5,1,1,1,3,0.368742594140563,2020-08-27,4,Independent,15,30,1,NA,NA,0,Never,1,1,22.5,NA,NA,2020,NA,0,NA
@@ -6235,7 +6235,7 @@ Independent - Democrat,85,0,3,4,7,2,NA,2,4,1,1,2,1,0.340628167623501,2020-08-21,
 Weak Democrat,70,30,3,2,7,1,6,4,4,1,1,3,1,1.7844251568768,2020-08-23,2,Democrat,70,30,0,Elizabeth Warren,Democrat,1,Some of the Time,1,0,50,70,30,2020,warm,1,Loser
 Strong Republican,0,100,5,1,7,2,NA,-6,5,1,1,-6,1,0.751500921134812,2020-08-28,7,Republican,0,100,1,NA,NA,NA,Never,1,NA,50,100,0,2020,warm,1,NA
 Independent - Democrat,60,15,2,3,6,1,5,2,3,1,1,2,1,0.639087354214032,2020-08-28,3,Democrat,60,15,0,Bernie Sanders,Democrat,0,About Half the time,0,1,37.5,60,15,2020,NA,1,Loser
-Independent - Republican,-9,-9,99,-9,-9,2,NA,2,3,0,1,1,1,1.55740579969749,2020-09-22,5,Republican,NA,NA,1,NA,NA,0,About Half the time,0,1,-9,-9,-9,2020,cold,1,NA
+Independent - Republican,-9,-9,99,-9,-9,2,NA,2,3,0,1,1,1,1.55740579969749,2020-09-22,5,Republican,NA,NA,1,NA,NA,0,About Half the time,0,1,-9,NA,NA,2020,NA,1,NA
 Weak Democrat,86,30,3,3,2,2,NA,2,2,1,1,1,3,0.214615330850087,2020-09-15,2,Democrat,86,30,1,NA,NA,0,Most of the Time,0,1,58,86,30,2020,warm,0,NA
 Weak Republican,40,60,5,2,5,2,NA,2,2,0,0,2,1,4.1182398588311,2020-09-10,6,Republican,40,60,1,NA,NA,0,Most of the Time,0,1,50,60,40,2020,NA,1,NA
 Weak Republican,1,75,5,1,6,2,NA,4,4,0,1,1,3,0.888546755136784,2020-08-29,6,Republican,1,75,1,NA,NA,1,Some of the Time,1,1,38,75,1,2020,warm,0,NA
@@ -6272,7 +6272,7 @@ Independent - Independent,60,0,1,2,7,2,NA,5,5,1,1,1,1,0.126940840608604,2020-08-
 Independent - Independent,0,0,99,6,7,2,NA,5,5,1,1,1,1,0.437329406790248,2020-10-10,4,Independent,0,0,1,NA,NA,1,Never,1,1,0,NA,NA,2020,NA,1,NA
 Weak Republican,55,75,4,2,6,1,6,2,4,1,1,4,1,0.756419089675745,2020-08-23,6,Republican,55,75,0,Elizabeth Warren,Democrat,0,Some of the Time,1,0,65,75,55,2020,warm,1,Voted in Other Party Primary
 Independent - Republican,30,60,99,2,6,2,NA,4,3,1,1,2,3,0.928231259078993,2020-08-26,5,Republican,30,60,1,NA,NA,1,About Half the time,0,1,45,60,30,2020,NA,0,NA
-Weak Democrat,85,-9,4,2,6,1,1,2,2,1,1,4,1,0.443167200425212,2020-10-08,2,Democrat,85,NA,0,Joe Biden,Democrat,0,Most of the Time,0,0,38,85,-9,2020,warm,1,Winner
+Weak Democrat,85,-9,4,2,6,1,1,2,2,1,1,4,1,0.443167200425212,2020-10-08,2,Democrat,85,NA,0,Joe Biden,Democrat,0,Most of the Time,0,0,38,85,NA,2020,warm,1,Winner
 Weak Democrat,50,50,7,2,6,2,NA,2,5,1,1,1,1,0.524091161127709,2020-09-28,2,Democrat,50,50,1,NA,NA,0,Never,1,1,50,50,50,2020,NA,1,NA
 Independent - Democrat,70,60,4,2,6,2,NA,-6,3,1,1,-6,1,2.24058721839951,2020-08-26,3,Democrat,70,60,1,NA,NA,NA,About Half the time,0,NA,65,70,60,2020,warm,1,NA
 Independent - Republican,50,50,4,4,4,2,NA,-6,3,0,0,-6,3,0.481466326871872,2020-09-21,5,Republican,50,50,1,NA,NA,NA,About Half the time,0,NA,50,50,50,2020,NA,0,NA
@@ -6283,7 +6283,7 @@ Strong Democrat,75,25,2,2,6,1,1,2,3,1,1,4,1,0.505421558619639,2020-08-25,1,Democ
 Weak Democrat,75,30,4,2,6,2,NA,-6,5,1,1,-6,1,1.00705429998187,2020-08-26,2,Democrat,75,30,1,NA,NA,NA,Never,1,NA,52.5,75,30,2020,warm,1,NA
 Strong Democrat,70,30,2,2,7,1,4,2,2,1,1,2,1,0.467229833027732,2020-08-21,1,Democrat,70,30,0,Amy Klobuchar,Democrat,0,Most of the Time,0,1,50,70,30,2020,warm,1,Loser
 Strong Democrat,85,15,3,2,7,1,1,4,4,1,1,2,1,0.626614839960335,2020-09-13,1,Democrat,85,15,0,Joe Biden,Democrat,1,Some of the Time,1,1,50,85,15,2020,warm,1,Winner
-Strong Republican,30,-9,6,1,6,2,NA,-6,4,0,1,-6,1,2.99379342782307,2020-10-03,7,Republican,30,NA,1,NA,NA,NA,Some of the Time,1,NA,10.5,-9,30,2020,cold,1,NA
+Strong Republican,30,-9,6,1,6,2,NA,-6,4,0,1,-6,1,2.99379342782307,2020-10-03,7,Republican,30,NA,1,NA,NA,NA,Some of the Time,1,NA,10.5,NA,30,2020,NA,1,NA
 Strong Republican,0,95,7,1,5,1,8,-6,2,0,1,-6,1,0.933657852851373,2020-09-30,7,Republican,0,95,0,Donald Trump,Republican,NA,Most of the Time,0,NA,47.5,95,0,2020,warm,1,Winner
 Strong Republican,0,85,99,1,7,2,NA,4,3,1,1,5,3,0.507644869605222,2020-09-01,7,Republican,0,85,1,NA,NA,1,About Half the time,0,0,42.5,85,0,2020,warm,0,NA
 Independent - Democrat,70,30,4,6,5,2,NA,2,4,1,0,3,1,0.436551664739763,2020-09-21,3,Democrat,70,30,1,NA,NA,0,Some of the Time,1,0,50,70,30,2020,warm,1,NA
@@ -6369,7 +6369,7 @@ Independent - Independent,60,40,4,2,6,2,NA,4,4,1,1,1,1,1.89708039468514,2020-08-
 Independent - Independent,50,50,99,5,3,2,NA,5,4,0,1,1,1,0.391586650928268,2020-08-26,4,Independent,50,50,1,NA,NA,1,Some of the Time,1,1,50,NA,NA,2020,NA,1,NA
 Strong Republican,0,100,99,2,6,1,8,2,1,0,0,2,1,0.313951581227147,2020-08-24,7,Republican,0,100,0,Donald Trump,Republican,0,Always,0,1,50,100,0,2020,warm,1,Winner
 Weak Democrat,40,30,5,3,6,2,NA,-5,4,1,1,2,1,0.900146042234695,2020-09-21,2,Democrat,40,30,1,NA,NA,NA,Some of the Time,1,1,35,40,30,2020,cold,1,NA
-Weak Republican,-9,-9,3,-9,-9,1,8,-9,4,1,0,3,3,0.564520236349372,2020-08-28,6,Republican,NA,NA,0,Donald Trump,Republican,NA,Some of the Time,1,0,-9,-9,-9,2020,cold,0,Winner
+Weak Republican,-9,-9,3,-9,-9,1,8,-9,4,1,0,3,3,0.564520236349372,2020-08-28,6,Republican,NA,NA,0,Donald Trump,Republican,NA,Some of the Time,1,0,-9,NA,NA,2020,NA,0,Winner
 Strong Democrat,100,0,99,1,7,2,NA,1,5,1,1,1,1,0.424469192016868,2020-09-23,1,Democrat,100,0,1,NA,NA,0,Never,1,1,50,100,0,2020,warm,1,NA
 Weak Republican,30,85,6,1,6,2,NA,1,4,1,1,3,3,0.259155734098012,2020-09-13,6,Republican,30,85,1,NA,NA,0,Some of the Time,1,0,57.5,85,30,2020,warm,0,NA
 Strong Democrat,85,0,3,2,7,1,1,-6,3,1,1,-6,1,2.38314255904143,2020-10-14,1,Democrat,85,0,0,Joe Biden,Democrat,NA,About Half the time,0,NA,42.5,85,0,2020,warm,1,Winner
@@ -6401,7 +6401,7 @@ Strong Republican,0,90,6,2,6,2,NA,4,2,0,0,4,3,0.38470480564401,2020-08-25,7,Repu
 Strong Republican,15,90,7,1,6,1,8,2,4,1,1,2,3,0.430382627124193,2020-10-01,7,Republican,15,90,0,Donald Trump,Republican,0,Some of the Time,1,1,52.5,90,15,2020,warm,0,Winner
 Strong Republican,15,85,6,2,6,1,8,1,4,0,1,1,3,0.292938420724853,2020-09-01,7,Republican,15,85,0,Donald Trump,Republican,0,Some of the Time,1,1,50,85,15,2020,warm,0,Winner
 Weak Republican,40,70,99,2,6,2,NA,4,4,0,1,4,1,0.765218097729992,2020-09-02,6,Republican,40,70,1,NA,NA,1,Some of the Time,1,0,55,70,40,2020,warm,1,NA
-Weak Democrat,-9,-9,99,4,4,2,NA,1,2,0,1,2,3,0.225327214486592,2020-10-09,2,Democrat,NA,NA,1,NA,NA,0,Most of the Time,0,1,-9,-9,-9,2020,cold,0,NA
+Weak Democrat,-9,-9,99,4,4,2,NA,1,2,0,1,2,3,0.225327214486592,2020-10-09,2,Democrat,NA,NA,1,NA,NA,0,Most of the Time,0,1,-9,NA,NA,2020,NA,0,NA
 Strong Republican,40,70,4,2,4,2,NA,1,2,1,1,3,1,0.213109340781167,2020-08-25,7,Republican,40,70,1,NA,NA,0,Most of the Time,0,0,55,70,40,2020,warm,1,NA
 Independent - Independent,40,60,4,4,4,1,7,-5,4,0,1,2,3,0.18359288549664,2020-08-27,4,Independent,40,60,0,Other Democrat,Democrat,NA,Some of the Time,1,1,50,NA,NA,2020,NA,0,Voted in Other Party Primary
 Strong Republican,0,75,6,1,5,2,NA,-6,4,1,1,-6,3,0.178889878732079,2020-08-24,7,Republican,0,75,1,NA,NA,NA,Some of the Time,1,NA,37.5,75,0,2020,warm,0,NA
@@ -6456,7 +6456,7 @@ Independent - Democrat,40,0,2,3,7,2,NA,4,4,1,1,2,1,0.809255616366169,2020-08-27,
 Strong Republican,15,85,4,1,5,2,NA,2,2,1,0,2,2,0.665237070817827,2020-08-25,7,Republican,15,85,1,NA,NA,0,Most of the Time,0,1,50,85,15,2020,warm,0,NA
 Weak Republican,30,40,5,3,5,1,1,2,3,1,1,4,1,1.69684784551258,2020-11-02,6,Republican,30,40,0,Joe Biden,Democrat,0,About Half the time,0,0,35,40,30,2020,cold,1,Voted in Other Party Primary
 Strong Republican,60,85,6,1,6,1,8,-6,3,1,1,-6,1,3.14514821794991,2020-08-21,7,Republican,60,85,0,Donald Trump,Republican,NA,About Half the time,0,NA,72.5,85,60,2020,warm,1,Winner
-Strong Republican,-9,-9,7,2,7,2,NA,1,2,0,1,1,3,0.348653066627456,2020-09-02,7,Republican,NA,NA,1,NA,NA,0,Most of the Time,0,1,-9,-9,-9,2020,cold,0,NA
+Strong Republican,-9,-9,7,2,7,2,NA,1,2,0,1,1,3,0.348653066627456,2020-09-02,7,Republican,NA,NA,1,NA,NA,0,Most of the Time,0,1,-9,NA,NA,2020,NA,0,NA
 Weak Republican,20,20,4,2,6,2,NA,2,4,1,1,1,1,0.600940281554797,2020-08-24,6,Republican,20,20,1,NA,NA,0,Some of the Time,1,1,20,20,20,2020,cold,1,NA
 Weak Democrat,60,50,3,2,6,2,NA,2,4,1,0,2,2,1.1193304546928,2020-08-27,2,Democrat,60,50,1,NA,NA,0,Some of the Time,1,1,55,60,50,2020,NA,0,NA
 Weak Republican,50,60,2,4,4,2,NA,1,2,1,0,2,1,1.30934151092835,2020-08-28,6,Republican,50,60,1,NA,NA,0,Most of the Time,0,1,55,60,50,2020,NA,1,NA
@@ -6504,9 +6504,9 @@ Independent - Independent,60,70,4,5,3,2,NA,2,4,1,1,2,3,0.774498456682338,2020-08
 Independent - Independent,50,30,4,1,7,2,NA,4,4,1,1,1,3,4.6598695972531,2020-08-24,4,Independent,50,30,1,NA,NA,1,Some of the Time,1,1,40,NA,NA,2020,NA,0,NA
 Independent - Republican,30,30,4,1,7,1,10,2,2,1,1,1,1,0.830340150753988,2020-09-02,5,Republican,30,30,0,Someone Neither Dem. Nor Rep.,Other Party,0,Most of the Time,0,1,30,30,30,2020,cold,1,Voted in Other Party Primary
 Strong Republican,15,100,6,1,6,1,8,2,3,1,1,-9,3,0.571491842616049,2020-08-27,7,Republican,15,100,0,Donald Trump,Republican,0,About Half the time,0,NA,57.5,100,15,2020,warm,0,Winner
-Weak Republican,-9,-9,4,2,6,2,NA,2,4,1,1,2,1,0.922408726491341,2020-09-02,6,Republican,NA,NA,1,NA,NA,0,Some of the Time,1,1,-9,-9,-9,2020,cold,1,NA
+Weak Republican,-9,-9,4,2,6,2,NA,2,4,1,1,2,1,0.922408726491341,2020-09-02,6,Republican,NA,NA,1,NA,NA,0,Some of the Time,1,1,-9,NA,NA,2020,NA,1,NA
 Independent - Independent,30,40,4,2,6,2,NA,4,4,1,1,1,3,0.902654538323529,2020-08-26,4,Independent,30,40,1,NA,NA,1,Some of the Time,1,1,35,NA,NA,2020,NA,0,NA
-Strong Democrat,-9,-9,1,2,7,1,1,2,2,1,0,3,1,0.307900731553471,2020-08-23,1,Democrat,NA,NA,0,Joe Biden,Democrat,0,Most of the Time,0,0,-9,-9,-9,2020,cold,1,Winner
+Strong Democrat,-9,-9,1,2,7,1,1,2,2,1,0,3,1,0.307900731553471,2020-08-23,1,Democrat,NA,NA,0,Joe Biden,Democrat,0,Most of the Time,0,0,-9,NA,NA,2020,NA,1,Winner
 Independent - Democrat,70,0,1,3,6,1,6,4,4,1,1,2,1,1.87181104258047,2020-09-26,3,Democrat,70,0,0,Elizabeth Warren,Democrat,1,Some of the Time,1,1,35,70,0,2020,warm,1,Loser
 Strong Democrat,70,15,99,2,7,2,NA,2,4,1,1,3,1,1.10837708424747,2020-08-31,1,Democrat,70,15,1,NA,NA,0,Some of the Time,1,0,42.5,70,15,2020,warm,1,NA
 Weak Republican,15,85,4,1,7,1,8,4,4,1,1,1,1,0.520604103515273,2020-08-29,6,Republican,15,85,0,Donald Trump,Republican,1,Some of the Time,1,1,50,85,15,2020,warm,1,Winner
@@ -6760,7 +6760,7 @@ Strong Democrat,0,0,4,7,4,2,NA,1,5,1,0,5,2,1.25189531271009,2020-08-27,1,Democra
 Strong Republican,30,100,5,1,6,2,NA,1,3,1,0,4,3,1.19944193000157,2020-09-03,7,Republican,30,100,1,NA,NA,0,About Half the time,0,0,65,100,30,2020,warm,0,NA
 Strong Republican,15,100,6,1,6,1,8,2,4,0,0,2,1,0.829805294680782,2020-09-02,7,Republican,15,100,0,Donald Trump,Republican,0,Some of the Time,1,1,57.5,100,15,2020,warm,1,Winner
 Independent - Republican,40,85,6,2,6,2,NA,4,3,1,1,3,3,0.340407860362378,2020-08-28,5,Republican,40,85,1,NA,NA,1,About Half the time,0,0,62.5,85,40,2020,warm,0,NA
-Strong Democrat,70,-9,99,4,4,2,NA,2,3,0,0,3,1,0.865018091200793,2020-08-26,1,Democrat,70,NA,1,NA,NA,0,About Half the time,0,0,30.5,70,-9,2020,warm,1,NA
+Strong Democrat,70,-9,99,4,4,2,NA,2,3,0,0,3,1,0.865018091200793,2020-08-26,1,Democrat,70,NA,1,NA,NA,0,About Half the time,0,0,30.5,70,NA,2020,warm,1,NA
 Independent - Democrat,50,50,4,7,1,2,NA,2,4,0,1,3,1,0.751656713035318,2020-08-24,3,Democrat,50,50,1,NA,NA,0,Some of the Time,1,0,50,50,50,2020,NA,1,NA
 Strong Republican,60,70,4,2,7,1,8,2,4,0,1,2,1,0.509603465559632,2020-09-09,7,Republican,60,70,0,Donald Trump,Republican,0,Some of the Time,1,1,65,70,60,2020,warm,1,Winner
 Weak Democrat,45,45,4,1,6,2,NA,-7,4,0,1,-7,1,1.59106181341233,2020-09-04,2,Democrat,45,45,1,NA,NA,NA,Some of the Time,1,NA,45,45,45,2020,cold,1,NA
@@ -6773,7 +6773,7 @@ Weak Democrat,60,0,2,3,7,2,NA,4,4,1,1,2,1,0.825757856572235,2020-08-27,2,Democra
 Weak Democrat,60,60,3,2,6,2,NA,1,3,1,1,2,1,0.562132763119354,2020-08-27,2,Democrat,60,60,1,NA,NA,0,About Half the time,0,1,60,60,60,2020,NA,1,NA
 Strong Republican,30,60,7,1,6,2,NA,4,4,0,1,1,1,0.665858683673986,2020-08-24,7,Republican,30,60,1,NA,NA,1,Some of the Time,1,1,45,60,30,2020,NA,1,NA
 Independent - Democrat,100,0,4,3,6,1,6,4,3,1,1,4,1,1.05158156039378,2020-09-02,3,Democrat,100,0,0,Elizabeth Warren,Democrat,1,About Half the time,0,0,50,100,0,2020,warm,1,Loser
-Strong Republican,-9,85,5,1,6,2,NA,2,4,1,1,1,3,0.511246052133172,2020-09-10,7,Republican,NA,85,1,NA,NA,0,Some of the Time,1,1,38,85,-9,2020,warm,0,NA
+Strong Republican,-9,85,5,1,6,2,NA,2,4,1,1,1,3,0.511246052133172,2020-09-10,7,Republican,NA,85,1,NA,NA,0,Some of the Time,1,1,38,85,NA,2020,warm,0,NA
 Weak Democrat,70,0,1,4,7,1,6,4,4,1,1,2,1,0.749283201869384,2020-09-21,2,Democrat,70,0,0,Elizabeth Warren,Democrat,1,Some of the Time,1,1,35,70,0,2020,warm,1,Loser
 Strong Republican,0,100,99,4,7,2,NA,2,2,0,1,1,3,0.312637548245952,2020-09-25,7,Republican,0,100,1,NA,NA,0,Most of the Time,0,1,50,100,0,2020,warm,0,NA
 Strong Republican,0,85,6,1,6,2,NA,1,3,1,1,3,1,1.43707971148976,2020-09-23,7,Republican,0,85,1,NA,NA,0,About Half the time,0,0,42.5,85,0,2020,warm,1,NA
@@ -6790,13 +6790,13 @@ Strong Democrat,85,0,99,4,7,1,1,5,5,1,1,1,1,1.79829044590439,2020-09-21,1,Democr
 Weak Republican,15,85,3,7,4,2,NA,2,2,0,0,5,3,0.155359781505084,2020-08-24,6,Republican,15,85,1,NA,NA,0,Most of the Time,0,0,50,85,15,2020,warm,0,NA
 Strong Democrat,85,30,3,3,6,1,1,4,2,1,1,1,1,0.22820361496393,2020-09-02,1,Democrat,85,30,0,Joe Biden,Democrat,1,Most of the Time,0,1,57.5,85,30,2020,warm,1,Winner
 Weak Democrat,50,60,99,5,5,1,1,-6,3,0,1,-6,1,0.446452708867806,2020-09-09,2,Democrat,50,60,0,Joe Biden,Democrat,NA,About Half the time,0,NA,55,50,60,2020,NA,1,Winner
-Strong Democrat,-9,-9,4,4,3,1,10,2,4,1,1,2,2,1.24923726902486,2020-08-25,1,Democrat,NA,NA,0,Someone Neither Dem. Nor Rep.,Other Party,0,Some of the Time,1,1,-9,-9,-9,2020,cold,0,Voted in Other Party Primary
+Strong Democrat,-9,-9,4,4,3,1,10,2,4,1,1,2,2,1.24923726902486,2020-08-25,1,Democrat,NA,NA,0,Someone Neither Dem. Nor Rep.,Other Party,0,Some of the Time,1,1,-9,NA,NA,2020,NA,0,Voted in Other Party Primary
 Strong Republican,0,60,6,1,7,1,10,1,3,1,NA,3,1,1.20517100346823,2020-08-24,7,Republican,0,60,0,Someone Neither Dem. Nor Rep.,Other Party,0,About Half the time,0,0,30,60,0,2020,NA,1,Voted in Other Party Primary
 Independent - Democrat,85,0,3,2,2,2,NA,1,4,1,1,3,1,0.146242010441371,2020-08-27,3,Democrat,85,0,1,NA,NA,0,Some of the Time,1,0,42.5,85,0,2020,warm,1,NA
 Independent - Republican,55,55,4,2,6,2,NA,4,4,1,1,2,1,0.549856672461384,2020-09-02,5,Republican,55,55,1,NA,NA,1,Some of the Time,1,1,55,55,55,2020,NA,1,NA
 Independent - Independent,50,50,2,4,4,2,NA,4,4,1,1,3,1,2.86360476976391,2020-09-21,4,Independent,50,50,1,NA,NA,1,Some of the Time,1,0,50,NA,NA,2020,NA,1,NA
 Strong Democrat,75,0,4,2,7,2,NA,2,3,1,1,4,1,3.60396193536845,2020-08-22,1,Democrat,75,0,1,NA,NA,0,About Half the time,0,0,37.5,75,0,2020,warm,1,NA
-Strong Democrat,-9,-9,99,2,6,2,NA,-6,4,1,1,-6,1,0.227226104626689,2020-09-23,1,Democrat,NA,NA,1,NA,NA,NA,Some of the Time,1,NA,-9,-9,-9,2020,cold,1,NA
+Strong Democrat,-9,-9,99,2,6,2,NA,-6,4,1,1,-6,1,0.227226104626689,2020-09-23,1,Democrat,NA,NA,1,NA,NA,NA,Some of the Time,1,NA,-9,NA,NA,2020,NA,1,NA
 Strong Republican,0,60,6,1,5,1,8,2,3,0,1,2,3,0.914948257630965,2020-09-21,7,Republican,0,60,0,Donald Trump,Republican,0,About Half the time,0,1,30,60,0,2020,NA,0,Winner
 Independent - Independent,55,15,3,2,7,1,5,4,4,1,1,2,1,1.04496611233883,2020-08-24,4,Independent,55,15,0,Bernie Sanders,Democrat,1,Some of the Time,1,1,35,NA,NA,2020,NA,1,Voted in Other Party Primary
 Independent - Independent,50,50,4,4,4,2,NA,2,3,0,1,2,3,5.06437147851073,2020-08-21,4,Independent,50,50,1,NA,NA,0,About Half the time,0,1,50,NA,NA,2020,NA,0,NA
@@ -7086,13 +7086,13 @@ Independent - Democrat,60,0,4,1,7,1,5,1,5,1,1,1,1,0.535875853528111,2020-08-25,3
 Strong Republican,15,85,7,1,6,1,5,2,4,1,1,2,1,2.14997318957729,2020-08-24,7,Republican,15,85,0,Bernie Sanders,Democrat,0,Some of the Time,1,1,50,85,15,2020,warm,1,Voted in Other Party Primary
 Strong Republican,15,100,6,1,6,1,8,4,2,0,0,1,2,1.81982299789939,2020-09-08,7,Republican,15,100,0,Donald Trump,Republican,1,Most of the Time,0,1,57.5,100,15,2020,warm,0,Winner
 Weak Democrat,70,0,3,2,7,1,1,4,3,1,1,2,1,1.09958785701883,2020-09-21,2,Democrat,70,0,0,Joe Biden,Democrat,1,About Half the time,0,1,35,70,0,2020,warm,1,Winner
-Independent - Democrat,70,-9,4,2,6,1,3,2,3,1,1,2,1,0.372891183793877,2020-08-28,3,Democrat,70,NA,0,Pete Buttigieg,Democrat,0,About Half the time,0,1,30.5,70,-9,2020,warm,1,Loser
+Independent - Democrat,70,-9,4,2,6,1,3,2,3,1,1,2,1,0.372891183793877,2020-08-28,3,Democrat,70,NA,0,Pete Buttigieg,Democrat,0,About Half the time,0,1,30.5,70,NA,2020,warm,1,Loser
 Independent - Republican,15,40,5,1,5,1,8,4,4,1,1,1,3,1.92971989377811,2020-09-21,5,Republican,15,40,0,Donald Trump,Republican,1,Some of the Time,1,1,27.5,40,15,2020,cold,0,Winner
 Strong Democrat,100,0,4,6,6,1,1,4,3,1,1,3,1,0.742281536420329,2020-09-21,1,Democrat,100,0,0,Joe Biden,Democrat,1,About Half the time,0,0,50,100,0,2020,warm,1,Winner
 Independent - Democrat,15,15,2,4,6,2,NA,4,3,1,1,2,1,0.234135564896664,2020-09-21,3,Democrat,15,15,1,NA,NA,1,About Half the time,0,1,15,15,15,2020,cold,1,NA
 Independent - Republican,15,60,6,1,5,1,8,2,4,1,1,2,1,2.09676349165952,2020-09-24,5,Republican,15,60,0,Donald Trump,Republican,0,Some of the Time,1,1,37.5,60,15,2020,NA,1,Winner
 Independent - Independent,50,15,3,2,7,2,NA,4,4,1,1,1,1,0.345821739375864,2020-08-30,4,Independent,50,15,1,NA,NA,1,Some of the Time,1,1,32.5,NA,NA,2020,NA,1,NA
-Independent - Democrat,40,-9,4,2,7,2,NA,4,2,1,1,4,1,0.728218784058437,2020-09-21,3,Democrat,40,NA,1,NA,NA,1,Most of the Time,0,0,15.5,40,-9,2020,cold,1,NA
+Independent - Democrat,40,-9,4,2,7,2,NA,4,2,1,1,4,1,0.728218784058437,2020-09-21,3,Democrat,40,NA,1,NA,NA,1,Most of the Time,0,0,15.5,40,NA,2020,cold,1,NA
 Strong Republican,0,75,5,1,6,1,8,2,3,NA,1,2,-9,0.173241874127076,2020-08-31,7,Republican,0,75,0,Donald Trump,Republican,0,About Half the time,0,1,37.5,75,0,2020,warm,NA,Winner
 Strong Republican,0,70,99,6,6,2,NA,2,3,0,1,4,3,1.73702674184795,2020-08-24,7,Republican,0,70,1,NA,NA,0,About Half the time,0,0,35,70,0,2020,warm,0,NA
 Weak Republican,60,60,5,5,4,2,NA,2,4,1,1,2,3,0.30429224107103803,2020-09-01,6,Republican,60,60,1,NA,NA,0,Some of the Time,1,1,60,60,60,2020,NA,0,NA
@@ -7355,7 +7355,7 @@ Independent - Democrat,70,15,2,3,7,2,NA,-5,3,1,1,2,1,0.280446441534768,2020-08-2
 Independent - Democrat,50,60,99,2,2,2,NA,2,3,0,0,3,3,0.472010390875664,2020-09-21,3,Democrat,50,60,1,NA,NA,0,About Half the time,0,0,55,50,60,2020,NA,0,NA
 Weak Democrat,50,50,-9,2,6,2,NA,2,2,0,1,3,1,0.901340336040362,2020-08-25,2,Democrat,50,50,1,NA,NA,0,Most of the Time,0,0,50,50,50,2020,NA,1,NA
 Weak Democrat,70,15,3,2,7,1,6,4,3,1,1,2,1,0.909243604774557,2020-08-31,2,Democrat,70,15,0,Elizabeth Warren,Democrat,1,About Half the time,0,1,42.5,70,15,2020,warm,1,Loser
-Weak Republican,-9,-9,99,4,4,1,1,2,4,1,1,2,3,0.160057137003187,2020-09-21,6,Republican,NA,NA,0,Joe Biden,Democrat,0,Some of the Time,1,1,-9,-9,-9,2020,cold,0,Voted in Other Party Primary
+Weak Republican,-9,-9,99,4,4,1,1,2,4,1,1,2,3,0.160057137003187,2020-09-21,6,Republican,NA,NA,0,Joe Biden,Democrat,0,Some of the Time,1,1,-9,NA,NA,2020,NA,0,Voted in Other Party Primary
 Independent - Democrat,50,15,4,4,7,1,1,2,4,1,1,2,1,1.92114326179846,2020-08-25,3,Democrat,50,15,0,Joe Biden,Democrat,0,Some of the Time,1,1,32.5,50,15,2020,NA,1,Winner
 Strong Republican,0,100,6,1,6,1,8,2,2,1,0,2,3,0.175465010903238,2020-08-25,7,Republican,0,100,0,Donald Trump,Republican,0,Most of the Time,0,1,50,100,0,2020,warm,0,Winner
 Independent - Democrat,50,50,2,2,6,2,NA,2,2,0,0,1,1,2.43408866681205,2020-09-23,3,Democrat,50,50,1,NA,NA,0,Most of the Time,0,1,50,50,50,2020,NA,1,NA
@@ -7433,7 +7433,7 @@ Weak Democrat,75,15,2,2,7,1,1,4,3,1,1,4,1,0.116415449439734,2020-08-26,2,Democra
 Strong Democrat,70,30,99,3,6,2,NA,2,4,1,1,1,1,0.553889054020821,2020-09-11,1,Democrat,70,30,1,NA,NA,0,Some of the Time,1,1,50,70,30,2020,warm,1,NA
 Independent - Independent,60,40,2,2,6,2,NA,2,4,1,1,1,1,1.47442739165648,2020-08-26,4,Independent,60,40,1,NA,NA,0,Some of the Time,1,1,50,NA,NA,2020,NA,1,NA
 Independent - Independent,60,60,99,4,4,2,NA,4,5,1,1,3,1,0.102752117918248,2020-08-28,4,Independent,60,60,1,NA,NA,1,Never,1,0,60,NA,NA,2020,NA,1,NA
-Strong Democrat,-9,0,3,-9,6,2,NA,2,3,1,1,2,1,0.125415687377331,2020-08-20,1,Democrat,NA,0,1,NA,NA,0,About Half the time,0,1,-4.5,-9,0,2020,cold,1,NA
+Strong Democrat,-9,0,3,-9,6,2,NA,2,3,1,1,2,1,0.125415687377331,2020-08-20,1,Democrat,NA,0,1,NA,NA,0,About Half the time,0,1,-4.5,NA,0,2020,NA,1,NA
 Independent - Republican,15,40,5,1,6,2,NA,5,5,1,1,1,1,0.627546276746749,2020-09-03,5,Republican,15,40,1,NA,NA,1,Never,1,1,27.5,40,15,2020,cold,1,NA
 Independent - Republican,30,60,5,2,2,1,8,2,3,0,1,2,1,0.754338193149163,2020-08-28,5,Republican,30,60,0,Donald Trump,Republican,0,About Half the time,0,1,45,60,30,2020,NA,1,Winner
 Weak Republican,40,55,5,2,7,1,9,2,4,1,1,4,1,0.817078225129505,2020-09-01,6,Republican,40,55,0,Other Republican,Republican,0,Some of the Time,1,0,47.5,55,40,2020,NA,1,Loser
@@ -7503,7 +7503,7 @@ Independent - Democrat,40,0,2,3,6,1,5,4,4,1,1,2,1,0.0837333089155718,2020-10-22,
 Independent - Republican,30,70,4,1,7,2,NA,4,4,0,1,3,3,0.301927218954352,2020-08-21,5,Republican,30,70,1,NA,NA,1,Some of the Time,1,0,50,70,30,2020,warm,0,NA
 Weak Republican,40,70,4,3,5,1,8,2,2,1,0,3,3,4.28729166474014,2020-09-21,6,Republican,40,70,0,Donald Trump,Republican,0,Most of the Time,0,0,55,70,40,2020,warm,0,Winner
 Strong Democrat,50,50,4,5,1,1,1,-6,3,1,1,-6,3,0.383372538105262,2020-08-31,1,Democrat,50,50,0,Joe Biden,Democrat,NA,About Half the time,0,NA,50,50,50,2020,NA,0,Winner
-Weak Democrat,-9,-9,99,7,7,2,NA,4,5,1,1,2,3,0.424105716367497,2020-09-21,2,Democrat,NA,NA,1,NA,NA,1,Never,1,1,-9,-9,-9,2020,cold,0,NA
+Weak Democrat,-9,-9,99,7,7,2,NA,4,5,1,1,2,3,0.424105716367497,2020-09-21,2,Democrat,NA,NA,1,NA,NA,1,Never,1,1,-9,NA,NA,2020,NA,0,NA
 Independent - Independent,70,60,99,3,6,1,7,2,3,1,1,2,1,1.88090568795504,2020-08-24,4,Independent,70,60,0,Other Democrat,Democrat,0,About Half the time,0,1,65,NA,NA,2020,NA,1,Voted in Other Party Primary
 Weak Democrat,15,70,4,1,6,1,10,1,2,1,0,2,1,1.07460303731209,2020-08-29,2,Democrat,15,70,0,Someone Neither Dem. Nor Rep.,Other Party,0,Most of the Time,0,1,42.5,15,70,2020,cold,1,Voted in Other Party Primary
 Weak Democrat,70,50,6,4,4,2,NA,-7,5,1,1,-7,1,1.48517993424951,2020-08-25,2,Democrat,70,50,1,NA,NA,NA,Never,1,NA,60,70,50,2020,warm,1,NA
@@ -7511,7 +7511,7 @@ Independent - Independent,0,30,6,1,3,1,8,5,5,1,1,1,1,0.369370499003964,2020-10-0
 Strong Democrat,85,0,3,2,7,1,1,1,3,1,1,1,1,0.490254762837281,2020-10-05,1,Democrat,85,0,0,Joe Biden,Democrat,0,About Half the time,0,1,42.5,85,0,2020,warm,1,Winner
 Weak Democrat,68,22,1,2,7,1,5,2,4,1,1,4,1,1.03511628697862,2020-08-21,2,Democrat,68,22,0,Bernie Sanders,Democrat,0,Some of the Time,1,0,45,68,22,2020,NA,1,Loser
 Independent - Democrat,85,0,3,3,7,1,1,4,3,1,1,2,1,1.09464112998491,2020-08-29,3,Democrat,85,0,0,Joe Biden,Democrat,1,About Half the time,0,1,42.5,85,0,2020,warm,1,Winner
-Strong Republican,0,-9,6,2,6,2,NA,-6,2,0,0,-6,3,0.617840743236638,2020-08-21,7,Republican,0,NA,1,NA,NA,NA,Most of the Time,0,NA,-4.5,-9,0,2020,cold,0,NA
+Strong Republican,0,-9,6,2,6,2,NA,-6,2,0,0,-6,3,0.617840743236638,2020-08-21,7,Republican,0,NA,1,NA,NA,NA,Most of the Time,0,NA,-4.5,NA,0,2020,NA,0,NA
 NA,60,20,2,2,6,1,6,2,4,1,1,4,1,0.509665849019164,2020-08-31,-9,NA,60,20,0,Elizabeth Warren,Democrat,0,Some of the Time,1,0,40,NA,NA,2020,NA,1,NA
 Strong Democrat,85,15,2,1,6,1,1,-5,3,1,1,2,1,0.256081391726504,2020-08-20,1,Democrat,85,15,0,Joe Biden,Democrat,NA,About Half the time,0,1,50,85,15,2020,warm,1,Winner
 Independent - Independent,70,30,4,3,7,2,NA,2,4,1,1,2,1,0.451370068746261,2020-09-25,4,Independent,70,30,1,NA,NA,0,Some of the Time,1,1,50,NA,NA,2020,NA,1,NA
@@ -7726,7 +7726,7 @@ Strong Democrat,100,0,4,4,7,1,1,2,2,1,1,5,1,1.53065098775832,2020-08-24,1,Democr
 Strong Republican,0,100,7,1,7,2,NA,2,4,1,1,2,1,1.13834371674267,2020-09-02,7,Republican,0,100,1,NA,NA,0,Some of the Time,1,1,50,100,0,2020,warm,1,NA
 Independent - Democrat,85,0,5,2,7,1,1,5,4,1,1,4,1,0.901037865992881,2020-08-29,3,Democrat,85,0,0,Joe Biden,Democrat,1,Some of the Time,1,0,42.5,85,0,2020,warm,1,Winner
 Strong Republican,20,80,6,1,6,2,NA,2,4,0,1,2,1,0.83732980401293,2020-10-29,7,Republican,20,80,1,NA,NA,0,Some of the Time,1,1,50,80,20,2020,warm,1,NA
-Weak Democrat,-9,-9,4,4,2,2,NA,4,5,1,1,1,1,1.69257151301739,2020-08-28,2,Democrat,NA,NA,1,NA,NA,1,Never,1,1,-9,-9,-9,2020,cold,1,NA
+Weak Democrat,-9,-9,4,4,2,2,NA,4,5,1,1,1,1,1.69257151301739,2020-08-28,2,Democrat,NA,NA,1,NA,NA,1,Never,1,1,-9,NA,NA,2020,NA,1,NA
 Weak Democrat,70,0,3,2,7,2,NA,2,4,1,1,3,1,0.67585228809715,2020-08-29,2,Democrat,70,0,1,NA,NA,0,Some of the Time,1,0,35,70,0,2020,warm,1,NA
 Independent - Democrat,70,30,4,2,7,1,1,2,3,1,1,2,3,0.228855155076291,2020-10-27,3,Democrat,70,30,0,Joe Biden,Democrat,0,About Half the time,0,1,50,70,30,2020,warm,0,Winner
 Independent - Democrat,90,5,2,3,7,1,1,-6,3,1,1,-6,1,1.06425209046002,2020-08-23,3,Democrat,90,5,0,Joe Biden,Democrat,NA,About Half the time,0,NA,47.5,90,5,2020,warm,1,Winner
@@ -7949,7 +7949,7 @@ Independent - Independent,0,0,4,1,7,2,NA,2,1,1,0,2,3,1.42343687785693,2020-10-13
 Independent - Republican,30,85,6,1,6,1,8,2,3,0,1,2,1,0.650245106731239,2020-10-01,5,Republican,30,85,0,Donald Trump,Republican,0,About Half the time,0,1,57.5,85,30,2020,warm,1,Winner
 Strong Republican,30,70,99,6,6,2,NA,2,3,0,0,2,3,6.93292869912978,2020-09-25,7,Republican,30,70,1,NA,NA,0,About Half the time,0,1,50,70,30,2020,warm,0,NA
 Independent - Democrat,60,0,2,3,7,1,1,2,5,1,1,2,1,0.353072546325402,2020-09-24,3,Democrat,60,0,0,Joe Biden,Democrat,0,Never,1,1,30,60,0,2020,NA,1,Winner
-Independent - Democrat,998,998,99,5,4,2,NA,2,4,1,1,2,1,0.422174137387776,2020-09-21,3,Democrat,NA,NA,1,NA,NA,0,Some of the Time,1,1,998,998,998,2020,warm,1,NA
+Independent - Democrat,998,998,99,5,4,2,NA,2,4,1,1,2,1,0.422174137387776,2020-09-21,3,Democrat,NA,NA,1,NA,NA,0,Some of the Time,1,1,998,NA,NA,2020,NA,1,NA
 Strong Republican,0,70,99,2,5,2,NA,2,4,0,1,4,3,2.40489244240881,2020-10-01,7,Republican,0,70,1,NA,NA,0,Some of the Time,1,0,35,70,0,2020,warm,0,NA
 Independent - Republican,30,100,5,1,4,2,NA,1,2,1,0,2,1,0.881434777312144,2020-09-23,5,Republican,30,100,1,NA,NA,0,Most of the Time,0,1,65,100,30,2020,warm,1,NA
 Strong Republican,15,100,6,2,6,1,8,2,3,1,1,1,3,0.382356019944701,2020-10-26,7,Republican,15,100,0,Donald Trump,Republican,0,About Half the time,0,1,57.5,100,15,2020,warm,0,Winner
@@ -8128,7 +8128,7 @@ Independent - Republican,30,90,6,2,6,1,10,2,4,1,0,1,3,2.46953430492703,2020-10-1
 Weak Democrat,70,15,3,2,6,2,NA,4,3,1,1,5,1,0.690776418198612,2020-08-21,2,Democrat,70,15,1,NA,NA,1,About Half the time,0,0,42.5,70,15,2020,warm,1,NA
 Strong Democrat,85,30,2,2,6,1,6,-6,4,1,1,-6,1,1.00782618177356,2020-08-24,1,Democrat,85,30,0,Elizabeth Warren,Democrat,NA,Some of the Time,1,NA,57.5,85,30,2020,warm,1,Loser
 Independent - Independent,70,70,4,4,6,1,1,2,3,1,1,4,1,0.443767565739064,2020-10-13,4,Independent,70,70,0,Joe Biden,Democrat,0,About Half the time,0,0,70,NA,NA,2020,NA,1,Voted in Other Party Primary
-Independent - Democrat,998,998,99,-8,-8,2,NA,4,4,1,1,2,1,3.75463208630521,2020-08-21,3,Democrat,NA,NA,1,NA,NA,1,Some of the Time,1,1,998,998,998,2020,warm,1,NA
+Independent - Democrat,998,998,99,-8,-8,2,NA,4,4,1,1,2,1,3.75463208630521,2020-08-21,3,Democrat,NA,NA,1,NA,NA,1,Some of the Time,1,1,998,NA,NA,2020,NA,1,NA
 Strong Republican,15,70,6,1,6,2,NA,2,4,1,1,2,1,0.268835108268211,2020-08-29,7,Republican,15,70,1,NA,NA,0,Some of the Time,1,1,42.5,70,15,2020,warm,1,NA
 Weak Republican,30,70,5,2,6,2,NA,4,4,1,1,1,1,1.17602242376318,2020-09-23,6,Republican,30,70,1,NA,NA,1,Some of the Time,1,1,50,70,30,2020,warm,1,NA
 Weak Democrat,85,40,99,2,7,2,NA,4,3,1,1,2,1,1.10593852739435,2020-09-04,2,Democrat,85,40,1,NA,NA,1,About Half the time,0,1,62.5,85,40,2020,warm,1,NA
@@ -8249,7 +8249,7 @@ Weak Republican,0,100,99,1,6,2,NA,2,2,1,1,3,1,1.50560232248956,2020-10-13,6,Repu
 Strong Republican,30,85,6,1,6,2,NA,4,3,0,1,3,1,1.00565701838951,2020-08-31,7,Republican,30,85,1,NA,NA,1,About Half the time,0,0,57.5,85,30,2020,warm,1,NA
 Weak Democrat,100,0,6,5,4,2,NA,-6,3,1,1,-6,1,3.24971393641079,2020-09-01,2,Democrat,100,0,1,NA,NA,NA,About Half the time,0,NA,50,100,0,2020,warm,1,NA
 Independent - Democrat,40,0,1,5,7,1,1,4,5,1,1,1,1,0.741606418478581,2020-09-25,3,Democrat,40,0,0,Joe Biden,Democrat,1,Never,1,1,20,40,0,2020,cold,1,Winner
-Independent - Democrat,-9,-9,99,4,-9,2,NA,2,4,1,1,1,2,0.115100863371699,2020-10-20,3,Democrat,NA,NA,1,NA,NA,0,Some of the Time,1,1,-9,-9,-9,2020,cold,0,NA
+Independent - Democrat,-9,-9,99,4,-9,2,NA,2,4,1,1,1,2,0.115100863371699,2020-10-20,3,Democrat,NA,NA,1,NA,NA,0,Some of the Time,1,1,-9,NA,NA,2020,NA,0,NA
 Strong Democrat,78,5,2,2,6,2,NA,4,4,1,1,2,1,0.591496009659554,2020-09-25,1,Democrat,78,5,1,NA,NA,1,Some of the Time,1,1,41.5,78,5,2020,warm,1,NA
 Strong Republican,30,70,7,2,5,1,8,2,4,1,1,2,1,2.44335410725278,2020-09-24,7,Republican,30,70,0,Donald Trump,Republican,0,Some of the Time,1,1,50,70,30,2020,warm,1,Winner
 Weak Democrat,60,15,3,2,7,1,5,4,5,1,1,1,1,0.525025235750598,2020-10-09,2,Democrat,60,15,0,Bernie Sanders,Democrat,1,Never,1,1,37.5,60,15,2020,NA,1,Loser

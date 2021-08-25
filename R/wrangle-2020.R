@@ -1,7 +1,7 @@
 library(tidyverse)
 library(lubridate)
 
-df_2020 <- import("data/raw/anes_timeseries_2020_csv_20210719.zip", which = "anes_timeseries_2020_csv_20210719.csv")%>%
+df_2020 <- rio::import("data/raw/anes_timeseries_2020_csv_20210719.zip", which = "anes_timeseries_2020_csv_20210719.csv")%>%
 	select(pid_7 = V201231x,
 				 ft_dem = V201156,
 				 ft_rep = V201157,
@@ -84,12 +84,12 @@ df_2020 <- import("data/raw/anes_timeseries_2020_csv_20210719.zip", which = "ane
 				 																 "4" = "0",
 				 																 "5" = "0")),
 				 therm_parties_mean = (ft_dem + ft_rep)/2,
-				 therm_inparty = case_when(pid_3 == "Democrat" ~ ft_dem,
-				 													pid_3 == "Republican" ~ ft_rep,
+				 therm_inparty = case_when(pid_3 == "Democrat" ~ therm_dem,
+				 													pid_3 == "Republican" ~ therm_rep,
 				 													pid_3 == "Independent" ~ NA_integer_,
 				 													),
-				 therm_outparty = case_when(pid_3 == "Democrat" ~ ft_rep,
-				 													 pid_3 == "Republican" ~ ft_dem,
+				 therm_outparty = case_when(pid_3 == "Democrat" ~ therm_rep,
+				 													 pid_3 == "Republican" ~ therm_dem,
 				 													 pid_3 == "Independent" ~ NA_integer_),
 				 year = 2020,
 				 below_50_qual_strict = case_when(therm_inparty < 50  ~ "cold",

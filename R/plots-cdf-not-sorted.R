@@ -62,6 +62,7 @@ party_fts_ns <- cdf_trimmed%>% # Making a DF of the party-year SD
                        "Republican_mean_out" = "Republican - Out Party",
                        "Republican_sd_in" = "Republican - In Party",
                        "Republican_sd_out" = "Republican - Out Party"))%>%
+  select(-subset)%>%
   glimpse()
 
 n_df_ns <- cdf_trimmed%>% # Making a DF of the party-year SD
@@ -89,6 +90,7 @@ df_for_sampling <- cdf_trimmed%>% # Making a DF of the party-year SD
          therm_outparty,
          pid_7
   )%>%
+#  filter(pid_3 == "Democrat" & year == 2020)%>%
 glimpse()
 #bootstrapping the SE of the SD
 boot_sd_in <- data.frame(boot = 1:50)%>%
@@ -201,7 +203,7 @@ gg_sd_ft_ns <- party_fts_ns_joined%>%
   theme(legend.position = c(0.2, 0.8),
         legend.key.width = unit(.1, "npc"),
         legend.key.height = unit(.075, "npc")) +
-  guides(size = FALSE)
+  guides(size = "none")
 gg_sd_ft_ns
 
 ggsave("fig/gg-sd-ns.png", gg_sd_ft_ns, width = 8, height = 6, units = "in")
@@ -538,16 +540,16 @@ mct_prop_ns <- below_mct_ns%>% #way more measures here than are needed
 ### Below 50:
 
 gg_below_50_ns <- ggplot(mct_prop_ns, aes(x = year, y = prop_50_below)) +
-  geom_errorbar(aes(ymin = prop_50_below - 2*se_50_below, ymax = prop_50_below + 2*se_50_below, width = .2)) +
-  geom_line(aes(linetype = pid_3, color = pid_3), size = 1) + 
+  geom_line(aes(linetype = pid_3, color = pid_3), position = dodge, size = 1) + 
   #  geom_smooth(aes(linetype = pid_3_sort, color = pid_3_sort), span = .3, se = FALSE) +
-  geom_point(aes(shape = pid_3, size = 1, color = pid_3)) +
+  geom_linerange(aes(color = pid_3, ymin = prop_50_below - 2*se_50_below, ymax = prop_50_below + 2*se_50_below), position = dodge) +
+  geom_point(aes(shape = pid_3, size = 1, color = pid_3), position = dodge) +
   scale_color_manual(values = c("Democrat" = "dodgerblue3",
                                 "Republican" = "firebrick3")) +
   scale_linetype_manual(values = c("Democrat" = "longdash",
                                    "Republican" = "solid")) +
   theme(legend.position = c(0.1, 0.7)) +
-  guides(size = FALSE) +
+  guides(size = "none") +
   labs(x = "Year", 
        y = "Proportion",
        color = "Party ID",
