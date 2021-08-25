@@ -16,6 +16,7 @@ df_2020 <- rio::import("data/raw/anes_timeseries_2020_csv_20210719.zip", which =
 				 gov_run_for_few_dum = V201234,
 				 gov_care_post = V202212,
 				 wealth_gap_larger = V201397,
+				 
 				 weight = V200010a,
 				 date = V203053)%>%
 	mutate(pid_7_num = as.numeric(pid_7),
@@ -99,7 +100,8 @@ df_2020 <- rio::import("data/raw/anes_timeseries_2020_csv_20210719.zip", which =
 				 															 "1" = "1",
 				 															 "2" = "0",
 				 															 "3" = "0")),
-				 date = ymd(date))%>% # 1 means R thinksgov run for a few  #pre interview date
+				 date = ymd(date),
+				 )%>% # 1 means R thinksgov run for a few  #pre interview date
 	mutate(primary_vote_simple = case_when(pid_3 != cand_party ~ "Voted in Other Party Primary",
 																				 pid_3 == "Democrat" & primary_vote_choice == "Joe Biden" ~ "Winner",
 																				 pid_3 == "Republican" & primary_vote_choice == "Donald Trump" ~ "Winner",
