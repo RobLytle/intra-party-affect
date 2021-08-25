@@ -2,7 +2,7 @@
 title: "Intra-Party Affect"
 author: "Rob Lytle"
 output: pdf_document
-abstract: "Are in-party attitudes stable? Inter-party affective divisions have been widely identified by scholars of partisanship and public opinion. Increasingly, Republican and Democratic partisans have come to dislike members of their political outgroup. What has been lost in these discussions is an appraisal of individuals perceptions of and attitudes towards their in-party, which are generally held to be both stable and broadly positive. In this study, I leverage time-series survey data to identify substantively meaningful shifts in voters' attitudes towards their own party. Additionally, I an original survey experiment interrogating the role played by primary elections in driving behavioral and attitudinal differences between co-partisans." 
+abstract: "How do partisans think about their *own* party? Inter-party affective divisions have been widely identified by scholars of partisanship and public opinion. Increasingly, Republican and Democratic partisans have come to dislike members of their political outgroup. What has been lost in these discussions is an appraisal of individuals perceptions of and attitudes towards their in-party, which are generally held to be both stable and broadly positive. In this study, I leverage time-series survey data to identify substantively meaningful shifts in voters' attitudes towards their own party. Additionally, I an original survey experiment interrogating the role played by primary elections in driving behavioral and attitudinal differences between co-partisans." 
 bibliography: references.bib
 header-includes:
 - \usepackage[margin=1in]{geometry}
@@ -281,7 +281,7 @@ df_in_means <- df_primaries%>%
 
 ```
 
-!["Increasing heterogeneity of in-party affect"](fig/gg-sd-ns.png) ***Fig 2:** The variance within in-party feeling thermometers has increased since 2004.*
+***Fig 2:** The variance within in-party feeling thermometers has increased since 2004.*
 
 
 From 2004--2016 the variation within in-party feeling thermometer ratings has increased. the standard deviation of Republicans' in-party FTs increased from about 17--21 in this period, while Democrats' increased from 16-20. While the magnitude of this increase does not sound particularly impressive, *Fig. 2* makes clear that a period of increasing affective heterogeneity as large or prolonged as this has not been observed at any other point over the range of ANES data. By bootstrapping 95\% confidence intervals for each year's in-party thermometer standard deviation we see that the increase is statistically significant as well as substantively significant.
@@ -295,8 +295,8 @@ gg_below_50_ns <- ggplot(mct_prop_ns, aes(x = year, y = prop_50_below)) +
   #  geom_smooth(aes(linetype = pid_3_sort, color = pid_3_sort), span = .3, se = FALSE) +
   geom_linerange(aes(color = pid_3, ymin = prop_50_below - 2*se_50_below, ymax = prop_50_below + 2*se_50_below), position = dodge) +
   geom_point(aes(shape = pid_3, size = 1, color = pid_3), position = dodge) +
-  scale_color_manual(values = c("Democrat" = "dodgerblue3",
-                                "Republican" = "firebrick3")) +
+  scale_color_manual(values = c("Democrat" = "dodgerblue4",
+                                "Republican" = "firebrick4")) +
   scale_linetype_manual(values = c("Democrat" = "longdash",
                                    "Republican" = "solid")) +
   theme(legend.position = c(0.1, 0.7)) +
@@ -474,6 +474,8 @@ To gain some causal leverage over the question of primary election outcomes and 
 
 ### Experimental Design
 
+[outline hypotheses for experiment]
+
 After agreeing to partipate in the survey, subjects are asked to divulge their partisan affiliation. Subjects who self-identified as political independents were asked towards which party they tended to lean. Following the insight of @klar2017independent that leaning independents are best understood as "secret partisans", leaning independents were coded as partisans of whichever party they indicated a preference towards. Those who did not indicate a preference were excluded from all subsequent analyses---while the attitudes and actions of these true independents are no doubt important, they fall outside the scope conditions of this investigation.
 
 Next, participants were shown vignettes of two candidates and told that these candidates had competed against one another in a 2020 congressional primary election for the participant's party. The names of these candidates were drawn from a pool of Democratic and Republican candidates who had each participated in a congressional primary for an open seat in a district in which an out-party candidate eventually won election. In other words, none of the candidates whose names were used were members of congress during or after the 2020 election cycle. This set of names was chosen to minimize the chance of participants recognizing the candidates. Additionally, though it is unlikely that participants recruited through MTurk would seek out external information for a task, the use of general-election losing non-incumbents' names reduces the accessibility of official policy statements, platforms, or campaign materials.
@@ -490,6 +492,7 @@ In total, 473 participants were surveyed, of these only 18 identified as true in
 
 
 
+
 ```{r exp-wrangling, include = FALSE}
 
 # Function to extract p from polr
@@ -500,6 +503,8 @@ tidy_custom.polr <- function(x, ...) {
 		p.value = s[, "Pr(>|z|)"])
 	out
 }
+
+# One-tailed coef test for LM
 
 exp_df <- read_csv("data/raw/ap-experiment-08-22.csv")%>%
 #	glimpse()#%>%
@@ -592,6 +597,7 @@ m_df <- exp_df%>%
 	select(vote_likely,
 				 therm_inparty,
 				 therm_outparty,
+				 therm_ind,
 				 group,
 				 loss_dum_nc,
 				 satisfied_democracy,
@@ -602,6 +608,16 @@ ggplot(m_df, aes(x = therm_inparty)) +
 	facet_wrap(vars(group))
 
 ```
+
+## Experimental Results
+
+To disentangle a *positive* effect of a primary victory from a *negative* effect of a primary loss, a series of simple regression analyses are performed, estimating partisan feeling thermometers as a function of two dummy variables indicating whether the participant's preferred candidate "won" or "lost" their primary bid. The control condition serves as the reference category in each model.
+
+$$
+[Therm] = Win + Loss
+$$
+The first model tests the effects of primary election loss and victory on in-party thermometer ratings. As expected, primary losers are colder towards their party than those who had no information about the primary's outcome. The relatively small effect size ($\hat{\beta} \approx -3.5$) is both unsurprising and unconcerning for the purposes of this study. The experimental treatment is likely much weaker than a real-world primary loss. Using this analysis to estimate a precise effect size of primary outcome on partisan affect would be inappropriate. Rather, the test should be taken more generally as evidence that losing a primary decreases positive feelings for one's own party by some amount.
+
 
 ```{r therms-exp}
 
@@ -614,16 +630,36 @@ gm_1 <- tibble::tribble(
 	"adj.r.squared", "Adj. R2", 2,
 	"r.squared" , "R2", 2)
 
+mods <- tibble::tribble(~name, ~fit,
+  "Inparty", lm(therm_inparty ~ group, data = m_df),
+		 "Outparty", lm(therm_outparty ~ group, data = m_df),
+		 "Independents", lm(therm_ind ~ group, data = m_df))
+
+inparty <- lm(therm_inparty ~ group, data = m_df)
+
+
+tidy_custom.lm <- function(x, ...) {
+    s <- summary(x)$coefficients
+    p <- broom::tidy(x)$p.value
+    out <- data.frame(
+      term = row.names(s),
+      p.value = p/2) # returns p.value for one-tailed test.
+    return(out)
+}
 
 list("Inparty" = lm(therm_inparty ~ group, data = m_df),
-		 "Outparty" = lm(therm_outparty ~ group, data = m_df))%>%
+		 "Outparty" = lm(therm_outparty ~ group, data = m_df),
+		 "Independents" = lm(therm_ind ~ group, data = m_df))%>%
 	modelsummary(output = "gt",
 							 stars = TRUE,
 							 coef_map = cm_1,
-							 gof_map = gm_1)
+							 gof_map = gm_1,
+							 statistic = c("std.error", "p.value"))
 
 
 ```
+
+If primary outcomes affected partisans' appraisals of the political system more broadly we should expect to see complementary effects across attitudes towards groups beyond participants' in-party.  Tests of the effect of primary outcome on out-party attitudes and attitudes towards political independents are insignificant, providing no evidence that primary elections 
 
 # Results
 
