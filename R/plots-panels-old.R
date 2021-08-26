@@ -112,6 +112,7 @@ pid_str_df <- read_rds("data/naes-08.rds")%>%
 
 #joining the vote choicedfs
 joined_df <- left_join(pid_str_df, joined_prop_str_df)%>%
+	write_rds("data/gg-three-wave-str.rds")%>%
 	glimpse()
 
 
@@ -134,3 +135,5 @@ gg_three_wave_str <- ggplot(joined_df, aes(x = fct_rev(first_choice_dum_1), y = 
 			 caption = "Bootstrapped 95% CIs") +
 	scale_y_continuous(n.breaks = 10)
 gg_three_wave_str
+
+ggsave("fig/gg-three-wave-strong.png", gg_three_wave_str, width = 6, height = 4, units = "in")
