@@ -179,7 +179,7 @@ gg_sd_ft_ns <- party_fts_ns_joined%>%
   filter(!str_detect(group, "Out"))%>%
   ggplot(aes(x = year, y = sd, color = group)) +
 #  geom_smooth(aes(linetype = group), span = .3, se=F) + 
-  geom_line(aes(linetype = group), size = 1) +
+  geom_line(aes(linetype = group), size = 1, position = dodge) +
 #  geom_errorbar(aes(ymin = sd - 1.96*se_sd, ymax = sd + 1.96*se_sd), width = 2, position = dodge) +
   geom_linerange(aes(ymin = sd - 1.96*se_sd, ymax = sd + 1.96*se_sd, color = group), position = dodge) +
   geom_point(aes(shape = group), position = dodge, size = 3) +

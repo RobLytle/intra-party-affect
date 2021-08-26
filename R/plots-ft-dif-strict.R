@@ -45,7 +45,7 @@ opinion_df <- read_rds("data/tidy-cdf.rds")%>%
 	rbind(tidy_2020_df)%>%
 	glimpse()
 
-opinion_boot_df <- data.frame(boot = 1:2000)%>%
+opinion_boot_df <- data.frame(boot = 1:500)%>%
 	group_by(boot)%>%
 	do(sample_n(opinion_df, nrow(opinion_df), replace = TRUE))%>% #creating 2000 new datasets of equal size to the original
 	group_by(boot,
@@ -72,12 +72,14 @@ se_op_df <- opinion_boot_df%>% #putting this here so I don't have to run the res
 	group_by(boot,
 					 pid_3,
 					 which_question)%>%
-	summarize(prop_dif = (cold-warm)/cold + warm)%>%
+	summarize(prop_dif = (cold-warm)/cold + warm,
+						prop_dif_simple = (cold-warm))%>%
 	group_by(
 		pid_3,
 		which_question)%>%
 	#	summarize(prop_se = parameters::standard_error(prop_dif))%>%
-	summarize(prop_se = sd(prop_dif))%>%
+	summarize(prop_se = sd(prop_dif),
+						simple_prop_se = sd(prop_dif_simple))%>%
 	mutate(which_question = recode(which_question,
 																 "prop_dissat" = "Very/Fairly Dissatisfied With Democracy",
 																 "prop_distrust" = "Distrusts Gov. \"Most\" or \"Almost All\" of the Time",
@@ -110,7 +112,8 @@ opinion_means_df <- opinion_df%>%
 		pid_3,
 		which_question)%>%
 	#	summarize(prop_dif = (cold - warm))%>%
-	summarize(prop_difference = (cold - warm)/(cold+warm)#difference is divided to normalize
+	summarize(prop_difference = (cold - warm)/(cold+warm),#difference is divided to normalize
+						prop_difference_simple = (cold-warm)
 						#	se_dif
 	)%>% 
 	mutate(which_question = as.factor(which_question))%>%
@@ -232,12 +235,14 @@ ci_df <- read_rds("data/bootstrapped-behav-means-strict.rds")%>% #putting this h
 	group_by(boot,
 					 pid_3,
 					 which_question)%>%
-	summarize(prop_dif = (cold-warm)/cold + warm)%>%
+	summarize(prop_dif = (cold-warm)/cold + warm,
+						prop_dif_simple = cold-warm)%>%
 	group_by(
 		pid_3,
 		which_question)%>%
 	#	summarize(prop_se = parameters::standard_error(prop_dif))%>%
-	summarize(prop_se = sd(prop_dif))%>%
+	summarize(prop_se = sd(prop_dif),
+						simple_prop_se = sd(prop_dif_simple))%>%
 	mutate(which_question = recode(which_question,
 																 "prop_display_merch" = "Display Sticker/Pin",
 																 "mean_activist_index" = "6-Item Campaign Participation Index",
@@ -306,7 +311,8 @@ behavior_means_df <- read_rds("data/tidy-cdf.rds")%>%
 		pid_3,
 		which_question)%>%
 	#	summarize(prop_dif = (cold - warm))%>%
-	summarize(prop_difference = (cold - warm)/(cold+warm)#,
+	summarize(prop_difference = (cold - warm)/(cold+warm),
+						prop_difference_simple = (cold - warm)#,
 						#	se_dif
 	)%>% 
 	#	filter(!is.na(prop_dif))%>%

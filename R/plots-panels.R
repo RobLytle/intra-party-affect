@@ -202,6 +202,7 @@ pid_str_df <- read_rds("data/naes-08.rds")%>%
 
 #joining the vote choicedfs
 joined_df <- left_join(pid_str_df, joined_prop_str_df)%>%
+	write_rds("data/gg-three-wave-str.rds")%>%
 	glimpse()
 
 
@@ -228,74 +229,10 @@ gg_three_wave_str
 ggsave("fig/gg-three-wave-str.png", gg_three_wave_str, width = 6, height = 4, units = "in")
 
 
-#Mean Party ID
-gg_three_wave_mean <- ggplot(pid_str_df, aes(x = fct_rev(first_choice_dum_1), y = mean_change, color = pid_3_1)) +
-	geom_linerange(aes(ymin = mean_change - 1.645*se_change, ymax = mean_change + 1.645*se_change, color = pid_3_1), position = dodge) +
-	geom_point(position = dodge) +
-	geom_hline(yintercept = 0) +
-	scale_color_manual(values = c("Democrat" = "dodgerblue3",
-																"Republican" = "firebrick3")) +
-	facet_wrap(vars(wave_presump)) +
-	theme(legend.position = c(0.12, 0.2)) +
-	coord_cartesian(ylim = c(-.3, .3)) +
-	labs(title = "Effect of Primary Victory on Strength of Party ID",
-			 subtitle = "Change in Party Strength Between Waves",
-			 x = "Primary Vote Choice",
-			 y = "Difference Between Waves",
-			 color = "Party ID at Wave 1") +
-	scale_y_continuous(n.breaks = 10)
-gg_three_wave_mean
-
-ggsave("fig/gg-three-wave-mean.png", gg_three_wave_mean, width = 4, height = 6, units = "in")
-
-#Increase Dummy
-gg_three_wave_increase <- ggplot(pid_str_df, aes(x = fct_rev(first_choice_dum_1), y = prop_increase, color = pid_3_1)) +
-	geom_linerange(aes(ymin = prop_increase - 1.645*se_change, ymax = prop_increase + 1.645*se_change, color = pid_3_1), position = dodge) +
-	geom_point(position = dodge) +
-	geom_hline(yintercept = 0) +
-	scale_color_manual(values = c("Democrat" = "dodgerblue3",
-																"Republican" = "firebrick3")) +
-	facet_wrap(vars(wave_presump)) +
-	theme(legend.position = c(0.12, 0.2)) +
-	coord_cartesian(ylim = c(-.3, .3)) +
-	labs(title = "Prop. Increasing Partisans",
-#			 subtitle = "Change in Party Strength Between Waves",
-			 x = "Primary Vote Choice",
-			 y = "Change in Proportion",
-			 color = "Party ID at Wave 1") +
-	scale_y_continuous(n.breaks = 10)
-gg_three_wave_increase
-
-ggsave("fig/gg-three-wave-increase.png", gg_three_wave_increase, width = 4, height = 6, units = "in")
-
-
-#Decrease Dummy
-gg_three_wave_decrease <- ggplot(pid_str_df, aes(x = fct_rev(first_choice_dum_1), y = prop_decrease, color = pid_3_1)) +
-	geom_linerange(aes(ymin = prop_decrease - 1.645*se_change, ymax = prop_decrease + 1.645*se_change, color = pid_3_1), position = dodge) +
-	geom_point(position = dodge) +
-	geom_hline(yintercept = 0) +
-	scale_color_manual(values = c("Democrat" = "dodgerblue3",
-																"Republican" = "firebrick3")) +
-	facet_wrap(vars(wave_presump)) +
-	theme(legend.position = c(0.12, 0.2)) +
-	coord_cartesian(ylim = c(-.3, .3)) +
-	labs(title = "Effect of Primary Victory on Strength of Party ID",
-			 subtitle = "Change in Party Strength Between Waves",
-			 x = "Primary Vote Choice",
-			 y = "Change in Proportion of Strengthening Partisans",
-			 color = "Party ID at Wave 1") +
-	scale_y_continuous(n.breaks = 10)
-gg_three_wave_decrease
-
-ggsave("fig/gg-three-wave-decrease.png", gg_three_wave_decrease, width = 4, height = 6, units = "in")
-
-#Not Grouped by Win/loss
-
-
-
 probit_df <- read_rds("data/naes-08.rds")%>%
-	mutate_at(vars(starts_with("change_pid"), list(decrease = ~ if_else(. < 0, 1, 0))))%>%
-	select(pid_3_1,
+#	mutate_at(vars(starts_with("change_pid"), list(decrease = ~ if_else(. < 0, 1, 0))))%>%
+	select(pid_str,
+				 pid_3_1,
 				 first_choice_dum_1,
 				 pid_7_1,
 				 pid_7_2,
