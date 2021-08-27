@@ -130,8 +130,12 @@ opinion_means_df <- opinion_df%>%
 
 opinion_pooled_df <- full_join(opinion_means_df, se_op_df)%>%
 	mutate(which_question = reorder(which_question, prop_difference),
-				 sig_dum = case_when(prop_difference < 0 & prop_difference + 1.645*prop_se < 0 ~ TRUE,
-				 										prop_difference > 0 & prop_difference - 1.645*prop_se > 0 ~ TRUE,
+				 which_question_simple = reorder(which_question, prop_difference_simple),
+				 sig_dum = case_when(prop_difference < 0 & prop_difference + 1.96*prop_se < 0 ~ TRUE,
+				 										prop_difference > 0 & prop_difference - 1.96*prop_se > 0 ~ TRUE,
+				 										TRUE ~ FALSE),
+				 sig_dum_simple = case_when(prop_difference_simple < 0 & prop_difference_simple + 1.96*simple_prop_se < 0 ~ TRUE,
+				 										prop_difference_simple > 0 & prop_difference_simple - 1.96*simple_prop_se > 0 ~ TRUE,
 				 										TRUE ~ FALSE))%>%
 	write_rds("data/tidy-opinion.rds")%>%
 	glimpse()
@@ -140,7 +144,7 @@ opinion_pooled_df <- full_join(opinion_means_df, se_op_df)%>%
 dodge <- position_dodge(width=0.5)
 
 gg_strict_opinion_pooled <- ggplot(opinion_pooled_df, aes(x = prop_difference, y = fct_relabel(which_question, str_wrap, width = 20))) +
-	geom_linerange(aes(xmin = prop_difference - 1.645*prop_se, xmax = prop_difference + 1.645*prop_se, color = pid_3), position = dodge) +
+	geom_linerange(aes(xmin = prop_difference - 1.96*prop_se, xmax = prop_difference + 1.96*prop_se, color = pid_3), position = dodge) +
 	#	geom_point(data=opinion_pooled_df[opinion_pooled_df$sig_dum == TRUE,],size=5, aes(position = pid_3), shape = 1, position = dodge) + #overlays a shape on sig 
 	geom_point(aes(color = pid_3, shape = pid_3), size = 3, position = dodge) +
 	scale_color_manual(values = c("Democrat" = "dodgerblue3",
@@ -340,16 +344,20 @@ behavior_means_df <- read_rds("data/tidy-cdf.rds")%>%
 
 behavior_pooled_df <- full_join(behavior_means_df, ci_df)%>%
 	mutate(which_question = reorder(which_question, prop_difference),
-				 sig_dum = case_when(prop_difference < 0 & prop_difference + 1.645*prop_se < 0 ~ TRUE,
-				 										prop_difference > 0 & prop_difference - 1.645*prop_se > 0 ~ TRUE,
-				 										TRUE ~ FALSE))%>%
+				 which_question_simple = reorder(which_question, prop_difference_simple),
+				 sig_dum = case_when(prop_difference < 0 & prop_difference + 1.96*prop_se < 0 ~ TRUE,
+				 										prop_difference > 0 & prop_difference - 1.96*prop_se > 0 ~ TRUE,
+				 										TRUE ~ FALSE),
+				 sig_dum_simple = case_when(prop_difference_simple < 0 & prop_difference_simple + 1.96*simple_prop_se < 0 ~ TRUE,
+				 													 prop_difference_simple > 0 & prop_difference_simple - 1.96*simple_prop_se > 0 ~ TRUE,
+				 													 TRUE ~ FALSE))%>%
 	write_rds("data/tidy-behavior.rds")%>%
 	glimpse()
 
 ###r
 
 gg_strict_behavior_pooled <- ggplot(behavior_pooled_df, aes(x = prop_difference, y = fct_relabel(which_question, str_wrap, width = 20))) +
-	geom_linerange(aes(xmin = prop_difference - 1.645*prop_se, xmax = prop_difference + 1.645*prop_se, color = pid_3), position = dodge) +
+	geom_linerange(aes(xmin = prop_difference - 1.96*prop_se, xmax = prop_difference + 1.96*prop_se, color = pid_3), position = dodge) +
 	#	geom_point(data=behavior_pooled_df[behavior_pooled_df$sig_dum == TRUE,],size=5, aes(position = pid_3), shape = 1, position = dodge) + #overlays a shape on sig 
 	geom_point(aes(color = pid_3, shape = pid_3), size = 3, position = dodge) +
 	scale_color_manual(values = c("Democrat" = "dodgerblue3",
