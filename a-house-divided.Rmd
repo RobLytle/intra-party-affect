@@ -1,13 +1,14 @@
 ---
-title: "Intra-Party Affect"
+title: "A House Divided Feels Drafty: Understanding *Intra*-party Coldness"
 author: "Rob Lytle"
 output: 
   bookdown::pdf_document2:
   number_sections: TRUE
   fig_caption: TRUE
   
-abstract: "How do partisans think about their *own* party? Inter-party affective divisions have been widely identified by scholars of partisanship and public opinion. Increasingly, Republican and Democratic partisans have come to dislike members of their political outgroup. What has been lost in these discussions is an appraisal of individuals perceptions of and attitudes towards their in-party, which are generally held to be both stable and broadly positive. In this study, I leverage time-series survey data to identify substantively meaningful shifts in voters' attitudes towards their own party. Additionally, I conduct an original survey experiment interrogating the role played by primary elections in driving behavioral and attitudinal differences between co-partisans." 
+abstract: "How do partisans think about their *own* party? Inter-party affective divisions have been widely identified by scholars of partisanship and public opinion. Increasingly, Republican and Democratic partisans have come to dislike members of their political outgroup. What has been lost in these discussions is an appraisal of individual's perceptions of and attitudes towards their in-party, which are generally held to be both stable and broadly positive. In this study, I leverage time-series survey data to identify substantively meaningful shifts in voters' attitudes towards their own party. Additionally, I conduct an original survey experiment interrogating the role played by primary elections in driving behavioral and attitudinal differences between co-partisans." 
 bibliography: references.bib
+thanks: "In no particular order, I express my gratitude for the feedback, guidance, and support provided by Brad Gomez, Hans Hassell, Doug Ahler, Jens Grosser, Kai Ou, Bob Jackson, Quintin Beazer, Gaurav Sood, Sarah Warren, Damian Boldt, Taylor Chewning, Olivia VanHousen, Braeden McNulty, William Thyer, and Kate Peirce. All advice is invaluable and all mistakes are my own."
 header-includes:
 - \usepackage[margin=1in]{geometry}
 - \usepackage{caption}
@@ -28,8 +29,10 @@ header-includes:
 - \usepackage{hyperref}
 ---
 
+
+
 ```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = FALSE, message = FALSE, warning = FALSE, fig.width = 6, fig.height = 4, fig.pos = "H")
+knitr::opts_chunk$set(echo = FALSE, message = FALSE, warning = FALSE, fig.width = 6, fig.height = 4, fig.pos = "H", fig.showtext = TRUE)
 library(lubridate)
 #library(MASS)
 library(brglm)
@@ -46,11 +49,45 @@ library(ggridges)
 library(gridExtra)
 library(ggpubr)
 library(cowplot)
+library(showtext)
+showtext_auto()
 set.seed(2001)
-theme_set(theme_minimal())
+#theme_set(theme_minimal())
 dodge <- position_dodge(width=0.75)
 
 
+
+#font_families_google()
+theme_figs <- function(){
+#	theme_ipsum_rc() +
+	theme_minimal(base_family = "Roboto Mono") +
+     theme(
+    #   plot.background = element_rect(color = "white"),
+       plot.title = element_text(size = rel(1), family = "Roboto Mono"),
+       axis.text = element_text(family = "Roboto Mono"),
+       axis.title =  element_text(family = "Roboto Condensed"),
+    #    axis.title.x = element_text(size = rel(1.2), 
+    #    														hjust = .975
+    #    														),
+    # #   axis.title.x = element_text(size = rel(1.8)), 
+    #    axis.title.y = element_text(size =  rel(1.2), 
+    #    														hjust = .975
+    #    														),
+    	 plot.caption = element_text(hjust = 0)
+    #   axis.text.x = element_text(size = rel(1.5)), 
+    #   axis.text.y = element_text(size = rel(1.5))
+    )
+}
+
+theme_set(theme_figs())
+
+
+```
+
+```{r fonts, eval = TRUE}
+font_add_google("Roboto", "Roboto")
+font_add_google("Roboto Mono", "Roboto Mono")
+font_add_google("Roboto Condensed", "Roboto Condensed")
 ```
 
 ```{r, include = FALSE}
@@ -292,7 +329,7 @@ Before investigating the role played by primaries in driving intra-party attitud
 My analysis of intra-party attitudes begins by taking a broad view of trends in partisan's attitudes for their own party and its opposition. Figure 1 uses data from the American National Election Study (ANES) to show the mean in-party and out-party feeling thermometers from 1978 to 2020, the full time range over which the partisan feeling thermometer question is included on the ANES^[Pre-1978 iterations of the ANES study include some feeling thermometer questions, but ask respondents to rate "Democrats and Republicans", rather than the "Democratic and Republican Parties". In years where both questions are asked there are considerable differences in mean thermometer ratings---the questions are not equivalent to one another.]. Calculations of all mean values and their variance are weighted in accordance with procedures outlined in the ANES codebooks.
 
 
-```{r cdf-means, fig.cap="Time-series shifts in partisan affect."}
+```{r cdf-means, fig.cap="Time-series shifts in partisan affect.", fig.showtext=TRUE}
 
 gg_mean_ft_ns <- ggplot(party_fts_ns_joined, aes(x = year, y = mean)) +
 #  geom_smooth(aes(linetype = group, color = group), span = .3, se=F) +
@@ -313,7 +350,7 @@ gg_mean_ft_ns <- ggplot(party_fts_ns_joined, aes(x = year, y = mean)) +
                                    "Republican - Out Party" = "firebrick1")) +
   #scale_x_continuous(limits = c(1978,2020), breaks = c(0:5)) +
   scale_x_continuous(breaks = seq(1976, 2020, by = 4)) +
-  scale_y_continuous(breaks = seq(0, 100, by = 10), limits = c(0,100)) +
+  scale_y_continuous(breaks = seq(0, 80, by = 10), limits = c(0,80)) +
   labs(y = "Mean",
        x = "Year",
        title = "Mean Thermometer Ratings of Partisans",
@@ -324,8 +361,21 @@ gg_mean_ft_ns <- ggplot(party_fts_ns_joined, aes(x = year, y = mean)) +
   guides(size = FALSE
 #         shape = guide_legend(override.aes = list(size = 1.5))
          )
+
+ showtext_auto()
 gg_mean_ft_ns
+#pdf("extrafont-1-unembedded.pdf", 7, 4)
+
+ggsave("gg-cdf-means.pdf", gg_mean_ft_ns, width = 6, height = 4, units = "in")
 ```
+
+
+```{r image-ref-for-in-text, eval = FALSE, echo = FALSE, message=FALSE, fig.align='center', fig.cap='Some cool caption', out.width='0.75\\linewidth', fig.pos='H'}
+knitr::include_graphics("gg-cdf-means.pdf")
+```
+<!---
+![Text](../gg-cdf-means.pdf)
+-->
 
 As identified by @iyengar2012 and @iyengar2018, the decline in warmth towards the out-party is notable. From 2004--2020 mean out-party attitudes dropped from an already chilly $\approx{40}$ to $\approx 20$. Out-party attitudes are only one side of partisan affect and are not the principal focus of this study. Attitudes towards the in-party are certainly much more favorable than those towards the out-party but are still subject to variation. Most obviously, Republicans' mean in-party thermometer dropped by $\approx{10}$ points (one tenth of the feeling thermometer scale) between 2004 and 2016, before rebounding to Bush-era highs during the 2020 election cycle. Democrats' mean thermometer rating also dropped over this time period, though by a much smaller amount than that of their Republican counterparts.
 
@@ -357,9 +407,10 @@ gg_sd_ft_ns <- party_fts_ns_joined%>%
                                 "Republican - In Party" = "firebrick4")) +
   #scale_x_continuous(limits = c(1978,2020), breaks = c(0:5)) +
   scale_x_continuous(breaks = c(seq(1978, 2000, by = 2),
-                                seq(2004, 2020, by = 4)), guide = guide_axis(n.dodge = 2)) +
+                                seq(2004, 2020, by = 4)),# guide = guide_axis(n.dodge = 2)
+  									 ) +
 #  scale_y_continuous(limits = c(14,25)) +
-  labs(y = "Standard Deviations",
+  labs(y = "SD",
        x = "Year",
        title = "Standard Deviation of In-Party Feeling Thermometers",
        linetype = " ",
@@ -368,7 +419,8 @@ gg_sd_ft_ns <- party_fts_ns_joined%>%
        caption = "Bootstrapped 95% CI Given By Errorbar") +
   theme(legend.position = c(0.2, 0.8),
         legend.key.width = unit(.1, "npc"),
-        legend.key.height = unit(.075, "npc")) +
+        legend.key.height = unit(.075, "npc"),
+  			axis.text.x = element_text(angle = 285)) +
   guides(size = "none")
 gg_sd_ft_ns
 
@@ -387,20 +439,26 @@ gg_below_50_ns <- ggplot(mct_prop_ns, aes(x = year, y = prop_50_below)) +
   geom_line(aes(linetype = pid_3, color = pid_3), position = dodge, size = 1) + 
   #  geom_smooth(aes(linetype = pid_3_sort, color = pid_3_sort), span = .3, se = FALSE) +
   geom_linerange(aes(color = pid_3, ymin = prop_50_below - 2*se_50_below, ymax = prop_50_below + 2*se_50_below), position = dodge) +
-  geom_point(aes(shape = pid_3, size = 1, color = pid_3), position = dodge) +
+  geom_point(aes(shape = pid_3, color = pid_3), position = dodge, size = 4) +
   scale_color_manual(values = c("Democrat" = "dodgerblue4",
                                 "Republican" = "firebrick4")) +
   scale_linetype_manual(values = c("Democrat" = "longdash",
                                    "Republican" = "solid")) +
+	  scale_x_continuous(breaks = c(seq(1978, 2000, by = 2),
+                                seq(2004, 2020, by = 4)))+
   theme(legend.position = c(0.1, 0.7)) +
   guides(size = "none") +
+	  theme(legend.position = c(0.2, 0.8),
+        legend.key.width = unit(.1, "npc"),
+        legend.key.height = unit(.075, "npc"),
+	  		axis.text.x = element_text(angle = 285)) +
   labs(x = "Year", 
        y = "Proportion",
        color = "Party ID",
        linetype = "Party ID",
        shape = "Party ID",
        title = "Proportion of Partisans Below 50 In-Party FT",
-       subtitle = "95% CI Given With Errorbar") #+
+       caption = "95% CI Given With Errorbar") #+
 #  facet_wrap(vars(pid_str))
 gg_below_50_ns
 
@@ -413,14 +471,16 @@ gg_below_50_ns
 To justify the argument that shifts in in-party attitudes are substantively meaningful, I turn now to an examination of attitudinal and behavioral differences between cold and warm partisans. Partisan warmth is a somewhat abstract concept. Survey respondents may be thinking of any number of attitudes and dispositions towards any number of party-related groups and individuals when reporting their "warmth" towards "the party". Because of this fuzzy conceptualization, the importance of studying partisan warmth is largely dependent on the degree to which partisan affect is related to more concrete sets of behaviors and opinions.
 
 
-```{r ft-difs, fig.height=8.5, include=FALSE, fig.width=4, fig.align='center', fig.caption = "Differences in attitude and behavior between cold and warm partisans."}
+```{r ft-difs, include = FALSE}
 
 #First calling the bootstrapped dfs written in plots-ft-dif-strict.R
 
 
-behavior_pooled_df <- read_rds("data/tidy-behavior.rds")
+behavior_pooled_df <- read_rds("data/tidy-behavior.rds") %>% 
+	glimpse()
 
-opinion_pooled_df <- 	read_rds("data/tidy-opinion.rds")
+opinion_pooled_df <- 	read_rds("data/tidy-opinion.rds") %>% 
+	glimpse()
 
 
 gg_strict_opinion_pooled <- ggplot(opinion_pooled_df, aes(x = prop_difference_simple, y = fct_relabel(which_question_simple, str_wrap, width = 20))) +
@@ -428,8 +488,8 @@ gg_strict_opinion_pooled <- ggplot(opinion_pooled_df, aes(x = prop_difference_si
 	geom_linerange(aes(xmin = prop_difference_simple - 1.96*simple_prop_se, xmax = prop_difference_simple + 1.96*simple_prop_se, color = pid_3), position = dodge) +
 	#	geom_point(data=opinion_pooled_df[opinion_pooled_df$sig_dum == TRUE,],size=5, aes(position = pid_3), shape = 1, position = dodge) + #overlays a shape on sig 
 	geom_point(aes(color = pid_3, shape = pid_3), size = 3, position = dodge) +
-	scale_color_manual(values = c("Democrat" = "dodgerblue3",
-																"Republican" = "firebrick3")) +
+	scale_color_manual(values = c("Democrat" = "dodgerblue4",
+																"Republican" = "firebrick4")) +
 	coord_cartesian(xlim = c(-.75, .75)) +
 	scale_x_continuous(n.breaks = 6) +	
 	labs(x = "Difference",
@@ -446,8 +506,8 @@ gg_strict_behavior_pooled <- ggplot(behavior_pooled_df, aes(x = prop_difference_
 	geom_linerange(aes(xmin = prop_difference_simple - 1.96*simple_prop_se, xmax = prop_difference_simple + 1.96*simple_prop_se, color = pid_3), position = dodge) +
 	#	geom_point(data=behavior_pooled_df[behavior_pooled_df$sig_dum == TRUE,],size=5, aes(position = pid_3), shape = 1, position = dodge) + #overlays a shape on sig 
 	geom_point(aes(color = pid_3, shape = pid_3), size = 3, position = dodge) +
-	scale_color_manual(values = c("Democrat" = "dodgerblue3",
-																"Republican" = "firebrick3")) +
+	scale_color_manual(values = c("Democrat" = "dodgerblue4",
+																"Republican" = "firebrick4")) +
 	coord_cartesian(xlim = c(-.75, .75)) +
 	scale_x_continuous(n.breaks = 10) +	
 	theme(legend.position = c(0.8, 0.3)) +
@@ -476,17 +536,21 @@ p2 <- gg_strict_behavior_pooled + theme(
 pg <- plot_grid(p1, p2,  align = "v", nrow = 2, rel_heights = c(3/7, 4/7), label_x = "Difference") 
 
 
-
 gg_strict_pooled_combined <- grid.arrange(arrangeGrob(pg,
 																							 top = text_grob("Differences Between Cold and Warm Partisans", vjust = 1, face = "bold"),
 																							 left = text_grob("Question Asked", rot = 90, vjust = 1, face = "bold"),
 																							 bottom = text_grob("Cold - Warm", face = "bold")))
 
-ggsave("fig-4.png", gg_strict_pooled_combined, width = 4, height = 8.5, units = "in")
-
+#ggsave("fig-4.png", gg_strict_pooled_combined, width = 4, height = 8.5, units = "in")
 ```
 
-!["Differences between cold and warm partisans."](../fig-4.png) 
+```{r fig-display, fig.height=8.5, include=TRUE, fig.width=4, fig.align='center', fig.caption = "Differences in attitude and behavior between cold and warm partisans."}
+as_ggplot(gg_strict_pooled_combined)
+
+```
+<!---
+!["Differences between cold and warm partisans."](fig-4.png) 
+--->
 
 
 Figure 4 displays the difference in the proportions of cold and warm partisans who indicate agreement with (or answer in the affirmative to) a variety of questions regarding their political opinions and behaviors. Positive values indicate a higher proportion of cold partisans agree with a statement or report a certain behavior while negative values indicate warm partisans are more likely to agree with a statement or report engaging in a behavior.
@@ -542,9 +606,12 @@ ggplot(ridge_df_all, aes(x = therm_inparty, y = year_fct, fill = stat(x), color 
 
 
 ```{r primaries-plots, echo=FALSE,warning=FALSE, fig.cap="Distribution of partisan affect between primary candidate supporters 2008--2020"}
+
+
 gg_primary_in <- ggplot(df_primaries, aes(x = therm_inparty, color = primary_vote_simple, linetype = primary_vote_simple)) +
 	geom_density(size = .9,
-							 alpha = 1) +
+							 alpha = 1,
+							 show.legend = FALSE) +
 	facet_grid(rows = c(vars(year)), 
 						 cols = c(vars(pid_3))) +
 #	geom_vline(aes(color = primary_vote_simple, xintercept = mean(therm_inparty, na.rm = TRUE)))
@@ -554,77 +621,51 @@ gg_primary_in <- ggplot(df_primaries, aes(x = therm_inparty, color = primary_vot
 								 linetype = primary_vote_simple),
 						 size = 1,
 						 alpha = .5) +
-	theme(legend.key.height = unit(.05, "npc"),
-				legend.position = c(.15, .55),
-				legend.text = element_text(size = 8),
-				legend.title = element_text(size = 8),
-				plot.title = element_text(hjust = 0.5)) +
+	theme(#legend = element_re(angle = 90),
+				legend.key.height = unit(.1, "npc"),
+				legend.key.width = unit(.1, "npc"),
+		#		legend.position = c(.7, .2),
+				legend.text = element_text(size = rel(1.2)),
+				legend.title = element_blank(),
+				plot.title = element_text(hjust = 0)) +
+	
 	scale_color_manual(values = c("Winner" = "#FFC20A", #colorblind safe palette
 										 "Loser" = "#0C7BDC"))+
 	scale_linetype_manual(values = c(
 																	 "Winner" = "longdash",
 																	 "Loser" = "dotdash")) +
-	labs(x = "Inparty FT",
+	labs(x = "Thermometer",
 			 y = "Density",
-			 title = "In Party",
+			 title = "Distribution of In-party Warmth",
 			 color = "Primary Vote",
 			 linetype = "Primary Vote",
 			 caption = "Group mean given by vertical lines.")
 
-gg_primary_out <- ggplot(df_primaries, aes(x = therm_outparty, color = primary_vote_simple)) +
-	geom_density(size = .9, aes(linetype = primary_vote_simple)) +
-	facet_grid(rows = vars(year), 
-						 cols = vars(pid_3)) +
-#	facet_grid(year ~ pid_3) +
-	#	geom_vline(aes(color = primary_vote_simple, xintercept = mean(therm_inparty, na.rm = TRUE)))
-	geom_vline(data = df_out_means, 
-						 aes(xintercept=mean_ft, 
-						 		color = primary_vote_simple,
-						 		linetype = primary_vote_simple,
-						 		alpha = .5),
-						 size = 1) +
-	theme(legend.key.height = unit(.05, "npc"),
-				legend.position = c(1, .15), # legend position optimized for the two plots together
-				legend.text = element_text(size = 8),
-				legend.title = element_text(size = 8),
-				plot.title = element_text(hjust = 0.5)) +
-	guides(alpha = FALSE) +
-	scale_color_manual(values = c("Winner" = "#FFC20A", #colorblind safe palette
-																"Loser" = "#0C7BDC"))+
-	scale_linetype_manual(values = c(#"Other/Third Party/\n Didn't Vote" = "solid",
-																	 "Winner" = "longdash",
-																	 "Loser" = "dotdash")) +
-	labs(x = "Outparty FT",
-			 y = "Density",
-			 title = "Out Party",
-			 color = " ",
-			 linetype = " ",
-			 caption = " ")
-
+gg_primary_in
 #putting them together
 
-p1 <- gg_primary_in + theme(legend.position = "none",
-														axis.title.x = element_blank(),
-													  axis.title.y = element_blank(),
-														axis.text.y = element_blank(),
-												#		title = element_text(size = 8)
-														)
-
-
-p2 <- gg_primary_out + theme(
-	axis.title.x = element_blank(),
-	axis.title.y = element_blank(),
-	strip.text.y = element_blank()
-#	title = element_text(size = 8)
-)
-
-
-
-grid.arrange(arrangeGrob(p2, p1,
-																				 ncol = 2,
-																				 top = text_grob("Distribution of Partisan Warmth\n by Primary Vote", vjust = 1, face = "bold"),
-																				 left = text_grob("Density", rot = 90, vjust = 1, face = "bold"),
-																			   bottom = text_grob("Feeling Thermometer", face = "bold")))
+# p1 <- gg_primary_in + theme(legend.position = "none",
+# 														axis.title.x = element_blank(),
+# 													  axis.title.y = element_blank(),
+# 														axis.text.y = element_blank(),
+# 												#		title = element_text(size = 8)
+# 														)
+# 
+# 
+# p2 <- gg_primary_out + theme(
+# 	axis.title.x = element_blank(),
+# 	axis.title.y = element_blank(),
+# 	strip.text.y = element_blank()
+# #	title = element_text(size = 8)
+# )
+# 
+# 
+# 
+# grid.arrange(arrangeGrob(p2, p1,
+# 																				 ncol = 2,
+# 																				 top = text_grob("Distribution of Partisan Warmth\n by Primary Vote", vjust = 1, face = "bold"),
+# 																				 left = text_grob("Density", rot = 90, vjust = 1, face = "bold"),
+# 																			   bottom = text_grob("Feeling Thermometer", face = "bold")))
 
 
 ```
@@ -1080,10 +1121,11 @@ Finally, more work should be done to understand the mechanisms which shape intra
 # (APPENDIX) Appendix {-} 
 
 \clearpage
+<!---
 # Supporting Information
 
 
-```{r ft-difs-si, fig.height=8.5, fig.width=4, fig.align='center', fig.caption = "Differences in attitude and behavior between cold and warm partisans."}
+```{r ft-difs-si, include = FALSE}
 
 #First calling the bootstrapped dfs written in plots-ft-dif-strict.R
 
@@ -1147,10 +1189,14 @@ pg <- plot_grid(p1, p2,  align = "v", nrow = 2, rel_heights = c(3/7, 4/7), label
 
 
 
-gg_strict_pooled_combined <- grid.arrange(arrangeGrob(pg,
-																							 top = text_grob("Differences Between Cold and Warm Partisans", vjust = 1, face = "bold"),
+gg_strict_pooled_combined_si <- grid.arrange(arrangeGrob(pg,
+																							 top = text_grob("Prop. Difference Between Cold and Warm Partisans", vjust = 1, face = "bold"),
 																							 left = text_grob("Question Asked", rot = 90, vjust = 1, face = "bold"),
 																							 bottom = text_grob("Cold - Warm", face = "bold")))
+```
+
+```{r fig-display-si, include=FALSE, fig.height=8.5, fig.width=4, fig.align='center', fig.caption = "Differences in attitude and behavior between cold and warm partisans."}
+as_ggplot(gg_strict_pooled_combined_si)
 
 ```
 
@@ -1158,7 +1204,7 @@ gg_strict_pooled_combined <- grid.arrange(arrangeGrob(pg,
 
 
 
-```{r primaries-table-si}
+```{r primaries-table-si, include=FALSE}
 gm_4 <- tibble::tribble(
   ~raw,        ~clean,          ~fmt,
   "nobs",      "N",             0,
@@ -1201,6 +1247,98 @@ tab_header(title = md("**SI Table 1:** Changes in Average Partisan Feeling Therm
 ```
 
 
-!["Relationship between strength of partisanship and in-party feeling thermometers"](../fig/gg-str-therm.png) 
+!["Relationship between strength of partisanship and in-party feeling thermometers"](fig/gg-str-therm.png) 
 
 ***Fig SI-2:** There is a positive relationship between partisans' strength of identification and their in-party feeling thermometer ratings.*
+
+
+```{r primaries-plots-si, include=FALSE, echo=FALSE,warning=FALSE, fig.cap="Distribution of partisan affect between primary candidate supporters 2008--2020"}
+gg_primary_in <- ggplot(df_primaries, aes(x = therm_inparty, color = primary_vote_simple, linetype = primary_vote_simple)) +
+	geom_density(size = .9,
+							 alpha = 1) +
+	facet_grid(rows = c(vars(year)), 
+						 cols = c(vars(pid_3))) +
+#	geom_vline(aes(color = primary_vote_simple, xintercept = mean(therm_inparty, na.rm = TRUE)))
+	geom_vline(data = df_in_means, 
+						 aes(xintercept=mean_ft, 
+								 color = primary_vote_simple,
+								 linetype = primary_vote_simple),
+						 size = 1,
+						 alpha = .5) +
+	theme(legend.key.height = unit(.05, "npc"),
+				legend.position = c(.15, .55),
+				legend.text = element_text(size = 8),
+				legend.title = element_text(size = 8),
+				plot.title = element_text(hjust = 0.5)) +
+	scale_color_manual(values = c("Winner" = "#FFC20A", #colorblind safe palette
+										 "Loser" = "#0C7BDC"))+
+	scale_linetype_manual(values = c(
+																	 "Winner" = "longdash",
+																	 "Loser" = "dotdash")) +
+	labs(x = "Inparty FT",
+			 y = "Density",
+			 title = "In Party",
+			 color = "Primary Vote",
+			 linetype = "Primary Vote",
+			 caption = "Group mean given by vertical lines.")
+
+gg_primary_out <- ggplot(df_primaries, aes(x = therm_outparty, color = primary_vote_simple)) +
+	geom_density(size = .9, aes(linetype = primary_vote_simple)) +
+	facet_grid(rows = vars(year), 
+						 cols = vars(pid_3)) +
+#	facet_grid(year ~ pid_3) +
+	#	geom_vline(aes(color = primary_vote_simple, xintercept = mean(therm_inparty, na.rm = TRUE)))
+	geom_vline(data = df_out_means, 
+						 aes(xintercept=mean_ft, 
+						 		color = primary_vote_simple,
+						 		linetype = primary_vote_simple,
+						 		alpha = .5),
+						 size = 1) +
+	theme(legend.key.height = unit(.05, "npc"),
+				legend.position = c(1, .15), # legend position optimized for the two plots together
+				legend.text = element_text(size = 8),
+				legend.title = element_text(size = 8),
+				plot.title = element_text(hjust = 0.5)) +
+	guides(alpha = FALSE) +
+	scale_color_manual(values = c("Winner" = "#FFC20A", #colorblind safe palette
+																"Loser" = "#0C7BDC"))+
+	scale_linetype_manual(values = c(#"Other/Third Party/\n Didn't Vote" = "solid",
+																	 "Winner" = "longdash",
+																	 "Loser" = "dotdash")) +
+	labs(x = "Outparty FT",
+			 y = "Density",
+			 title = "Out Party",
+			 color = " ",
+			 linetype = " ",
+			 caption = " ")
+
+#putting them together
+
+p1 <- gg_primary_in + theme(legend.position = "none",
+														axis.title.x = element_blank(),
+													  axis.title.y = element_blank(),
+														axis.text.y = element_blank(),
+												#		title = element_text(size = 8)
+														)
+
+
+p2 <- gg_primary_out + theme(
+	axis.title.x = element_blank(),
+	axis.title.y = element_blank(),
+	strip.text.y = element_blank()
+#	title = element_text(size = 8)
+)
+
+
+
+as_ggplot(grid.arrange(arrangeGrob(p2, p1,
+																				 ncol = 2,
+																				 top = text_grob("Distribution of Partisan Warmth\n by Primary Vote", vjust = 1, face = "bold"),
+																				 left = text_grob("Density", rot = 90, vjust = 1, face = "bold"),
+																			   bottom = text_grob("Feeling Thermometer", face = "bold"))))
+
+
+
+```
+
+--->

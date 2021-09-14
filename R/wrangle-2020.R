@@ -1,7 +1,7 @@
 library(tidyverse)
 library(lubridate)
 
-df_2020 <- rio::import("data/raw/anes_timeseries_2020_csv_20210719.zip", which = "anes_timeseries_2020_csv_20210719.csv")%>%
+df_2020 <- import("data/raw/anes_timeseries_2020_csv_20210719.zip", which = "anes_timeseries_2020_csv_20210719.csv")%>%
 	select(pid_7 = V201231x,
 				 ft_dem = V201156,
 				 ft_rep = V201157,
@@ -16,7 +16,6 @@ df_2020 <- rio::import("data/raw/anes_timeseries_2020_csv_20210719.zip", which =
 				 gov_run_for_few_dum = V201234,
 				 gov_care_post = V202212,
 				 wealth_gap_larger = V201397,
-				 
 				 weight = V200010a,
 				 date = V203053)%>%
 	mutate(pid_7_num = as.numeric(pid_7),
@@ -85,12 +84,12 @@ df_2020 <- rio::import("data/raw/anes_timeseries_2020_csv_20210719.zip", which =
 				 																 "4" = "0",
 				 																 "5" = "0")),
 				 therm_parties_mean = (ft_dem + ft_rep)/2,
-				 therm_inparty = case_when(pid_3 == "Democrat" ~ therm_dem,
-				 													pid_3 == "Republican" ~ therm_rep,
+				 therm_inparty = case_when(pid_3 == "Democrat" ~ ft_dem,
+				 													pid_3 == "Republican" ~ ft_rep,
 				 													pid_3 == "Independent" ~ NA_integer_,
 				 													),
-				 therm_outparty = case_when(pid_3 == "Democrat" ~ therm_rep,
-				 													 pid_3 == "Republican" ~ therm_dem,
+				 therm_outparty = case_when(pid_3 == "Democrat" ~ ft_rep,
+				 													 pid_3 == "Republican" ~ ft_dem,
 				 													 pid_3 == "Independent" ~ NA_integer_),
 				 year = 2020,
 				 below_50_qual_strict = case_when(therm_inparty < 50  ~ "cold",
@@ -100,8 +99,7 @@ df_2020 <- rio::import("data/raw/anes_timeseries_2020_csv_20210719.zip", which =
 				 															 "1" = "1",
 				 															 "2" = "0",
 				 															 "3" = "0")),
-				 date = ymd(date),
-				 )%>% # 1 means R thinksgov run for a few  #pre interview date
+				 date = ymd(date))%>% # 1 means R thinksgov run for a few  #pre interview date
 	mutate(primary_vote_simple = case_when(pid_3 != cand_party ~ "Voted in Other Party Primary",
 																				 pid_3 == "Democrat" & primary_vote_choice == "Joe Biden" ~ "Winner",
 																				 pid_3 == "Republican" & primary_vote_choice == "Donald Trump" ~ "Winner",
