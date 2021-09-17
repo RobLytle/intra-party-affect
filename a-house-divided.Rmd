@@ -330,28 +330,38 @@ My analysis of intra-party attitudes begins by taking a broad view of trends in 
 
 
 ```{r cdf-means, fig.cap="Time-series shifts in partisan affect.", fig.showtext=TRUE}
-
-gg_mean_ft_ns <- ggplot(party_fts_ns_joined, aes(x = year, y = mean)) +
+prop_cold_df <- mct_prop_ns %>% 
+	select(year,
+				 group = pid_3,
+				 prop_50_below,
+				 se_50_below) %>% 
+	glimpse()
+gg_mean_ft_ns <- party_fts_ns_joined %>%
+	filter(str_detect(group, "In")) %>% 
+	mutate(group = str_remove(group, " - In Party")) %>% 
+	left_join(prop_cold_df) %>% 
+	mutate(mean = mean/100) %>%  #just recoding mean between 0/1 so that prop can be on
+glimpse() %>% 
+ggplot(aes(x = year, linetype = group, color = group, shape = group), position = dodge) +
 #  geom_smooth(aes(linetype = group, color = group), span = .3, se=F) +
-  geom_line(aes(linetype = group, color = group), position = dodge) +
+  geom_line(aes(y = mean)) +
+	geom_line(aes(y = prop_50_below )) +
 #  geom_linerange(aes(ymin = mean-sd, ymax = mean+sd, color = group), position = dodge) +
-  geom_point(aes(shape = group, color = group), size = 3, position = dodge) +
-  scale_linetype_manual(values = c("Democrat - In Party" = "longdash",
-                                   "Democrat - Out Party" = "dotted",
-                                   "Republican - In Party" = "solid",
-                                   "Republican - Out Party" = "twodash")) +
-  scale_shape_manual(values = c("Democrat - In Party" = 17,
-                                   "Democrat - Out Party" = 2,
-                                   "Republican - In Party" = 16,
-                                   "Republican - Out Party" = 1)) +
-  scale_color_manual(values = c("Democrat - In Party" = "dodgerblue4",
-                                   "Democrat - Out Party" = "dodgerblue1",
-                                   "Republican - In Party" = "firebrick4",
-                                   "Republican - Out Party" = "firebrick1")) +
+  #geom_point(aes(shape = group, color = group) position = dodge) +
+	geom_point(aes(y = mean), size = 3) +
+	geom_point(aes(y = prop_50_below , size = 3)) +
+  scale_linetype_manual(values = c("Democrat" = "longdash",
+                                   "Republican" = "dotted")) +
+  scale_shape_manual(values = c("Democrat" = 17,
+                                   "Republican" = 16)) +
+  scale_color_manual(values = c("Democrat" = "dodgerblue4",
+                                   "Republican" = "firebrick4")) +
   #scale_x_continuous(limits = c(1978,2020), breaks = c(0:5)) +
   scale_x_continuous(breaks = seq(1976, 2020, by = 4)) +
-  scale_y_continuous(breaks = seq(0, 80, by = 10), limits = c(0,80)) +
-  labs(y = "Mean",
+  scale_y_continuous(name = "Mean",
+  									 breaks = seq(0, 80, by = 10), limits = c(0,80),
+  									 sec.axis = sec_axis(breaks = seq(0, 1, by = .1), limits = c)) +
+  labs(#y = "Mean",
        x = "Year",
        title = "Mean Thermometer Ratings of Partisans",
        linetype = " ",
@@ -361,9 +371,9 @@ gg_mean_ft_ns <- ggplot(party_fts_ns_joined, aes(x = year, y = mean)) +
   guides(size = FALSE
 #         shape = guide_legend(override.aes = list(size = 1.5))
          )
-
  showtext_auto()
 gg_mean_ft_ns
+
 #pdf("extrafont-1-unembedded.pdf", 7, 4)
 
 ggsave("gg-cdf-means.pdf", gg_mean_ft_ns, width = 6, height = 4, units = "in")
@@ -406,8 +416,7 @@ gg_sd_ft_ns <- party_fts_ns_joined%>%
   scale_color_manual(values = c("Democrat - In Party" = "dodgerblue4",
                                 "Republican - In Party" = "firebrick4")) +
   #scale_x_continuous(limits = c(1978,2020), breaks = c(0:5)) +
-  scale_x_continuous(breaks = c(seq(1978, 2000, by = 2),
-                                seq(2004, 2020, by = 4)),# guide = guide_axis(n.dodge = 2)
+  scale_x_continuous(breaks = c(seq(1978, 2020, by = 2)),# guide = guide_axis(n.dodge = 2)
   									 ) +
 #  scale_y_continuous(limits = c(14,25)) +
   labs(y = "SD",
@@ -993,7 +1002,7 @@ datasummary_balance( ~group,
 
 ## Survey Structure
 
-After agreeing to partipate in the survey, subjects are asked to divulge their partisan affiliation. Subjects who self-identified as political independents are asked towards which political party they tend to lean. Following the insight of @klar2016 that leaning independents are best understood as "secret partisans" who think and behave very similarly to typical partisan voters, leaning independents are coded as partisans of whichever party they indicate a preference towards. Those who do not indicate a preference are paid for their time and excluded from all subsequent analyses---while the attitudes and actions of these true independents are no doubt important, they fall outside the scope conditions of this investigation.
+After agreeing to participate in the survey, subjects are asked to divulge their partisan affiliation. Subjects who self-identified as political independents are asked towards which political party they tend to lean. Following the insight of @klar2016 that leaning independents are best understood as "secret partisans" who think and behave very similarly to typical partisan voters, leaning independents are coded as partisans of whichever party they indicate a preference towards. Those who do not indicate a preference are paid for their time and excluded from all subsequent analyses---while the attitudes and actions of these true independents are no doubt important, they fall outside the scope conditions of this investigation.
 
 Next, participants are shown vignettes of two candidates and told that these candidates competed against one another in a 2020 congressional primary election for the participant's party. The names of these candidates are drawn from a pool of actual Democratic and Republican candidates who each participated in a congressional primary for an open seat in a district in which an out-party candidate eventually won election. In other words, none of the candidates whose names are used were members of congress during or after the 2020 election cycle. This set of names is chosen to minimize the chance of participants recognizing the candidates and noticing discrepencies between the counterfactual positions and the genuine positions of the candidate. Additionally, there is some risk that participants recruited through MTurk seek out external information for a task [@goodman2013]. The use of general-election losing non-incumbents' names reduces the accessibility of official policy statements, platforms, or campaign materials. 
 

@@ -77,6 +77,7 @@ select(VCF0004,
        VCF0705, # Vote for Pres 1 Dem, 2 Rep, 3 other, 0 DK/NA
        VCF0707, # Vote for house (no "other") 1 dem, 2 rep, 0 NA
        VCF0708, # Vote for senator 1 Dem, 2 Rep, 0 NA
+       VCF0101,
        )%>%
 glimpse()%>%
   write_rds("data/raw/cdf-raw-trim.rds")%>%

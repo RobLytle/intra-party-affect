@@ -1,55 +1,57 @@
+
+
 library(tidyverse)
 library(sjlabelled)
 library(goji)
+
+## Functions
+
+zero1 <- function(x, minx = NA, maxx = NA) {
+	
+	stopifnot(identical(typeof(as.numeric(x)), "double"))
+	
+	if (typeof(x) == "character") x <- as.numeric(x)
+	
+	res <- NA
+	
+	if (is.na(minx)) {
+		res <- (x - min(x, na.rm = T)) / (max(x, na.rm = T) - min(x, na.rm = T))
+	}
+	
+	if (!is.na(minx)) res <- (x - minx) / (maxx - minx)
+	
+	res
+}
+
+test <- 1:10
+
+test_2 <- zero1(test)
 
 #codebook available here:
 #https://electionstudies.org/wp-content/uploads/2018/12/anes_timeseries_cdf_codebook_var.pdf
 
 # Changed coding strategy for renaming halfway through, forgive the inconsistency, might fix if I feel like procrastinating
-anes_tidy <- read_rds("data/raw/cdf-raw-trim.rds")%>% # Loads RDS created in `anes-cdf-trim.R`
+cdf_raw_trim <- rio::import("data/raw/anes/anes_timeseries_cdf_dta.zip", which = "anes_timeseries_cdf.dta")%>% #Imports the .dta file from the .zip file
 	remove_all_labels()%>%
-	rename(year = VCF0004)%>% # Year of response
-	rename(pid_7 = VCF0301)%>% #7 scale Party ID val: 1-7. Strong Democrat 2. Weak Democrat3. Independent - Democrat4. Independent - Independent5. Independent - Republican6. Weak Republican7. Strong Republican
-	rename(pid_3 = VCF0303)%>% # Party ID 3 categories val: "Republican", "Independent", "Democrat" (Dem/Rep include Leaners)
-	rename(pid_str = VCF0305)%>% # PID strength val: 1. Independent 2. Leaning Independent 3. Weak Partisan 4. Strong Partisan Kept this because I wanted to create basically this variable later
-	rename(win_care_pres = VCF0311)%>% # How much do you care which party wins presidency? val: 1. Don't care very much or DK, pro-con, depends, and other, 2. Care a great deal
-	rename(win_care_cong = VCF0312)%>% # How much do you care which party wins congress? val: 1. Don't care very much or DK, pro-con, depends, and other, 2. Care a great deal notes: only asked through 2008
-	rename(respondent_ideo = VCF0803)%>% # Liberal-conservative scale val: 1(extremely liberal)- 7(extremely conservative) 9. DK; haven't much thought about it
-	rename(therm_dem = VCF0218)%>% # val 00-96 cold-warm as coded; 97: 97-100, 98: DK, 99. NA
-	rename(therm_rep = VCF0224)%>% # val 00-96 cold-warm as coded; 97: 97-100, 98: DK, 99. NA
-  rename(therm_lib = VCF0211)%>% #libs FT
-  rename(therm_con = VCF0212)%>% #cons FT
-	rename(activist_6cat = VCF0723)%>%#val: 1-6 low-high participation 0. DKN/NA
-	rename(ideo_dem = VCF0503)%>% # val: 1-7 lib-con
-	rename(ideo_rep = VCF0504)%>%# val: 1-7 lib-con
-	rename(general_vote = VCF0702)%>%
-	rename(primary_vote = VCF9265)%>%
-  rename(therm_dem_old = VCF0201)%>%
-  rename(therm_rep_old = VCF0202)%>%
-  rename(therm_cath = VCF0204)%>%
-  rename(therm_prot = VCF0203)%>%
-  rename(therm_black = VCF0206)%>%
-  rename(therm_white = VCF0207)%>%
-  rename(case_id = VCF0006)%>%
-  rename(weight = VCF0009z)%>%
-	select(year,
-	       case_id,
-	       weight,
-				 pid_7, 
-				 pid_3, 
-				 pid_str, 
-				 win_care_pres,
-				 win_care_cong,
-				 respondent_ideo,
-				 therm_dem,
-				 therm_rep,
-				 therm_lib,
-				 therm_con,
-				 activist_6cat,
-				 ideo_dem,
-				 ideo_rep,
-				 primary_vote,
-				 general_vote,
+	select(year = VCF0004, # Year of response
+					pid_7 = VCF0301, #7 scale Party ID val: 1-7. Strong Democrat 2. Weak Democrat3. Independent - Democrat4. Independent - Independent5. Independent - Republican6. Weak Republican7. Strong Republican
+					pid_3 = VCF0303, # Party ID 3 categories val: "Republican", "Independent", "Democrat" (Dem/Rep include Leaners)
+					pid_str = VCF0305, # PID strength val: 1. Independent 2. Leaning Independent 3. Weak Partisan 4. Strong Partisan Kept this because I wanted to create basically this variable later
+					win_care_pres = VCF0311, # How much do you care which party wins presidency? val: 1. Don't care very much or DK, pro-con, depends, and other, 2. Care a great deal
+					win_care_cong = VCF0312, # How much do you care which party wins congress? val: 1. Don't care very much or DK, pro-con, depends, and other, 2. Care a great deal notes: only asked through 2008
+					respondent_ideo = VCF0803, # Liberal-conservative scale val: 1(extremely liberal)- 7(extremely conservative) 9. DK; haven't much thought about it
+					therm_dem = VCF0218, # val 00-96 cold-warm as coded; 97: 97-100, 98: DK, 99. NA
+					therm_rep = VCF0224, # val 00-96 cold-warm as coded; 97: 97-100, 98: DK, 99. NA
+				  therm_lib = VCF0211, #libs FT
+				  therm_con = VCF0212, #cons FT
+					activist_6cat = VCF0723,#val: 1-6 low-high participation 0. DKN/NA
+					ideo_dem = VCF0503, # val: 1-7 lib-con
+					ideo_rep = VCF0504,# val: 1-7 lib-con
+					general_vote = VCF0702,
+					primary_vote = VCF9265,
+				 age = VCF0101,
+				  case_id = VCF0006,
+				  weight = VCF0009z,
 				 VCF0806, #insurance Government Health Insurance Scale #1-7 Gov ins- Private ins 9DK, 0NA
 				 VCF0809, #jobs Jobs Gurantee, same scale as above
 				 VCF0839, # services Gov should provide 1 (few services)--7 (many services) 9DK, 0NA
@@ -68,12 +70,6 @@ anes_tidy <- read_rds("data/raw/cdf-raw-trim.rds")%>% # Loads RDS created in `an
 				 VCF9255, #satisfied_democ 1(very), 2(fairly), 3(not very), 4(not at all) -8,-9NA
 				 VCF9036, #know_sen 1-2(correct), 3-4(wrong), 7-9NA
 				 VCF0104, #gender 1 male, 2 female, 3 other (2016 only).
-				 therm_dem_old, #FT Democrats (old)
-				 therm_rep_old, #FT Republicans (old)
-				 therm_prot, #FT Protestants
-				 therm_cath, #FT Catholics
-				 therm_black, #FT Blacks
-				 therm_white, #FT Whites
 				 VCF0128, # Regligions preference. 1 protestant, 2 catholic, 3 jewish, 4 other/none/dk, 0 na
 				 VCF0604, # Trust in Gov to do what's right 1, never, 2, some of time, 3 most of time, 4 almost always, 9, dk
 				 VCF0605, # Gov run for a few interests (1) or benefit of all (2), 9 DK, 0 NA
@@ -359,13 +355,6 @@ anes_tidy <- read_rds("data/raw/cdf-raw-trim.rds")%>% # Loads RDS created in `an
   																(therm_dem + therm_rep)/2))%>%
   mutate(npa_party = therm_inparty - therm_outparty)%>%
 	mutate(therm_parties_mean = (therm_dem + therm_rep)/2)%>%
-  mutate(therm_dem_old = na_if(therm_dem_old, 98))%>%
-  mutate(therm_dem_old = na_if(therm_dem_old, 99))%>%
-  mutate(therm_rep_old = na_if(therm_rep_old, 98))%>%
-  mutate(therm_rep_old = na_if(therm_rep_old, 99))%>%
-  mutate(therm_party_ingroup = if_else(pid_2_sort=="Democrat", therm_dem_old, therm_rep_old))%>%
-  mutate(therm_party_outgroup = if_else(pid_2_sort=="Democrat", therm_rep_old, therm_dem_old))%>%
-  mutate(npa_partisans = therm_party_ingroup - therm_party_outgroup)%>%
   mutate(therm_lib = na_if(therm_lib, 98))%>%
   mutate(therm_lib = na_if(therm_lib, 99))%>%
   mutate(therm_con = na_if(therm_con, 98))%>%
