@@ -92,12 +92,12 @@ font_add_google("Roboto Condensed", "Roboto Condensed")
 
 ```{r, include = FALSE}
 tidy_2020_df <- read_rds("data/tidy-2020.rds")%>%
-	glimpse()
   select(pid_3,
          pid_7,
          year,
          therm_inparty,
          therm_outparty,
+  			 primary_vote_dum,
 #         therm_parties_mean,
          weight)%>%
   filter(pid_3 != "Independent")%>%
@@ -119,7 +119,7 @@ cdf_trimmed <- read_rds("data/tidy-cdf.rds")%>%
 	mutate(therm_inparty = as.numeric(recode(therm_inparty, .default = as.character(therm_inparty),
 																"97" = '100')),
 				 therm_outparty = as.numeric(recode(therm_outparty, .default = as.character(therm_outparty),
-																"97" = '100'))) %>% 
+																"97" = '100'))) %>%
 	  rbind(tidy_2020_df)%>%
   glimpse()
 

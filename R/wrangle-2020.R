@@ -1,7 +1,7 @@
 library(tidyverse)
 library(lubridate)
 
-df_2020 <- import("data/raw/anes/anes_timeseries_2020_csv_20210719.zip", which = "anes_timeseries_2020_csv_20210719.csv")%>%
+df_2020 <- rio::import("data/raw/anes/anes_timeseries_2020_csv_20210719.zip", which = "anes_timeseries_2020_csv_20210719.csv")%>%
 	select(pid_7 = V201231x,
 				 ft_dem = V201156,
 				 ft_rep = V201157,
@@ -49,7 +49,7 @@ df_2020 <- import("data/raw/anes/anes_timeseries_2020_csv_20210719.zip", which =
 				 primary_vote_dum = as.numeric(recode(primary_vote, .default = NA_character_,
 				 											"1" = "0",
 				 											"2" = "1")),
-				 primary_vote = recode(primary_vote, .default = NA_character_,
+				 primary_vote_dum = recode(primary_vote, .default = NA_character_,
 				 											"1" = "1",
 				 											"2" = "0"),
 				 primary_vote_choice_num = if_else(primary_vote_choice_num < 0, NA_integer_, primary_vote_choice_num),
