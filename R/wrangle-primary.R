@@ -26,6 +26,7 @@ zero1 <- function(x, minx = NA, maxx = NA) {
 df_2008 <- import("data/raw/anes/anes_timeseries_2008.zip", which = "anes_timeseries_2008_rawdata.txt")%>%
   select(age = V081104,
          sex = V081101,
+#         sex_iwr = V083311,
          weight = V081001,
          primary_vote_choice = V083077a,
          primary_vote = V083077,
@@ -38,6 +39,9 @@ df_2008 <- import("data/raw/anes/anes_timeseries_2008.zip", which = "anes_timese
 #         date = V082001c
   )%>%
   mutate(age = na_if(age, -9),
+         sex = recode(sex,
+                      "1" = "Male",
+                      "2" = "Female"),
          pid_3 = recode(pid_3, 
                         "5" = "No Preference", 
                         "1" = "Democrat", 
@@ -109,8 +113,10 @@ df_2008 <- import("data/raw/anes/anes_timeseries_2008.zip", which = "anes_timese
                                          pid_3 == "Republican" & primary_vote_choice == "John McCain" ~ "Winner",
                                          pid_3 != "Indpendent" & primary_vote_choice != "Didn't Vote" ~ "Loser",
                                          pid_3 != "Indpendent" & primary_vote_choice == "Didn't Vote" ~ "Didn't Vote",
-                                         TRUE ~ NA_character_))%>%
-  select(-primary_vote)%>%
+                                         TRUE ~ NA_character_),
+         primary_vote = recode(primary_vote, .default = NA_character_,
+                               "1" = "1",
+                               "5" = "0"),)%>%
   mutate(year = "2008")%>%
   glimpse()
 
@@ -140,6 +146,9 @@ df_2012 <- import("data/raw/anes/anes_timeseries_2012.zip", which = "anes_timese
   mutate(age = na_if(age, -9),
          age = na_if(age, -8),
          age = na_if(age, -2),
+         sex = recode(sex,
+                      "1" = "Male",
+                      "2" = "Female"),
          pid_3 = recode(pid_3, 
                         "0" = "No Preference", 
                         "1" = "Democrat", 
@@ -189,7 +198,10 @@ df_2012 <- import("data/raw/anes/anes_timeseries_2012.zip", which = "anes_timese
                                          pid_3 == "Republican" & primary_vote_choice == "Mitt Romney" ~ "Winner",
                                          pid_3 != "Indpendent" & primary_vote_choice != "Didn't Vote" ~ "Loser",
                                          pid_3 != "Indpendent" & primary_vote_choice == "Didn't Vote" ~ "Didn't Vote",
-                                         TRUE ~ NA_character_))%>%
+                                         TRUE ~ NA_character_),
+         primary_vote = recode(primary_vote, .default = NA_character_,
+                               "1" = "1",
+                               "2" = "0"),)%>%
   mutate(year = 2012,
          pre_ftf_date = ymd(pre_ftf_date),
          pre_web_1_date = ymd(pre_web_1_date),
@@ -222,6 +234,11 @@ df_2016 <- rio::import("data/raw/anes/anes_timeseries_2016.zip", which = "anes_t
          date = V164002,
   )%>%
   mutate(age = na_if(age, -9),
+         sex = recode(sex,
+                      "1" = "Male",
+                      "2" = "Female",
+                      "3" = "Other/Refused",
+                      "-9" = "Other/Refused"),
          pid_7 = na_if(pid_7, -9),
          pid_7 = na_if(pid_7, -8))%>%
   mutate(pid_7_num = as.numeric(pid_7), # Recoding party_id as a factor, making sure to order it in a substantive way.
@@ -291,7 +308,10 @@ df_2016 <- rio::import("data/raw/anes/anes_timeseries_2016.zip", which = "anes_t
                                          pid_3 == "Republican" & primary_vote_choice == "Donald Trump" ~ "Winner",
                                          pid_3 != "Indpendent" & primary_vote_choice != "Didn't Vote" ~ "Loser",
                                          pid_3 != "Indpendent" & primary_vote_choice == "Didn't Vote" ~ "Didn't Vote",
-                                         TRUE ~ NA_character_))%>%
+                                         TRUE ~ NA_character_),
+         primary_vote = recode(primary_vote, .default = NA_character_,
+                               "1" = "1",
+                               "5" = "0"))%>%
   mutate(year = 2016,
          date = ymd(date),)%>%
   select(colnames(df_2008))%>% #selecting only columns that exist in the 2008 dataset
@@ -348,7 +368,9 @@ primaries <- rbind(df_2016, df_2008, df_2012, df_2020)%>%
          ideo_inparty_prt_std = zero1(case_when(pid_3 == "Democrat" ~ ideo_inparty_std*-1, # recodes so that high numbers are party-specific extreme 1 = ext. lib for dems, 1 = ext con for reps
                                        pid_3 == "Republican" ~ ideo_inparty_std,
                                        TRUE ~ NA_real_)),
-         ideo_self_in_dif_std = ideo_self_prt_std - ideo_inparty_prt_std)%>% #0 values are more moderate, relative to the party
+         ideo_self_in_dif_std = ideo_self_prt_std - ideo_inparty_prt_std,
+         primary_vote = as.numeric(primary_vote),
+         male_dum = if_else(sex == "Male", 1, 0))%>% #0 values are more moderate, relative to the party
   glimpse()%>%
   write_rds("data/tidy-primaries.rds")%>%
   write_csv("data/tidy-primaries.csv")
