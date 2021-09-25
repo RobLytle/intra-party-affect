@@ -20,6 +20,7 @@ df_2020 <- import("data/raw/anes/anes_timeseries_2020_csv_20210719.zip", which =
 				 race = V201549x,
 				 weight = V200010a,
 				 date = V203053,
+				 income = V201617x,
 				 sex = V201600)%>%
 	mutate(age = na_if(age, -9),
 				 sex = recode(sex, .default = NA_character_,
@@ -110,13 +111,11 @@ df_2020 <- import("data/raw/anes/anes_timeseries_2020_csv_20210719.zip", which =
 				 															 "2" = "0",
 				 															 "3" = "0")),
 				 date = ymd(date),
-				 race = as.factor(recode(race, .default = NA_character_,
-				 							"1" = "White",
-				 							"2" = "Black",
-				 							"3" = "Hispanic",
-				 							"4" = "Asian/Pacific Islander",
-				 							"5" = "Indigenous",
-				 							"6" = "Multiple")))%>% # 1 means R thinksgov run for a few  #pre interview date
+				 race = case_when(race == 1 ~ "White",
+				 								 race == 2 ~ "Black",
+				 								 race >=  3 ~ "Other",
+				 								 TRUE ~ NA_character_)
+				 )%>% # 1 means R thinksgov run for a few  #pre interview date
 	mutate(primary_vote_simple = case_when(pid_3 != cand_party ~ "Voted in Other Party Primary",
 																				 pid_3 == "Democrat" & primary_vote_choice == "Joe Biden" ~ "Winner",
 																				 pid_3 == "Republican" & primary_vote_choice == "Donald Trump" ~ "Winner",
@@ -124,8 +123,10 @@ df_2020 <- import("data/raw/anes/anes_timeseries_2020_csv_20210719.zip", which =
 																				 pid_3 != "Indpendent" & primary_vote_choice == "Didn't Vote" ~ "Didn't Vote",
 																				 TRUE ~ NA_character_),
 				 therm_inparty = if_else(therm_inparty > 100 | therm_inparty < 0, NA_integer_, therm_inparty),
-				 therm_outparty = if_else(therm_outparty > 100 | therm_outparty < 0, NA_integer_, therm_outparty),)%>%
-
+				 therm_outparty = if_else(therm_outparty > 100 | therm_outparty < 0, NA_integer_, therm_outparty),
+				 income = if_else(income <= 0, NA_integer_, income),
+				 below_35k_dum = if_else(income <= 6, 1, 0)
+				 )%>%
 	glimpse()%>%
 	write_rds("data/tidy-2020.rds")%>%
 	write_csv("data/tidy-2020.csv")

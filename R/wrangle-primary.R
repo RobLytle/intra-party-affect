@@ -26,6 +26,8 @@ zero1 <- function(x, minx = NA, maxx = NA) {
 df_2008 <- import("data/raw/anes/anes_timeseries_2008.zip", which = "anes_timeseries_2008_rawdata.txt")%>%
   select(age = V081104,
          sex = V081101,
+         race = V081102,
+         income = V083248x,
 #         sex_iwr = V083311,
          weight = V081001,
          primary_vote_choice = V083077a,
@@ -49,7 +51,13 @@ df_2008 <- import("data/raw/anes/anes_timeseries_2008.zip", which = "anes_timese
                         "3" = "Independent",
                         "4" = "Other",
                         "-8" = NA_character_,
-                        "-9" = NA_character_))%>%
+                        "-9" = NA_character_),
+         race = case_when(race == 1 ~ "White",
+                          race == 2 ~ "Black",
+                          race >= 3 ~ "Other",
+                          TRUE ~ NA_character_),
+         income = if_else(income <= 0, NA_integer_, income),
+         below_35k_dum = if_else(income <= 13, 1, 0)) %>% 
   mutate(therm_dem = na_if(therm_dem, -9),
          therm_dem = na_if(therm_dem, -8),
          therm_dem = na_if(therm_dem, -6))%>%
@@ -129,7 +137,9 @@ df_2008 <- import("data/raw/anes/anes_timeseries_2008.zip", which = "anes_timese
 
 df_2012 <- import("data/raw/anes/anes_timeseries_2012.zip", which = "anes_timeseries_2012_rawdata.txt")%>%
   select(age = dem_age_r_x,
+         race = dem_raceeth_x,
          sex = gender_respondent_x,
+         income  = inc_incgroup_pre,
          weight = weight_full,
          primary_vote = prevote_primv,
          primary_vote_choice = prevote_primvwho,
@@ -146,9 +156,15 @@ df_2012 <- import("data/raw/anes/anes_timeseries_2012.zip", which = "anes_timese
   mutate(age = na_if(age, -9),
          age = na_if(age, -8),
          age = na_if(age, -2),
+         income = if_else(income <= 0, NA_integer_, income),
+         below_35k_dum = if_else(income <= 11, 1, 0),
          sex = recode(sex,
                       "1" = "Male",
                       "2" = "Female"),
+         race = case_when(race == 1 ~ "White",
+                          race == 2 ~ "Black",
+                          race >= 3 ~ "Other",
+                          TRUE ~ NA_character_),
          pid_3 = recode(pid_3, 
                         "0" = "No Preference", 
                         "1" = "Democrat", 
@@ -221,6 +237,8 @@ df_2012 <- import("data/raw/anes/anes_timeseries_2012.zip", which = "anes_timese
 df_2016 <- rio::import("data/raw/anes/anes_timeseries_2016.zip", which = "anes_timeseries_2016_rawdata.txt")%>%
   select(age = V161267,
          sex = V161342,
+         race = V161310x,
+         income = V161361x,
          weight = V160101,
          primary_vote = V161021,
          primary_vote_choice = V161021a,
@@ -239,6 +257,10 @@ df_2016 <- rio::import("data/raw/anes/anes_timeseries_2016.zip", which = "anes_t
                       "2" = "Female",
                       "3" = "Other/Refused",
                       "-9" = "Other/Refused"),
+         race = case_when(race == 1 ~ "White",
+                          race == 2 ~ "Black",
+                          race >= 3 ~ "Other",
+                          TRUE ~ NA_character_),
          pid_7 = na_if(pid_7, -9),
          pid_7 = na_if(pid_7, -8))%>%
   mutate(pid_7_num = as.numeric(pid_7), # Recoding party_id as a factor, making sure to order it in a substantive way.
@@ -311,7 +333,9 @@ df_2016 <- rio::import("data/raw/anes/anes_timeseries_2016.zip", which = "anes_t
                                          TRUE ~ NA_character_),
          primary_vote = recode(primary_vote, .default = NA_character_,
                                "1" = "1",
-                               "5" = "0"))%>%
+                               "5" = "0"),
+         income = if_else(income <= 0, NA_integer_, income),
+         below_35k_dum = if_else(income <= 11, 1, 0))%>%
   mutate(year = 2016,
          date = ymd(date),)%>%
   select(colnames(df_2008))%>% #selecting only columns that exist in the 2008 dataset
@@ -370,7 +394,9 @@ primaries <- rbind(df_2016, df_2008, df_2012, df_2020)%>%
                                        TRUE ~ NA_real_)),
          ideo_self_in_dif_std = ideo_self_prt_std - ideo_inparty_prt_std,
          primary_vote = as.numeric(primary_vote),
-         male_dum = if_else(sex == "Male", 1, 0))%>% #0 values are more moderate, relative to the party
+         male_dum = if_else(sex == "Male", 1, 0),
+         race = as.factor(race),
+         white_dum = if_else(race == "White", 1, 0))%>% #0 values are more moderate, relative to the party
   glimpse()%>%
   write_rds("data/tidy-primaries.rds")%>%
   write_csv("data/tidy-primaries.csv")
@@ -379,3 +405,5 @@ primaries %>%  #1-7 lib-con
   ggplot(aes(x = ideo_self_in_dif, y = ideo_self_out_dif)) +
   facet_wrap(vars(pid_3)) +
   geom_point(position = "jitter")
+
+levels(primaries$race)

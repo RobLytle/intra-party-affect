@@ -92,6 +92,7 @@ font_add_google("Roboto Condensed", "Roboto Condensed")
 
 ```{r, include = FALSE}
 tidy_2020_df <- read_rds("data/tidy-2020.rds")%>%
+	glimpse()
   select(pid_3,
          pid_7,
          year,
@@ -111,10 +112,15 @@ cdf_trimmed <- read_rds("data/tidy-cdf.rds")%>%
 #         race_4cat,
          therm_inparty,
          therm_outparty,
+				 primary_vote_dum,
 #         therm_parties_mean,
          weight,
          )%>%
-  rbind(tidy_2020_df)%>%
+	mutate(therm_inparty = as.numeric(recode(therm_inparty, .default = as.character(therm_inparty),
+																"97" = '100')),
+				 therm_outparty = as.numeric(recode(therm_outparty, .default = as.character(therm_outparty),
+																"97" = '100'))) %>% 
+	  rbind(tidy_2020_df)%>%
   glimpse()
 
 party_fts_ns <- cdf_trimmed%>% # Making a DF of the party-year SD
@@ -254,38 +260,24 @@ party_fts_ns_joined <- rbind(party_fts_ns, boot_sd_in)%>%
               values_from = result)%>%
   glimpse()
 
-## Primaries Wrangling
-
-
-df_primaries <- read_rds("data/tidy-primaries.rds")%>%
-#	filter(pid_3 != "Independent" & !is.na(primary_vote_simple))%>%
-	filter(pid_3 != "Independent")%>%
-	filter(!(pid_3 == "Republican" & primary_vote_simple == "Loser" & year == 2020))%>% # dropping republicans who didn't vote for trump because there are very few.
-	mutate(primary_vote_simple = recode(primary_vote_simple, .default = levels(primary_vote_simple),
-																			"Didn't Vote" = "Didn't Vote",
-																			"Voted in Other Party Primary" = "Voted in Other Primary"))%>%
-#	filter(primary_vote_simple != "Other/Third Party/\n Didn't Vote")%>%
-	mutate(primary_vote_simple = factor(primary_vote_simple,
-																			levels = c("Winner", "Loser", "Didn't Vote", "Voted in Other Primary")))%>%
-	glimpse()
-
-df_out_means <- df_primaries%>%
-	group_by(primary_vote_simple, year, pid_3)%>%
-	summarize(mean_ft = weighted.mean(therm_outparty, weight, na.rm = TRUE))%>%
-	glimpse()
-
-	###
-	# Inparty FT
-	###
-df_in_means <- df_primaries%>%
-	group_by(primary_vote_simple, year, pid_3)%>%
-	summarize(mean_ft = weighted.mean(therm_inparty, weight, na.rm = TRUE))%>%
-	glimpse()
-
-df_out_means <- df_primaries%>%
-	group_by(primary_vote_simple, year, pid_3)%>%
-	summarize(mean_ft = weighted.mean(therm_outparty, weight, na.rm = TRUE))%>%
-	glimpse()
+# 
+# df_out_means <- df_primaries%>%
+# 	group_by(primary_vote_simple, year, pid_3)%>%
+# 	summarize(mean_ft = weighted.mean(therm_outparty, weight, na.rm = TRUE))%>%
+# 	glimpse()
+# 
+# 	###
+# 	# Inparty FT
+# 	###
+# df_in_means <- df_primaries%>%
+# 	group_by(primary_vote_simple, year, pid_3)%>%
+# 	summarize(mean_ft = weighted.mean(therm_inparty, weight, na.rm = TRUE))%>%
+# 	glimpse()
+# 
+# df_out_means <- df_primaries%>%
+# 	group_by(primary_vote_simple, year, pid_3)%>%
+# 	summarize(mean_ft = weighted.mean(therm_outparty, weight, na.rm = TRUE))%>%
+# 	glimpse()
 
 
 
@@ -419,9 +411,68 @@ ridge_df_all <- cdf_trimmed%>%
   filter(year != 2002)%>%
 	filter(pid_7 != "Independent - Independent") %>% 
   mutate(year_fct = fct_rev(as.factor(year))) %>% 
-	mutate(log_in = log(therm_inparty)) %>% 
+	mutate(log_in = log(therm_inparty),
+				 era = factor(if_else(year < 2000, "Before 2000", "After 2000"),
+				 						 levels = c("Before 2000", "After 2000"))) %>%
 	glimpse()
 
+ridge_df_all %>% 
+	group_by(year_fct) %>% 
+	summarize(n = n())
+
+ggplot(data = ridge_df_all, aes(x = fct_rev(year_fct),
+																y = therm_inparty,
+																fill = pid_3, 
+																color = pid_3, 
+																weight = weight)) +
+	geom_violin(aes(weight = weight,
+									adjust = 1/5)) +
+	theme(legend.position = "top",
+					axis.text.x = element_text(angle = 285)) +
+	  scale_linetype_manual(values = c("Democrat" = "longdash",
+                                   "Republican" = "solid")) +
+  scale_shape_manual(values = c("Democrat" = 17,
+                                   "Republican" = 16)) +
+	  scale_fill_manual(values = c("Democrat" = "dodgerblue4",
+                                   "Republican" = "firebrick4")) +
+  scale_color_manual(values = c("Democrat" = "dodgerblue4",
+                                   "Republican" = "firebrick4")) +
+	labs(x = "year",
+			 y = "In-party Feeling Thermometer",
+			 title = "Distribution of In-Party Feeling Over Time")
+#	scale_x_continuous(breaks = c(seq(1978, 2020, by = 2)))
+
+
+ggplot(data = ridge_df_all, aes(x = fct_rev(year_fct),y = therm_inparty, color = pid_3)) +
+	geom_boxplot(aes())
+
+
+
+ggplot(data = ridge_df_all, aes(x = era,
+																y = therm_inparty,,
+																fill = pid_3, 
+																color = pid_3, 
+																weight = weight)) +
+	geom_violin(aes(weight = weight,
+									adjust = 1/5)) +
+	theme(legend.position = "top",
+					axis.text.x = element_text(angle = 285)) +
+	  scale_linetype_manual(values = c("Democrat" = "longdash",
+                                   "Republican" = "solid")) +
+  scale_shape_manual(values = c("Democrat" = 17,
+                                   "Republican" = 16)) +
+	  scale_fill_manual(values = c("Democrat" = "dodgerblue4",
+                                   "Republican" = "firebrick4")) +
+  scale_color_manual(values = c("Democrat" = "dodgerblue4",
+                                   "Republican" = "firebrick4")) +
+	labs(x = "year",
+			 y = "In-party Feeling Thermometer",
+			 title = "Distribution of In-Party Feeling Over Time")
+
+
+```
+
+```{r}
 ggplot(ridge_df_all, aes(x = therm_inparty, y = year_fct, fill = stat(x), color = "white")) +
   geom_density_ridges_gradient(scale = 3, rel_min_height = 0.02, gradient_lwd = 1) +
   coord_cartesian(clip = "off") +
@@ -746,6 +797,25 @@ Curiously, losing Democrats were slightly colder towards Republicans than their 
 
 \clearpage
 ```{r primaries-table}
+
+
+## Primaries Wrangling
+
+
+df_primaries <- read_rds("data/tidy-primaries.rds")%>%
+#	filter(pid_3 != "Independent" & !is.na(primary_vote_simple))%>%
+	filter(pid_3 != "Independent")%>%
+	filter(!(pid_3 == "Republican" & primary_vote_simple == "Loser" & year == 2020))%>% # dropping republicans who didn't vote for trump because there are very few.
+	mutate(primary_vote_simple = recode(primary_vote_simple, .default = levels(primary_vote_simple),
+																			"Didn't Vote" = "Didn't Vote",
+																			"Voted in Other Party Primary" = "Voted in Other Primary"))%>%
+#	filter(primary_vote_simple != "Other/Third Party/\n Didn't Vote")%>%
+	mutate(primary_vote_simple = factor(primary_vote_simple,
+																			levels = c("Winner", "Loser", "Didn't Vote", "Voted in Other Primary")),
+				 therm_inparty = if_else(therm_inparty < 0, NA_integer_, therm_inparty),
+				 therm_outparty = if_else(therm_outparty < 0, NA_integer_, therm_outparty))%>%
+	glimpse()
+
 gm_3 <- tibble::tribble(
   ~raw,        ~clean,          ~fmt,
   "nobs",      "N",             0,
@@ -753,18 +823,21 @@ gm_3 <- tibble::tribble(
   "adj.r.squared", "Adj. R Sq.", 2)
 
 # not including ideology var because this  is probably just a proxy for partisanship
-cm_3 <- c("primary_vote_simpleLoser" = "Primary Loss",
-					"primary_vote_simpleDidn't Vote" = "Didn't Vote",
+cm_3 <- c("primary_vote_simpleLoser" = "Voted for Primary Loser",
+					"primary_vote_simpleDidn't Vote" = "Didn't Vote in Primary",
 					"primary_vote_simpleVoted in Other Primary" = "Voted in Other Primary",
 					"ideo_self_prt_std" = "Ideological Extremity",
 					"ideo_self_in_dif_std" = "Relative Partisan Extremity",
 					"age_group" = "Age Group",
+					"male_dum" = "Male",
+					"white_dum" = "White",
+					"below_35k_dum" = "Income < $35k",
 #          "year2012" = "2012",
 #          "year2016" = "2016", 
 #          "year2020" = "2020",
           "(Intercept)" = "Constant") 
 
-primary_tab<-df_primaries%>%
+tab_1_df <- df_primaries%>%
   pivot_longer(cols = c(therm_inparty, therm_outparty),
                names_to = "therm_name",
                values_to = "therm_val") %>%
@@ -779,20 +852,37 @@ primary_tab<-df_primaries%>%
            pid_3,
            therm_name)%>%
   nest_by() %>% 
-  mutate(fit = list(lm(therm_val ~ primary_vote_simple + ideo_self_in_dif_std + age_group + year, data = data,  weights = weight)))%>%
-  pull(fit, name = c(pid_3))%>%
-  modelsummary(output = "gt",
+  mutate(fit = list(lm(therm_val ~ primary_vote_simple + ideo_self_in_dif_std + age_group + male_dum + white_dum + year + below_35k_dum, data = data,  weights = weight)),
+  			 aug = list(augment(fit)),
+  			 tidy = list(tidy(fit)),
+  			 glance = list(glance(fit)))%>%
+	glimpse()
+
+primary_tab <- tab_1_df %>%
+		pull(fit, name = c(pid_3))%>%
+	modelsummary(output = "gt",
                gof_map = gm_3,
                coef_map = cm_3,
                stars = TRUE) %>% 
   tab_spanner(columns = 2:3, label = "In-Party") %>% 
     tab_spanner(columns = 4:5, label = "Out-Party")%>%
 tab_header(title = md("**Table 1:** Estimated Individual Partisan Affect")) %>% 
-  tab_footnote(md("Binary variables for election year and respondent age are included to \ control for shifts in affect exogenous to primary outcome. Those who view themselves as more extreme than their party are also warmer towards the party than those who view themselves as more moderate than the party."),
+  tab_footnote(md("Binary variables for election year and respondent age are included to \ control for shifts in affect exogenous to primary outcome. Those who view themselves as more extreme than their party are also warmer towards the party than those who view themselves as more moderate than the party. Relative partisan extremity is coded between [-1, 1], where negative values indicate a respondent sees themselves as much more moderate than their party, while positive values indicate the respondent views themselves as much more extreme."),
                locations = cells_title())
 primary_tab
 gtsave(primary_tab, "fig/primary-tab.png")
 # Estimated individuals Partisan Affect
+
+tab_1_aug_df <- unnest(tab_1_df, aug) %>% 
+	glimpse()
+
+tab_1_aug_df %>% 
+#	filter(str_detect(group_name, "In")) %>% 
+ggplot(aes(x = .fitted, y = .std.resid)) +
+	geom_point() +
+	geom_abline(slope = 0, intercept = 0)+
+	facet_wrap(vars(group_name))
+
 ```
 
 Were ideology a principal factor driving partisan affect, we should expect to see greater differences in the out-party density curves presented in Figure 5. For example, the vast majority of Democratic respondents in the 2008 ANES supported either Barack Obama or Hillary Clinton. Despite Obama's presentation as a progressive alternative to Hillary Clinton from the left-wing of the party, there is essentially no difference in the distributions of out-party feeling thermometers between supporters of Clinton and Obama. Similarly, supporters of Bernie Sanders---a socialist---should be more ideologically distant from Republicans than their non-socialist peers, yet the out-party feeling thermometers of Sanders supporters are slightly *higher* on average than those of Clinton supporters in 2016. In 2020, supporters of the moderate Biden are warmer to Republicans than the losing candidates, one of whom was the socialist Sanders. However, given the size of the 2020 Democratic Primary field losing Democrats represent a much broader ideological range of candidates than in 2016. Further, 2020 was---put mildly---an anomalous year in many ways. The likelihood of heterogeneous effects emanating from the COVID-19 pandemic should discourage bold generalizations from unexpected deviations in the 2020 data.
