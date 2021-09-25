@@ -2,11 +2,31 @@ library(tidyverse)
 library(haven)
 library(stringr)
 library(rio)
-
+library(lubridate)
 #2008
 
-df2008 <- import("data/raw/anes_timeseries_2008.zip", which = "anes_timeseries_2008_rawdata.txt")%>%
-  select(weight = V081001,
+zero1 <- function(x, minx = NA, maxx = NA) {
+  
+  stopifnot(identical(typeof(as.numeric(x)), "double"))
+  
+  if (typeof(x) == "character") x <- as.numeric(x)
+  
+  res <- NA
+  
+  if (is.na(minx)) {
+    res <- (x - min(x, na.rm = T)) / (max(x, na.rm = T) - min(x, na.rm = T))
+  }
+  
+  if (!is.na(minx)) res <- (x - minx) / (maxx - minx)
+  
+  res
+}
+
+
+df_2008 <- import("data/raw/anes/anes_timeseries_2008.zip", which = "anes_timeseries_2008_rawdata.txt")%>%
+  select(age = V081104,
+         sex = V081101,
+         weight = V081001,
          primary_vote_choice = V083077a,
          primary_vote = V083077,
          ideo_self = V083069, #1-7 lib con, -na
@@ -17,7 +37,8 @@ df2008 <- import("data/raw/anes_timeseries_2008.zip", which = "anes_timeseries_2
          pid_3 = V083097, #Party ID: Does R think of self as Dem, Rep, Ind or what 0: no pref, 1. Democrat, 2. Republican, 3. Independent
 #         date = V082001c
   )%>%
-  mutate(pid_3 = recode(pid_3, 
+  mutate(age = na_if(age, -9),
+         pid_3 = recode(pid_3, 
                         "5" = "No Preference", 
                         "1" = "Democrat", 
                         "2" = "Republican", 
@@ -100,8 +121,10 @@ df2008 <- import("data/raw/anes_timeseries_2008.zip", which = "anes_timeseries_2
 
 
 
-df2012 <- import("data/raw/anes_timeseries_2012.zip", which = "anes_timeseries_2012_rawdata.txt")%>%
-  select(weight = weight_full,
+df_2012 <- import("data/raw/anes/anes_timeseries_2012.zip", which = "anes_timeseries_2012_rawdata.txt")%>%
+  select(age = dem_age_r_x,
+         sex = gender_respondent_x,
+         weight = weight_full,
          primary_vote = prevote_primv,
          primary_vote_choice = prevote_primvwho,
          therm_dem = ft_dem, #1-100, 100 warmest. -99: NA
@@ -114,7 +137,10 @@ df2012 <- import("data/raw/anes_timeseries_2012.zip", which = "anes_timeseries_2
          pre_web_1_date = admin_pre_web1_iwdatebeg,
          pre_web_2_date = admin_pre_web2_iwdatebeg,
   )%>%
-  mutate(pid_3 = recode(pid_3, 
+  mutate(age = na_if(age, -9),
+         age = na_if(age, -8),
+         age = na_if(age, -2),
+         pid_3 = recode(pid_3, 
                         "0" = "No Preference", 
                         "1" = "Democrat", 
                         "2" = "Republican", 
@@ -173,15 +199,17 @@ df2012 <- import("data/raw/anes_timeseries_2012.zip", which = "anes_timeseries_2
          web_date = as_date(round((num_w1 + num_w2)/2, 0)),
          date = if_else(!is.na(pre_ftf_date), pre_ftf_date, web_date)
 )%>%
-  select(colnames(df2008))%>%
+  select(colnames(df_2008))%>%
   glimpse()%>%#
   write_rds("data/tidy-2012.rds")%>%
   write_csv("data/tidy-2012.csv")
 
 
 #2016
-df2016 <- rio::import("data/raw/anes_timeseries_2016.zip", which = "anes_timeseries_2016_rawdata.txt")%>%
-  select(weight = V160101,
+df_2016 <- rio::import("data/raw/anes/anes_timeseries_2016.zip", which = "anes_timeseries_2016_rawdata.txt")%>%
+  select(age = V161267,
+         sex = V161342,
+         weight = V160101,
          primary_vote = V161021,
          primary_vote_choice = V161021a,
          therm_dem = V161095, #1-100, 100 warmest. -99: NA
@@ -193,7 +221,8 @@ df2016 <- rio::import("data/raw/anes_timeseries_2016.zip", which = "anes_timeser
          pid_3 = V161155,#, #Party ID: Does R think of self as Dem, Rep, Ind or what 0: no pref, 1. Democrat, 2. Republican, 3. Independent
          date = V164002,
   )%>%
-  mutate(pid_7 = na_if(pid_7, -9),
+  mutate(age = na_if(age, -9),
+         pid_7 = na_if(pid_7, -9),
          pid_7 = na_if(pid_7, -8))%>%
   mutate(pid_7_num = as.numeric(pid_7), # Recoding party_id as a factor, making sure to order it in a substantive way.
          pid_7 = recode(pid_7, 
@@ -265,7 +294,7 @@ df2016 <- rio::import("data/raw/anes_timeseries_2016.zip", which = "anes_timeser
                                          TRUE ~ NA_character_))%>%
   mutate(year = 2016,
          date = ymd(date),)%>%
-  select(colnames(df2008))%>% #selecting only columns that exist in the 2008 dataset
+  select(colnames(df_2008))%>% #selecting only columns that exist in the 2008 dataset
   glimpse()%>%#
   write_rds("data/tidy-2016.rds")%>%
   write_csv("data/tidy-2016.csv")
@@ -275,7 +304,7 @@ df2016 <- rio::import("data/raw/anes_timeseries_2016.zip", which = "anes_timeser
 ###########################
 
 df_2020 <- read_rds("data/tidy-2020.rds")%>%
-  select(colnames(df2008))%>%
+  select(colnames(df_2008))%>%
   glimpse()
 
 
@@ -283,7 +312,7 @@ df_2020 <- read_rds("data/tidy-2020.rds")%>%
 ####
 ####
 
-primaries <- rbind(df2016, df2008, df2012, df_2020)%>%
+primaries <- rbind(df_2016, df_2008, df_2012, df_2020)%>%
   mutate(pid_3 = factor(pid_3, 
                         levels = c("1" = "Democrat", 
                                    "2" = "Independent", 
@@ -307,9 +336,24 @@ primaries <- rbind(df2016, df2008, df2012, df_2020)%>%
          ideo_outparty = case_when(pid_3 == "Democrat" ~ ideo_rep,
                                   pid_3 == "Republican" ~ ideo_dem,
                                   TRUE ~ NA_integer_),
-         ideo_self_in_dif = abs(ideo_self - ideo_inparty),
-         ideo_self_out_dif = abs(ideo_self - ideo_outparty),
-         ideo_in_out_dif = abs(ideo_inparty - ideo_outparty))%>%
+         ideo_self_in_dif = ideo_self - ideo_inparty, #positive values mean R thinks party is more conservative than themselves
+         ideo_self_out_dif = ideo_self - ideo_outparty,
+         ideo_in_out_dif = abs(ideo_inparty - ideo_outparty),
+         age_group = as.factor(ntile(age, 5)),
+         ideo_self_std = (ideo_self-4)/3,
+         ideo_self_prt_std = zero1(case_when(pid_3 == "Democrat" ~ ideo_self_std*-1, # recodes so that high numbers are party-specific extreme 1 = ext. lib for dems, 1 = ext con for reps
+                                       pid_3 == "Republican" ~ ideo_self_std,
+                                       TRUE ~ NA_real_)),
+         ideo_inparty_std = (ideo_inparty-4)/3,
+         ideo_inparty_prt_std = zero1(case_when(pid_3 == "Democrat" ~ ideo_inparty_std*-1, # recodes so that high numbers are party-specific extreme 1 = ext. lib for dems, 1 = ext con for reps
+                                       pid_3 == "Republican" ~ ideo_inparty_std,
+                                       TRUE ~ NA_real_)),
+         ideo_self_in_dif_std = ideo_self_prt_std - ideo_inparty_prt_std)%>% #0 values are more moderate, relative to the party
   glimpse()%>%
   write_rds("data/tidy-primaries.rds")%>%
   write_csv("data/tidy-primaries.csv")
+
+primaries %>%  #1-7 lib-con
+  ggplot(aes(x = ideo_self_in_dif, y = ideo_self_out_dif)) +
+  facet_wrap(vars(pid_3)) +
+  geom_point(position = "jitter")

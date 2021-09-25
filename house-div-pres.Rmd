@@ -53,6 +53,11 @@ theme_set(theme_figs())
 
 ```
 
+```{r fonts, eval = TRUE}
+font_add_google("Roboto", "Roboto")
+font_add_google("Roboto Mono", "Roboto Mono")
+font_add_google("Roboto Condensed", "Roboto Condensed")
+```
 
 
 
@@ -298,6 +303,40 @@ gg_mean_ft_ns <- ggplot(party_fts_ns_joined, aes(x = year, y = mean)) +
 gg_mean_ft_ns
 ```
 
+```{r cdf-means-not, eval = FALSE, fig.cap="Time-series shifts in partisan affect."}
+
+gg_mean_ft_ns <- ggplot(party_fts_ns_joined, aes(x = year, y = mean)) +
+#  geom_smooth(aes(linetype = group, color = group), span = .3, se=F) +
+  geom_line(aes(linetype = group, color = group), position = dodge) +
+#  geom_linerange(aes(ymin = mean-sd, ymax = mean+sd, color = group), position = dodge) +
+  geom_point(aes(shape = group, color = group), size = 3, position = dodge) +
+  scale_linetype_manual(values = c("Democrat - In Party" = "longdash",
+                                   "Democrat - Out Party" = "dotted",
+                                   "Republican - In Party" = "solid",
+                                   "Republican - Out Party" = "twodash")) +
+  scale_shape_manual(values = c("Democrat - In Party" = 17,
+                                   "Democrat - Out Party" = 2,
+                                   "Republican - In Party" = 16,
+                                   "Republican - Out Party" = 1)) +
+  scale_color_manual(values = c("Democrat - In Party" = "dodgerblue4",
+                                   "Democrat - Out Party" = "dodgerblue1",
+                                   "Republican - In Party" = "firebrick4",
+                                   "Republican - Out Party" = "firebrick1")) +
+  #scale_x_continuous(limits = c(1978,2020), breaks = c(0:5)) +
+  scale_x_continuous(breaks = seq(1976, 2020, by = 4)) +
+  scale_y_continuous(breaks = seq(0, 100, by = 10), limits = c(0,100)) +
+  labs(y = "Mean",
+       x = "Year",
+       title = "Mean Thermometer Ratings of Partisans",
+       linetype = " ",
+       color = " ",
+       shape = " ") +
+  theme(legend.position = c(0.2, 0.2)) +
+  guides(size = FALSE
+#         shape = guide_legend(override.aes = list(size = 1.5))
+         )
+gg_mean_ft_ns
+```
 #
 
 

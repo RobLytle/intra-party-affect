@@ -8,7 +8,7 @@ output:
   
 abstract: "How do partisans think about their *own* party? Inter-party affective divisions have been widely identified by scholars of partisanship and public opinion. Increasingly, Republican and Democratic partisans have come to dislike members of their political outgroup. What has been lost in these discussions is an appraisal of individual's perceptions of and attitudes towards their in-party, which are generally held to be both stable and broadly positive. In this study, I leverage time-series survey data to identify substantively meaningful shifts in voters' attitudes towards their own party. Additionally, I conduct an original survey experiment interrogating the role played by primary elections in driving behavioral and attitudinal differences between co-partisans." 
 bibliography: references.bib
-thanks: "In no particular order, I express my gratitude for the feedback, guidance, and support provided by Brad Gomez, Hans Hassell, Doug Ahler, Jens Grosser, Kai Ou, Bob Jackson, Quintin Beazer, Gaurav Sood, Sarah Warren, Damian Boldt, Taylor Chewning, Olivia VanHousen, Braeden McNulty, William Thyer, and Kate Peirce. All advice is invaluable and all mistakes are my own."
+thanks: "In no particular order, I express my gratitude for the feedback, guidance, and support provided by Hans Hassell, Brad Gomez, Doug Ahler, Jens Grosser, Kai Ou, Bob Jackson, Quintin Beazer, Gaurav Sood, Sarah Warren, Damian Boldt, Taylor Chewning, Olivia VanHousen, Braeden McNulty, William Thyer, and Kate Peirce. All advice is invaluable and all mistakes are my own."
 header-includes:
 - \usepackage[margin=1in]{geometry}
 - \usepackage{caption}
@@ -32,7 +32,7 @@ header-includes:
 
 
 ```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = FALSE, message = FALSE, warning = FALSE, fig.width = 6, fig.height = 4, fig.pos = "H", fig.showtext = TRUE)
+knitr::opts_chunk$set(echo = FALSE, message = FALSE, warning = FALSE, fig.width = 6, fig.height = 4, fig.pos = "H", fig.showtext = TRUE, fig.cap = TRUE)
 library(lubridate)
 #library(MASS)
 library(brglm)
@@ -258,14 +258,15 @@ party_fts_ns_joined <- rbind(party_fts_ns, boot_sd_in)%>%
 
 
 df_primaries <- read_rds("data/tidy-primaries.rds")%>%
-	filter(pid_3 != "Independent" & !is.na(primary_vote_simple))%>%
+#	filter(pid_3 != "Independent" & !is.na(primary_vote_simple))%>%
+	filter(pid_3 != "Independent")%>%
 	filter(!(pid_3 == "Republican" & primary_vote_simple == "Loser" & year == 2020))%>% # dropping republicans who didn't vote for trump because there are very few.
 	mutate(primary_vote_simple = recode(primary_vote_simple, .default = levels(primary_vote_simple),
-																			"Didn't Vote" = "Other/Third Party/\n Didn't Vote",
-																			"Voted in Other Party Primary" = "Other/Third Party/\n Didn't Vote"))%>%
-	filter(primary_vote_simple != "Other/Third Party/\n Didn't Vote")%>%
+																			"Didn't Vote" = "Didn't Vote",
+																			"Voted in Other Party Primary" = "Voted in Other Primary"))%>%
+#	filter(primary_vote_simple != "Other/Third Party/\n Didn't Vote")%>%
 	mutate(primary_vote_simple = factor(primary_vote_simple,
-																			levels = c("Winner", "Loser")))%>%
+																			levels = c("Winner", "Loser", "Didn't Vote", "Voted in Other Primary")))%>%
 	glimpse()
 
 df_out_means <- df_primaries%>%
@@ -289,6 +290,8 @@ df_out_means <- df_primaries%>%
 
 
 ```
+
+\clearpage
 
 \doublespacing
 
@@ -330,55 +333,118 @@ My analysis of intra-party attitudes begins by taking a broad view of trends in 
 
 
 ```{r cdf-means, fig.cap="Time-series shifts in partisan affect.", fig.showtext=TRUE}
-prop_cold_df <- mct_prop_ns %>% 
-	select(year,
-				 group = pid_3,
-				 prop_50_below,
-				 se_50_below) %>% 
-	glimpse()
-gg_mean_ft_ns <- party_fts_ns_joined %>%
-	filter(str_detect(group, "In")) %>% 
-	mutate(group = str_remove(group, " - In Party")) %>% 
-	left_join(prop_cold_df) %>% 
-	mutate(mean = mean/100) %>%  #just recoding mean between 0/1 so that prop can be on
-glimpse() %>% 
-ggplot(aes(x = year, linetype = group, color = group, shape = group), position = dodge) +
+gg_mean_ft_ns <- ggplot(party_fts_ns_joined, aes(x = year, y = mean)) +
 #  geom_smooth(aes(linetype = group, color = group), span = .3, se=F) +
-  geom_line(aes(y = mean)) +
-	geom_line(aes(y = prop_50_below )) +
+  geom_line(aes(linetype = group, color = group), position = dodge) +
 #  geom_linerange(aes(ymin = mean-sd, ymax = mean+sd, color = group), position = dodge) +
-  #geom_point(aes(shape = group, color = group) position = dodge) +
-	geom_point(aes(y = mean), size = 3) +
-	geom_point(aes(y = prop_50_below , size = 3)) +
-  scale_linetype_manual(values = c("Democrat" = "longdash",
-                                   "Republican" = "dotted")) +
-  scale_shape_manual(values = c("Democrat" = 17,
-                                   "Republican" = 16)) +
-  scale_color_manual(values = c("Democrat" = "dodgerblue4",
-                                   "Republican" = "firebrick4")) +
+  geom_point(aes(shape = group, color = group), size = 3, position = dodge) +
+  scale_linetype_manual(values = c("Democrat - In Party" = "longdash",
+                                   "Democrat - Out Party" = "dotted",
+                                   "Republican - In Party" = "solid",
+                                   "Republican - Out Party" = "twodash")) +
+  scale_shape_manual(values = c("Democrat - In Party" = 17,
+                                   "Democrat - Out Party" = 2,
+                                   "Republican - In Party" = 16,
+                                   "Republican - Out Party" = 1)) +
+  scale_color_manual(values = c("Democrat - In Party" = "dodgerblue4",
+                                   "Democrat - Out Party" = "dodgerblue1",
+                                   "Republican - In Party" = "firebrick4",
+                                   "Republican - Out Party" = "firebrick1")) +
   #scale_x_continuous(limits = c(1978,2020), breaks = c(0:5)) +
-  scale_x_continuous(breaks = seq(1976, 2020, by = 4)) +
-  scale_y_continuous(name = "Mean",
-  									 breaks = seq(0, 80, by = 10), limits = c(0,80),
-  									 sec.axis = sec_axis(breaks = seq(0, 1, by = .1), limits = c)) +
-  labs(#y = "Mean",
+	  scale_x_continuous(breaks = c(seq(1978, 2020, by = 2)))+
+  scale_y_continuous(breaks = seq(0, 80, by = 10), limits = c(0,80)) +
+  labs(y = "Mean",
        x = "Year",
        title = "Mean Thermometer Ratings of Partisans",
        linetype = " ",
        color = " ",
        shape = " ") +
-  theme(legend.position = c(0.2, 0.2)) +
+  theme(legend.position = c(0.2, 0.2),
+  			axis.text.x = element_text(angle = 285)) +
   guides(size = FALSE
 #         shape = guide_legend(override.aes = list(size = 1.5))
          )
  showtext_auto()
 gg_mean_ft_ns
-
 #pdf("extrafont-1-unembedded.pdf", 7, 4)
-
 ggsave("gg-cdf-means.pdf", gg_mean_ft_ns, width = 6, height = 4, units = "in")
 ```
 
+```{r}
+
+fig_1_df <- party_fts_ns_joined %>%
+	filter(str_detect(group, "In")) %>% 
+	mutate(group = recode(group,
+												"Democrat - In Party" = "Democrat",
+												"Republican - In Party" = "Republican")) %>% 
+	glimpse()
+
+gg_mean_ft_ns <- ggplot(fig_1_df, aes(x = year, y = mean)) +
+#  geom_smooth(aes(linetype = group, color = group), span = .3, se=F) +
+  geom_line(aes(linetype = group, color = group), position = dodge) +
+  geom_linerange(aes(ymin = mean-sd, ymax = mean+sd, color = group), position = dodge) +
+  geom_point(aes(shape = group, color = group), size = 3, position = dodge) +
+  scale_linetype_manual(values = c("Democrat" = "longdash",
+                                   "Republican" = "solid")) +
+  scale_shape_manual(values = c("Democrat" = 17,
+                                   "Republican" = 16)) +
+  scale_color_manual(values = c("Democrat" = "dodgerblue4",
+                                   "Republican" = "firebrick4")) +
+  #scale_x_continuous(limits = c(1978,2020), breaks = c(0:5)) +
+	  scale_x_continuous(breaks = c(seq(1978, 2020, by = 2)))+
+  scale_y_continuous(breaks = seq(40, 100, by = 10), limits = c(0,100)) +
+  labs(y = "Mean",
+       x = "Year",
+       title = "Mean Thermometer Ratings of Partisans",
+       linetype = " ",
+       color = " ",
+       shape = " ") +
+  theme(legend.position = c(0.2, 0.2),
+  			axis.text.x = element_text(angle = 285)) +
+  guides(size = FALSE
+#         shape = guide_legend(override.aes = list(size = 1.5))
+         )
+ showtext_auto()
+gg_mean_ft_ns
+#pdf("extrafont-1-unembedded.pdf", 7, 4)
+ggsave("gg-cdf-means.pdf", gg_mean_ft_ns, width = 6, height = 4, units = "in")
+```
+
+
+```{r ridge-plot, eval = FALSE}
+
+# Might ditch this for the plot of prop cold
+ridge_df_all <- cdf_trimmed%>%
+#ridge_df_all <- cdf_extended%>%
+  filter(year != 2002)%>%
+	filter(pid_7 != "Independent - Independent") %>% 
+  mutate(year_fct = fct_rev(as.factor(year))) %>% 
+	mutate(log_in = log(therm_inparty)) %>% 
+	glimpse()
+
+ggplot(ridge_df_all, aes(x = therm_inparty, y = year_fct, fill = stat(x), color = "white")) +
+  geom_density_ridges_gradient(scale = 3, rel_min_height = 0.02, gradient_lwd = 1) +
+  coord_cartesian(clip = "off") +
+  scale_x_continuous(limits = c(0,100), breaks = seq(0, 100, by = 10)) +
+  scale_fill_gradient(
+    low = "blue1",
+    high = "red4"
+  ) +
+  scale_discrete_manual(aesthetics = "color",
+                        values = c("white")) +
+  geom_vline(xintercept = 50, color = "white") +
+  guides(color = "none",
+         fill = "none") +
+  labs(title = "Changing distribution of in-party feeling thermometers",
+       subtitle = "Republicans and Democrats",
+       y = "Year",
+       x = "Feeling Thermometer",
+       caption = " ") +
+	#coord_flip()+
+  theme(#panel.grid.major = element_blank(), 
+        panel.grid.minor = element_blank(),
+        panel.background = element_blank())
+```
 
 ```{r image-ref-for-in-text, eval = FALSE, echo = FALSE, message=FALSE, fig.align='center', fig.cap='Some cool caption', out.width='0.75\\linewidth', fig.pos='H'}
 knitr::include_graphics("gg-cdf-means.pdf")
@@ -453,8 +519,7 @@ gg_below_50_ns <- ggplot(mct_prop_ns, aes(x = year, y = prop_50_below)) +
                                 "Republican" = "firebrick4")) +
   scale_linetype_manual(values = c("Democrat" = "longdash",
                                    "Republican" = "solid")) +
-	  scale_x_continuous(breaks = c(seq(1978, 2000, by = 2),
-                                seq(2004, 2020, by = 4)))+
+	  scale_x_continuous(breaks = c(seq(1978, 2020, by = 2)))+
   theme(legend.position = c(0.1, 0.7)) +
   guides(size = "none") +
 	  theme(legend.position = c(0.2, 0.8),
@@ -485,10 +550,12 @@ To justify the argument that shifts in in-party attitudes are substantively mean
 #First calling the bootstrapped dfs written in plots-ft-dif-strict.R
 
 
-behavior_pooled_df <- read_rds("data/tidy-behavior.rds") %>% 
+behavior_pooled_df <- read_rds("data/tidy-behavior.rds") %>%
+	mutate(prop_difference_simple = -1*prop_difference_simple) %>% #recoding so that prop_difference = prop.warm - prop.cold
 	glimpse()
 
-opinion_pooled_df <- 	read_rds("data/tidy-opinion.rds") %>% 
+opinion_pooled_df <- 	read_rds("data/tidy-opinion.rds") %>%
+		mutate(prop_difference_simple = -1*prop_difference_simple) %>% #recoding so that prop_difference = prop.warm - prop.cold
 	glimpse()
 
 
@@ -504,7 +571,7 @@ gg_strict_opinion_pooled <- ggplot(opinion_pooled_df, aes(x = prop_difference_si
 	labs(x = "Difference",
 			 y = "Question",
 			 #			 title = "Difference in Proportion Whom Agree\n between Cold/Warm Partisans",
-			 subtitle = "Opinion Items",
+			 subtitle = "Belief Items",
 			 color = "Party",
 			 shape = "Party")
 
@@ -523,7 +590,7 @@ gg_strict_behavior_pooled <- ggplot(behavior_pooled_df, aes(x = prop_difference_
 	labs(x = "Difference",
 #			 y = "Question",
 			 y = " ",
-			 subtitle = "Behavior and Knowledge Items",
+			 subtitle = "Behavior Items",
 			 caption = "Bootstrapped 95% CI given by horizontal bars \n Cold Partisans < 50 inparty FT, Warm >= 70",
 			 color = "Party",
 			 shape = "Party")
@@ -546,37 +613,31 @@ pg <- plot_grid(p1, p2,  align = "v", nrow = 2, rel_heights = c(3/7, 4/7), label
 
 
 gg_strict_pooled_combined <- grid.arrange(arrangeGrob(pg,
-																							 top = text_grob("Differences Between Cold and Warm Partisans", vjust = 1, face = "bold"),
-																							 left = text_grob("Question Asked", rot = 90, vjust = 1, face = "bold"),
-																							 bottom = text_grob("Cold - Warm", face = "bold")))
+																							 top = text_grob("Differences in Efficacy Between Warm and Cold Partisans", vjust = 1, face = "bold"),
+																			#				 left = text_grob("Question Asked", rot = 90, vjust = 1, face = "bold"),
+																							 bottom = text_grob("Prop. Warm - Prop. Cold", face = "bold")))
 
 #ggsave("fig-4.png", gg_strict_pooled_combined, width = 4, height = 8.5, units = "in")
 ```
 
-```{r fig-display, fig.height=8.5, include=TRUE, fig.width=4, fig.align='center', fig.caption = "Differences in attitude and behavior between cold and warm partisans."}
+```{r fig-display, fig.height=8.5, include=TRUE, fig.width=6, fig.align='center', fig.cap = "Differences in attitude and behavior between cold and warm partisans. The x-axis displays the difference between the proportion of cold and warm partisans who answer in the affirmative to each survey item. Positive values indicate warm partisans are more likely to answer in the affirmative, negative values indicate cold partisans are more likely to respond affirmatively. Cold partisans are more cynical about the state of politics and government, but participate in politics at a similar rate to their warm co-partisans. "}
 as_ggplot(gg_strict_pooled_combined)
 
 ```
+
+
 <!---
 !["Differences between cold and warm partisans."](fig-4.png) 
 --->
 
 
-Figure 4 displays the difference in the proportions of cold and warm partisans who indicate agreement with (or answer in the affirmative to) a variety of questions regarding their political opinions and behaviors. Positive values indicate a higher proportion of cold partisans agree with a statement or report a certain behavior while negative values indicate warm partisans are more likely to agree with a statement or report engaging in a behavior.
+Figure 4 displays the difference in the proportions of cold and warm partisans who indicate agreement with (or answer in the affirmative to) a variety of questions regarding their sense of political efficacy and behaviors. Positive values indicate a higher proportion of warm partisans agree with a statement or report a certain behavior while negative values indicate cold partisans are more likely to agree with a statement or to report engaging in a behavior.
 
 These data are drawn from the ANES cumulative data file (ANES-CDF) and 2020 ANES time-series study, pooling all years from 1978-2020. Proportions and means were calculated in accordance with the weighting guidelines presented in the ANES-CDF variable codebook^[https://electionstudies.org/anes_timeseries_cdf_codebook_var/]. The 6-item campaign participation index is taken  from item `VCF0723` in the ANES cumulative data file. This variable is the sum of the number of campaign-related activities a respondent indicated participation in during a given election cycle---plus one---such that "$1$" indicates no campaign participation and "$6$" indicates participation in each type of activity inquired of by the interviewer. To make the difference-in-means for this item comparable with each of the difference-in-proportions calculated, the variable was rescaled such that all respondents fall in $[0,1]$ before taking the difference of the mean responses for the cold and warm groups. 
 
-Turning to Figure 4, partisans of both parties consistently express more pessimism about the direction of the country and the way the government is run. Cold Democrats and Republicans are each more likely distrust the government, view the country to be "on the wrong track", believe that officials do not value the opinions of the respondent, and see government as being run for a few people at the top. Cold Democrats are more likely than their warm co-partisans to be dissatisfied with Democracy and cold Republicans are more likely to believe that the wealth gap is greater at the time of their interview than it was 20 years ago. The only items on which there is no significant difference between cold and warm Democrats' opinions is the respondents' beliefs about the size of the wealth gap. Similarly, there is no significant difference between Republicans' satisfaction with democracy.
+Turning to Figure 4, partisans of both parties consistently express more pessimism about the direction of the country and the way the government is run. Cold Democrats and Republicans are each more likely distrust the government, view the country to be "on the wrong track", believe that officials do not value the opinions of the respondent, and see government as being run for a few people at the top. Cold Democrats are more likely than their warm co-partisans to be dissatisfied with Democracy and cold Republicans are more likely to believe that the wealth gap is greater at the time of their interview than it was 20 years ago. The only items on which there is no significant difference between cold and warm Democrats' efficacy is the respondents' beliefs about the size of the wealth gap. Similarly, there is no significant difference between Republicans' satisfaction with democracy.
 
 The differences between affect groups on the behavior and knowledge items are more varied. Cold partisans are more likely to vote for a major outparty presidential candidate and to vote for third-party in Presidential races. There is no significant difference in the proportion of cold and warm partisans who know which party controlled the house before the most recent election, who report talking about politics most days, or in their mean participation scores. Even more surprising, cold partisans were just as likely as warm partisans to report voting in both primary elections and general elections. For their part, warm partisans were more likely to watch campaign related TV and (unsurprisingly) to vote in-party for House and Presidential races.
-
-Finally, for some items very few respondents answered in the affirmative (or reported low levels of the item as in the case of the 6-item participation index) exaggerating the apparent differences between cold and warm groups. To ensure that apparent differences betweeen groups were not a product of low participation *across* groups, an alternative version of figure 4 normalizes each difference by dividing the proportional difference by the sum of the means of both groups. This alternative version of Figure 4 is available in this paper's supporting information.
-
-$$
-\frac{\mu_{cold} - \mu_{warm}}{\mu_{cold} + \mu_{warm}}
-$$
-
-This alternative calculation does little to change the items on which statistically significant differences are found, the only change in significance is found in the proportion of partisans watching campaign television. When the normalized difference is used there is no statistically significant difference in the campaign TV watching habits of cold and warm partisans.
 
 These group differences hold important implications for politicians and party leaders who may be tempted to write off cold partisans as disengaged, low-information, or as pushovers who may put up a fuss but hold their noses and vote for the party when the time comes. Choosing not to respond to the complaints of unhappy partisans could cost candidates valuable votes. Particularly in an era defined by razor-thin margins in the House and Senate, small shifts in partisan turn-out can have dramatic electoral ramifications.
 
@@ -693,12 +754,17 @@ gm_3 <- tibble::tribble(
 
 # not including ideology var because this  is probably just a proxy for partisanship
 cm_3 <- c("primary_vote_simpleLoser" = "Primary Loss",
+					"primary_vote_simpleDidn't Vote" = "Didn't Vote",
+					"primary_vote_simpleVoted in Other Primary" = "Voted in Other Primary",
+					"ideo_self_prt_std" = "Ideological Extremity",
+					"ideo_self_in_dif_std" = "Relative Partisan Extremity",
+					"age_group" = "Age Group",
 #          "year2012" = "2012",
 #          "year2016" = "2016", 
 #          "year2020" = "2020",
           "(Intercept)" = "Constant") 
 
-df_primaries%>%
+primary_tab<-df_primaries%>%
   pivot_longer(cols = c(therm_inparty, therm_outparty),
                names_to = "therm_name",
                values_to = "therm_val") %>%
@@ -713,7 +779,7 @@ df_primaries%>%
            pid_3,
            therm_name)%>%
   nest_by() %>% 
-  mutate(fit = list(lm(therm_val ~ primary_vote_simple + year, data = data,  weights = weight)))%>%
+  mutate(fit = list(lm(therm_val ~ primary_vote_simple + ideo_self_in_dif_std + age_group + year, data = data,  weights = weight)))%>%
   pull(fit, name = c(pid_3))%>%
   modelsummary(output = "gt",
                gof_map = gm_3,
@@ -721,9 +787,12 @@ df_primaries%>%
                stars = TRUE) %>% 
   tab_spanner(columns = 2:3, label = "In-Party") %>% 
     tab_spanner(columns = 4:5, label = "Out-Party")%>%
-tab_header(title = md("**Table 1:** Changes in Average Partisan Feeling Thermometer <br> Conditional on Primary Loss")) %>% 
-  tab_footnote(md("Survey-year dummy variables included to \ control for shifts in affect exogenous to primary outcome."),
+tab_header(title = md("**Table 1:** Estimated Individual Partisan Affect")) %>% 
+  tab_footnote(md("Binary variables for election year and respondent age are included to \ control for shifts in affect exogenous to primary outcome. Those who view themselves as more extreme than their party are also warmer towards the party than those who view themselves as more moderate than the party."),
                locations = cells_title())
+primary_tab
+gtsave(primary_tab, "fig/primary-tab.png")
+# Estimated individuals Partisan Affect
 ```
 
 Were ideology a principal factor driving partisan affect, we should expect to see greater differences in the out-party density curves presented in Figure 5. For example, the vast majority of Democratic respondents in the 2008 ANES supported either Barack Obama or Hillary Clinton. Despite Obama's presentation as a progressive alternative to Hillary Clinton from the left-wing of the party, there is essentially no difference in the distributions of out-party feeling thermometers between supporters of Clinton and Obama. Similarly, supporters of Bernie Sanders---a socialist---should be more ideologically distant from Republicans than their non-socialist peers, yet the out-party feeling thermometers of Sanders supporters are slightly *higher* on average than those of Clinton supporters in 2016. In 2020, supporters of the moderate Biden are warmer to Republicans than the losing candidates, one of whom was the socialist Sanders. However, given the size of the 2020 Democratic Primary field losing Democrats represent a much broader ideological range of candidates than in 2016. Further, 2020 was---put mildly---an anomalous year in many ways. The likelihood of heterogeneous effects emanating from the COVID-19 pandemic should discourage bold generalizations from unexpected deviations in the 2020 data.
@@ -769,10 +838,9 @@ ggplot(aes(x = choice_dum, y = prop_strong, color = pid_3_1)) +
 	scale_color_manual(values = c("Democrat" = "dodgerblue3",
 																"Republican" = "firebrick3")) +
 	facet_wrap(vars(wave_norml)) +
-	theme(legend.position = c(0.12, 0.2)) +
+	theme(legend.position = c(0.2, 0.2)) +
 	coord_cartesian(ylim = c(-.25, .25)) +
-	labs(title = "Change in Proportion of Strong Partisans",
-			 subtitle = "Change Between Waves",
+	labs(title = "Change in Proportion of Strong Partisans between waves",
 			 x = "Primary Vote Choice",
 			 y = "Difference Between Waves",
 			 color = "Party ID at Wave 1",

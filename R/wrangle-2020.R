@@ -1,7 +1,7 @@
 library(tidyverse)
 library(lubridate)
 
-df_2020 <- import("data/raw/anes_timeseries_2020_csv_20210719.zip", which = "anes_timeseries_2020_csv_20210719.csv")%>%
+df_2020 <- import("data/raw/anes/anes_timeseries_2020_csv_20210719.zip", which = "anes_timeseries_2020_csv_20210719.csv")%>%
 	select(pid_7 = V201231x,
 				 ft_dem = V201156,
 				 ft_rep = V201157,
@@ -16,9 +16,16 @@ df_2020 <- import("data/raw/anes_timeseries_2020_csv_20210719.zip", which = "ane
 				 gov_run_for_few_dum = V201234,
 				 gov_care_post = V202212,
 				 wealth_gap_larger = V201397,
+				 age = V201507x, #-9 =  NA, 80 = 80 and older
+				 race = V201549x,
 				 weight = V200010a,
-				 date = V203053)%>%
-	mutate(pid_7_num = as.numeric(pid_7),
+				 date = V203053,
+				 sex = V201600)%>%
+	mutate(age = na_if(age, -9),
+				 sex = recode(sex, .default = NA_character_,
+				 						 "1" = "Male",
+				 						 "2" = "Female"),
+				 pid_7_num = as.numeric(pid_7),
 				 pid_7 = recode(pid_7, .default = NA_character_,
 				 							 "1" = "Strong Democrat", 
 				 							 "2" = "Weak Democrat", 
@@ -99,13 +106,22 @@ df_2020 <- import("data/raw/anes_timeseries_2020_csv_20210719.zip", which = "ane
 				 															 "1" = "1",
 				 															 "2" = "0",
 				 															 "3" = "0")),
-				 date = ymd(date))%>% # 1 means R thinksgov run for a few  #pre interview date
+				 date = ymd(date),
+				 race = as.factor(recode(race, .default = NA_character_,
+				 							"1" = "White",
+				 							"2" = "Black",
+				 							"3" = "Hispanic",
+				 							"4" = "Asian/Pacific Islander",
+				 							"5" = "Indigenous",
+				 							"6" = "Multiple")))%>% # 1 means R thinksgov run for a few  #pre interview date
 	mutate(primary_vote_simple = case_when(pid_3 != cand_party ~ "Voted in Other Party Primary",
 																				 pid_3 == "Democrat" & primary_vote_choice == "Joe Biden" ~ "Winner",
 																				 pid_3 == "Republican" & primary_vote_choice == "Donald Trump" ~ "Winner",
 																				 pid_3 != "Indpendent" & primary_vote_choice != "Didn't Vote" ~ "Loser",
 																				 pid_3 != "Indpendent" & primary_vote_choice == "Didn't Vote" ~ "Didn't Vote",
-																				 TRUE ~ NA_character_))%>%
+																				 TRUE ~ NA_character_),
+				 therm_inparty = if_else(therm_inparty > 100 | therm_inparty < 0, NA_integer_, therm_inparty),
+				 therm_outparty = if_else(therm_outparty > 100 | therm_outparty < 0, NA_integer_, therm_outparty),)%>%
 
 	glimpse()%>%
 	write_rds("data/tidy-2020.rds")%>%

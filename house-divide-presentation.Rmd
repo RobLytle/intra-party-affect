@@ -246,6 +246,10 @@ df_out_means <- df_primaries%>%
 	glimpse()
 
 
+tidy_2020_df %>% 
+	group_by(pid_3) %>% 
+	summarize(n = n()) %>% 
+	glimpse()
 
 ```
 
