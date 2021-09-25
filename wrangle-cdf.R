@@ -5,7 +5,6 @@ date: "9/16/2021"
 output: html_document
 ---
 
-```{r setup, include=FALSE}
 library(tidyverse)
 library(sjlabelled)
 
@@ -29,13 +28,9 @@ zero1 <- function(x, minx = NA, maxx = NA) {
 }
 
 
-```
 
-```{r}
 cdf_raw_trim <- rio::import("data/raw/anes/anes_timeseries_cdf_dta.zip", which = "anes_timeseries_cdf.dta") #Imports the .dta file from the .zip file
-```
 
-```{r}
 cdf_raw_trim %>% 
 remove_all_labels()%>%
 	select(year = VCF0004, # Year of response
