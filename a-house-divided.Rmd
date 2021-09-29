@@ -289,9 +289,7 @@ party_fts_ns_joined <- rbind(party_fts_ns, boot_sd_in)%>%
 
 # Introduction
 
-In this study, I leverage time-series cross-sectional and panel survey data alongside an original survey experiment to argue that in-party attitudes are variable, less positive than typically assumed, and responsive to intra-party electoral competion. Many scholars have noted a decline in positive feelings towards members of other political parties [@iyengar2012; @ahler2018; @iyengar2018; @mason2015]. The downward spiral of attitudes towards the out-party (and political out-groups more generally) is almost always discussed in the context of "affective polarization" in the mass public, a process by which partisans grow to "increasingly dislike, even loathe, their opponents" [@iyengar2012]. Scholars of political polarization have paid far less attention to the attitudes of partisans towards their own party, which are generally held to be overwhelmingly warm within parties and stable across time. @iyengar2018 go so far as to argue that attitudes towards one's own party are largely unimportant in informing political behavior. 
-
-Recent work has challenged the prevailing characterization of intra-party attitudes as monolithic. @groenendyk2020 argue that intra-party polarization is occurring along ideological lines as more self-identified moderate Democrats and Republicans become less enthusiastic about their parties while their co-partisans on the left and right respectively grow more favorable towards the party. While I enthusiastically agree that intra-party attitudes are more heterogeneous than is typically thought, I am skeptical that partisans' ideology is a driving force behind increasing in-party heterogeneity. 
+Recent work has challenged the prevailing characterization of intra-party attitudes as monolithic. @groenendyk2020 argue that intra-party polarization is occurring along ideological lines as more self-identified moderate Democrats and Republicans become less enthusiastic about their parties while their co-partisans on the left and right respectively grow more favorable towards the party. I argue that ideology alone is insufficient to understand intra-party affect. Rather, I argue that intra-party competition is itself a driver of intra-party affective division.
 
 The accuracy of ideological self-assessments is dubious. Symbolic values and ideological identifiers have little relationship to individuals' actually held political beliefs [@zaller1992; @mcclosky1984; @ahler2018; @ahler2015; @mason2018]. Individuals have little idea of what views are typical of a party or ideology and which are heterodox. Partisans self identification as "moderate" or "extreme" may well inform their disposition towards their party but there is no guarantee that those individuals would recognize those  who identify as their "co-ideologues" as such. Thus, characterization of parties as internally ideologically polarized is conceptually fraught given the quality of evidence available.
 
@@ -798,6 +796,7 @@ Curiously, losing Democrats were slightly colder towards Republicans than their 
 \clearpage
 ```{r primaries-table}
 
+# Argue that b_loss is greater than b_ideo
 
 ## Primaries Wrangling
 
@@ -1189,7 +1188,7 @@ The first model tests the effects of primary election loss and victory on in-par
 
 
 ```{r therms-exp}
-
+# 
 # In and outparty therms
 
 cm_1 <- c("(Intercept)" = "Constant", "groupLoss" = "Loss", "groupWin" = "Win" )
@@ -1508,4 +1507,14 @@ as_ggplot(grid.arrange(arrangeGrob(p2, p1,
 
 ```
 
+
 --->
+
+```{r}
+
+pan_80 <- rio::import("data/raw/anes/anes1980PANdta.zip", which = "NES80PAN.dta")%>%
+	rename(sex = MP0557,
+				 wave = MP0594) %>%
+	glimpse()
+
+```
