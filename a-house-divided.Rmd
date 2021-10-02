@@ -32,7 +32,7 @@ header-includes:
 
 
 ```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = FALSE, message = FALSE, warning = FALSE, fig.width = 6, fig.height = 4, fig.pos = "H", fig.showtext = TRUE, fig.cap = TRUE)
+knitr::opts_chunk$set(echo = FALSE, message = FALSE, warning = FALSE, fig.width = 6, fig.height = 4, fig.pos = "H", fig.showtext = TRUE)
 library(lubridate)
 #library(MASS)
 library(brglm)
@@ -289,31 +289,40 @@ party_fts_ns_joined <- rbind(party_fts_ns, boot_sd_in)%>%
 
 # Introduction
 
-Recent work has challenged the prevailing characterization of intra-party attitudes as monolithic. @groenendyk2020 argue that intra-party polarization is occurring along ideological lines as self-identified moderate Democrats and Republicans become less enthusiastic about their parties while their co-partisans on the left and right respectively grow more favorable towards the party. I argue that ideology alone is insufficient to understand intra-party affect. Rather, I argue that intra-party competition is itself a driver of intra-party affective division.
+Recent work has challenged the prevailing characterization of intra-party attitudes as monolithic. @groenendyk2020 argue that intra-party polarization is occurring along ideological lines as self-identified moderate Democrats and Republicans become less enthusiastic about their parties while their co-partisans on the left and right respectively grow more favorable towards the party. I argue that ideology alone is insufficient to understand intra-party affect. Rather, I argue that intra-party competition is itself a driver of intra-party affective divisions. 
 
-The accuracy of ideological self-assessments is dubious. Symbolic values and ideological identifiers have little relationship to individuals' actually held political beliefs [@zaller1992; @mcclosky1984; @ahler2018; @ahler2015; @mason2018]. Individuals have little idea of what views are typical of a party or ideology and which are heterodox. Partisans self identification as "moderate" or "extreme" may well inform their disposition towards their party but there is no guarantee that those individuals would recognize those  who identify as their "co-ideologues" as such. Thus, characterization of parties as internally ideologically polarized is conceptually fraught given the quality of evidence available.
+In the wake of her 2008 primary loss to Barack Obama, supporters of Democratic standard-bearer Hillary Clinton vocally rejected the election's results, pledging to throw support behind Republican nominee John McCain and spawning the "Party Unity My Ass" movement^[https://www.washingtonpost.com/wp-dyn/content/article/2008/06/26/AR2008062604162.html?tid=a_inl_manual] (it is difficult to say how many PUMAs followed through with their pledge). In a Salon article published in June of 2008^[https://www.salon.com/2008/06/23/pumas/], Rebecca Traister ties the PUMAs' anger to (among other things) the closeness of the election, perceived mistreatment by the media and DNC chair Howard Dean, and resentment at being made to feel like outsiders in their own party, saying: 
+>"They are mad at their party and its leaders because they feel this race has opened up a door, allowing people to rag on white women...in a way that demonstrates that women have a questionable place in liberalism and progressivism. Since when is the party supposedly interested in social justice not interested in the advancement of women to the highest office?"
+
+
+Clinton supporters' posture towards their party in 2016 bore little resemblance to that of the '08 race. Bernie Sanders---a former independent and self-identified socialist---leaned into the role of an insurgent, anti-establishment candidate. Sanders predicated his campaign on a conflict between the working-class Democratic base and the elites of both major parties. Following Sanders's loss his supporters, angry with the DNC and reluctant to support Clinton in November led a loosely organized movement of Democratic party discontents to found groups like *Justice Democrats* and expand membership of organizations like the *Democratic Socialists of America* and various state and local progressive caucuses to protest perceived slights by the party establishment and support further left and anti-establishment down-ballot candidates while the Clinton campaign and DNC attempted to entice their spurned co-partisans back to the fold through campaign promises and adjustments to the party platform [@seitz-wald2016]. 
+
+That Sanders supporters would be antagonistic towards the Democratic Party is not surprising on its own. Sanders campaigned against the party establishment---it is not a stretch that he would attract those disillusioned or unhappy with the party. The story is more complicated. Republican supporters of Donald Trump---whose campaign was even more exuberant in its hostility towards the Republican party establishment than Sanders's was toward the Democrats---were more enthusiastic about their party than any other 2016 candidate's supporters, despite the mutual hostility between Trump and established Republican elites. As is discussed later, in Figure 5, supporters of winning candidates tend to be warmer towards their own party than are losers---there is little difference in distributions of out-party affect. 
+
+Primary elections are complex information environments. Not only do primaries often see many more viable candidates compete against one another than do in the general, but the efficient heuristic of partisanship is of little use to voters in distinguishing between the slew of co-partisan candidates. These features of primary elections invite a useful analogy to multi-party systems. In multi-party systems, as in multi-*candidate* primary elections, the electoral spectrum is (almost by tautology) multi-dimensional, not polar as in The United States general election context. Given the primacy of negative partisanship---a dislike for the out-party---in shaping political identity [@iyengar2018], we might expect voters in multi-party contexts to 
+
+In non-partisan elections voters turn to candidates' job and political histories as relatively cheap decision-making heuristics [@kirkland2018]. In other contexts in which  is evidence that The intra-party competition inherent to the primary election environment blurs the typically clear distinction between political in-groups and out-groups. During the Presidential primary season, a primary voter's in-group is not only their fellow Democrats or Republicans, but fellow Sanders, Warren, and Buttigieg; Trump, Cruz, and Rubio voters as well. Likewise, co-partisans who support a different candidate necessarily constitute an out-group, competing as they are for one nomination.
+
+WORK BANKERT 2017 AND SPOON AND KLUVER IN
+
+Those supporters of the opposing primary candidates then constitute an out-group *within* the party, the salience of which is endogenous to the affective tenor of the primary and the degree to which the candidates distinguish themselves from the opposition. Especially in the presidential context the stakes of an undesirable result are particularly high. A Presidential primary loss is a rebuke of the preferences of supporters of the losing candidate and the ascension of the representative of an *outgroup* to the station *de facto* leader of the *in-party*.
+
+Further, individuals conceptualize their in-group in contrast to the out-group [@tajfel1974; @leonardelli2015; @mead2012]---a conception of the in-group is predicated on drawing clear distinctions with the out-group. In multi-party and coalition-based systems, discerning a clearly defined political in-group and out-group is difficult. As such, voters' sense of belonging to a party is weaker relative to the U.S. context [@bankert2017]. The within-party electoral environment of a primary is clearly not a perfect analogue to multi-party electoral environments but is similar in that primary voters are often exposed to messaging from a range of broadly similar but competing campaigns, with no one campaign representing a clear *de facto* in-group.
+
+Vote choice---or preference for a candidate more generally---is most often analyzed as the outcome of (potential) voters' preferences and evaluations of candidates' attributes. That primary voters choose their candidate in part to safeguard group cohesion in their party [@wronski2018; @bankertforthcoming] begs the question: what happens to the group when candidates lose? How do partisans react when the preferences of some in the party are advantaged above their own? Citizens who perceive themselves as being cut out of government decision making processes to be more disaffected and less participatory in democratic political activities [@soss1999; @bruch2010]. Not only do individuals assess individual programs and actors on the basis of their (perceived) inclusiveness, assessments of individuals' own roles and place in political society are conditioned in part by signals they receive from political and policy actors [@campbell2012]. I argue that this is likely to hold true in the context of primary elections. Partisans whose preferences are not reflected by the party writ-large should become more distrusting of political elites and display less affinity for their own party. 
+
+In contrast to the argument of @groenendyk2020. Symbolic values and ideological identifiers have little relationship to individuals' actually held political beliefs [@zaller1992; @mcclosky1984; @ahler2018; @ahler2015; @mason2018]. Individuals have little idea of what views are typical of a party or ideology and which are heterodox. Partisans self identification as "moderate" or "extreme" may well inform their disposition towards their party but there is no guarantee that those individuals would recognize those  who identify as their "co-ideologues" as such. Thus, characterization of parties as internally ideologically polarized is conceptually fraught given the quality of evidence available.
 
 Setting aside the issue of unreliable ideological self reports, there is reason to doubt that the extreme wings of the parties are the most enthusiastic supporters. Particularly since the 2016 Democratic Primaries, journalism and scholarship has been rife with accounts of the animosity exhibited by the activists and elected officials on the party's left towards the more centrist mainline of the party [@azari2017; @thompson2020]. @masket2020 details lingering animosity between supporters and staffers for the 2016 campaigns of Bernie Sanders and Hillary Clinton (as well as a disdain for individuals associated with the Sanders campaign expressed by former Martin O'Malley organizers). Additionally, supporters of the 2016 Sanders and Trump candidacies were motivated largely by distrust in government [@dyck2018].
 
 It is difficult to square the ideological polarization proposed by @groenendyk2020 with the qualitative features of the visible power struggle within the parties. I propose an alternative (or perhaps supplementary) explanation: that intra-party contests, particularly primary elections, complicate the in-party/in-group dynamic. Ultimately, weakening the in-party affinity and increasing the political disdain felt by those who find themselves on the losing side of these contests.
 
-## Primaries
-
-In 2008, despite her position as Democratic standard-bearer, supporters of Hillary Clinton's primary campaign were colder towards their party than any other group of Democratic primary voters on the American National Election Study (ANES) 100-point Feeling Thermometer (Figure 5). Clinton's defeat by Barack Obama in June of 2008 spawned the "Party Unity My Ass" movement, which engaged in various forms of protest against the DNC and pledging *en masse* not to support the (relative) party outsider Barack Obama in the general election^[https://www.washingtonpost.com/wp-dyn/content/article/2008/06/26/AR2008062604162.html?tid=a_inl_manual] (it is difficult to say how many PUMAs followed through with their pledge).
-
-Clinton supporters' posture towards their party in 2016 bore little resemblance to that of the '08 race. Bernie Sanders---a former independent and self-identified socialist---leaned into the role of an insurgent, anti-establishment candidate. Sanders predicated his campaign on a conflict between the working-class Democratic base and the elites of both major parties. Following Sanders's loss his supporters, angry with the DNC and reluctant to support Clinton in November led a loosely organized movement of Democratic party discontents to found groups like *Justice Democrats* and expand membership of organizations like the *Democratic Socialists of America* and various state and local progressive caucuses to protest perceived slights by the party establishment and support further left and anti-establishment down-ballot candidates while the Clinton campaign and DNC attempted to entice their spurned co-partisans back to the fold through campaign promises and adjustments to the party platform [@seitz-wald2016]. 
-
-That Sanders supporters would be antagonistic towards the Democratic Party is not surprising on its own. Sanders campaigned against the party establishment---it is not a stretch that he would attract those disillusioned or unhappy with the party. The story is more complicated. Republican supporters of Donald Trump---whose campaign was even more exuberant in its hostility towards the Republican party establishment than Sanders's was toward the Democrats---were more enthusiastic about their party than any other 2016 candidate's supporters, despite the mutual hostility between Trump and established Republican elites. As is discussed in Figure 5, supporters of winning candidates tend to be warmer towards their own party than are losers---there is little difference in distributions of out-party affect.
-
-Vote choice---or preference for a candidate more generally---is most often analyzed as the outcome of (potential) voters' preferences and evaluations of candidates' attributes. That primary voters choose their candidate in part to safeguard group cohesion in their party [@wronski2018; @bankertforthcoming] begs the question: what happens to the group when candidates lose? How do partisans react when the preferences of some in the party are advantaged above their own? Scholars of policy feedback have found citizens who perceive themselves as being cut out of government decision making processes to be more disaffected and less participatory in democratic political activities [@soss1999; @bruch2010]. Not only do individuals assess individual programs and actors on the basis of their (perceived) inclusiveness, assessments of individuals' own roles and place in political society are conditioned in part by signals they receive from political and policy actors [@campbell2012]. I argue that this is likely to hold true in the context of primary elections. Primary voters who perceive their party as working against their preferred candidate (or simply not supporting the candidate) should become more distrusting of political elites and display less affinity for their own party. 
-
 Party elites may not be *government* policymakers or bureaucrats, but they are certainly *political* actors; their sphere of policy influence is simply constrained to the internal workings of one party---not the government writ-large. It is unlikely that the blurry distinction between "government" and "political" matters all that much to the rationally ignorant median voter as they assimilate political information and update their evaluations of elites and themselves. Moreover, government employees and party apparatchiks each wield considerable power shaping possible policy outcomes. Insofar as disaffection stems from being "cut out" of the policy process it is not clear that the legal distinction between government and party *should* be salient to observers, political sophisticates or not. Further, primary elections are programs designed and implemented by a vast bureaucracy of national and state parties, private information systems providers, federal government regulators, and local supervisors of elections; structurally similar to many federated programs, even if the primary bureaucracy only becomes salient to the public every two or four years at best. 
 
 In light of these structural similarities, it is worth asking how well insights from the policy feedback literature travel to the context of candidate selection. Theoretically, public perceptions of exclusionary politicking or unfair treatment of candidates by party elites should depress voters' assessment of the nominating process and their affection for the party. Such perceptions signal to the individual both that they hold little power in the nominating process and that those partisan actors who are powerful do not represent the interests of the powerless primary voter in question. In a policy feedback framework, the primary voter perceives a top-heavy, paternalistic party organization and has internalized their own un-belonging within that organization. Concomitant with their declining trust, disaffected partisans have little incentive (whether material or group-motivated) to participate in political activity.
 
-Further, individuals conceptualize their in-group in contrast to the out-group [@tajfel1974; @leonardelli2015; @mead2012]---a conception of the in-group is predicated on drawing clear distinctions with the out-group. In multi-party and coalition-based systems, discerning a clearly defined political in-group and out-group is difficult. As such, voters' sense of belonging to a party is weaker relative to the U.S. context [@bankert2017]. The within-party electoral environment of a primary is clearly not a perfect analogue to multi-party electoral environments but is similar in that primary voters are often exposed to messaging from a range of broadly similar but competing campaigns, with no one campaign representing a clear *de facto* in-group.
 
-The intra-party competition inherent to the primary election environment blurs the typically clear distinction between political in-groups and out-groups. During the Presidential primary season, a primary voter's in-group is not only their fellow Democrats or Republicans, but fellow Sanders, Warren, and Buttigieg; Trump, Cruz, and Rubio voters as well. Those supporters of the opposing primary candidates then constitute an out-group *within* the party, the salience of which is endogenous to the affective tenor of the primary and the degree to which the candidates distinguish themselves from the opposition. Especially in the presidential context the stakes of an undesirable result are particularly high. A Presidential primary loss is a rebuke of the preferences of supporters of the losing candidate and the ascension of the representative of an *outgroup* to the station *de facto* leader of the *in-party*.
+
 
 # Descriptive Analysis
 
@@ -322,45 +331,9 @@ Before investigating the role played by primaries in driving intra-party attitud
 My analysis of intra-party attitudes begins by taking a broad view of trends in partisan's attitudes for their own party and its opposition. Figure 1 uses data from the American National Election Study (ANES) to show the mean in-party and out-party feeling thermometers from 1978 to 2020, the full time range over which the partisan feeling thermometer question is included on the ANES^[Pre-1978 iterations of the ANES study include some feeling thermometer questions, but ask respondents to rate "Democrats and Republicans", rather than the "Democratic and Republican Parties". In years where both questions are asked there are considerable differences in mean thermometer ratings---the questions are not equivalent to one another.]. Calculations of all mean values and their variance are weighted in accordance with procedures outlined in the ANES codebooks.
 
 
-```{r cdf-means, fig.cap="Time-series shifts in partisan affect.", fig.showtext=TRUE}
-gg_mean_ft_ns <- ggplot(party_fts_ns_joined, aes(x = year, y = mean)) +
-#  geom_smooth(aes(linetype = group, color = group), span = .3, se=F) +
-  geom_line(aes(linetype = group, color = group), position = dodge) +
-#  geom_linerange(aes(ymin = mean-sd, ymax = mean+sd, color = group), position = dodge) +
-  geom_point(aes(shape = group, color = group), size = 3, position = dodge) +
-  scale_linetype_manual(values = c("Democrat - In Party" = "longdash",
-                                   "Democrat - Out Party" = "dotted",
-                                   "Republican - In Party" = "solid",
-                                   "Republican - Out Party" = "twodash")) +
-  scale_shape_manual(values = c("Democrat - In Party" = 17,
-                                   "Democrat - Out Party" = 2,
-                                   "Republican - In Party" = 16,
-                                   "Republican - Out Party" = 1)) +
-  scale_color_manual(values = c("Democrat - In Party" = "dodgerblue4",
-                                   "Democrat - Out Party" = "dodgerblue1",
-                                   "Republican - In Party" = "firebrick4",
-                                   "Republican - Out Party" = "firebrick1")) +
-  #scale_x_continuous(limits = c(1978,2020), breaks = c(0:5)) +
-	  scale_x_continuous(breaks = c(seq(1978, 2020, by = 2)))+
-  scale_y_continuous(breaks = seq(0, 80, by = 10), limits = c(0,80)) +
-  labs(y = "Mean",
-       x = "Year",
-       title = "Mean Thermometer Ratings of Partisans",
-       linetype = " ",
-       color = " ",
-       shape = " ") +
-  theme(legend.position = c(0.2, 0.2),
-  			axis.text.x = element_text(angle = 285)) +
-  guides(size = FALSE
-#         shape = guide_legend(override.aes = list(size = 1.5))
-         )
- showtext_auto()
-gg_mean_ft_ns
-#pdf("extrafont-1-unembedded.pdf", 7, 4)
-ggsave("gg-cdf-means.pdf", gg_mean_ft_ns, width = 6, height = 4, units = "in")
-```
 
-```{r}
+
+```{r, eval = FALSE}
 
 fig_1_df <- party_fts_ns_joined %>%
 	filter(str_detect(group, "In")) %>% 
@@ -470,7 +443,7 @@ ggplot(data = ridge_df_all, aes(x = era,
 
 ```
 
-```{r}
+```{r, eval = FALSE}
 ggplot(ridge_df_all, aes(x = therm_inparty, y = year_fct, fill = stat(x), color = "white")) +
   geom_density_ridges_gradient(scale = 3, rel_min_height = 0.02, gradient_lwd = 1) +
   coord_cartesian(clip = "off") +
@@ -692,7 +665,7 @@ These group differences hold important implications for politicians and party le
 
 ## Differences Between Primary Winners and Losers
 
-```{r ridge-plot, eval = FALSE}
+```{r ridge-plot-working, eval = FALSE}
 
 # Might ditch this for the plot of prop cold
 ridge_df_all <- cdf_trimmed%>%
@@ -724,7 +697,7 @@ ggplot(ridge_df_all, aes(x = therm_inparty, y = year_fct, fill = stat(x), color 
 ```
 
 
-```{r primaries-plots, echo=FALSE,warning=FALSE, fig.cap="Distribution of partisan affect between primary candidate supporters 2008--2020"}
+```{r primaries-plots, eval = FALSE, echo=FALSE,warning=FALSE, fig.cap="Distribution of partisan affect between primary candidate supporters 2008--2020"}
 
 
 gg_primary_in <- ggplot(df_primaries, aes(x = therm_inparty, color = primary_vote_simple, linetype = primary_vote_simple)) +
@@ -812,8 +785,7 @@ df_primaries <- read_rds("data/tidy-primaries.rds")%>%
 	mutate(primary_vote_simple = factor(primary_vote_simple,
 																			levels = c("Winner", "Loser", "Didn't Vote", "Voted in Other Primary")),
 				 therm_inparty = if_else(therm_inparty < 0, NA_integer_, therm_inparty),
-				 therm_outparty = if_else(therm_outparty < 0, NA_integer_, therm_outparty))%>%
-	glimpse()
+				 therm_outparty = if_else(therm_outparty < 0, NA_integer_, therm_outparty))
 
 gm_3 <- tibble::tribble(
   ~raw,        ~clean,          ~fmt,
@@ -854,8 +826,7 @@ tab_1_df <- df_primaries%>%
   mutate(fit = list(lm(therm_val ~ primary_vote_simple + ideo_self_in_dif_std + age_group + male_dum + white_dum + year + below_35k_dum, data = data,  weights = weight)),
   			 aug = list(augment(fit)),
   			 tidy = list(tidy(fit)),
-  			 glance = list(glance(fit)))%>%
-	glimpse()
+  			 glance = list(glance(fit)))
 
 primary_tab <- tab_1_df %>%
 		pull(fit, name = c(pid_3))%>%
@@ -872,15 +843,15 @@ primary_tab
 gtsave(primary_tab, "fig/primary-tab.png")
 # Estimated individuals Partisan Affect
 
-tab_1_aug_df <- unnest(tab_1_df, aug) %>% 
-	glimpse()
+# tab_1_aug_df <- unnest(tab_1_df, aug) %>% 
+# 	glimpse()
 
-tab_1_aug_df %>% 
-#	filter(str_detect(group_name, "In")) %>% 
-ggplot(aes(x = .fitted, y = .std.resid)) +
-	geom_point() +
-	geom_abline(slope = 0, intercept = 0)+
-	facet_wrap(vars(group_name))
+# tab_1_aug_df %>% 
+# #	filter(str_detect(group_name, "In")) %>% 
+# ggplot(aes(x = .fitted, y = .std.resid)) +
+# 	geom_point() +
+# 	geom_abline(slope = 0, intercept = 0)+
+# 	facet_wrap(vars(group_name))
 
 ```
 
@@ -891,6 +862,8 @@ A more credible possibility is that primary losing partisans are simply more pes
 The cross-sectional, observational data collected from the ANES show convincingly that there are affective differences  between primary winners and losers, but these analyses are limited in several crucial ways. First, using cross sectional data, we cannot distinguish between a world in which voters who dislike their party are more likely to favor candidates with dim electoral prospects. This is certainly plausible in the primary context in which the vast majority of voters are registered members of the relevant party and whose political identity is at least partially dependent on not disliking the party enough to leave it. While far from definitive, the analyses presented above give us reason to doubt this hypothesis, as even supporters of of pro-party candidates (e.g., Hillary Clinton in 2008) exhibited hostility towards their party after the primary while supporters of the famously party-hostile Donald Trump were among the most enthusiastic Republicans after the 2016 Primary.
 
 Second, even if causal precedence could be confidently established, these data do not allow us to disentangle the impact of a primary win from a primary loss. As there is no untreated reference category who hold preferences for a primary candidate but who are unaware of the *results* of the primary, differences between winning and losing groups could follow from increased warmth among winners or coldness among losers. Observing winners and losers simultaneously obscures the data generating process resulting in differences between the groups.
+
+[MORE DISCUSSION OF NEW OLS TABLE TO COME]
 
 # Panel Study Analysis
 
@@ -1286,235 +1259,42 @@ Finally, more work should be done to understand the mechanisms which shape intra
 
 # (APPENDIX) Appendix {-} 
 
+```{r cdf-means-app, fig.cap="Time-series shifts in partisan affect.", fig.showtext=TRUE}
+gg_mean_ft_ns <- ggplot(party_fts_ns_joined, aes(x = year, y = mean)) +
+#  geom_smooth(aes(linetype = group, color = group), span = .3, se=F) +
+  geom_line(aes(linetype = group, color = group), position = dodge) +
+#  geom_linerange(aes(ymin = mean-sd, ymax = mean+sd, color = group), position = dodge) +
+  geom_point(aes(shape = group, color = group), size = 3, position = dodge) +
+  scale_linetype_manual(values = c("Democrat - In Party" = "longdash",
+                                   "Democrat - Out Party" = "dotted",
+                                   "Republican - In Party" = "solid",
+                                   "Republican - Out Party" = "twodash")) +
+  scale_shape_manual(values = c("Democrat - In Party" = 17,
+                                   "Democrat - Out Party" = 2,
+                                   "Republican - In Party" = 16,
+                                   "Republican - Out Party" = 1)) +
+  scale_color_manual(values = c("Democrat - In Party" = "dodgerblue4",
+                                   "Democrat - Out Party" = "dodgerblue1",
+                                   "Republican - In Party" = "firebrick4",
+                                   "Republican - Out Party" = "firebrick1")) +
+  #scale_x_continuous(limits = c(1978,2020), breaks = c(0:5)) +
+	  scale_x_continuous(breaks = c(seq(1978, 2020, by = 2)))+
+  scale_y_continuous(breaks = seq(0, 80, by = 10), limits = c(0,80)) +
+  labs(y = "Mean",
+       x = "Year",
+       title = "Mean Thermometer Ratings of Partisans",
+       linetype = " ",
+       color = " ",
+       shape = " ") +
+  theme(legend.position = c(0.2, 0.2),
+  			axis.text.x = element_text(angle = 285)) +
+  guides(size = FALSE
+#         shape = guide_legend(override.aes = list(size = 1.5))
+         )
+ showtext_auto()
+gg_mean_ft_ns
+#pdf("extrafont-1-unembedded.pdf", 7, 4)
+ggsave("gg-cdf-means.pdf", gg_mean_ft_ns, width = 6, height = 4, units = "in")
+```
+
 \clearpage
-<!---
-# Supporting Information
-
-
-```{r ft-difs-si, include = FALSE}
-
-#First calling the bootstrapped dfs written in plots-ft-dif-strict.R
-
-
-behavior_pooled_df <- read_rds("data/tidy-behavior.rds")
-
-opinion_pooled_df <- 	read_rds("data/tidy-opinion.rds")
-
-
-gg_strict_opinion_pooled <- ggplot(opinion_pooled_df, aes(x = prop_difference, y = fct_relabel(which_question, str_wrap, width = 20))) +
-  	geom_vline(xintercept = 0.00) +
-	geom_linerange(aes(xmin = prop_difference - 1.96*prop_se, xmax = prop_difference + 1.96*prop_se, color = pid_3), position = dodge) +
-	#	geom_point(data=opinion_pooled_df[opinion_pooled_df$sig_dum == TRUE,],size=5, aes(position = pid_3), shape = 1, position = dodge) + #overlays a shape on sig 
-	geom_point(aes(color = pid_3, shape = pid_3), size = 3, position = dodge) +
-	scale_color_manual(values = c("Democrat" = "dodgerblue3",
-																"Republican" = "firebrick3")) +
-	coord_cartesian(xlim = c(-.75, .75)) +
-	scale_x_continuous(n.breaks = 6) +	
-	labs(x = "Difference",
-			 y = "Question",
-			 #			 title = "Difference in Proportion Whom Agree\n between Cold/Warm Partisans",
-			 subtitle = "Opinion Items",
-			 color = "Party",
-			 shape = "Party")
-
-
-
-gg_strict_behavior_pooled <- ggplot(behavior_pooled_df, aes(x = prop_difference, y = fct_relabel(which_question, str_wrap, width = 20))) +
-  	geom_vline(xintercept = 0.00) +
-	geom_linerange(aes(xmin = prop_difference - 1.96*prop_se, xmax = prop_difference + 1.96*prop_se, color = pid_3), position = dodge) +
-	#	geom_point(data=behavior_pooled_df[behavior_pooled_df$sig_dum == TRUE,],size=5, aes(position = pid_3), shape = 1, position = dodge) + #overlays a shape on sig 
-	geom_point(aes(color = pid_3, shape = pid_3), size = 3, position = dodge) +
-	scale_color_manual(values = c("Democrat" = "dodgerblue3",
-																"Republican" = "firebrick3")) +
-	coord_cartesian(xlim = c(-.75, .75)) +
-	scale_x_continuous(n.breaks = 10) +	
-	theme(legend.position = c(0.8, 0.3)) +
-	labs(x = "Difference",
-#			 y = "Question",
-			 y = " ",
-			 subtitle = "Behavior and Knowledge Items",
-			 caption = "Bootstrapped 95% CI given by horizontal bars \n Cold Partisans < 50 inparty FT, Warm >= 70",
-			 color = "Party",
-			 shape = "Party")
-
-
-#####
-## Putting them into one plot
-#####
-
-#Removing redundant formatting from the plots
-p1 <- gg_strict_opinion_pooled + theme(legend.position = "none",
-																axis.title.x = element_blank(),
-																axis.title.y = element_blank(),
-																axis.text.x = element_blank())
-p2 <- gg_strict_behavior_pooled + theme(
-	axis.title.x = element_blank(),
-	axis.title.y = element_blank())
-
-pg <- plot_grid(p1, p2,  align = "v", nrow = 2, rel_heights = c(3/7, 4/7), label_x = "Difference") 
-
-
-
-gg_strict_pooled_combined_si <- grid.arrange(arrangeGrob(pg,
-																							 top = text_grob("Prop. Difference Between Cold and Warm Partisans", vjust = 1, face = "bold"),
-																							 left = text_grob("Question Asked", rot = 90, vjust = 1, face = "bold"),
-																							 bottom = text_grob("Cold - Warm", face = "bold")))
-```
-
-```{r fig-display-si, include=FALSE, fig.height=8.5, fig.width=4, fig.align='center', fig.caption = "Differences in attitude and behavior between cold and warm partisans."}
-as_ggplot(gg_strict_pooled_combined_si)
-
-```
-
-
-
-
-
-```{r primaries-table-si, include=FALSE}
-gm_4 <- tibble::tribble(
-  ~raw,        ~clean,          ~fmt,
-  "nobs",      "N",             0,
-  "r.squared", "R Sq.", 2,
-  "adj.r.squared", "Adj. R Sq.", 2)
-
-# not including ideology var because this  is probably just a proxy for partisanship
-cm_4 <- c("primary_vote_simpleLoser" = "Primary Loss",
-          "year2012" = "2012",
-          "year2016" = "2016", 
-          "year2020" = "2020",
-          "(Intercept)" = "Constant") 
-
-df_primaries%>%
-  pivot_longer(cols = c(therm_inparty, therm_outparty),
-               names_to = "therm_name",
-               values_to = "therm_val") %>%
-  mutate(therm_name = recode(therm_name,
-                             "therm_inparty" =  "In-party",
-                             "therm_outparty" = "Out-Party"),
-         group_name = paste(therm_name,
-                            pid_3,
-                            sep = " - "),
-         ) %>% 
-  group_by(group_name,
-           pid_3,
-           therm_name)%>%
-  nest_by() %>% 
-  mutate(fit = list(lm(therm_val ~ primary_vote_simple + year, data = data,  weights = weight)))%>%
-  pull(fit, name = c(pid_3))%>%
-  modelsummary(output = "gt",
-               gof_map = gm_4,
-               coef_map = cm_4,
-               stars = TRUE) %>% 
-  tab_spanner(columns = 2:3, label = "In-Party") %>% 
-  tab_spanner(columns = 4:5, label = "Out-Party")%>%
-tab_header(title = md("**SI Table 1:** Changes in Average Partisan Feeling Thermometer <br> Conditional on Primary Loss")) %>% 
-  tab_footnote(md("Survey-year dummy variables included to \ control for shifts in affect exogenous to primary outcome."),
-               locations = cells_title())
-```
-
-
-!["Relationship between strength of partisanship and in-party feeling thermometers"](fig/gg-str-therm.png) 
-
-***Fig SI-2:** There is a positive relationship between partisans' strength of identification and their in-party feeling thermometer ratings.*
-
-
-```{r primaries-plots-si, include=FALSE, echo=FALSE,warning=FALSE, fig.cap="Distribution of partisan affect between primary candidate supporters 2008--2020"}
-gg_primary_in <- ggplot(df_primaries, aes(x = therm_inparty, color = primary_vote_simple, linetype = primary_vote_simple)) +
-	geom_density(size = .9,
-							 alpha = 1) +
-	facet_grid(rows = c(vars(year)), 
-						 cols = c(vars(pid_3))) +
-#	geom_vline(aes(color = primary_vote_simple, xintercept = mean(therm_inparty, na.rm = TRUE)))
-	geom_vline(data = df_in_means, 
-						 aes(xintercept=mean_ft, 
-								 color = primary_vote_simple,
-								 linetype = primary_vote_simple),
-						 size = 1,
-						 alpha = .5) +
-	theme(legend.key.height = unit(.05, "npc"),
-				legend.position = c(.15, .55),
-				legend.text = element_text(size = 8),
-				legend.title = element_text(size = 8),
-				plot.title = element_text(hjust = 0.5)) +
-	scale_color_manual(values = c("Winner" = "#FFC20A", #colorblind safe palette
-										 "Loser" = "#0C7BDC"))+
-	scale_linetype_manual(values = c(
-																	 "Winner" = "longdash",
-																	 "Loser" = "dotdash")) +
-	labs(x = "Inparty FT",
-			 y = "Density",
-			 title = "In Party",
-			 color = "Primary Vote",
-			 linetype = "Primary Vote",
-			 caption = "Group mean given by vertical lines.")
-
-gg_primary_out <- ggplot(df_primaries, aes(x = therm_outparty, color = primary_vote_simple)) +
-	geom_density(size = .9, aes(linetype = primary_vote_simple)) +
-	facet_grid(rows = vars(year), 
-						 cols = vars(pid_3)) +
-#	facet_grid(year ~ pid_3) +
-	#	geom_vline(aes(color = primary_vote_simple, xintercept = mean(therm_inparty, na.rm = TRUE)))
-	geom_vline(data = df_out_means, 
-						 aes(xintercept=mean_ft, 
-						 		color = primary_vote_simple,
-						 		linetype = primary_vote_simple,
-						 		alpha = .5),
-						 size = 1) +
-	theme(legend.key.height = unit(.05, "npc"),
-				legend.position = c(1, .15), # legend position optimized for the two plots together
-				legend.text = element_text(size = 8),
-				legend.title = element_text(size = 8),
-				plot.title = element_text(hjust = 0.5)) +
-	guides(alpha = FALSE) +
-	scale_color_manual(values = c("Winner" = "#FFC20A", #colorblind safe palette
-																"Loser" = "#0C7BDC"))+
-	scale_linetype_manual(values = c(#"Other/Third Party/\n Didn't Vote" = "solid",
-																	 "Winner" = "longdash",
-																	 "Loser" = "dotdash")) +
-	labs(x = "Outparty FT",
-			 y = "Density",
-			 title = "Out Party",
-			 color = " ",
-			 linetype = " ",
-			 caption = " ")
-
-#putting them together
-
-p1 <- gg_primary_in + theme(legend.position = "none",
-														axis.title.x = element_blank(),
-													  axis.title.y = element_blank(),
-														axis.text.y = element_blank(),
-												#		title = element_text(size = 8)
-														)
-
-
-p2 <- gg_primary_out + theme(
-	axis.title.x = element_blank(),
-	axis.title.y = element_blank(),
-	strip.text.y = element_blank()
-#	title = element_text(size = 8)
-)
-
-
-
-as_ggplot(grid.arrange(arrangeGrob(p2, p1,
-																				 ncol = 2,
-																				 top = text_grob("Distribution of Partisan Warmth\n by Primary Vote", vjust = 1, face = "bold"),
-																				 left = text_grob("Density", rot = 90, vjust = 1, face = "bold"),
-																			   bottom = text_grob("Feeling Thermometer", face = "bold"))))
-
-
-
-```
-
-
---->
-
-```{r}
-
-pan_80 <- rio::import("data/raw/anes/anes1980PANdta.zip", which = "NES80PAN.dta")%>%
-	rename(sex = MP0557,
-				 wave = MP0594) %>%
-	glimpse()
-
-```
