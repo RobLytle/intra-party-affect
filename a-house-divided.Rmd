@@ -127,30 +127,10 @@ party_fts_ns <- cdf_trimmed%>% # Making a DF of the party-year SD
   filter(pid_3 != "Independent" & year != 2002)%>%
   select(year,
          weight,
-         pid_3,
          therm_inparty,
-         therm_outparty,
-         pid_7,
          )%>%
-  group_by(year, 
-           pid_3)%>%
-  summarise(mean_in = weighted.mean(therm_inparty, weight, na.rm = TRUE),
-            mean_out = weighted.mean(therm_outparty, weight, na.rm = TRUE),
-            sd_in = radiant.data::weighted.sd(therm_inparty, weight, na.rm = TRUE),
-            sd_out = radiant.data::weighted.sd(therm_outparty, weight, na.rm = TRUE))%>%
-  pivot_longer(mean_in:sd_out, names_to = "group", values_to = "result")%>%
-  unite("group", pid_3:group)%>%
-  ungroup()%>%
-  mutate(stat = as.factor(if_else(str_detect(group, "mean"), "mean", "sd")))%>%
-  mutate(group = recode(group, .default = group,
-                       "Democrat_mean_in" = "Democrat - In Party",
-                       "Democrat_mean_out" = "Democrat - Out Party",
-                       "Democrat_sd_in" = "Democrat - In Party",
-                       "Democrat_sd_out" = "Democrat - Out Party",
-                       "Republican_mean_in" = "Republican - In Party",
-                       "Republican_mean_out" = "Republican - Out Party",
-                       "Republican_sd_in" = "Republican - In Party",
-                       "Republican_sd_out" = "Republican - Out Party"))%>%
+  group_by(year)%>%
+  summarise(sd_in = radiant.data::weighted.sd(therm_inparty, weight, na.rm = TRUE))%>%
   glimpse()
 
 
@@ -173,7 +153,7 @@ below_mct_ns <- cdf_trimmed%>% # MCT = Measure of Central Tendency
   glimpse()
 
 mct_prop_ns <- below_mct_ns%>% #way more measures here than are needed
-  group_by(year, pid_3)%>%
+  group_by(year)%>%
   summarise(#prop_mean_below = weighted.mean(below_mean_dum, weight, na.rm = TRUE),
             #prop_mean_sd_below = weighted.mean(below_mean_sd_dum, weight, na.rm = TRUE),
 #            prop_med_below = weighted.mean(below_med_dum, weight, na.rm = TRUE), #prop_below is those below the MCT, prop_sd_below is those one SD below med
@@ -227,37 +207,17 @@ boot_sd_in <- data.frame(boot = 1:500)%>%
               nrow(df_for_sampling),
               replace = TRUE))%>% #creating 100 new datasets of equal size to the original
   group_by(boot,
-           year,
-           pid_3)%>%
+           year)%>%
   summarise(mean_in = weighted.mean(therm_inparty, weight, na.rm = TRUE),
-            mean_out = weighted.mean(therm_outparty, weight, na.rm = TRUE),
-            sd_in = radiant.data::weighted.sd(therm_inparty, weight, na.rm = TRUE),
-            sd_out = radiant.data::weighted.sd(therm_outparty, weight, na.rm = TRUE))%>%
-  group_by(year,
-           pid_3)%>%
+            sd_in = radiant.data::weighted.sd(therm_inparty, weight, na.rm = TRUE)) %>% 
+  group_by(year)%>%
   summarise(se_mean_in = sd(mean_in),
-            se_mean_out = sd(mean_out),
-            se_sd_in = sd(sd_in),
-            se_sd_out = sd(sd_out))%>%
-  pivot_longer(se_mean_in:se_sd_out, names_to = "group", values_to = "result")%>%
-  unite("group", pid_3:group)%>%
-  mutate(stat = as.factor(if_else(str_detect(group, "mean"), "se_mean", "se_sd")))%>%
-  mutate(group = as.factor(recode(group,
-                                  "Democrat_se_mean_in" = "Democrat - In Party",
-                                  "Democrat_se_mean_out" = "Democrat - Out Party",
-                                  "Democrat_se_sd_in" = "Democrat - In Party",
-                                  "Democrat_se_sd_out" = "Democrat - Out Party",
-                                  "Republican_se_mean_in" = "Republican - In Party",
-                                  "Republican_se_mean_out" = "Republican - Out Party",
-                                  "Republican_se_sd_in" = "Republican - In Party",
-                                  "Republican_se_sd_out" = "Republican - Out Party")))%>%
+            se_sd_in = sd(sd_in))%>%
   glimpse()
 
   
-party_fts_ns_joined <- rbind(party_fts_ns, boot_sd_in)%>%
+party_fts_ns_joined <- left_join(party_fts_ns, boot_sd_in)%>%
 #party_fts_ns_joined <- full_join(party_fts_ns, boot_sd_in)%>%
-  pivot_wider(names_from = stat,
-              values_from = result)%>%
   glimpse()
 
 # 
@@ -301,15 +261,12 @@ That Sanders supporters would be antagonistic towards the Democratic Party is no
 
 Primary elections are complex information environments. Not only do primaries often see many more viable candidates compete against one another than do in the general, but the efficient heuristic of partisanship is of little use to voters in distinguishing between the slew of co-partisan candidates. These features of primary elections invite a useful analogy to multi-party systems. In multi-party systems, as in multi-*candidate* primary elections, the electoral spectrum is (almost by tautology) multi-dimensional, not polar as in The United States general election context. Given the primacy of negative partisanship---a dislike for the out-party---in shaping political identity [@iyengar2018], we might expect voters in multi-party contexts to 
 
-In non-partisan elections voters turn to candidates' job and political histories as relatively cheap decision-making heuristics [@kirkland2018]. In other contexts in which  is evidence that The intra-party competition inherent to the primary election environment blurs the typically clear distinction between political in-groups and out-groups. During the Presidential primary season, a primary voter's in-group is not only their fellow Democrats or Republicans, but fellow Sanders, Warren, and Buttigieg; Trump, Cruz, and Rubio voters as well. Likewise, co-partisans who support a different candidate necessarily constitute an out-group, competing as they are for one nomination.
+Intra-party competition inherent to the primary election environment blurs the typically clear distinction between political in-groups and out-groups. Partisans seek to safeguard party cohesion [@wronski2018]. During the Presidential primary season, a primary voter's in-group is not only their fellow Democrats or Republicans, but fellow Sanders, Warren, and Buttigieg; Trump, Cruz, and Rubio voters as well. Likewise, co-partisans who support a different candidate necessarily constitute an out-group *within*, competing as they are for one nomination. their party's cohesion  If a candidate wishes to secure the plurality (or majority)  of votes necessary to win the nomination, she must distinguish herself from her co-partisan opponents. This may be done by championing a particular set of policies, emphasizing ideology, professional qualifications [@kirkland2018], activating cross-cutting identities, by adopting a posture towards the political establishment [@dyck2018], etc. Regardless of the dimensions on which candidates distinguish themselves, primary campaigning heightens the contradictions within a party, raising the stakes of the election.
+
+Vote choice---or preference for a candidate more generally---is most often analyzed as the outcome of (potential) voters' preferences and evaluations of candidates' attributes. That primary voters choose their candidate in part to safeguard group cohesion in their party [@wronski2018] begs the question: what happens to the group when candidates lose? How do partisans react when the preferences of some in the party are advantaged above their own? Citizens who perceive themselves as being cut out of political decision making processes tend to be more disaffected and less participatory in democratic political activities [@soss1999; @bruch2010]. Not only do individuals assess individual political and government programs on the basis of their inclusiveness, assessments of individuals' own roles and place in political society are conditioned in part by signals they receive from political and policy actors [@campbell2012]. I argue that this is likely to hold true in the context of primary elections. Partisans whose preferences are not reflected by the party writ-large become more distrusting of political elites and display less affinity for their own party. 
 
 WORK BANKERT 2017 AND SPOON AND KLUVER IN
 
-Those supporters of the opposing primary candidates then constitute an out-group *within* the party, the salience of which is endogenous to the affective tenor of the primary and the degree to which the candidates distinguish themselves from the opposition. Especially in the presidential context the stakes of an undesirable result are particularly high. A Presidential primary loss is a rebuke of the preferences of supporters of the losing candidate and the ascension of the representative of an *outgroup* to the station *de facto* leader of the *in-party*.
-
-Further, individuals conceptualize their in-group in contrast to the out-group [@tajfel1974; @leonardelli2015; @mead2012]---a conception of the in-group is predicated on drawing clear distinctions with the out-group. In multi-party and coalition-based systems, discerning a clearly defined political in-group and out-group is difficult. As such, voters' sense of belonging to a party is weaker relative to the U.S. context [@bankert2017]. The within-party electoral environment of a primary is clearly not a perfect analogue to multi-party electoral environments but is similar in that primary voters are often exposed to messaging from a range of broadly similar but competing campaigns, with no one campaign representing a clear *de facto* in-group.
-
-Vote choice---or preference for a candidate more generally---is most often analyzed as the outcome of (potential) voters' preferences and evaluations of candidates' attributes. That primary voters choose their candidate in part to safeguard group cohesion in their party [@wronski2018; @bankertforthcoming] begs the question: what happens to the group when candidates lose? How do partisans react when the preferences of some in the party are advantaged above their own? Citizens who perceive themselves as being cut out of government decision making processes to be more disaffected and less participatory in democratic political activities [@soss1999; @bruch2010]. Not only do individuals assess individual programs and actors on the basis of their (perceived) inclusiveness, assessments of individuals' own roles and place in political society are conditioned in part by signals they receive from political and policy actors [@campbell2012]. I argue that this is likely to hold true in the context of primary elections. Partisans whose preferences are not reflected by the party writ-large should become more distrusting of political elites and display less affinity for their own party. 
 
 In contrast to the argument of @groenendyk2020. Symbolic values and ideological identifiers have little relationship to individuals' actually held political beliefs [@zaller1992; @mcclosky1984; @ahler2018; @ahler2015; @mason2018]. Individuals have little idea of what views are typical of a party or ideology and which are heterodox. Partisans self identification as "moderate" or "extreme" may well inform their disposition towards their party but there is no guarantee that those individuals would recognize those  who identify as their "co-ideologues" as such. Thus, characterization of parties as internally ideologically polarized is conceptually fraught given the quality of evidence available.
 
@@ -317,61 +274,47 @@ Setting aside the issue of unreliable ideological self reports, there is reason 
 
 It is difficult to square the ideological polarization proposed by @groenendyk2020 with the qualitative features of the visible power struggle within the parties. I propose an alternative (or perhaps supplementary) explanation: that intra-party contests, particularly primary elections, complicate the in-party/in-group dynamic. Ultimately, weakening the in-party affinity and increasing the political disdain felt by those who find themselves on the losing side of these contests.
 
-Party elites may not be *government* policymakers or bureaucrats, but they are certainly *political* actors; their sphere of policy influence is simply constrained to the internal workings of one party---not the government writ-large. It is unlikely that the blurry distinction between "government" and "political" matters all that much to the rationally ignorant median voter as they assimilate political information and update their evaluations of elites and themselves. Moreover, government employees and party apparatchiks each wield considerable power shaping possible policy outcomes. Insofar as disaffection stems from being "cut out" of the policy process it is not clear that the legal distinction between government and party *should* be salient to observers, political sophisticates or not. Further, primary elections are programs designed and implemented by a vast bureaucracy of national and state parties, private information systems providers, federal government regulators, and local supervisors of elections; structurally similar to many federated programs, even if the primary bureaucracy only becomes salient to the public every two or four years at best. 
 
 In light of these structural similarities, it is worth asking how well insights from the policy feedback literature travel to the context of candidate selection. Theoretically, public perceptions of exclusionary politicking or unfair treatment of candidates by party elites should depress voters' assessment of the nominating process and their affection for the party. Such perceptions signal to the individual both that they hold little power in the nominating process and that those partisan actors who are powerful do not represent the interests of the powerless primary voter in question. In a policy feedback framework, the primary voter perceives a top-heavy, paternalistic party organization and has internalized their own un-belonging within that organization. Concomitant with their declining trust, disaffected partisans have little incentive (whether material or group-motivated) to participate in political activity.
 
+
+# Data and Methods
+
+In arguing that primary elections decrease partisanship I draw on several datasets. First, my main measure of partisan affect is taken from the American National Election Study's (ANES) 100-point partisan feeling thermometers. Feeling thermometer questions ask respondents to rate groups on a scale from 0-100, where 0 indicates that a respondent dislikes and feels very "cold" towards the group and 100 indicates that the respondent likes and feels very "warm" towards the group. A rating of 50 degrees indicates total indifferernce towards the group. I analyze the time-series trends in this measure as taken from the ANES Cumulative Data File (ANES-CDF) as well as in the individual years---2008, 2012, 2016, and 2020 specifically. I also draw on a range of ANES items which solicit the attitudes and behaviors of the respondent towards the government and politics. These measures are discussed in more detail in the following section. All calculations are made and figures drawn using the weighting procedures specified in the ANES codebooks.
+
+To gain causal leverage over the question of primary election outcomes and partisans' affect, an original survey experiment is conducted, randomly assigning a primary election outcome ("Win" or "Loss") to a counterfactual congressional primary election. The survey was programmed using the Qualtrics survey platform and participants were recruited using Amazon's *Mechanical Turk* (Mturk) platform. The quality of data produced by Mturk-recruited samples has been the subject of substantial debate, with Mturk skeptics pointing to the lack of control afforded by the Mturk environment to the researcher and the low-stakes nature of the quick tasks workers are asked to perform [@searles2015]. 
+
+Mturk samples are indeed noisier than samples obtained through more traditional methods [@johnson2020] and the population of Mturk workers is not a representative slice of the broader U.S. population [@ahler; @goodman2013]. These drawbacks make Mturk ill-suited for studies which aim to estimate the level of a parameter or quantity present in a population [@horton2011]. Fortunately, Mturk samples are much better suited to detecting *changes* in quantities. The increased noise in the Mturk sample works against statistical significance [@goodman2013] reducing the likelihood of a type-1 errors. Further, Mturk workers tend to perform *better* than other subject populations on attentiveness checks and consistently report their true preferences, provided that doing so does not jeopardize their payout [@hauser2016; @johnson2020]. As the purpose of this experiment is to interrogate shifts in partisans' affect and opinions agnostic to the absolute values of these attitudes, Mturk is an appropriate platform with which to recruit participants.
+
+Preference falsification by participants is also not of great concern as participants were not restricted from the survey on any basis other than location of their IP address (which must be based in the United States), thus there was no financial incentive to falsify preferences. Mturk workers *are* known to falsify their IP addresses [@ahler] in order to gain access to more and higher-paying tasks, as such it is quite likely that some responses in the study were gathered from participants outside the United States who likely do not have genuine preferences about U.S. political parties. Responses of this type can artificially inflate the variation in the sample, but there is no reason to think that the sample is systematically *biased* by these responses.
+
+## Survey Structure
+
+After agreeing to participate in the survey, subjects are asked to divulge their partisan affiliation. Subjects who self-identified as political independents are asked towards which political party they tend to lean. Following the insight of @klar2016 that leaning independents are best understood as "secret partisans" who think and behave very similarly to typical partisan voters, leaning independents are coded as partisans of whichever party they indicate a preference towards. Those who do not indicate a preference are paid for their time and excluded from all subsequent analyses---while the attitudes and actions of these true independents are no doubt important, they fall outside the scope conditions of this investigation.
+
+Next, participants are shown vignettes of two candidates and told that these candidates competed against one another in a 2020 congressional primary election for the participant's party. The names of these candidates are drawn from a pool of actual Democratic and Republican candidates who each participated in a congressional primary for an open seat in a district in which an out-party candidate eventually won election. In other words, none of the candidates whose names are used were members of congress during or after the 2020 election cycle. This set of names is chosen to minimize the chance of participants recognizing the candidates and noticing discrepencies between the counterfactual positions and the genuine positions of the candidate. Additionally, there is some risk that participants recruited through MTurk seek out external information for a task [@goodman2013]. The use of general-election losing non-incumbents' names reduces the accessibility of official policy statements, platforms, or campaign materials. 
+
+In addition to candidates' names, the candidate vignettes include basic personal information---party affiliation, occupation, marital status, and number of children---as well as a series of policy statements that participants are told "closely match the candidates' positions on a variety of issues." In reality, these policy positions are randomly assigned to each candidate from a set of two policy statements, one moderate and one extreme, across several issue areas. Republican participants are shown statements on climate change, abortion, policing, and taxes. Democrats are shown statements reflecting the candidates' views on the Green New Deal, marijuana legalization, policing, and taxes. 
+
+It is possible for candidates to take identical positions on any given issue and participants are informed of this in order to preempt any confusion. Importantly, this study is not concerned with *why* participants preferred one candidate over the other, simply with how a chosen candidate's fate influences individuals' partisan identity and sense of political efficacy. These candidate vignettes are intended to provide enough information to participants so as to make the candidates appear credible, and to allow the participant to form a preference for a candidate through a variety of mechanisms. Candidates' personal information is included so that participants do not view the vignettes solely as a collection of policy statements, but as a summary of a real person seeking public office.
+
+After reviewing the vignettes, participants are asked to "write a sentence or two explaining why [they] chose [their] candidate over the other". This free-response information is solicited from participants in order to slow down the participants' (who are often trying to complete tasks as quickly as possible) thought and to increase the cognitive investment in their choice of candidate. Real world primary elections drag on for weeks and months while participants in this experiment are exposed to the candidates only for a few minutes.
+
+After submitting their candidate preference, participants are randomly assigned to one of three groups. Those in the "Loss" treatment are told that their preferred candidate was defeated in the primary, those in the "Win" treatment are told that their candidate won the primary and went on to compete in the general election. Participants in the control group are simply thanked for selecting a candidate. 
+
+After receiving the treatment, participants were asked to rate the Democratic Party, Republican Party, and political independents on a feeling thermometer from 0-100. Participants were also asked a battery of political efficacy questions---how likely they would be to vote in the district's general election, the degree to which they trust the federal government to do what is right, and the degree to which they are satisfied with the way democracy works in the United States. After answering these questions the participants are debriefed that the candidates' personal information and policy preferences do not necessarily reflect those of the actual candidate, at which point the experiment concludes.
+
+In total, 473 participants were surveyed, of these only 18 identified as true independents, resulting in a final sample of $n = 455$. Summary statistics for these responses are presented in Table 2 and Table 3. Of note, while the distribution of in-party feeling thermometer scores is very similar to the distribution of scores drawn from the ANES time series study ($\mu = 80.9$), the distribution of out-party scores in the Mturk sample skew substantially higher than the mean out-party thermometers as reported in the ANES ($\mu = 54.5$).
 
 
 
 # Descriptive Analysis
 
-Before investigating the role played by primaries in driving intra-party attitudes, I present descriptive findings showing how in-party attitudes have developed over time and the differences between enthusiastic and unhappy partisans. 
-
-My analysis of intra-party attitudes begins by taking a broad view of trends in partisan's attitudes for their own party and its opposition. Figure 1 uses data from the American National Election Study (ANES) to show the mean in-party and out-party feeling thermometers from 1978 to 2020, the full time range over which the partisan feeling thermometer question is included on the ANES^[Pre-1978 iterations of the ANES study include some feeling thermometer questions, but ask respondents to rate "Democrats and Republicans", rather than the "Democratic and Republican Parties". In years where both questions are asked there are considerable differences in mean thermometer ratings---the questions are not equivalent to one another.]. Calculations of all mean values and their variance are weighted in accordance with procedures outlined in the ANES codebooks.
+Before investigating the role played by primaries in driving intra-party attitudes, I present descriptive findings showing how in-party attitudes have developed over time and the differences between enthusiastic and unhappy partisans. Average in-party feeling thermometers have been remarkably stable since the question first appeared on the ANES in 1978, hovering around a balmy 70 degrees^[See APPENDIX ITEM for a visualization of the time-series trends partisan affect.]. This stable average belies increasing heterogeneity around that mean.
 
 
 
 
-```{r, eval = FALSE}
-
-fig_1_df <- party_fts_ns_joined %>%
-	filter(str_detect(group, "In")) %>% 
-	mutate(group = recode(group,
-												"Democrat - In Party" = "Democrat",
-												"Republican - In Party" = "Republican")) %>% 
-	glimpse()
-
-gg_mean_ft_ns <- ggplot(fig_1_df, aes(x = year, y = mean)) +
-#  geom_smooth(aes(linetype = group, color = group), span = .3, se=F) +
-  geom_line(aes(linetype = group, color = group), position = dodge) +
-  geom_linerange(aes(ymin = mean-sd, ymax = mean+sd, color = group), position = dodge) +
-  geom_point(aes(shape = group, color = group), size = 3, position = dodge) +
-  scale_linetype_manual(values = c("Democrat" = "longdash",
-                                   "Republican" = "solid")) +
-  scale_shape_manual(values = c("Democrat" = 17,
-                                   "Republican" = 16)) +
-  scale_color_manual(values = c("Democrat" = "dodgerblue4",
-                                   "Republican" = "firebrick4")) +
-  #scale_x_continuous(limits = c(1978,2020), breaks = c(0:5)) +
-	  scale_x_continuous(breaks = c(seq(1978, 2020, by = 2)))+
-  scale_y_continuous(breaks = seq(40, 100, by = 10), limits = c(0,100)) +
-  labs(y = "Mean",
-       x = "Year",
-       title = "Mean Thermometer Ratings of Partisans",
-       linetype = " ",
-       color = " ",
-       shape = " ") +
-  theme(legend.position = c(0.2, 0.2),
-  			axis.text.x = element_text(angle = 285)) +
-  guides(size = FALSE
-#         shape = guide_legend(override.aes = list(size = 1.5))
-         )
- showtext_auto()
-gg_mean_ft_ns
-#pdf("extrafont-1-unembedded.pdf", 7, 4)
-ggsave("gg-cdf-means.pdf", gg_mean_ft_ns, width = 6, height = 4, units = "in")
-```
 
 
 ```{r ridge-plot, eval = FALSE}
@@ -481,57 +424,87 @@ Despite some recent turbulence these mean partisan feeling thermometers largely 
 
 ```{r cdf-sd, fig.cap="Changes in the standard deviation of in-party feeling thermometers."}
 
-test_df <- party_fts_ns_joined%>%
-  filter(year == 2000 | year == 2020)%>%
-  filter(group == "Democrat - In Party")
 
-df_2000 <- rnorm(500, mean = 18.39896, sd = 0.5377489*sqrt(500))
+prop_below_df <- mct_prop_ns %>%
+	mutate(pct_50_below = 100*prop_50_below,
+				 se_pct_50_below = 100*se_50_below) %>%
+	select(year,
+				 pct_50_below,
+				 se_pct_50_below) %>% 
+	glimpse()
 
+sd_df <- party_fts_ns_joined %>%
+	glimpse()
 
+se_df <- left_join(prop_below_df,
+									 sd_df) %>%
+	select(year,
+				 contains("se"),
+				 -se_mean_in) %>% 
+	pivot_longer(se_pct_50_below:se_sd_in,
+							 names_to = "stat",
+							 values_to = "se",
+							 names_prefix = "se_") %>% 
+	glimpse()
 
-gg_sd_ft_ns <- party_fts_ns_joined%>%
-  filter(!str_detect(group, "Out"))%>%
-  ggplot(aes(x = year, y = sd, color = group)) +
-#  geom_smooth(aes(linetype = group), span = .3, se=F) + 
-  geom_line(aes(linetype = group), size = 1, position = dodge) +
-#  geom_errorbar(aes(ymin = sd - 1.96*se_sd, ymax = sd + 1.96*se_sd), width = 2, position = dodge) +
-  geom_linerange(aes(ymin = sd - 1.96*se_sd, ymax = sd + 1.96*se_sd, color = group), position = dodge) +
-  geom_point(aes(shape = group), position = dodge, size = 3) +
-  scale_linetype_manual(values = c("Democrat - In Party" = "longdash",
-                                   "Republican - In Party" = "solid")) +
-  scale_shape_manual(values = c("Democrat - In Party" = 17,
-                                "Republican - In Party" = 16)) +
-  scale_color_manual(values = c("Democrat - In Party" = "dodgerblue4",
-                                "Republican - In Party" = "firebrick4")) +
-  #scale_x_continuous(limits = c(1978,2020), breaks = c(0:5)) +
-  scale_x_continuous(breaks = c(seq(1978, 2020, by = 2)),# guide = guide_axis(n.dodge = 2)
-  									 ) +
-#  scale_y_continuous(limits = c(14,25)) +
-  labs(y = "SD",
-       x = "Year",
-       title = "Standard Deviation of In-Party Feeling Thermometers",
-       linetype = " ",
-       color = " ",
-       shape = " ",
-       caption = "Bootstrapped 95% CI Given By Errorbar") +
-  theme(legend.position = c(0.2, 0.8),
-        legend.key.width = unit(.1, "npc"),
-        legend.key.height = unit(.075, "npc"),
-  			axis.text.x = element_text(angle = 285)) +
-  guides(size = "none")
-gg_sd_ft_ns
-
-```
+fig_1_df <- left_join(prop_below_df,
+											sd_df) %>%
+	select(year,
+				 pct_50_below,
+				 sd_in) %>% 
+	pivot_longer(pct_50_below:sd_in,
+							 names_to = "stat",
+							 values_to = "value") %>%
+	left_join(se_df) %>% 
+		mutate(stat = recode(stat,
+											 "pct_50_below" = "Pct. Cold",
+											 "sd_in" = "Standard Dev.")) %>% 
+	glimpse()
 
 
-As shown in figure 2, the standard deviation of in-party feeling thermometers increases significantly between 2004 and 2016. Though the standard deviations of both Democrats' and Republicans' scores taper off slightly in 2020, in-party affect as measured by partisan feeling thermometers is still more heterogeneous than at any point before 2016.
+ggplot(fig_1_df, aes(x = year, y = value, color = stat)) +
+	geom_linerange(aes(ymin = (value - se), ymax = (value + se)), position = dodge) +
+  geom_line(aes(linetype = stat), size = 1, position = dodge) +
+	geom_point(aes(shape =  stat,), position = dodge, size = 3) +
+	scale_color_viridis_d(option = "cividis") +
+	scale_x_continuous(breaks = c(seq(1978, 2020, by = 2))) +
+	theme(legend.position = "top",
+				axis.text.x = element_text(angle = 285)) +
+	labs(x = "Year",
+			 y = "Value",
+			 color = "Stat",
+			 linetype = "Stat",
+			 shape = "Stat",
+			 title = "In-Party Heterogeneity Over Time")
+	
+	
+# #  geom_errorbar(aes(ymin = sd - 1.96*se_sd, ymax = sd + 1.96*se_sd), width = 2, position = dodge) +
+#   geom_linerange(aes(ymin = sd - 1.96*se_sd, ymax = sd + 1.96*se_sd, color = group), position = dodge) +
+#   geom_point(aes(shape = group), position = dodge, size = 3) +
+#   scale_linetype_manual(values = c("Democrat - In Party" = "longdash",
+#                                    "Republican - In Party" = "solid")) +
+#   scale_shape_manual(values = c("Democrat - In Party" = 17,
+#                                 "Republican - In Party" = 16)) +
+#   scale_color_manual(values = c("Democrat - In Party" = "dodgerblue4",
+#                                 "Republican - In Party" = "firebrick4")) +
+#   #scale_x_continuous(limits = c(1978,2020), breaks = c(0:5)) +
+#   scale_x_continuous(breaks = c(seq(1978, 2020, by = 2)),# guide = guide_axis(n.dodge = 2)
+#   									 ) +
+# #  scale_y_continuous(limits = c(14,25)) +
+#   labs(y = "SD",
+#        x = "Year",
+#        title = "Standard Deviation of In-Party Feeling Thermometers",
+#        linetype = " ",
+#        color = " ",
+#        shape = " ",
+#        caption = "Bootstrapped 95% CI Given By Errorbar") +
+#   theme(legend.position = c(0.2, 0.8),
+#         legend.key.width = unit(.1, "npc"),
+#         legend.key.height = unit(.075, "npc"),
+#   			axis.text.x = element_text(angle = 285)) +
+#   guides(size = "none")
+# gg_sd_ft_ns
 
-One source of this increased variation is the increasing number of partisans who are cold towards their party. As variance increases, so to has the proportion of partisans who rate their own party below a 50---an inherently meaningful threshold indicating that partisans are more cold than warm toward their own party. As shown in figure 3, 10% of Democrats and almost 20% of Republicans are found to be cold towards their own party in 2016 (up from 5% each in 2004). The prevalence of intra-party coldness hold steady among Democrats into the 2020 election cycle, but drop precipitously among Republicans.
-
-These trends in in-party affect reinforce the argument that partisans are not an affective monolith---love for the in-party is not universal within a party, nor is it stable across time. More notably, this temporal instability is itself increasing, as shown in Figure 2. While the majority of partisans remain favorable towards their party at any given time, I argue that even ostensibly small declines in average feeling thermometer scores or small increases in the proportion of cold partisans are substantively significant, and should give pause to both party elites and students of political science.
-
-
-```{r below-50, echo = FALSE, fig.cap="Proportion of cold partisans by party-year"}
 gg_below_50_ns <- ggplot(mct_prop_ns, aes(x = year, y = prop_50_below)) +
   geom_line(aes(linetype = pid_3, color = pid_3), position = dodge, size = 1) + 
   #  geom_smooth(aes(linetype = pid_3_sort, color = pid_3_sort), span = .3, se = FALSE) +
@@ -557,6 +530,19 @@ gg_below_50_ns <- ggplot(mct_prop_ns, aes(x = year, y = prop_50_below)) +
        caption = "95% CI Given With Errorbar") #+
 #  facet_wrap(vars(pid_str))
 gg_below_50_ns
+
+
+```
+
+
+As shown in figure 2, the standard deviation of in-party feeling thermometers increases significantly between 2004 and 2016. Though the standard deviations of both Democrats' and Republicans' scores taper off slightly in 2020, in-party affect as measured by partisan feeling thermometers is still more heterogeneous than at any point before 2016.
+
+One source of this increased variation is the increasing number of partisans who are cold towards their party. As variance increases, so to has the proportion of partisans who rate their own party below a 50---an inherently meaningful threshold indicating that partisans are more cold than warm toward their own party. As shown in figure 3, 10% of Democrats and almost 20% of Republicans are found to be cold towards their own party in 2016 (up from 5% each in 2004). The prevalence of intra-party coldness hold steady among Democrats into the 2020 election cycle, but drop precipitously among Republicans.
+
+These trends in in-party affect reinforce the argument that partisans are not an affective monolith---love for the in-party is not universal within a party, nor is it stable across time. More notably, this temporal instability is itself increasing, as shown in Figure 2. While the majority of partisans remain favorable towards their party at any given time, I argue that even ostensibly small declines in average feeling thermometer scores or small increases in the proportion of cold partisans are substantively significant, and should give pause to both party elites and students of political science.
+
+
+```{r below-50, echo = FALSE, fig.cap="Proportion of cold partisans by party-year"}
 
 ```
 
@@ -1049,15 +1035,10 @@ ggplot(m_df, aes(x = therm_inparty)) +
 
 The greater increase in strong partisanship among winning Democrats suggests that Obama supporters' affinity for their own party increased as a result of his primary victory. There is no such effect observed among Republicans, who become less likely to identify as strong partisans regardless of which candidate they supported in the primary. It is difficult to assess why this might be, given that data from only one election cycle is available. Perhaps Republicans' grim electoral prospects implied by the underwater approval of the Bush Administration, unpopular wars in Iraq and Afghanistan, and economic anxiety suppressed any partisan enthusiasm felt by supporters of John McCain's primary bid. It is also possible that as the Republican Party electoral coalition is more ideological than the Democrats' coalition rooted in group interest [@grossmann2016] primary outcomes affect Republicans' and Democrats' partisanship in different ways, though there is little else in my analyses that support such a conclusion.
 
-# Survey Experiment
 
-To gain further causal leverage over the question of primary election outcomes and partisans' affect, an original survey experiment is conducted, randomly assigning a primary election outcome ("Win" or "Loss") to a counterfactual congressional primary election. The survey was programmed using the Qualtrics survey platform and participants were recruited using Amazon's *Mechanical Turk* (Mturk) platform. The quality of data produced by Mturk-recruited samples has been the subject of substantial debate, with Mturk skeptics pointing to the lack of control afforded by the Mturk environment to the researcher and the low-stakes nature of the quick tasks workers are asked to perform [@searles2015]. 
+## Survey Experiment
 
-Mturk samples are indeed noisier than samples obtained through more traditional methods [@johnson2020] and the population of Mturk workers is not a representative slice of the broader U.S. population [@ahler; @goodman2013]. These drawbacks make Mturk ill-suited for studies which aim to estimate the level of a parameter or quantity present in a population [@horton2011]. Fortunately, Mturk samples are much better suited to detecting *changes* in quantities. The increased noise in the Mturk sample works against statistical significance [@goodman2013] reducing the likelihood of a type-1 errors. Further, Mturk workers tend to perform *better* than other subject populations on attentiveness checks and consistently report their true preferences, provided that doing so does not jeopardize their payout [@hauser2016; @johnson2020]. As the purpose of this experiment is to interrogate shifts in partisans' affect and opinions agnostic to the absolute values of these attitudes, Mturk is an appropriate platform with which to recruit participants.
-
-Preference falsification by participants is also not of great concern as participants were not restricted from the survey on any basis other than location of their IP address (which must be based in the United States), thus there was no financial incentive to falsify preferences. Mturk workers *are* known to falsify their IP addresses [@ahler] in order to gain access to more and higher-paying tasks, as such it is quite likely that some responses in the study were gathered from participants outside the United States who likely do not have genuine preferences about U.S. political parties. Responses of this type can artificially inflate the variation in the sample, but there is no reason to think that the sample is systematically *biased* by these responses.
-
-## Hypotheses
+### Hypotheses
 
 The Mturk study is conducted in two parts. First, investigating the effect of winning or losing a primary election on affect towards the in-party testing the two hypotheses:
 
@@ -1129,24 +1110,6 @@ datasummary_balance( ~group,
 
 
 ```
-
-## Survey Structure
-
-After agreeing to participate in the survey, subjects are asked to divulge their partisan affiliation. Subjects who self-identified as political independents are asked towards which political party they tend to lean. Following the insight of @klar2016 that leaning independents are best understood as "secret partisans" who think and behave very similarly to typical partisan voters, leaning independents are coded as partisans of whichever party they indicate a preference towards. Those who do not indicate a preference are paid for their time and excluded from all subsequent analyses---while the attitudes and actions of these true independents are no doubt important, they fall outside the scope conditions of this investigation.
-
-Next, participants are shown vignettes of two candidates and told that these candidates competed against one another in a 2020 congressional primary election for the participant's party. The names of these candidates are drawn from a pool of actual Democratic and Republican candidates who each participated in a congressional primary for an open seat in a district in which an out-party candidate eventually won election. In other words, none of the candidates whose names are used were members of congress during or after the 2020 election cycle. This set of names is chosen to minimize the chance of participants recognizing the candidates and noticing discrepencies between the counterfactual positions and the genuine positions of the candidate. Additionally, there is some risk that participants recruited through MTurk seek out external information for a task [@goodman2013]. The use of general-election losing non-incumbents' names reduces the accessibility of official policy statements, platforms, or campaign materials. 
-
-In addition to candidates' names, the candidate vignettes include basic personal information---party affiliation, occupation, marital status, and number of children---as well as a series of policy statements that participants are told "closely match the candidates' positions on a variety of issues." In reality, these policy positions are randomly assigned to each candidate from a set of two policy statements, one moderate and one extreme, across several issue areas. Republican participants are shown statements on climate change, abortion, policing, and taxes. Democrats are shown statements reflecting the candidates' views on the Green New Deal, marijuana legalization, policing, and taxes. 
-
-It is possible for candidates to take identical positions on any given issue and participants are informed of this in order to preempt any confusion. Importantly, this study is not concerned with *why* participants preferred one candidate over the other, simply with how a chosen candidate's fate influences individuals' partisan identity and sense of political efficacy. These candidate vignettes are intended to provide enough information to participants so as to make the candidates appear credible, and to allow the participant to form a preference for a candidate through a variety of mechanisms. Candidates' personal information is included so that participants do not view the vignettes solely as a collection of policy statements, but as a summary of a real person seeking public office.
-
-After reviewing the vignettes, participants are asked to "write a sentence or two explaining why [they] chose [their] candidate over the other". This free-response information is solicited from participants in order to slow down the participants' (who are often trying to complete tasks as quickly as possible) thought and to increase the cognitive investment in their choice of candidate. Real world primary elections drag on for weeks and months while participants in this experiment are exposed to the candidates only for a few minutes.
-
-After submitting their candidate preference, participants are randomly assigned to one of three groups. Those in the "Loss" treatment are told that their preferred candidate was defeated in the primary, those in the "Win" treatment are told that their candidate won the primary and went on to compete in the general election. Participants in the control group are simply thanked for selecting a candidate. 
-
-After receiving the treatment, participants were asked to rate the Democratic Party, Republican Party, and political independents on a feeling thermometer from 0-100. Participants were also asked a battery of political efficacy questions---how likely they would be to vote in the district's general election, the degree to which they trust the federal government to do what is right, and the degree to which they are satisfied with the way democracy works in the United States. After answering these questions the participants are debriefed that the candidates' personal information and policy preferences do not necessarily reflect those of the actual candidate, at which point the experiment concludes.
-
-In total, 473 participants were surveyed, of these only 18 identified as true independents, resulting in a final sample of $n = 455$. Summary statistics for these responses are presented in Table 2 and Table 3. Of note, while the distribution of in-party feeling thermometer scores is very similar to the distribution of scores drawn from the ANES time series study ($\mu = 80.9$), the distribution of out-party scores in the Mturk sample skew substantially higher than the mean out-party thermometers as reported in the ANES ($\mu = 54.5$).
 
 
 ## Partisan Affect Results
@@ -1296,5 +1259,198 @@ gg_mean_ft_ns
 #pdf("extrafont-1-unembedded.pdf", 7, 4)
 ggsave("gg-cdf-means.pdf", gg_mean_ft_ns, width = 6, height = 4, units = "in")
 ```
+
+
+```{r cdf-sd-app, fig.cap="Changes in the standard deviation of in-party feeling thermometers."}
+
+
+
+below_mct_ns <- cdf_trimmed%>% # MCT = Measure of Central Tendency
+#below_mct_ns <- cdf_extended%>% # with 2020
+  select(year,
+         weight,
+         pid_3,
+         therm_inparty)%>%
+  filter(pid_3 != "Independent" & year != 2002)%>%
+  mutate(above_80_dum = if_else(therm_inparty > 80, 1, 0),
+         above_75_dum = if_else(therm_inparty > 75, 1, 0),
+         above_mean_sd_dum = if_else(therm_inparty > weighted.mean(therm_inparty, weight, na.rm = TRUE) + radiant.data::weighted.sd(therm_inparty, weight, na.rm = TRUE), 1, 0),
+         below_50_dum = if_else(therm_inparty < 50, 1, 0),
+#         below_mean_dum = if_else(therm_inparty < weighted.mean(therm_inparty, weight, na.rm = TRUE), 1, 0),
+#         below_mean_sd_dum = if_else(therm_inparty < weighted.mean(therm_inparty, weight, na.rm = TRUE) - radiant.data::weighted.sd(therm_inparty, weight, na.rm = TRUE), 1, 0),
+#         below_med_dum = if_else(therm_inparty < spatstat::weighted.median(therm_inparty, weight, na.rm = TRUE), 1, 0),
+#         below_med_sd_dum = if_else(therm_inparty < spatstat::weighted.median(therm_inparty, weight, na.rm = TRUE) - radiant.data::weighted.sd(therm_inparty, weight, na.rm = TRUE), 1, 0)
+)%>%
+  glimpse()
+
+mct_prop_ns <- below_mct_ns%>% #way more measures here than are needed
+  group_by(year, pid_3)%>%
+  summarise(#prop_mean_below = weighted.mean(below_mean_dum, weight, na.rm = TRUE),
+            #prop_mean_sd_below = weighted.mean(below_mean_sd_dum, weight, na.rm = TRUE),
+#            prop_med_below = weighted.mean(below_med_dum, weight, na.rm = TRUE), #prop_below is those below the MCT, prop_sd_below is those one SD below med
+#            prop_med_below_sd = weighted.mean(below_med_sd_dum, weight, na.rm = TRUE),
+            prop_50_below = weighted.mean(below_50_dum, weight, na.rm = TRUE),
+            prop_80_above = weighted.mean(above_80_dum, weight, na.rm = TRUE),
+            prop_75_above = weighted.mean(above_80_dum, weight, na.rm = TRUE),
+#            prop_mean_sd_above = weighted.mean(above_mean_sd_dum, weight, na.rm = TRUE),
+#            se_mean_below = diagis::weighted_se(below_mean_dum, weight, na.rm = TRUE),
+#            se_mean_sd_below = diagis::weighted_se(below_mean_sd_dum, weight, na.rm = TRUE),
+#            se_med_below = diagis::weighted_se(below_med_dum, weight, na.rm = TRUE),
+#            se_med_sd_below = diagis::weighted_se(below_med_sd_dum, weight, na.rm = TRUE),
+            se_50_below = diagis::weighted_se(below_50_dum, weight, na.rm = TRUE),
+            se_80_above = diagis::weighted_se(above_80_dum, weight, na.rm = TRUE),
+#            se_mean_sd_above = diagis::weighted_se(above_mean_sd_dum, weight, na.rm = TRUE)
+  )%>%
+  glimpse()
+
+n_df_ns <- cdf_trimmed%>% # Making a DF of the party-year SD
+  filter(pid_3 != "Independent" & year != 2002)%>%
+  select(year,
+         weight,
+         pid_3,
+         therm_inparty,
+         therm_outparty)%>%
+  group_by(year, pid_3)%>%
+  summarise(n = n(),
+            mean_in = weighted.mean(therm_inparty, weight, na.rm = TRUE),
+            mean_out = weighted.mean(therm_outparty, weight, na.rm = TRUE),
+            sd_in = radiant.data::weighted.sd(therm_inparty, weight, na.rm = TRUE),
+            sd_out = radiant.data::weighted.sd(therm_outparty, weight, na.rm = TRUE))%>%
+  glimpse()
+
+
+df_for_sampling <- cdf_trimmed%>% # Making a DF of the party-year SD
+  filter(pid_3 != "Independent" & year != 2002)%>%
+  select(year,
+         weight,
+         pid_3,
+         therm_inparty,
+         therm_outparty,
+         pid_7
+  )%>%
+glimpse()
+
+
+#bootstrapping the SE of the SD
+boot_sd_in <- data.frame(boot = 1:500)%>%
+  group_by(boot)%>%
+  do(sample_n(df_for_sampling, 
+              nrow(df_for_sampling),
+              replace = TRUE))%>% #creating 100 new datasets of equal size to the original
+  group_by(boot,
+           year,
+           pid_3)%>%
+  summarise(mean_in = weighted.mean(therm_inparty, weight, na.rm = TRUE),
+            mean_out = weighted.mean(therm_outparty, weight, na.rm = TRUE),
+            sd_in = radiant.data::weighted.sd(therm_inparty, weight, na.rm = TRUE),
+            sd_out = radiant.data::weighted.sd(therm_outparty, weight, na.rm = TRUE))%>%
+  group_by(year,
+           pid_3)%>%
+  summarise(se_mean_in = sd(mean_in),
+            se_mean_out = sd(mean_out),
+            se_sd_in = sd(sd_in),
+            se_sd_out = sd(sd_out))%>%
+  pivot_longer(se_mean_in:se_sd_out, names_to = "group", values_to = "result")%>%
+  unite("group", pid_3:group)%>%
+  mutate(stat = as.factor(if_else(str_detect(group, "mean"), "se_mean", "se_sd")))%>%
+  mutate(group = as.factor(recode(group,
+                                  "Democrat_se_mean_in" = "Democrat - In Party",
+                                  "Democrat_se_mean_out" = "Democrat - Out Party",
+                                  "Democrat_se_sd_in" = "Democrat - In Party",
+                                  "Democrat_se_sd_out" = "Democrat - Out Party",
+                                  "Republican_se_mean_in" = "Republican - In Party",
+                                  "Republican_se_mean_out" = "Republican - Out Party",
+                                  "Republican_se_sd_in" = "Republican - In Party",
+                                  "Republican_se_sd_out" = "Republican - Out Party")))%>%
+  glimpse()
+
+prop_below_df <- mct_prop_ns %>%
+	mutate(pct_50_below = 100*prop_50_below,
+				 se_50_below_pct = 100*se_50_below) %>%
+	select(year,
+				 pid_3,
+				 pct_50_below,
+				 se_50_below_pct) %>% 
+	glimpse()
+
+sd_df <- party_fts_ns_joined %>%
+	filter(!str_detect(group, "Out"))%>%
+	mutate(pid_3 = as.factor(str_extract(group, "(^\\w*)"))) %>%
+	select(-mean,
+				 -se_mean,
+				 -group) %>% 
+	glimpse()
+
+fig_1_df <- left_join(prop_below_df,
+											sd_df) %>%
+	glimpse()
+
+gg_fig_1 <- fig_1_df%>%
+  ggplot(aes(x = year, y = stat, color = group)) +
+#  geom_smooth(aes(linetype = group), span = .3, se=F) + 
+  geom_line(aes(linetype = group), size = 1, position = dodge) +
+#  geom_errorbar(aes(ymin = sd - 1.96*se_sd, ymax = sd + 1.96*se_sd), width = 2, position = dodge) +
+  geom_linerange(aes(ymin = sd - 1.96*se_sd, ymax = sd + 1.96*se_sd, color = group), position = dodge) +
+  geom_point(aes(shape = group), position = dodge, size = 3) +
+  scale_linetype_manual(values = c("Democrat - In Party" = "longdash",
+                                   "Republican - In Party" = "solid")) +
+  scale_shape_manual(values = c("Democrat - In Party" = 17,
+                                "Republican - In Party" = 16)) +
+  scale_color_manual(values = c("Democrat - In Party" = "dodgerblue4",
+                                "Republican - In Party" = "firebrick4")) +
+  #scale_x_continuous(limits = c(1978,2020), breaks = c(0:5)) +
+  scale_x_continuous(breaks = c(seq(1978, 2020, by = 2)),# guide = guide_axis(n.dodge = 2)
+  									 ) +
+#  scale_y_continuous(limits = c(14,25)) +
+  labs(y = "SD",
+       x = "Year",
+       title = "Standard Deviation of In-Party Feeling Thermometers",
+       linetype = " ",
+       color = " ",
+       shape = " ",
+       caption = "Bootstrapped 95% CI Given By Errorbar") +
+  theme(legend.position = c(0.2, 0.8),
+        legend.key.width = unit(.1, "npc"),
+        legend.key.height = unit(.075, "npc"),
+  			axis.text.x = element_text(angle = 285)) +
+  guides(size = "none")
+gg_sd_ft_ns
+
+gg_below_50_ns <- ggplot(mct_prop_ns, aes(x = year, y = prop_50_below)) +
+  geom_line(aes(linetype = pid_3, color = pid_3), position = dodge, size = 1) + 
+  #  geom_smooth(aes(linetype = pid_3_sort, color = pid_3_sort), span = .3, se = FALSE) +
+  geom_linerange(aes(color = pid_3, ymin = prop_50_below - 2*se_50_below, ymax = prop_50_below + 2*se_50_below), position = dodge) +
+  geom_point(aes(shape = pid_3, color = pid_3), position = dodge, size = 4) +
+  scale_color_manual(values = c("Democrat" = "dodgerblue4",
+                                "Republican" = "firebrick4")) +
+  scale_linetype_manual(values = c("Democrat" = "longdash",
+                                   "Republican" = "solid")) +
+	  scale_x_continuous(breaks = c(seq(1978, 2020, by = 2)))+
+  theme(legend.position = c(0.1, 0.7)) +
+  guides(size = "none") +
+	  theme(legend.position = c(0.2, 0.8),
+        legend.key.width = unit(.1, "npc"),
+        legend.key.height = unit(.075, "npc"),
+	  		axis.text.x = element_text(angle = 285)) +
+  labs(x = "Year", 
+       y = "Proportion",
+       color = "Party ID",
+       linetype = "Party ID",
+       shape = "Party ID",
+       title = "Proportion of Partisans Below 50 In-Party FT",
+       caption = "95% CI Given With Errorbar") #+
+#  facet_wrap(vars(pid_str))
+gg_below_50_ns
+
+
+```
+
+My analysis of intra-party attitudes begins by taking a broad view of trends in partisan's attitudes for their own party and its opposition. Figure 1 uses data from the American National Election Study (ANES) to show the mean in-party and out-party feeling thermometers from 1978 to 2020, the full time range over which the partisan feeling thermometer question is included on the ANES^[Pre-1978 iterations of the ANES study include some feeling thermometer questions, but ask respondents to rate "Democrats and Republicans", rather than the "Democratic and Republican Parties". In years where both questions are asked there are considerable differences in mean thermometer ratings---the questions are not equivalent to one another.]. Calculations of all mean values and their variance are weighted in accordance with procedures outlined in the ANES codebooks.
+
+
+Further, individuals conceptualize their in-group in contrast to the out-group [@tajfel1974; @leonardelli2015; @mead2012]---a conception of the in-group is predicated on drawing clear distinctions with the out-group. In multi-party and coalition-based systems, discerning a clearly defined political in-group and out-group is difficult. As such, voters' sense of belonging to a party is weaker relative to the U.S. context [@bankert2017]. The within-party electoral environment of a primary is clearly not a perfect analogue to multi-party electoral environments but is similar in that primary voters are often exposed to messaging from a range of broadly similar but competing campaigns, with no one campaign representing a clear *de facto* in-group.
+
+Party elites may not be *government* policymakers or bureaucrats, but they are certainly *political* actors; their sphere of policy influence is simply constrained to the internal workings of one party---not the government writ-large. It is unlikely that the blurry distinction between "government" and "political" matters all that much to the rationally ignorant median voter as they assimilate political information and update their evaluations of elites and themselves. Moreover, government employees and party apparatchiks each wield considerable power shaping possible policy outcomes. Insofar as disaffection stems from being "cut out" of the policy process it is not clear that the legal distinction between government and party *should* be salient to observers, political sophisticates or not. Further, primary elections are programs designed and implemented by a vast bureaucracy of national and state parties, private information systems providers, federal government regulators, and local supervisors of elections; structurally similar to many federated programs, even if the primary bureaucracy only becomes salient to the public every two or four years at best. 
+
 
 \clearpage
