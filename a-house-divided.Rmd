@@ -108,6 +108,7 @@ cdf_trimmed <- read_rds("data/tidy-cdf.rds")%>%
   filter(year >= 1978)%>%
   select(pid_3,
          pid_7,
+  			 primary_vote_dum,
          year,
 #         race_4cat,
          therm_inparty,
@@ -126,11 +127,14 @@ cdf_trimmed <- read_rds("data/tidy-cdf.rds")%>%
 party_fts_ns <- cdf_trimmed%>% # Making a DF of the party-year SD
   filter(pid_3 != "Independent" & year != 2002)%>%
   select(year,
+  			 primary_vote_dum,
          weight,
          therm_inparty,
          )%>%
-  group_by(year)%>%
+  group_by(year,
+  				 primary_vote_dum)%>%
   summarise(sd_in = radiant.data::weighted.sd(therm_inparty, weight, na.rm = TRUE))%>%
+	drop_na(primary_vote_dum) %>% 
   glimpse()
 
 
@@ -139,7 +143,8 @@ below_mct_ns <- cdf_trimmed%>% # MCT = Measure of Central Tendency
   select(year,
          weight,
          pid_3,
-         therm_inparty)%>%
+         therm_inparty,
+  			 primary_vote_dum)%>%
   filter(pid_3 != "Independent" & year != 2002)%>%
   mutate(above_80_dum = if_else(therm_inparty > 80, 1, 0),
          above_75_dum = if_else(therm_inparty > 75, 1, 0),
@@ -278,7 +283,9 @@ Before investigating the role played by primaries in driving intra-party attitud
 ```{r, include=FALSE}
 mct_prop_ns <- below_mct_ns%>% #way more measures here than are needed
   group_by(year,
-  				 pid_3)%>%
+  				 pid_3,
+  				 primary_vote_dum)%>%
+	drop_na(primary_vote_dum) %>% 
   summarise(#prop_mean_below = weighted.mean(below_mean_dum, weight, na.rm = TRUE),
             #prop_mean_sd_below = weighted.mean(below_mean_sd_dum, weight, na.rm = TRUE),
 #            prop_med_below = weighted.mean(below_med_dum, weight, na.rm = TRUE), #prop_below is those below the MCT, prop_sd_below is those one SD below med
@@ -303,7 +310,8 @@ prop_below_df <- mct_prop_ns %>%
 	select(year,
 				 pid_3,
 				 pct_50_below,
-				 se_pct_50_below) %>%
+				 se_pct_50_below,
+				 primary_vote_dum) %>%
 	mutate(pid_3 = factor(pid_3,
 					 							 levels = c("Democrat",
 					 							 					 "Republican",
@@ -330,12 +338,14 @@ se_df <- full_join(prop_below_df,
 							 names_prefix = "se_") %>%
 	glimpse()
 
-fig_1_df <- full_join(prop_below_df,
-											sd_df) %>%
+fig_1_df <- prop_below_df %>% 
 	select(year,
 				 pid_3,
 				 pct_50_below,
-				 sd_in) %>% 
+				 primary_vote_dum,
+				 se_pct_50_below) %>%
+	rename(se = se_pct_50_below) %>% 
+	glimpse()
 	pivot_longer(pct_50_below:sd_in,
 							 names_to = "stat",
 							 values_to = "value") %>%
@@ -355,33 +365,31 @@ fig_1_df <- full_join(prop_below_df,
 ```
 ```{r cdf-sd, fig.cap="Changes in the standard deviation of in-party feeling thermometers."}
 
-ggplot(fig_1_df, aes(x = year, y = value, color = stat)) +
-	geom_linerange(aes(ymin = (value - 1.96*se), ymax = (value + 1.96*se)), position = dodge) +
-  geom_line(aes(linetype = stat), size = 1, position = dodge) +
-	geom_point(aes(shape =  stat,), position = dodge, size = 3) +
+ggplot(fig_1_df, aes(x = year, y = pct_50_below, color = pid_3)) +
+	facet_wrap(vars(primary_vote_dum)) +
+	 geom_linerange(aes(ymin = (pct_50_below - 1.96*se), ymax = (pct_50_below + 1.96*se)), position = dodge) +
+  geom_line(aes(linetype = pid_3), size = 1, position = dodge) +
+	geom_point(aes(shape =  pid_3,), position = dodge, size = 3) +
 #scale_color_viridis_d(option = "dividis") +
-scale_color_manual(values = c("Pct. Cold\nRepublican" = "#481567FF",
-															"Pct. Cold\nDemocrat" = "#39568CFF",
-															"Std. Dev.\nPooled" = "#1F968BFF")) +
- scale_linetype_manual(values = c("Pct. Cold\nRepublican" = "solid",
- 															"Pct. Cold\nDemocrat" = "longdash",
- 															"Std. Dev.\nPooled" = "dotted")) +
- scale_shape_manual(values = c("Pct. Cold\nRepublican" = 15,
-  															"Pct. Cold\nDemocrat" = 16,
-  															"Std. Dev.\nPooled" = 17)) +
+scale_color_manual(values = c("Republican" = "#481567FF",
+															"Democrat" = "#39568CFF")) +
+ scale_linetype_manual(values = c("Republican" = "solid",
+ 															"Democrat" = "longdash")) +
+ scale_shape_manual(values = c("Republican" = 15,
+  															"Democrat" = 16)) +
 	scale_x_continuous(breaks = c(seq(1978, 2020, by = 2))) +
-	scale_y_continuous(breaks = c(seq(0,25, by = 5)),
-										 limits = c(0,25)) +
+	# scale_y_continuous(breaks = c(seq(0,25, by = 5)),
+										 # limits = c(0,25)) +
 	theme(legend.position = 'bottom',
 				axis.text.x = element_text(angle = 285),
 				legend.key.width = unit(.1, "npc"),
 				legend.key.height = unit(.05, "npc")) +
 	labs(x = "Year",
-			 y = "Percentage/SD",
-			  color = "Stat:",
-			  linetype = "Stat:",
-			  shape = "Stat:",
-			  fill = "Stat:",
+			 y = "Percentage",
+			  color = " ",
+			  linetype = " ",
+			  shape = " ",
+			  fill = " ",
 			 title = "In-Party Heterogeneity Over Time",
 			 caption = "Bootstrapped 95% confidence intervals given by error bars.")
 
@@ -561,6 +569,59 @@ tab_1_df <- df_primaries%>%
   			 tidy = list(tidy(fit)),
   			 glance = list(glance(fit)))
  
+```
+
+```{r}
+
+fig_3_df <- df_primaries %>% 
+	select(primary_vote_simple,
+				 year,
+				 pid_3,
+				 therm_inparty) %>%
+	mutate(cold = if_else(therm_inparty < 50, 1, 0)) %>% 
+	group_by(primary_vote_simple,
+					 pid_3,
+					 year) %>% 
+	summarize(pct_50_below = 100*mean(cold, na.rm = TRUE),
+						n = n()) %>% 
+	mutate(year = as.numeric(as.character(year))) %>% 
+	ungroup() %>%
+	filter(primary_vote_simple != "Voted in Other Primary" & !is.na(primary_vote_simple)) %>%
+	mutate(prim_vote = as.factor(primary_vote_simple),
+				 prim_vote = recode(prim_vote,
+														"Didn't Vote" = "Non-voter")) %>% 
+	glimpse() 
+
+
+ggplot(fig_3_df, aes(x = year, y = pct_50_below, color = pid_3)) +
+	facet_wrap(vars(primary_vote_simple)) +
+#	 geom_linerange(aes(ymin = (pct_50_below - 1.96*se), ymax = (pct_50_below + 1.96*se)), position = dodge) +
+  geom_line(aes(linetype = pid_3), size = 1, position = dodge) +
+
+
+	geom_point(aes(shape =  pid_3,), position = dodge, size = 3) +
+#scale_color_viridis_d(option = "dividis") +
+scale_color_manual(values = c("Republican" = "#481567FF",
+															"Democrat" = "#39568CFF")) +
+ scale_linetype_manual(values = c("Republican" = "solid",
+ 															"Democrat" = "longdash")) +
+ scale_shape_manual(values = c("Republican" = 15,
+  															"Democrat" = 16)) +
+	scale_x_continuous(breaks = c(seq(2008, 2020, by = 4))) +
+	# scale_y_continuous(breaks = c(seq(0,25, by = 5)),
+										 # limits = c(0,25)) +
+	theme(legend.position = 'bottom',
+				axis.text.x = element_text(angle = 0),
+				legend.key.width = unit(.1, "npc"),
+				legend.key.height = unit(.05, "npc")) +
+	labs(x = "Year",
+			 y = "Percentage",
+			  color = " ",
+			  linetype = " ",
+			  shape = " ",
+			  fill = " ",
+			 title = "In-Party Heterogeneity Over Time",
+			 caption = "Bootstrapped 95% confidence intervals given by error bars.")
 ```
 
 Table 1 presents the results of four OLS linearr regression models, estimating in-party and out-party feeling thermometers as a function of primary election vote choice and outcome, ideology relative to the in-party, standard demographic controls, and survey-year control variables^[The coefficients for these controls are unreported for the sake of presentation but are almost all negative and statistically significant. The full version of the table is included in the supporting information.]. 
