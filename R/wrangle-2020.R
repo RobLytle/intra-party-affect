@@ -116,7 +116,11 @@ df_2020 <- rio::import("data/raw/anes/anes_timeseries_2020_csv_20210719.zip", wh
 				 								 race >=  3 ~ "Other",
 				 								 TRUE ~ NA_character_)
 				 )%>% # 1 means R thinksgov run for a few  #pre interview date
-	mutate(primary_vote_simple = case_when(pid_3 != cand_party ~ "Voted in Other Party Primary",
+	mutate(primary_vote = recode(primary_vote, .default = NA_character_,
+															 "1" = "Voted",
+															 "2" = "Didn't Vote"),
+				 primary_vote_simple = case_when(primary_vote == "Didn't Vote" ~ "Didn't Vote",
+				 																pid_3 != cand_party ~ "Voted in Other Party Primary", #this can be greens or libertarians, not just d/r
 																				 pid_3 == "Democrat" & primary_vote_choice == "Joe Biden" ~ "Winner",
 																				 pid_3 == "Republican" & primary_vote_choice == "Donald Trump" ~ "Winner",
 																				 pid_3 != "Indpendent" & primary_vote_choice != "Didn't Vote" ~ "Loser",
@@ -125,7 +129,8 @@ df_2020 <- rio::import("data/raw/anes/anes_timeseries_2020_csv_20210719.zip", wh
 				 therm_inparty = if_else(therm_inparty > 100 | therm_inparty < 0, NA_integer_, therm_inparty),
 				 therm_outparty = if_else(therm_outparty > 100 | therm_outparty < 0, NA_integer_, therm_outparty),
 				 income = if_else(income <= 0, NA_integer_, income),
-				 below_35k_dum = if_else(income <= 6, 1, 0)
+				 below_35k_dum = if_else(income <= 6, 1, 0),
+				 
 				 )%>%
 	glimpse()%>%
 	write_rds("data/tidy-2020.rds")%>%

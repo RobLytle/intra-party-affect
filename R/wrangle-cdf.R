@@ -94,7 +94,6 @@ cdf_raw_trim <- rio::import("data/raw/anes/anes_timeseries_cdf_dta.zip", which =
 				 VCF0748, # On or before election day? 1 on , 2 before 9na
 	)%>%
   unite("case", year:case_id, remove = FALSE)%>%
-  select(-case_id)%>%
   mutate(case = as.numeric(str_remove(case, "_")),
   			 pres_election = if_else(year %in% seq(1964, 2016, by=4), 1, 0))%>% #dummy variable for pres election
 	rename(female = VCF0104)%>%
