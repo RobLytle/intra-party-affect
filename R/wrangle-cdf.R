@@ -1,11 +1,10 @@
 
-
+require(dplyr)
 library(tidyverse)
 library(sjlabelled)
 library(goji)
 library(anesr)
 data("timeseries_cum")
-
 ## Functions
 
 zero1 <- function(x, minx = NA, maxx = NA) {
@@ -95,6 +94,7 @@ cdf_raw_trim <- timeseries_cum%>% #Imports the .dta file from the .zip file
 				 VCF0736, # Party voted for for house 1 Dem, 5, Rep, 7 other
 				 VCF0748, # On or before election day? 1 on , 2 before 9na
 	)%>%
+	filter(year >= 1978) %>% 
   unite("case", c(year, case_id), remove = FALSE)%>%
   mutate(pres_election = if_else(year %in% seq(1964, 2016, by=4), 1, 0))%>% #dummy variable for pres election
 	rename(female = VCF0104)%>%
@@ -333,7 +333,10 @@ cdf_raw_trim <- timeseries_cum%>% #Imports the .dta file from the .zip file
                                         "Conservative")))%>%
   mutate(pid_2_sort = na_if(pid_3_sort, "Independent"))%>% #better just to filter(pid_3_sort != "Independent"), but used to build other vars
 	mutate(pid_2 = na_if(pid_3, "Independent"))%>% 
-	mutate(ideo_inparty_recode = if_else(pid_2 == "Democrat", 
+	mutate(ideo_inparty = case_when(pid_3  == "Democrat" ~ ideo_dem_num,
+																	pid_3 == "Republican" ~ ideo_rep_num,
+																	TRUE ~ NA_real_),
+				 ideo_inparty_recode = if_else(pid_2 == "Democrat", 
 																		(8-ideo_dem_num), ideo_rep_num))%>% #7= extremely liberal for dems, extremely conservative for reps
 	mutate(ideo_self_recode = if_else(pid_2 == "Democrat",
 																		(8-respondent_ideo_num), respondent_ideo_num))%>% #Recodes so that 7 is most lib for dems/con for reps
@@ -346,9 +349,12 @@ cdf_raw_trim <- timeseries_cum%>% #Imports the .dta file from the .zip file
   mutate(therm_rep = na_if(therm_rep, 98))%>%
   mutate(therm_rep = na_if(therm_rep, 99))%>%
 #  mutate(therm_inparty = if_else(pid_3=="Democrat", therm_dem, therm_rep))%>%
-	mutate(therm_inparty = if_else(pid_3=="Democrat" | pid_3 == "Republican",
-																	if_else(pid_3=="Democrat", therm_dem, therm_rep),
-																		(therm_dem + therm_rep)/2))%>% #therm in/out are equal
+	mutate(therm_inparty = case_when(pid_3 == "Democrat" ~ therm_dem,
+																	 pid_3 == "Republican" ~ therm_rep,
+																	 TRUE~NA_real_),
+				 therm_outparty = case_when(pid_3 == "Democrat" ~ therm_rep,
+				 													 pid_3 == "Republican" ~ therm_dem,
+				 													 TRUE~NA_real_)) %>% 
 	mutate(therm_inparty = na_if(therm_inparty, -9))%>%
   mutate(therm_outparty = if_else(pid_3=="Democrat" | pid_3 == "Republican",
   																if_else(pid_3=="Democrat", therm_rep, therm_dem),
@@ -500,6 +506,26 @@ cdf_raw_trim <- timeseries_cum%>% #Imports the .dta file from the .zip file
 				 below_50_qual_strict = case_when(therm_inparty < 50  ~ "cold",
 																					therm_inparty >= 70 ~ "warm",
 																					TRUE ~ NA_character_))%>%
+mutate(ideo_self = respondent_ideo_num,
+			 ideo_inparty = case_when(pid_3 == "Democrat" ~ ideo_dem_num,
+															 pid_3 == "Republican" ~ ideo_rep_num,
+															 TRUE ~ NA_real_),
+			ideo_outparty = case_when(pid_3 == "Democrat" ~ ideo_rep_num,
+																pid_3 == "Republican" ~ ideo_dem_num,
+																TRUE ~ NA_real_),
+			ideo_self_in_dif = ideo_self - ideo_inparty, #positive values mean R thinks party is more conservative than themselves
+			ideo_self_out_dif = ideo_self - ideo_outparty,
+			ideo_in_out_dif = abs(ideo_inparty - ideo_outparty),
+			age_group = as.factor(ntile(age, 5)),
+			ideo_self_std = (ideo_self-4)/3,
+			ideo_self_prt_std = zero1(case_when(pid_3 == "Democrat" ~ ideo_self_std*-1, # recodes so that high numbers are party-specific extreme 1 = ext. lib for dems, 1 = ext con for reps
+																					pid_3 == "Republican" ~ ideo_self_std,
+																					TRUE ~ NA_real_)),
+			ideo_inparty_std = (ideo_inparty-4)/3,
+			ideo_inparty_prt_std = zero1(case_when(pid_3 == "Democrat" ~ ideo_inparty_std*-1, # recodes so that high numbers are party-specific extreme 1 = ext. lib for dems, 1 = ext con for reps
+																						 pid_3 == "Republican" ~ ideo_inparty_std,
+																						 TRUE ~ NA_real_)),
+			ideo_self_in_dif_std = ideo_self_prt_std - ideo_inparty_prt_std,) %>% 
 #	select(test,
 #				 talk_politics_dum)%>%
 #	filter(talk_politics_dum == 0 & test != 5)%>%

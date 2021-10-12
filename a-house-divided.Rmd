@@ -507,14 +507,15 @@ These group differences hold important implications for politicians and party le
 
 ```{r, primary-tab-wrangle, include=FALSE}
 df_primaries <- read_rds("data/tidy-primaries.rds")%>%
-#	filter(pid_3 != "Independent" & !is.na(primary_vote_simple))%>%
+	rename(prim_vote_simple = primary_vote_simple) %>% 
+#	filter(pid_3 != "Independent" & !is.na(prim_vote_simple))%>%
 	filter(pid_3 != "Independent")%>%
-	filter(!(pid_3 == "Republican" & primary_vote_simple == "Loser" & year == 2020))%>% # dropping republicans who didn't vote for trump because there are very few.
-	mutate(primary_vote_simple = recode(primary_vote_simple, .default = levels(primary_vote_simple),
-																			"Didn't Vote" = "Didn't Vote",
-																			"Voted in Other Party Primary" = "Voted in Other Primary"))%>%
-#	filter(primary_vote_simple != "Other/Third Party/\n Didn't Vote")%>%
-	mutate(primary_vote_simple = factor(primary_vote_simple,
+#	filter(!(pid_3 == "Republican" & prim_vote_simple == "Loser" & year == 2020))%>% # dropping republicans who didn't vote for trump because there are very few.
+# 	mutate(prim_vote_simple = recode(prim_vote_simple, .default = levels(prim_vote_simple),
+# 																			"Didn't Vote" = "Didn't Vote",
+# 																			"Voted in Other Party Primary" = "Voted in Other Primary"))%>%
+# #	filter(prim_vote_simple != "Other/Third Party/\n Didn't Vote")%>%
+	mutate(prim_vote_simple = factor(prim_vote_simple,
 																			levels = c("Winner", "Didn't Vote", "Loser", "Voted in Other Primary")),
 				 therm_inparty = if_else(therm_inparty < 0, NA_integer_, therm_inparty),
 				 therm_outparty = if_else(therm_outparty < 0, NA_integer_, therm_outparty),
@@ -532,10 +533,10 @@ gm_3 <- tibble::tribble(
   "adj.r.squared", "Adj. R Sq.", 2)
 
 # not including ideology var because this  is probably just a proxy for partisanship
-cm_3 <- c("primary_vote_simpleLoser" = "Voted for Primary Loser",
-					"primary_vote_simpleWinner" = "Voted for Primary Winner",
-					"primary_vote_simpleDidn't Vote" = "Didn't Vote in Primary",
-					"primary_vote_simpleVoted in Other Primary" = "Voted in Other Primary",
+cm_3 <- c("prim_vote_simpleLoser" = "Voted for Primary Loser",
+					"prim_vote_simpleWinner" = "Voted for Primary Winner",
+					"prim_vote_simpleDidn't Vote" = "Didn't Vote in Primary",
+					"prim_vote_simpleVoted in Other Primary" = "Voted in Other Primary",
 					"ideo_self_prt_std" = "Ideological Extremity",
 					"ideo_self_in_dif_std" = "Relative Partisan Extremity",
 					"ideo_dif_terc2" = "Rel. Extremity 2",
@@ -564,7 +565,7 @@ tab_1_df <- df_primaries%>%
            pid_3,
            therm_name)%>%
   nest_by() %>% 
-  mutate(fit = list(lm(therm_val ~ primary_vote_simple + age_group + male_dum + white_dum + year + ideo_self_in_dif_std + below_35k_dum, data = data,  weights = weight)),
+  mutate(fit = list(lm(therm_val ~ prim_vote_simple + age_group + male_dum + white_dum + year + ideo_self_in_dif_std + below_35k_dum, data = data,  weights = weight)),
   			 aug = list(augment(fit)),
   			 tidy = list(tidy(fit)),
   			 glance = list(glance(fit)))
@@ -573,23 +574,38 @@ tab_1_df <- df_primaries%>%
 
 ```{r}
 
-fig_3_df <- df_primaries %>% 
-	select(primary_vote_simple,
+df_primaries_test <- read_rds("data/tidy-primaries.rds")%>%
+	filter(year == 2016) %>% 
+		select(prim_vote_simple = primary_vote_simple,
 				 year,
 				 pid_3,
-				 therm_inparty) %>%
-	mutate(cold = if_else(therm_inparty < 50, 1, 0)) %>% 
-	group_by(primary_vote_simple,
+				 therm_inparty,
+				 case) %>%
+		filter(pid_3 == "Republican" | pid_3 == "Democrat") %>%
+	glimpse()
+
+fig_3_df <- read_rds("data/tidy-primaries-80-20.rds")%>%
+#	filter(year == 2016) %>%  ## WHY IS THIS DIFFERENT in 2016 between the old wrangle and new???????
+#fig_3_df <- df_primaries %>% 
+	select(prim_vote_simple,
+				 year,
+				 pid_3,
+				 therm_inparty,
+				 case) %>%
+	filter(pid_3 == "Republican" | pid_3 == "Democrat") %>% 
+		glimpse() %>% 
+
+	mutate(cold = if_else(therm_inparty < 50, 1, 0)) %>%
+	group_by(prim_vote_simple,
 					 pid_3,
 					 year) %>% 
 	summarize(pct_50_below = 100*mean(cold, na.rm = TRUE),
-						n = n()) %>% 
+						n = n()) %>%
 	mutate(year = as.numeric(as.character(year))) %>% 
 	ungroup() %>%
-	filter(primary_vote_simple != "Voted in Other Primary" & !is.na(primary_vote_simple)) %>%
-	mutate(prim_vote = factor(recode(primary_vote_simple,
-														"Didn't Vote" = "Non-voter"),
-														levels = c("Winner", "Non-voter", "Loser"))) %>% 
+	filter(prim_vote_simple != "Voted in Other Primary" & !is.na(prim_vote_simple)) %>%
+	mutate(prim_vote = recode_factor(prim_vote_simple,
+														"Didn't Vote" = "Non-voter")) %>% 
 	glimpse() 
 
 
@@ -607,9 +623,9 @@ scale_color_manual(values = c("Republican" = "#481567FF",
  															"Democrat" = "longdash")) +
  scale_shape_manual(values = c("Republican" = 15,
   															"Democrat" = 16)) +
-	scale_x_continuous(breaks = c(seq(2008, 2020, by = 4))) +
-	 scale_y_continuous(breaks = c(seq(0,25, by = 5)),
-										  limits = c(0,20)) +
+	scale_x_continuous(breaks = c(seq(1980, 2020, by = 4))) +
+	#  scale_y_continuous(breaks = c(seq(0,25, by = 5)),
+	# 									  limits = c(0,20)) +
 	theme(legend.position = 'bottom',
 				axis.text.x = element_text(angle = 0),
 				legend.key.width = unit(.1, "npc"),

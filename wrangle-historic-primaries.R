@@ -21,10 +21,10 @@ df_tid_80 <- df_80 %>%
 				 prim_vote_cand = V800373) %>%
 	sjlabelled::remove_all_labels() %>% 
 	mutate(case = paste("1980", case, sep = "_"),
-				 prim_vote_dum = recode(prim_vote_dum, .default = NA_character_,
+				 prim_vote_dum = dplyr::recode(prim_vote_dum, .default = NA_character_,
 				 											 "1" = "Voted",
 				 											 "5" = "Didn't Vote"),
-				 prim_vote_party = recode(prim_vote_party, .default = NA_character_,
+				 prim_vote_party = dplyr::recode(prim_vote_party, .default = NA_character_,
 				 											 "1" = "Republican",
 				 											 "5" = "Democrat"),
 				 pid_3 = case_when(pid_3 <= 2 ~ "Democrat",
@@ -56,10 +56,10 @@ df_tid_92 <- df_92 %>%
 				 prim_vote_cand_d = V923304) %>%
 	sjlabelled::remove_all_labels() %>% 
 	mutate(case = paste("1992", case, sep = "_"),
-				 prim_vote_dum = recode(prim_vote_dum, .default = NA_character_,
+				 prim_vote_dum = dplyr::recode(prim_vote_dum, .default = NA_character_,
 				 											 "1" = "Voted",
 				 											 "5" = "Didn't Vote"),
-				 prim_vote_party = recode(prim_vote_party, .default = NA_character_,
+				 prim_vote_party = dplyr::recode(prim_vote_party, .default = NA_character_,
 				 												 "1" = "Republican",
 				 												 "5" = "Democrat"),
 				 pid_3 = case_when(pid_3 <= 2 ~ "Democrat",
@@ -99,10 +99,10 @@ df_tid_88 <- df_88 %>%
 				 prim_vote_cand_d = V880151) %>%
 	sjlabelled::remove_all_labels() %>% 
 	mutate(case = paste("1988", case, sep = "_"),
-				 prim_vote_dum = recode(prim_vote_dum, .default = NA_character_,
+				 prim_vote_dum = dplyr::recode(prim_vote_dum, .default = NA_character_,
 				 											 "1" = "Voted",
 				 											 "5" = "Didn't Vote"),
-				 prim_vote_party = recode(prim_vote_party, .default = NA_character_,
+				 prim_vote_party = dplyr::recode(prim_vote_party, .default = NA_character_,
 				 												 "1" = "Republican",
 				 												 "5" = "Democrat"),
 				 pid_3 = case_when(pid_3 <= 2 ~ "Democrat",
@@ -132,13 +132,16 @@ tidy_cdf <- read_rds("data/tidy-cdf.rds") %>%
 				 therm_outparty,
 				 income_num,
 				 ideo_self = respondent_ideo_num,
+				 ideo_self_in_dif,
+				 ideo_inparty,
 				 weight) %>% 
 	#	select(case) %>%
 	glimpse()
 
 
 
-df_2020 <- read_csv("data/tidy-primaries.csv") %>% 
+df_2020 <- read_csv("data/tidy-primaries.csv") %>%
+	filter(year == 2020) %>% 
 	select(case,
 				 prim_vote_simple = primary_vote_simple,
 				 year,
@@ -147,13 +150,16 @@ df_2020 <- read_csv("data/tidy-primaries.csv") %>%
 				 income_num = income,
 				 ideo_self,
 				 pid_3,
-				 weight) %>% 
+				 weight,
+				 ideo_self_in_dif,
+				 ideo_inparty) %>% 
 	glimpse()
+
 # Joining all the primaries into one
-new_prims <- read_csv("data/tidy-primaries.csv") %>% #this file is made in wrangle-primaries.R. I will probably put everythingg into one file.
-	filter(year != 2020) %>% 
+new_prims <- read_csv("data/tidy-primaries.rds") %>% #this file is made in wrangle-primaries.R. I will probably put everythingg into one file.
+	filter(year != "2020") %>% 
 	select(prim_vote_simple = primary_vote_simple,
-				 case) %>% 
+				 case) %>%
 	glimpse()
 
 all_primaries_df<-rbind(df_tid_80,
@@ -164,7 +170,18 @@ all_primaries_df<-rbind(df_tid_80,
 	rbind(df_2020) %>% 
 	mutate(prim_vote_simple = factor(prim_vote_simple,
 																	 levels = c("Winner", "Didn't Vote", "Loser", "Voted in Other Primary")),
-				 therm_inparty = as.integer(therm_inparty)) %>%
+				 therm_inparty = as.integer(therm_inparty),
+				 therm_outparty = as.integer(therm_outparty),
+				 ideo_self_std = (ideo_self-4)/3,
+				 ideo_self_prt_std = zero1(case_when(pid_3 == "Democrat" ~ ideo_self_std*-1, # recodes so that high numbers are party-specific extreme 1 = ext. lib for dems, 1 = ext con for reps
+				 																		pid_3 == "Republican" ~ ideo_self_std,
+				 																		TRUE ~ NA_real_)),
+				 ideo_inparty_std = (ideo_inparty-4)/3,
+				 ideo_inparty_prt_std = zero1(case_when(pid_3 == "Democrat" ~ ideo_inparty_std*-1, # recodes so that high numbers are party-specific extreme 1 = ext. lib for dems, 1 = ext con for reps
+				 																			 pid_3 == "Republican" ~ ideo_inparty_std,
+				 																			 TRUE ~ NA_real_)),
+				 ideo_self_in_dif_std = ideo_self_prt_std - ideo_inparty_prt_std,) %>%
+	filter(pid_3 != "Independent") %>% 
 	write_rds("data/tidy-primaries-80-20.rds") %>% 
 	glimpse()
 

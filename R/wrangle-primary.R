@@ -118,7 +118,7 @@ df_2008 <- import("data/raw/anes/anes_timeseries_2008.zip",
                              "Fred Thompson" = "Republican",
                              "Someone Else" = "Other/Third Party"))%>%
   mutate(primary_vote_choice = as.factor(if_else(is.na(primary_vote_choice) & primary_vote_dum == 0, "Didn't Vote", primary_vote_choice)))%>%
-  mutate(primary_vote_simple = case_when(pid_3 != cand_party ~ "Voted in Other Party Primary",
+  mutate(primary_vote_simple = case_when(pid_3 != cand_party ~ "Voted in Other Primary",
                                          pid_3 == "Democrat" & primary_vote_choice == "Barack Obama" ~ "Winner",
                                          pid_3 == "Republican" & primary_vote_choice == "John McCain" ~ "Winner",
                                          pid_3 != "Indpendent" & primary_vote_choice != "Didn't Vote" ~ "Loser",
@@ -213,7 +213,7 @@ df_2012 <- import("data/raw/anes/anes_timeseries_2012.zip", which = "anes_timese
                              "Barack Obama" = "Democrat",
                              "Someone Else" = "Other/Third Party"))%>%
   mutate(primary_vote_choice = as.factor(if_else(is.na(primary_vote_choice) & primary_vote_dum == 0, "Didn't Vote", primary_vote_choice)))%>%
-  mutate(primary_vote_simple = case_when(pid_3 != cand_party ~ "Voted in Other Party Primary",
+  mutate(primary_vote_simple = case_when(pid_3 != cand_party ~ "Voted in Other Primary",
                                          pid_3 == "Democrat" & primary_vote_choice == "Barack Obama" ~ "Winner",
                                          pid_3 == "Republican" & primary_vote_choice == "Mitt Romney" ~ "Winner",
                                          pid_3 != "Indpendent" & primary_vote_choice != "Didn't Vote" ~ "Loser",
@@ -331,7 +331,7 @@ df_2016 <- rio::import("data/raw/anes/anes_timeseries_2016.zip", which = "anes_t
                              "Another Republican" = "Republican",
                              "A Third Party Candidate" = "Other/Third Party"
   ))%>%
-  mutate(primary_vote_simple = case_when(pid_3 != cand_party ~ "Voted in Other Party Primary",
+  mutate(primary_vote_simple = case_when(pid_3 != cand_party ~ "Voted in Other Primary",
                                          pid_3 == "Democrat" & primary_vote_choice == "Hillary Clinton" ~ "Winner",
                                          pid_3 == "Republican" & primary_vote_choice == "Donald Trump" ~ "Winner",
                                          pid_3 != "Indpendent" & primary_vote_choice != "Didn't Vote" ~ "Loser",
@@ -375,7 +375,7 @@ primaries <- rbind(df_2016, df_2008, df_2012, df_2020)%>%
                                       levels = c("1" = "Winner",
                                                  "2" = "Loser",
                                                  "3" = "Didn't Vote",
-                                                 "4" = "Voted in Other Party Primary")),
+                                                 "4" = "Voted in Other Primary")),
          cand_party = factor(cand_party,
                              levels = c("1" = "Democrat",
                                         "2" = "Republican",
@@ -406,8 +406,8 @@ primaries <- rbind(df_2016, df_2008, df_2012, df_2020)%>%
          race = as.factor(race),
          white_dum = if_else(race == "White", 1, 0))%>% #0 values are more moderate, relative to the party
   glimpse()%>%
-  write_rds("data/tidy-primaries.rds")%>%
-  write_csv("data/tidy-primaries.csv")
+  filter(pid_3 != "Independent") %>% 
+  write_rds("data/tidy-primaries.rds")
 
 primaries %>%  #1-7 lib-con
   ggplot(aes(x = ideo_self_in_dif, y = ideo_self_out_dif)) +
