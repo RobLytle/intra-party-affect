@@ -3,6 +3,8 @@
 library(tidyverse)
 library(sjlabelled)
 library(goji)
+library(anesr)
+data("timeseries_cum")
 
 ## Functions
 
@@ -31,7 +33,7 @@ test_2 <- zero1(test)
 #https://electionstudies.org/wp-content/uploads/2018/12/anes_timeseries_cdf_codebook_var.pdf
 
 # Changed coding strategy for renaming halfway through, forgive the inconsistency, might fix if I feel like procrastinating
-cdf_raw_trim <- rio::import("data/raw/anes/anes_timeseries_cdf_dta.zip", which = "anes_timeseries_cdf.dta")%>% #Imports the .dta file from the .zip file
+cdf_raw_trim <- timeseries_cum%>% #Imports the .dta file from the .zip file
 	remove_all_labels()%>%
 	select(year = VCF0004, # Year of response
 					pid_7 = VCF0301, #7 scale Party ID val: 1-7. Strong Democrat 2. Weak Democrat3. Independent - Democrat4. Independent - Independent5. Independent - Republican6. Weak Republican7. Strong Republican
@@ -93,9 +95,8 @@ cdf_raw_trim <- rio::import("data/raw/anes/anes_timeseries_cdf_dta.zip", which =
 				 VCF0736, # Party voted for for house 1 Dem, 5, Rep, 7 other
 				 VCF0748, # On or before election day? 1 on , 2 before 9na
 	)%>%
-  unite("case", year:case_id, remove = FALSE)%>%
-  mutate(case = as.numeric(str_remove(case, "_")),
-  			 pres_election = if_else(year %in% seq(1964, 2016, by=4), 1, 0))%>% #dummy variable for pres election
+  unite("case", c(year, case_id), remove = FALSE)%>%
+  mutate(pres_election = if_else(year %in% seq(1964, 2016, by=4), 1, 0))%>% #dummy variable for pres election
 	rename(female = VCF0104)%>%
   mutate(female = na_if(female, 3))%>%
   mutate(female = na_if(female, 0))%>%
@@ -361,20 +362,6 @@ cdf_raw_trim <- rio::import("data/raw/anes/anes_timeseries_cdf_dta.zip", which =
   mutate(therm_ideo_ingroup = if_else(ideo_2_sort=="Liberal", therm_lib, therm_con))%>%
   mutate(therm_ideo_outgroup = if_else(ideo_2_sort=="Liberal", therm_con, therm_lib))%>%
   mutate(net_ideo = therm_ideo_ingroup - therm_ideo_outgroup)%>%
-  mutate(therm_cath = na_if(therm_cath, 98))%>%
-  mutate(therm_cath = na_if(therm_cath, 99))%>%
-  mutate(therm_prot = na_if(therm_prot, 98))%>%
-  mutate(therm_prot = na_if(therm_prot, 99))%>%
-  mutate(therm_relig_ingroup = if_else(cath_prot_flag=="Catholic", therm_cath, therm_prot))%>%
-  mutate(therm_relig_outgroup = if_else(cath_prot_flag=="Catholic", therm_prot, therm_cath))%>%
-  mutate(net_relig = therm_relig_ingroup - therm_relig_outgroup)%>%
-  mutate(therm_black = na_if(therm_black, 98))%>%
-  mutate(therm_black = na_if(therm_black, 99))%>%
-  mutate(therm_white = na_if(therm_white, 98))%>%
-  mutate(therm_white = na_if(therm_white, 99))%>%
-  mutate(therm_race_ingroup = if_else(black_white_flag=="Black", therm_black, therm_white))%>%
-  mutate(therm_race_outgroup = if_else(black_white_flag=="Black", therm_white, therm_black))%>%
-  mutate(net_race = therm_race_ingroup - therm_race_outgroup)%>%
 	mutate(parties_therm_dif = therm_inparty - therm_outparty)%>% #creates a variable showing the difference in thermometer ratings for each party
 	mutate(parties_ideo_dif = abs(ideo_dem_num - ideo_rep_num))%>%
 	rename(income = VCF0114)%>%

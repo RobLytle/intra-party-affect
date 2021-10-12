@@ -23,8 +23,10 @@ zero1 <- function(x, minx = NA, maxx = NA) {
 }
 
 
-df_2008 <- import("data/raw/anes/anes_timeseries_2008.zip", which = "anes_timeseries_2008_rawdata.txt")%>%
-  select(age = V081104,
+df_2008 <- import("data/raw/anes/anes_timeseries_2008.zip", 
+                  which = "anes_timeseries_2008_rawdata.txt")%>%
+  select(case = V080001,
+         age = V081104,
          sex = V081101,
          race = V081102,
          income = V083248x,
@@ -125,7 +127,8 @@ df_2008 <- import("data/raw/anes/anes_timeseries_2008.zip", which = "anes_timese
          primary_vote = recode(primary_vote, .default = NA_character_,
                                "1" = "1",
                                "5" = "0"),)%>%
-  mutate(year = "2008")%>%
+  mutate(year = "2008",
+         case = paste(year, case, sep = "_"),)%>%
   glimpse()
 
 
@@ -136,7 +139,8 @@ df_2008 <- import("data/raw/anes/anes_timeseries_2008.zip", which = "anes_timese
 
 
 df_2012 <- import("data/raw/anes/anes_timeseries_2012.zip", which = "anes_timeseries_2012_rawdata.txt")%>%
-  select(age = dem_age_r_x,
+  select(case = caseid,
+         age = dem_age_r_x,
          race = dem_raceeth_x,
          sex = gender_respondent_x,
          income  = inc_incgroup_pre,
@@ -225,7 +229,8 @@ df_2012 <- import("data/raw/anes/anes_timeseries_2012.zip", which = "anes_timese
          num_w1 = as.numeric(pre_web_1_date),
          num_w2 = as.numeric(pre_web_2_date),
          web_date = as_date(round((num_w1 + num_w2)/2, 0)),
-         date = if_else(!is.na(pre_ftf_date), pre_ftf_date, web_date)
+         date = if_else(!is.na(pre_ftf_date), pre_ftf_date, web_date),
+         case = paste(year, case, sep = "_"),
 )%>%
   select(colnames(df_2008))%>%
   glimpse()%>%#
@@ -235,7 +240,8 @@ df_2012 <- import("data/raw/anes/anes_timeseries_2012.zip", which = "anes_timese
 
 #2016
 df_2016 <- rio::import("data/raw/anes/anes_timeseries_2016.zip", which = "anes_timeseries_2016_rawdata.txt")%>%
-  select(age = V161267,
+  select(case = V160001,
+         age = V161267,
          sex = V161342,
          race = V161310x,
          income = V161361x,
@@ -337,7 +343,9 @@ df_2016 <- rio::import("data/raw/anes/anes_timeseries_2016.zip", which = "anes_t
          income = if_else(income <= 0, NA_integer_, income),
          below_35k_dum = if_else(income <= 11, 1, 0))%>%
   mutate(year = 2016,
-         date = ymd(date),)%>%
+         date = ymd(date),
+         case = paste(year, case, sep = "_"),
+         )%>%
   select(colnames(df_2008))%>% #selecting only columns that exist in the 2008 dataset
   glimpse()%>%#
   write_rds("data/tidy-2016.rds")%>%

@@ -2,7 +2,8 @@ library(tidyverse)
 library(lubridate)
 
 df_2020 <- rio::import("data/raw/anes/anes_timeseries_2020_csv_20210719.zip", which = "anes_timeseries_2020_csv_20210719.csv")%>%
-	select(pid_7 = V201231x,
+	select(case =  V200001,
+				 pid_7 = V201231x,
 				 ft_dem = V201156,
 				 ft_rep = V201157,
 				 ideo_self = V201200, #1-7 lib con, -na
@@ -130,6 +131,7 @@ df_2020 <- rio::import("data/raw/anes/anes_timeseries_2020_csv_20210719.zip", wh
 				 therm_outparty = if_else(therm_outparty > 100 | therm_outparty < 0, NA_integer_, therm_outparty),
 				 income = if_else(income <= 0, NA_integer_, income),
 				 below_35k_dum = if_else(income <= 6, 1, 0),
+				 case = paste(year, case, sep = "_"),
 				 
 				 )%>%
 	glimpse()%>%
