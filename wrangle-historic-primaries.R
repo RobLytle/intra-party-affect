@@ -11,16 +11,6 @@ df_80<-timeseries_1980
 df_88<-timeseries_1988
 df_92<-timeseries_1992
 
-tidy_cdf <- read_rds("data/tidy-cdf.rds") %>%
-#	filter(year == 1980) %>%
-	select(case,
-				 year,
-				 therm_inparty,
-				 income_num,
-				 ideo_self_recode,
-				 weight) %>% 
-#	select(case) %>%
-	glimpse()
 
 
 df_tid_80 <- df_80 %>%
@@ -48,11 +38,6 @@ df_tid_80 <- df_80 %>%
 				 														 TRUE ~ NA_character_)) %>%
 	select(case,
 				 prim_vote_simple) %>% 
-	glimpse()
-
-left_join(df_tid_80,
-					tidy_cdf,
-					by = "case") %>% 
 	glimpse()
 
 
@@ -133,8 +118,40 @@ df_tid_88 <- df_88 %>%
 	glimpse()
 
 
+
+
+
+
+
+tidy_cdf <- read_rds("data/tidy-cdf.rds") %>%
+	filter(year >= 1980) %>%
+	select(pid_3,
+				 case,
+				 year,
+				 therm_inparty,
+				 therm_outparty,
+				 income_num,
+				 ideo_self = respondent_ideo_num,
+				 weight) %>% 
+	#	select(case) %>%
+	glimpse()
+
+
+
+df_2020 <- read_csv("data/tidy-primaries.csv") %>% 
+	select(case,
+				 prim_vote_simple = primary_vote_simple,
+				 year,
+				 therm_inparty,
+				 therm_outparty,
+				 income_num = income,
+				 ideo_self,
+				 pid_3,
+				 weight) %>% 
+	glimpse()
 # Joining all the primaries into one
 new_prims <- read_csv("data/tidy-primaries.csv") %>% #this file is made in wrangle-primaries.R. I will probably put everythingg into one file.
+	filter(year != 2020) %>% 
 	select(prim_vote_simple = primary_vote_simple,
 				 case) %>% 
 	glimpse()
@@ -144,8 +161,10 @@ all_primaries_df<-rbind(df_tid_80,
 											df_tid_92,
 											new_prims) %>%
 	left_join(tidy_cdf) %>%
+	rbind(df_2020) %>% 
 	mutate(prim_vote_simple = factor(prim_vote_simple,
-																	 levels = c("Winner", "Didn't Vote", "Loser", "Voted in Other Primary"))) %>%
+																	 levels = c("Winner", "Didn't Vote", "Loser", "Voted in Other Primary")),
+				 therm_inparty = as.integer(therm_inparty)) %>%
 	write_rds("data/tidy-primaries-80-20.rds") %>% 
 	glimpse()
 
