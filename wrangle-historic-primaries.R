@@ -11,6 +11,22 @@ df_80<-timeseries_1980
 df_88<-timeseries_1988
 df_92<-timeseries_1992
 
+zero1 <- function(x, minx = NA, maxx = NA) {
+	
+	stopifnot(identical(typeof(as.numeric(x)), "double"))
+	
+	if (typeof(x) == "character") x <- as.numeric(x)
+	
+	res <- NA
+	
+	if (is.na(minx)) {
+		res <- (x - min(x, na.rm = T)) / (max(x, na.rm = T) - min(x, na.rm = T))
+	}
+	
+	if (!is.na(minx)) res <- (x - minx) / (maxx - minx)
+	
+	res
+}
 
 
 df_tid_80 <- df_80 %>%
@@ -130,11 +146,19 @@ tidy_cdf <- read_rds("data/tidy-cdf.rds") %>%
 				 year,
 				 therm_inparty,
 				 therm_outparty,
-				 income_num,
+				 income = income_num,
 				 ideo_self = respondent_ideo_num,
 				 ideo_self_in_dif,
 				 ideo_inparty,
-				 weight) %>% 
+				 weight,
+				 age,
+				 race,
+				 sex = VCF0104, #gender 1 male, 2 female, 3 other (2016 only).
+	) %>% 
+	mutate(sex = recode(sex,
+											"1" = "Male",
+											"2" = "Female",
+											"3" = "Other")) %>% 
 	#	select(case) %>%
 	glimpse()
 
@@ -143,6 +167,9 @@ tidy_cdf <- read_rds("data/tidy-cdf.rds") %>%
 df_2020 <- read_csv("data/tidy-primaries.csv") %>%
 	filter(year == 2020) %>% 
 	select(case,
+				 age,
+				 race,
+				 sex,
 				 prim_vote_simple = primary_vote_simple,
 				 year,
 				 therm_inparty,
@@ -152,12 +179,12 @@ df_2020 <- read_csv("data/tidy-primaries.csv") %>%
 				 pid_3,
 				 weight,
 				 ideo_self_in_dif,
-				 ideo_inparty) %>% 
+				 ideo_inparty) %>%
 	glimpse()
 
 # Joining all the primaries into one
-new_prims <- read_csv("data/tidy-primaries.rds") %>% #this file is made in wrangle-primaries.R. I will probably put everythingg into one file.
-	filter(year != "2020") %>% 
+new_prims <- read_rds("data/tidy-primaries.rds") %>% #this file is made in wrangle-primaries.R. I will probably put everythingg into one file.
+	filter(year != 2020) %>% 
 	select(prim_vote_simple = primary_vote_simple,
 				 case) %>%
 	glimpse()

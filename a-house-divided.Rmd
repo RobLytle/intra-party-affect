@@ -591,7 +591,8 @@ fig_3_df <- read_rds("data/tidy-primaries-80-20.rds")%>%
 				 year,
 				 pid_3,
 				 therm_inparty,
-				 case) %>%
+				 case,
+				 weight) %>%
 	filter(pid_3 == "Republican" | pid_3 == "Democrat") %>% 
 		glimpse() %>% 
 
@@ -599,13 +600,16 @@ fig_3_df <- read_rds("data/tidy-primaries-80-20.rds")%>%
 	group_by(prim_vote_simple,
 					 pid_3,
 					 year) %>% 
-	summarize(pct_50_below = 100*mean(cold, na.rm = TRUE),
+	summarize(pct_50_below = 100*weighted.mean(cold, weight, na.rm = TRUE),
 						n = n()) %>%
 	mutate(year = as.numeric(as.character(year))) %>% 
 	ungroup() %>%
 	filter(prim_vote_simple != "Voted in Other Primary" & !is.na(prim_vote_simple)) %>%
-	mutate(prim_vote = recode_factor(prim_vote_simple,
-														"Didn't Vote" = "Non-voter")) %>% 
+	mutate(prim_vote = factor(recode_factor(prim_vote_simple, .ordered = TRUE,
+														"Didn't Vote" = "Non-voter"),
+														levels = c("Winner", "Non-voter", "Loser")))%>%
+	filter(!(pid_3=="Republican" & (year == 2020 | year == 2004))) %>% 
+	filter(!(pid_3=="Democrat" & (year == 2012))) %>% 
 	glimpse() 
 
 
@@ -613,7 +617,7 @@ ggplot(fig_3_df, aes(x = year, y = pct_50_below, color = pid_3)) +
 	facet_wrap(vars(prim_vote)) +
 #	 geom_linerange(aes(ymin = (pct_50_below - 1.96*se), ymax = (pct_50_below + 1.96*se)), position = dodge) +
   geom_line(aes(linetype = pid_3), size = 1, position = dodge) +
-
+#	binomial_smooth(method = "loess", se = FALSE, aes(linetype = pid_3),) +
 
 	geom_point(aes(shape =  pid_3,), position = dodge, size = 3) +
 #scale_color_viridis_d(option = "dividis") +
@@ -631,16 +635,16 @@ scale_color_manual(values = c("Republican" = "#481567FF",
 				legend.key.width = unit(.1, "npc"),
 				legend.key.height = unit(.05, "npc")) +
 	labs(x = "Year",
-			 y = "Percentage",
+			 y = "Percentage Cold",
 			  color = " ",
 			  linetype = " ",
 			  shape = " ",
 			  fill = " ",
 			 title = "In-Party Heterogeneity Over Time",
-			 caption = "Bootstrapped 95% confidence intervals given by error bars.")
+			 caption = "Source: ANES Timeseries Study (1980, 1988, 1992, 2008, 2012, 2016, 2020)")
 ```
 
-Table 1 presents the results of four OLS linearr regression models, estimating in-party and out-party feeling thermometers as a function of primary election vote choice and outcome, ideology relative to the in-party, standard demographic controls, and survey-year control variables^[The coefficients for these controls are unreported for the sake of presentation but are almost all negative and statistically significant. The full version of the table is included in the supporting information.]. 
+Table 1 presents the results of four OLS linear regression models, estimating in-party and out-party feeling thermometers as a function of primary election vote choice and outcome, ideology relative to the in-party, standard demographic controls, and survey-year control variables^[The coefficients for these controls are unreported for the sake of presentation but are almost all negative and statistically significant. The full version of the table is included in the supporting information.]. 
 
 The measure of relative party ideology used in these models is constructed as the difference between respondents' ideological self-placement on the standard seven-point scale and their in-party. The scales are recoded by party such that for Democrats "1" is "Extremely Conservative" while "7" is "Extremely Liberal", for Republicans "1" is "Extremely Liberal" while "7" is "Extremely Conservative". This re-coding is done so that high values represent more extreme ideological positions for both sets of partisans. After recoding, the difference $Self - In-party$ is taken to measure the degree to which partisans perceive an ideological distance between themselves and their party. Finally, for ease of interpretation this measure is recoded so that all observations fall in $[-1, 1]$, where negative values indicate the respondent views themselves as more moderate than their party (e.g., a Republican who sees themselves as more liberal than the Republican party), while positive values indicate the respondent views themselves as more extreme than their party (e.g., a Democrat who reports being more liberal than the Democratic Party). The modal difference is 0; a plurality of respondents ascribe the same ideological identifier to themselves as to their party. Edge cases, for example, where a Republican identifies themselves as "Extremely Liberal" and their party as "Extremely Conservative" or vice-versa are exceedingly rare^[See APPENDIX ITEM for the distribution of ideological placements].
 

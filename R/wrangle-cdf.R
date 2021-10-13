@@ -97,7 +97,7 @@ cdf_raw_trim <- timeseries_cum%>% #Imports the .dta file from the .zip file
 	filter(year >= 1978) %>% 
   unite("case", c(year, case_id), remove = FALSE)%>%
   mutate(pres_election = if_else(year %in% seq(1964, 2016, by=4), 1, 0))%>% #dummy variable for pres election
-	rename(female = VCF0104)%>%
+	mutate(female = VCF0104)%>%
   mutate(female = na_if(female, 3))%>%
   mutate(female = na_if(female, 0))%>%
 	mutate(female = as.numeric(recode(female, 
