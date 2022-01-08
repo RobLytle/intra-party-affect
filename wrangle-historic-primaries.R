@@ -4,9 +4,9 @@ library(anesr)
 data(timeseries_1980) #these import the datasets from anesr
 data(timeseries_1988)
 data(timeseries_1992)
-data(timeseries_cum)
+#data(timeseries_cum)
 
-df_cdf <- timeseries_cum
+df_cdf <- read_rds("data/tidy-cdf.rds")
 df_80<-timeseries_1980
 df_88<-timeseries_1988
 df_92<-timeseries_1992
@@ -153,7 +153,7 @@ tidy_cdf <- read_rds("data/tidy-cdf.rds") %>%
 				 weight,
 				 age,
 				 race,
-				 sex = VCF0104, #gender 1 male, 2 female, 3 other (2016 only).
+				 sex, #gender 1 male, 2 female, 3 other (2016 only).
 	) %>% 
 	mutate(sex = recode(sex,
 											"1" = "Male",
@@ -174,7 +174,7 @@ df_2020 <- read_csv("data/tidy-primaries.csv") %>%
 				 year,
 				 therm_inparty,
 				 therm_outparty,
-				 income_num = income,
+				 income,
 				 ideo_self,
 				 pid_3,
 				 weight,
@@ -194,6 +194,7 @@ all_primaries_df<-rbind(df_tid_80,
 											df_tid_92,
 											new_prims) %>%
 	left_join(tidy_cdf) %>%
+	glimpse() %>% 
 	rbind(df_2020) %>% 
 	mutate(prim_vote_simple = factor(prim_vote_simple,
 																	 levels = c("Winner", "Didn't Vote", "Loser", "Voted in Other Primary")),
@@ -216,6 +217,7 @@ all_primaries_df<-rbind(df_tid_80,
 
 # CDF Case-id number: VCF0006
 
+levels(as.factor(all_primaries_df$year))
 
 
 

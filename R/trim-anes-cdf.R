@@ -9,7 +9,7 @@ library(sjlabelled)
 #https://electionstudies.org/wp-content/uploads/2018/12/anes_timeseries_cdf_codebook_var.pdf                  #
 ######                                                                                                #########
 
-cdf_raw_trim <- rio::import("data/raw/anes_timeseries_cdf_dta.zip", which = "anes_timeseries_cdf.dta")%>% #Imports the .dta file from the .zip file
+cdf_raw_trim <- rio::import("data/raw/anes/anes_timeseries_cdf_stata_20211118.zip", which = "anes_timeseries_cdf_stata_20211118.dta")%>% #Imports the .dta file from the .zip file
   filter(VCF0004 >= 1964)%>%
 select(VCF0004,
        VCF0006, #unique case ID

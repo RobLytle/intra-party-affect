@@ -1,0 +1,378 @@
+library(tidyverse)
+library(broom)
+library(rsample)
+library(ggExtra)
+library(ggridges)
+library(gridExtra)
+library(ggpubr)
+library(janitor)
+library(diagis)
+library(forcats)
+library(cowplot)
+set.seed(2001)
+theme_set(theme_minimal())
+
+
+##
+# Differences in opinion and behavior between primary winners/losers
+# Loser <50, Winner greater=50
+##
+
+primaries <- read_rds("data/tidy-primaries-80-20.rds") %>%
+	select(year,
+				 case,
+				 prim_vote_simple) %>% 
+	filter(prim_vote_simple %in% c("Winner", "Loser")) %>% 
+	glimpse()
+
+
+##
+# Bootstrapping opinion SEs
+#
+opinion_df <- read_rds("data/tidy-cdf.rds")%>%
+	left_join(primaries) %>% 
+	filter(year %in% primaries$year & pid_3 != "Independent") %>%
+	select(weight, #just selecting the relevant vars because the resampling takes a long time.
+				 pid_3,
+				 prim_vote_simple,
+				 dis_democ_dum,
+				 distrust_gov_dum,
+				 gov_run_for_few_dum,
+				 wrong_track_dum,
+				 officials_dont_care_dum,
+				 wealth_gap_larger_dum)%>%
+	glimpse()
+
+opinion_boot_df <- data.frame(boot = 1:2000)%>%
+	group_by(boot)%>%
+	do(sample_n(opinion_df, nrow(opinion_df), replace = TRUE))%>% #creating 2000 new datasets of equal size to the original
+	group_by(boot,
+					 pid_3,
+					 prim_vote_simple)%>%
+	summarize(
+		prop_dissat = weighted.mean(dis_democ_dum, weight, na.rm = TRUE),
+		prop_distrust = weighted.mean(distrust_gov_dum, weight, na.rm = TRUE),
+		prop_gov_few = weighted.mean(gov_run_for_few_dum, weight, na.rm = TRUE),
+		prop_wrong_track = weighted.mean(wrong_track_dum, weight, na.rm = TRUE),
+		prop_officials_dont_care = weighted.mean(officials_dont_care_dum, weight, na.rm = TRUE),
+		prop_wealth_gap_larger = weighted.mean(wealth_gap_larger_dum, weight, na.rm = TRUE)
+	)%>%
+	glimpse()
+
+
+se_op_df <- opinion_boot_df%>% #putting this here so I don't have to run the resample every time. Once troubleshooted, I will put in one pipe
+	filter(!is.na(prim_vote_simple))%>%
+
+	pivot_wider(names_from = prim_vote_simple,
+							values_from = prop_dissat:prop_wealth_gap_larger)%>%
+	pivot_longer(prop_dissat_Winner:prop_wealth_gap_larger_Loser, 
+							 names_to = c("which_question", ".value"), 
+							 names_pattern="(.*)_([A-Z][a-z]*)")%>%
+	group_by(boot,
+					 pid_3,
+					 which_question)%>%
+	summarize(prop_dif = (Loser-Winner)/Loser + Winner)%>%
+	group_by(
+		pid_3,
+		which_question)%>%
+	#	summarize(prop_se = parameters::standard_error(prop_dif))%>%
+	summarize(prop_se = sd(prop_dif))%>%
+	mutate(which_question = recode(which_question,
+																 "prop_dissat" = "Very/Fairly Dissatisfied With Democracy",
+																 "prop_distrust" = "Distrusts Gov. \"Most\" or \"Almost All\" of the Time",
+																 "prop_gov_few" = "\"Government is run for a few at the top\"",
+																 "prop_officials_dont_care" = "Officials don\'t care what people like me think",
+																 "prop_wealth_gap_larger" = "Wealth gap greater today than 20 years ago",
+																 "prop_wrong_track" = "Country is on Wrong Track"))%>%
+	glimpse()
+
+
+opinion_means_df <- read_rds("data/tidy-cdf.rds")%>%
+	left_join(primaries) %>% 
+	filter(year %in% primaries$year & pid_3 != "Independent") %>%
+	mutate(ltet_2004 = if_else(year <= 2004, 1, 0))%>%
+	group_by(pid_3, prim_vote_simple)%>%
+	summarize(prop_dissat = weighted.mean(dis_democ_dum, weight, na.rm = TRUE),
+						prop_distrust = weighted.mean(distrust_gov_dum, weight, na.rm = TRUE),
+						prop_gov_few = weighted.mean(gov_run_for_few_dum, weight, na.rm = TRUE),
+						prop_wrong_track = weighted.mean(wrong_track_dum, weight, na.rm = TRUE),
+						prop_officials_dont_care = weighted.mean(officials_dont_care_dum, weight, na.rm = TRUE),
+						prop_wealth_gap_larger = weighted.mean(wealth_gap_larger_dum, weight, na.rm = TRUE))%>%
+	pivot_wider(names_from = prim_vote_simple,
+							values_from = prop_dissat:prop_wealth_gap_larger)%>%
+	select(-ends_with("NA"))%>%
+	pivot_longer(prop_dissat_Winner:prop_wealth_gap_larger_Loser, 
+							 names_to = c("which_question", ".value"), 
+							 names_pattern="(.*)_([A-Z][a-z]*)")%>%
+	mutate(which_question = as.factor(which_question))%>%
+	group_by(
+		pid_3,
+		which_question)%>%
+	#	summarize(prop_dif = (Loser - Winner))%>%
+	summarize(prop_difference = (Loser - Winner)/(Loser+Winner)#difference is divided to normalize
+						#	se_dif
+	)%>% 
+	mutate(which_question = as.factor(which_question))%>%
+	filter(!is.na(prop_difference))%>%
+	mutate(which_question = recode(which_question,
+																 "prop_dissat" = "Very/Fairly Dissatisfied With Democracy",
+																 "prop_distrust" = "Distrusts Gov. \"Most\" or \"Almost All\" of the Time",
+																 "prop_gov_few" = "\"Government is run for a few at the top\"",
+																 "prop_officials_dont_care" = "Officials don\'t care what people like me think",
+																 "prop_wealth_gap_larger" = "Wealth gap greater today than 20 years ago",
+																 "prop_wrong_track" = "Country is on Wrong Track"))%>%
+	mutate(which_question = reorder(which_question, prop_difference),)%>%
+	glimpse()
+
+opinion_pooled_df <- full_join(opinion_means_df, se_op_df)%>%
+	mutate(which_question = reorder(which_question, prop_difference),
+				 sig_dum = case_when(prop_difference < 0 & prop_difference + 1.645*prop_se < 0 ~ TRUE,
+				 										prop_difference > 0 & prop_difference - 1.645*prop_se > 0 ~ TRUE,
+				 										TRUE ~ FALSE))%>%
+	glimpse()
+
+#The Plot
+dodge <- position_dodge(width=0.5)
+
+gg_opinion_pooled <- ggplot(opinion_pooled_df, aes(x = prop_difference, y = fct_relabel(which_question, str_wrap, width = 20))) +
+	geom_linerange(aes(xmin = prop_difference - 1.645*prop_se, xmax = prop_difference + 1.645*prop_se, color = pid_3), position = dodge) +
+	#	geom_point(data=opinion_pooled_df[opinion_pooled_df$sig_dum == TRUE,],size=5, aes(position = pid_3), shape = 1, position = dodge) + #overlays a shape on sig 
+	geom_point(aes(color = pid_3, shape = pid_3), size = 3, position = dodge) +
+	scale_color_manual(values = c("Democrat" = "dodgerblue3",
+																"Republican" = "firebrick3")) +
+	geom_vline(xintercept = 0.00) +
+#	coord_cartesian(xlim = c(-.75, .75)) +
+	scale_x_continuous(n.breaks = 6) +	
+	labs(x = "Difference",
+			 y = "Question",
+			 #			 title = "Difference in Proportion Whom Agree\n between Loser/Winner Partisans",
+			 subtitle = "Opinion Items",
+			 color = "Party",
+			 shape = "Party")
+gg_opinion_pooled
+
+ggsave("fig/gg-pooled-opinion-prim.png", gg_opinion_pooled, width = 6, height = 4, units = "in")
+
+
+###
+## Pooled Behavior
+## First, bootstrapping SE
+###
+behavior_df <- read_rds("data/tidy-cdf.rds")%>%
+	left_join(primaries) %>% 
+	filter(year %in% primaries$year & pid_3 != "Independent") %>%
+	select(weight, #just selecting the relevant vars because the resampling takes a long time.
+				 pid_3,
+				 prim_vote_simple,
+				 general_vote_dum,
+				 activist_6cat,
+				 split_ticket_dum,
+				 meetings_dum,
+				 work_cand_dum,
+				 display_merch_dum,
+				 donate_dum,
+				 watch_campaign_tv_dum,
+				 knows_house_pre_dum,
+				 knows_house_post_dum,
+				 talk_politics_most_days_dum,
+				 primary_vote_dum,
+				 early_vote_dum,
+				 vote_inparty_house_dum,
+				 vote_outparty_pres_dum,
+				 vote_thirdparty_pres_dum,
+				 vote_inparty_pres_dum)%>%
+	glimpse()
+
+behavior_boot_df <- data.frame(boot = 1:2000)%>%
+	group_by(boot)%>%
+	do(sample_n(behavior_df, nrow(behavior_df), replace = TRUE))%>%
+	group_by(boot,
+					 pid_3,
+					 prim_vote_simple)%>%
+	summarize(
+		prop_vote_general = weighted.mean(general_vote_dum, weight, na.rm = TRUE),
+		mean_activist_index = weighted.mean(activist_6cat, weight, na.rm = TRUE), #6 measures of activism, additive index
+		prop_split_ticket = weighted.mean(split_ticket_dum, weight, na.rm = TRUE),
+		prop_meetings = weighted.mean(meetings_dum, weight, na.rm = TRUE),
+		prop_work_cand = weighted.mean(work_cand_dum, weight, na.rm = TRUE),
+		prop_display_merch = weighted.mean(display_merch_dum, weight, na.rm = TRUE),
+		prop_donate = weighted.mean(donate_dum, weight, na.rm = TRUE),
+		prop_watch_campaign_tv = weighted.mean(watch_campaign_tv_dum, weight, na.rm = TRUE),
+		prop_know_house_pre = weighted.mean(knows_house_pre_dum, weight, na.rm = TRUE),
+		prop_know_house_post = weighted.mean(knows_house_post_dum, weight, na.rm = TRUE),
+		prop_talk_pol_most = weighted.mean(talk_politics_most_days_dum, weight, na.rm = TRUE),
+		prop_vote_primary = weighted.mean(primary_vote_dum, weight, na.rm = TRUE),
+		prop_early_vote = weighted.mean(early_vote_dum, weight, na.rm = TRUE),
+		prop_vote_inparty_house = weighted.mean(vote_inparty_house_dum, weight, na.rm = TRUE),
+		prop_vote_outparty_pres = weighted.mean(vote_outparty_pres_dum, weight, na.rm = TRUE),
+		prop_vote_thirdparty_pres = weighted.mean(vote_thirdparty_pres_dum, weight, na.rm = TRUE),
+		prop_vote_inparty_pres = weighted.mean(vote_inparty_pres_dum, weight, na.rm = TRUE)
+	)%>%
+	glimpse()%>%
+write_rds("data/bootstrapped-behav-means.rds")%>%
+write_csv("data/bootstrapped-behav-means.rds")
+
+ci_df <- behavior_boot_df%>% #putting this here so I don't have to run the resample every time
+	filter(!is.na(prim_vote_simple))%>%
+	select(-prop_display_merch, #comment this select() to include vars captured in activist_6cat
+				 -prop_donate,
+				 -prop_meetings,
+				 -prop_work_cand)%>%
+	pivot_wider(names_from = prim_vote_simple,
+							values_from = prop_vote_general:prop_vote_inparty_pres)%>%
+	pivot_longer(prop_vote_general_Winner:prop_vote_inparty_pres_Loser, 
+							 names_to = c("which_question", ".value"), 
+							 names_pattern="(.*)_([A-Z][a-z]*)")%>%
+	group_by(boot,
+					 pid_3,
+					 which_question)%>%
+	summarize(prop_dif = (Loser-Winner)/Loser + Winner)%>%
+	group_by(
+		pid_3,
+		which_question)%>%
+	#	summarize(prop_se = parameters::standard_error(prop_dif))%>%
+	summarize(prop_se = sd(prop_dif))%>%
+	mutate(which_question = recode(which_question,
+																 "prop_display_merch" = "Display Sticker/Pin",
+																 "mean_activist_index" = "6-Item Campaign Participation Index",
+																 "prop_donate" = "Donate to Candidate/Campaign",
+																 "prop_early_vote" = "Vote Early",
+																 "prop_know_house_post" = "Know Party Won the House",
+																 "prop_know_house_pre" = "Know Party in Control Before Election",
+																 "prop_meetings" = "Attended Political Meetings/Rallies",
+																 "prop_split_ticket" = "Voted Split Ticket",
+																 "prop_talk_pol_most" = "Talk about Politics Most Days",
+																 "prop_vote_general" = "Voted in General Election",
+																 "prop_vote_primary" = "Voted in Primary Election",
+																 "prop_vote_inparty_house" = "Voted for Inparty House",
+																 "prop_vote_inparty_pres" = "Voted Inparty for President",
+																 "prop_vote_outparty_pres" = "Voted Outparty for President",
+																 "prop_vote_thirdparty_pres" = "Voted Thirdparty for President",
+																 "prop_watch_campaign_tv" = "Watch Campaign Related TV",
+																 "prop_work_cand" = "Worked for a Candidate/Campaign"
+																 ))%>%
+	glimpse()
+
+
+####
+## Now, calculating the simple proportions
+###
+behavior_means_df <- read_rds("data/tidy-cdf.rds")%>%
+	left_join(primaries) %>% 
+	filter(year %in% primaries$year & pid_3 != "Independent") %>%
+	#	glimpse()
+	#	group_by( pid_3, below_50_qual_strict, pres_election)%>% #strict cutoff
+	group_by(pid_3, 
+					 prim_vote_simple)%>% 
+	summarize(
+		prop_vote_general = weighted.mean(general_vote_dum, weight, na.rm = TRUE),
+		mean_activist_index = weighted.mean(activist_6cat, weight, na.rm = TRUE), #6 measures of activism, additive index
+		prop_split_ticket = weighted.mean(split_ticket_dum, weight, na.rm = TRUE),
+		prop_meetings = weighted.mean(meetings_dum, weight, na.rm = TRUE),
+		prop_work_cand = weighted.mean(work_cand_dum, weight, na.rm = TRUE),
+		prop_display_merch = weighted.mean(display_merch_dum, weight, na.rm = TRUE),
+		prop_donate = weighted.mean(donate_dum, weight, na.rm = TRUE),
+		prop_watch_campaign_tv = weighted.mean(watch_campaign_tv_dum, weight, na.rm = TRUE),
+		prop_know_house_pre = weighted.mean(knows_house_pre_dum, weight, na.rm = TRUE),
+		prop_know_house_post = weighted.mean(knows_house_post_dum, weight, na.rm = TRUE),
+		prop_talk_pol_most = weighted.mean(talk_politics_most_days_dum, weight, na.rm = TRUE),
+		prop_vote_primary = weighted.mean(primary_vote_dum, weight, na.rm = TRUE),
+		prop_early_vote = weighted.mean(early_vote_dum, weight, na.rm = TRUE),
+		prop_vote_inparty_house = weighted.mean(vote_inparty_house_dum, weight, na.rm = TRUE),
+		prop_vote_outparty_pres = weighted.mean(vote_outparty_pres_dum, weight, na.rm = TRUE),
+		prop_vote_thirdparty_pres = weighted.mean(vote_thirdparty_pres_dum, weight, na.rm = TRUE),
+		prop_vote_inparty_pres = weighted.mean(vote_inparty_pres_dum, weight, na.rm = TRUE)
+	)%>%
+	select(-prop_display_merch, #comment this select() to include vars captured in activist_6cat
+				 -prop_donate,
+				 -prop_meetings,
+				 -prop_work_cand)%>%
+	pivot_wider(names_from = prim_vote_simple,
+							values_from = prop_vote_general:prop_vote_inparty_pres)%>%
+	select(-ends_with("NA"))%>%
+	pivot_longer(prop_vote_general_Winner:prop_vote_inparty_pres_Loser, 
+							 names_to = c("which_question", ".value"), 
+							 names_pattern="(.*)_([A-Z][a-z]*)")%>%
+	mutate(which_question = as.factor(which_question))%>%
+	group_by(
+		pid_3,
+		which_question)%>%
+	#	summarize(prop_dif = (Loser - Winner))%>%
+	summarize(prop_difference = (Loser - Winner)/(Loser+Winner)#,
+						#	se_dif
+	)%>% 
+	#	filter(!is.na(prop_dif))%>%
+	select(-starts_with("var"))%>%
+	mutate(which_question = recode(which_question,
+																 "prop_display_merch" = "Display Sticker/Pin",
+																 "mean_activist_index" = "6-Item Campaign Participation Index",
+																 "prop_donate" = "Donate to Candidate/Campaign",
+																 "prop_early_vote" = "Vote Early",
+																 "prop_know_house_post" = "Know Party Won the House",
+																 "prop_know_house_pre" = "Know Party in Control Before Election",
+																 "prop_meetings" = "Attended Political Meetings/Rallies",
+																 "prop_split_ticket" = "Voted Split Ticket",
+																 "prop_talk_pol_most" = "Talk about Politics Most Days",
+																 "prop_vote_general" = "Voted in General Election",
+																 "prop_vote_primary" = "Voted in Primary Election",
+																 "prop_vote_inparty_house" = "Voted for Inparty House",
+																 "prop_vote_inparty_pres" = "Voted Inparty for President",
+																 "prop_vote_outparty_pres" = "Voted Outparty for President",
+																 "prop_vote_thirdparty_pres" = "Voted Thirdparty for President",
+																 "prop_watch_campaign_tv" = "Watch Campaign Related TV",
+																 "prop_work_cand" = "Worked for a Candidate/Campaign"))%>%
+	mutate(which_question = reorder(which_question, prop_difference))%>%
+	glimpse()
+
+behavior_pooled_df <- full_join(behavior_means_df, ci_df)%>%
+	mutate(which_question = reorder(which_question, prop_difference),
+				 sig_dum = case_when(prop_difference < 0 & prop_difference + 1.645*prop_se < 0 ~ TRUE,
+				 										prop_difference > 0 & prop_difference - 1.645*prop_se > 0 ~ TRUE,
+				 										TRUE ~ FALSE))%>%
+	glimpse()
+
+###r
+
+gg_behavior_pooled <- ggplot(behavior_pooled_df, aes(x = prop_difference, y = fct_relabel(which_question, str_wrap, width = 20))) +
+	geom_linerange(aes(xmin = prop_difference - 1.645*prop_se, xmax = prop_difference + 1.645*prop_se, color = pid_3), position = dodge) +
+	#	geom_point(data=behavior_pooled_df[behavior_pooled_df$sig_dum == TRUE,],size=5, aes(position = pid_3), shape = 1, position = dodge) + #overlays a shape on sig 
+	geom_point(aes(color = pid_3, shape = pid_3), size = 3, position = dodge) +
+	scale_color_manual(values = c("Democrat" = "dodgerblue3",
+																"Republican" = "firebrick3")) +
+	geom_vline(xintercept = 0.00) +
+	coord_cartesian(xlim = c(-.75, .75)) +
+	scale_x_continuous(n.breaks = 6) +	
+	theme(legend.position = c(0.8, 0.3)) +
+	labs(x = "Difference",
+			 y = "Question",
+			 subtitle = "Behavior and Knowledge Items",
+			 caption = "Bootstrapped 90% CI given by horizontal bars",
+			 color = "Party",
+			 shape = "Party")
+gg_behavior_pooled
+
+ggsave("fig/gg-pooled-behavior-prim.png", gg_behavior_pooled, width = 6, height = 8, units = "in")
+
+#####
+## Putting them into one plot
+#####
+
+#Removing redundant formatting from the plots
+p1 <- gg_opinion_pooled + theme(legend.position = "none",
+																axis.title.x = element_blank(),
+																axis.title.y = element_blank(),
+																axis.text.x = element_blank())
+p2 <- gg_behavior_pooled + theme(
+	axis.title.x = element_blank(),
+	axis.title.y = element_blank())
+
+pg <- plot_grid(p1, p2,  align = "v", nrow = 2, rel_heights = c(1/3, 2/3), label_x = "Difference") 
+pg
+
+
+gg_pooled_combined <- grid.arrange(arrangeGrob(pg,
+																							 top = text_grob("Difference in Proportion Between Loser and Winner Partisans", vjust = 1, face = "bold"),
+																							 left = text_grob("Question Asked", rot = 90, vjust = 1, face = "bold"),
+																							 bottom = text_grob("Loser - Winner / Total Affirmative", face = "bold")))
+gg_pooled_combined
+ggsave("fig/gg-pooled-combined-prim.png", gg_pooled_combined, width = 6, height = 12, units = "in")

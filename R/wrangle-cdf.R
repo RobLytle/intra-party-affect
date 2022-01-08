@@ -2,11 +2,13 @@
 require(dplyr)
 library(tidyverse)
 library(sjlabelled)
-library(goji)
+#library(goji)
 library(anesr)
-data("timeseries_cum")
+#data("timeseries_cum")
 ## Functions
-
+timeseries_cum %>% 
+	filter(VCF0004 == "2020") %>% 
+	glimpse()
 zero1 <- function(x, minx = NA, maxx = NA) {
 	
 	stopifnot(identical(typeof(as.numeric(x)), "double"))
@@ -32,7 +34,7 @@ test_2 <- zero1(test)
 #https://electionstudies.org/wp-content/uploads/2018/12/anes_timeseries_cdf_codebook_var.pdf
 
 # Changed coding strategy for renaming halfway through, forgive the inconsistency, might fix if I feel like procrastinating
-cdf_raw_trim <- timeseries_cum%>% #Imports the .dta file from the .zip file
+cdf_raw_trim <- rio::import("data/raw/cdf-raw-trim.rds")%>% #Imports the .dta file from the .zip file
 	remove_all_labels()%>%
 	select(year = VCF0004, # Year of response
 					pid_7 = VCF0301, #7 scale Party ID val: 1-7. Strong Democrat 2. Weak Democrat3. Independent - Democrat4. Independent - Independent5. Independent - Republican6. Weak Republican7. Strong Republican
@@ -63,14 +65,14 @@ cdf_raw_trim <- timeseries_cum%>% #Imports the .dta file from the .zip file
 				 VCF0110, #education 1 (grade school), 2(High School), 3(Some College), 4(College/advanced) 0DK/NA
 				 VCF0105a, #race 1(white), 2(Black), 3 (asian/pacific), 4(Am. indian/alaska native), 5(hispanic), 6 (other/mult), 7(non-white/non-black), 9NA
 				 VCF0113, #south 1(south), 2(nonsouth)
-				 VCF0114,
+				 income = VCF0114,
 				 VCF0310, #interest 1(not much), 2(somewhat), 3(very) 9dk, 0na
 				 VCF0130, #worship 1(every week), 2(almost every week), 3 (once or twice a month), 4 (few times a year), 5(never), 7(no relig.), 890na
 				 VCF0050a, # iwrpkpre 1(very high)-5(very low)
 				 VCF0050b, # iwrpkpst (same above), take mean
 				 VCF9255, #satisfied_democ 1(very), 2(fairly), 3(not very), 4(not at all) -8,-9NA
 				 VCF9036, #know_sen 1-2(correct), 3-4(wrong), 7-9NA
-				 VCF0104, #gender 1 male, 2 female, 3 other (2016 only).
+				 sex = VCF0104, #gender 1 male, 2 female, 3 other (2016 only).
 				 VCF0128, # Regligions preference. 1 protestant, 2 catholic, 3 jewish, 4 other/none/dk, 0 na
 				 VCF0604, # Trust in Gov to do what's right 1, never, 2, some of time, 3 most of time, 4 almost always, 9, dk
 				 VCF0605, # Gov run for a few interests (1) or benefit of all (2), 9 DK, 0 NA
@@ -97,7 +99,7 @@ cdf_raw_trim <- timeseries_cum%>% #Imports the .dta file from the .zip file
 	filter(year >= 1978) %>% 
   unite("case", c(year, case_id), remove = FALSE)%>%
   mutate(pres_election = if_else(year %in% seq(1964, 2016, by=4), 1, 0))%>% #dummy variable for pres election
-	mutate(female = VCF0104)%>%
+	mutate(female = sex)%>%
   mutate(female = na_if(female, 3))%>%
   mutate(female = na_if(female, 0))%>%
 	mutate(female = as.numeric(recode(female, 
@@ -250,8 +252,8 @@ cdf_raw_trim <- timeseries_cum%>% #Imports the .dta file from the .zip file
 	mutate(ideo_rep = na_if(ideo_rep, 0))%>%
 	mutate(ideo_dem = na_if(ideo_dem, 8))%>%
 	mutate(ideo_dem = na_if(ideo_dem, 0))%>%
-	mutate(primary_vote_dum = na_if(primary_vote, -8))%>%
-	mutate(primary_vote_dum = na_if(primary_vote, -9))%>%
+	mutate(primary_vote = na_if(primary_vote, -8))%>%
+	mutate(primary_vote = na_if(primary_vote, -9))%>%
 	mutate(primary_vote_dum = as.numeric(recode(primary_vote, 
 																		"1" = "1",
 																		"2" = "0")))%>%
@@ -370,7 +372,7 @@ cdf_raw_trim <- timeseries_cum%>% #Imports the .dta file from the .zip file
   mutate(net_ideo = therm_ideo_ingroup - therm_ideo_outgroup)%>%
 	mutate(parties_therm_dif = therm_inparty - therm_outparty)%>% #creates a variable showing the difference in thermometer ratings for each party
 	mutate(parties_ideo_dif = abs(ideo_dem_num - ideo_rep_num))%>%
-	rename(income = VCF0114)%>%
+#	rename( = VCF0114)%>%
 	mutate(income_num = na_if(income, 0))%>%
 	mutate(income = recode(income_num,
 												 "1" = "0 -- 16 Percentile",
@@ -526,6 +528,7 @@ mutate(ideo_self = respondent_ideo_num,
 																						 pid_3 == "Republican" ~ ideo_inparty_std,
 																						 TRUE ~ NA_real_)),
 			ideo_self_in_dif_std = ideo_self_prt_std - ideo_inparty_prt_std,) %>% 
+	select(-starts_with("VCF")) %>% 
 #	select(test,
 #				 talk_politics_dum)%>%
 #	filter(talk_politics_dum == 0 & test != 5)%>%
