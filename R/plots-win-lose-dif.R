@@ -71,12 +71,14 @@ se_op_df <- opinion_boot_df%>% #putting this here so I don't have to run the res
 	group_by(boot,
 					 pid_3,
 					 which_question)%>%
-	summarize(prop_dif = (Loser-Winner)/Loser + Winner)%>%
+	summarize(prop_dif = (Loser-Winner)/Loser + Winner,
+						prop_dif_simple = (Loser - Winner))%>%
 	group_by(
 		pid_3,
 		which_question)%>%
 	#	summarize(prop_se = parameters::standard_error(prop_dif))%>%
-	summarize(prop_se = sd(prop_dif))%>%
+	summarize(prop_se = sd(prop_dif),
+						simple_prop_se = sd(prop_dif_simple))%>%
 	mutate(which_question = recode(which_question,
 																 "prop_dissat" = "Very/Fairly Dissatisfied With Democracy",
 																 "prop_distrust" = "Distrusts Gov. \"Most\" or \"Almost All\" of the Time",
@@ -109,11 +111,12 @@ opinion_means_df <- read_rds("data/tidy-cdf.rds")%>%
 		pid_3,
 		which_question)%>%
 	#	summarize(prop_dif = (Loser - Winner))%>%
-	summarize(prop_difference = (Loser - Winner)/(Loser+Winner)#difference is divided to normalize
+	summarize(prop_dif = (Loser - Winner)/(Loser+Winner),#difference is divided to normalize
+						prop_dif_simple = (Loser - Winner)
 						#	se_dif
 	)%>% 
 	mutate(which_question = as.factor(which_question))%>%
-	filter(!is.na(prop_difference))%>%
+	filter(!is.na(prop_dif))%>%
 	mutate(which_question = recode(which_question,
 																 "prop_dissat" = "Very/Fairly Dissatisfied With Democracy",
 																 "prop_distrust" = "Distrusts Gov. \"Most\" or \"Almost All\" of the Time",
@@ -121,21 +124,22 @@ opinion_means_df <- read_rds("data/tidy-cdf.rds")%>%
 																 "prop_officials_dont_care" = "Officials don\'t care what people like me think",
 																 "prop_wealth_gap_larger" = "Wealth gap greater today than 20 years ago",
 																 "prop_wrong_track" = "Country is on Wrong Track"))%>%
-	mutate(which_question = reorder(which_question, prop_difference),)%>%
+	mutate(which_question = reorder(which_question, prop_dif),)%>%
 	glimpse()
 
 opinion_pooled_df <- full_join(opinion_means_df, se_op_df)%>%
-	mutate(which_question = reorder(which_question, prop_difference),
-				 sig_dum = case_when(prop_difference < 0 & prop_difference + 1.645*prop_se < 0 ~ TRUE,
-				 										prop_difference > 0 & prop_difference - 1.645*prop_se > 0 ~ TRUE,
+	mutate(which_question = reorder(which_question, prop_dif),
+				 sig_dum = case_when(prop_dif < 0 & prop_dif + 1.645*prop_se < 0 ~ TRUE,
+				 										prop_dif > 0 & prop_dif - 1.645*prop_se > 0 ~ TRUE,
 				 										TRUE ~ FALSE))%>%
+	write_rds("data/tidy-opinion-prim.rds")%>%
 	glimpse()
 
 #The Plot
 dodge <- position_dodge(width=0.5)
 
-gg_opinion_pooled <- ggplot(opinion_pooled_df, aes(x = prop_difference, y = fct_relabel(which_question, str_wrap, width = 20))) +
-	geom_linerange(aes(xmin = prop_difference - 1.645*prop_se, xmax = prop_difference + 1.645*prop_se, color = pid_3), position = dodge) +
+gg_opinion_pooled <- ggplot(opinion_pooled_df, aes(x = prop_dif, y = fct_relabel(which_question, str_wrap, width = 20))) +
+	geom_linerange(aes(xmin = prop_dif - 1.645*prop_se, xmax = prop_dif + 1.645*prop_se, color = pid_3), position = dodge) +
 	#	geom_point(data=opinion_pooled_df[opinion_pooled_df$sig_dum == TRUE,],size=5, aes(position = pid_3), shape = 1, position = dodge) + #overlays a shape on sig 
 	geom_point(aes(color = pid_3, shape = pid_3), size = 3, position = dodge) +
 	scale_color_manual(values = c("Democrat" = "dodgerblue3",
@@ -226,12 +230,14 @@ ci_df <- behavior_boot_df%>% #putting this here so I don't have to run the resam
 	group_by(boot,
 					 pid_3,
 					 which_question)%>%
-	summarize(prop_dif = (Loser-Winner)/Loser + Winner)%>%
+	summarize(prop_dif = (Loser-Winner)/Loser + Winner,
+						prop_dif_simple = (Loser-Winner)) %>% 
 	group_by(
 		pid_3,
 		which_question)%>%
 	#	summarize(prop_se = parameters::standard_error(prop_dif))%>%
-	summarize(prop_se = sd(prop_dif))%>%
+	summarize(prop_se = sd(prop_dif),
+						simple_prop_se = sd(prop_dif_simple))%>%
 	mutate(which_question = recode(which_question,
 																 "prop_display_merch" = "Display Sticker/Pin",
 																 "mean_activist_index" = "6-Item Campaign Participation Index",
@@ -298,7 +304,8 @@ behavior_means_df <- read_rds("data/tidy-cdf.rds")%>%
 		pid_3,
 		which_question)%>%
 	#	summarize(prop_dif = (Loser - Winner))%>%
-	summarize(prop_difference = (Loser - Winner)/(Loser+Winner)#,
+	summarize(prop_dif = (Loser - Winner)/(Loser+Winner),
+						prop_dif_simple = (Loser-Winner)
 						#	se_dif
 	)%>% 
 	#	filter(!is.na(prop_dif))%>%
@@ -321,20 +328,21 @@ behavior_means_df <- read_rds("data/tidy-cdf.rds")%>%
 																 "prop_vote_thirdparty_pres" = "Voted Thirdparty for President",
 																 "prop_watch_campaign_tv" = "Watch Campaign Related TV",
 																 "prop_work_cand" = "Worked for a Candidate/Campaign"))%>%
-	mutate(which_question = reorder(which_question, prop_difference))%>%
+	mutate(which_question = reorder(which_question, prop_dif))%>%
 	glimpse()
 
 behavior_pooled_df <- full_join(behavior_means_df, ci_df)%>%
-	mutate(which_question = reorder(which_question, prop_difference),
-				 sig_dum = case_when(prop_difference < 0 & prop_difference + 1.645*prop_se < 0 ~ TRUE,
-				 										prop_difference > 0 & prop_difference - 1.645*prop_se > 0 ~ TRUE,
+	mutate(which_question = reorder(which_question, prop_dif),
+				 sig_dum = case_when(prop_dif < 0 & prop_dif + 1.645*prop_se < 0 ~ TRUE,
+				 										prop_dif > 0 & prop_dif - 1.645*prop_se > 0 ~ TRUE,
 				 										TRUE ~ FALSE))%>%
+	write_rds("data/tidy-behavior-prim.rds")%>%
 	glimpse()
 
 ###r
 
-gg_behavior_pooled <- ggplot(behavior_pooled_df, aes(x = prop_difference, y = fct_relabel(which_question, str_wrap, width = 20))) +
-	geom_linerange(aes(xmin = prop_difference - 1.645*prop_se, xmax = prop_difference + 1.645*prop_se, color = pid_3), position = dodge) +
+gg_behavior_pooled <- ggplot(behavior_pooled_df, aes(x = prop_dif, y = fct_relabel(which_question, str_wrap, width = 20))) +
+	geom_linerange(aes(xmin = prop_dif - 1.645*prop_se, xmax = prop_dif + 1.645*prop_se, color = pid_3), position = dodge) +
 	#	geom_point(data=behavior_pooled_df[behavior_pooled_df$sig_dum == TRUE,],size=5, aes(position = pid_3), shape = 1, position = dodge) + #overlays a shape on sig 
 	geom_point(aes(color = pid_3, shape = pid_3), size = 3, position = dodge) +
 	scale_color_manual(values = c("Democrat" = "dodgerblue3",
