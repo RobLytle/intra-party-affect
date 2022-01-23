@@ -3,10 +3,10 @@ title: "A House Divided Feels Drafty: Primary Elections and *Intra*-party Coldne
 author: "Rob Lytle"
 output: 
   bookdown::pdf_document2:
-  number_sections: TRUE
-  fig_caption: TRUE
-  toc: FALSE
-abstract: "How do partisans think about their *own* party? Inter-party affective divisions have been widely identified by scholars of partisanship and public opinion. Increasingly, Republican and Democratic partisans have come to dislike members of their political out-group. What has been lost in these discussions is an appraisal of individuals' perceptions of and attitudes towards their in-party, which are generally held to be both stable and broadly positive. In this study, I use both existing time-series data and an original survey experiment to explore the role of direct primary elections in shaping partisans' attitudes towards their in-party. I argue that primary election losses cause those who supported the losing candidate to grow colder towards their party. Troublingly, I find no evidence that winners' supporters grow warmer towards their party---the primary serves only to frustrate the losers."
+    number_sections: TRUE
+    fig_caption: TRUE
+    toc: FALSE
+abstract: "How do partisans think about their *own* party? Inter-party animosity has been widely identified by scholars of partisanship and public opinion. Increasingly, Republican and Democratic partisans have come to dislike members of their political out-group. What has been lost in these discussions is an appraisal of individuals' perceptions of and attitudes towards their in-party, which are generally held to be both stable and broadly positive. In this study, I use both existing time-series data and an original survey experiment to explore the role of direct primary elections in shaping partisans' attitudes towards their in-party. I argue that primary election losses cause those who supported the losing candidate to grow colder towards their party. Troublingly, I find no evidence that winners' supporters grow warmer towards their party---the primary serves only to frustrate the losers."
 bibliography: references.bib
 thanks: "In no particular order, I express my gratitude for the feedback, guidance, and support provided by Hans Hassell, Brad Gomez, Doug Ahler, Jens Grosser, Kai Ou, Bob Jackson, Quintin Beazer, Megan Skowronski, Gaurav Sood, Sarah Warren, Damian Boldt, Taylor Chewning, Olivia VanHousen, Braeden McNulty,  William Thyer, and Kate Peirce. All advice is invaluable and all mistakes are my own."
 header-includes:
@@ -421,7 +421,6 @@ fig_1_df <- prop_below_df %>%
 				 stat = str_replace(stat, " - ", "\n")) %>% 
 		glimpse()
 ```
-\clearpage
 
 \doublespacing
 
@@ -443,21 +442,17 @@ Vote choice---or preference for a candidate more generally---is most often analy
 
 
 
-# Observational Data
+# Descriptive Analysis
 
 My main measure of partisan affect is taken from the American National Election Study's (ANES) 100-point partisan feeling thermometers. Feeling thermometer questions ask respondents to rate groups on a scale from 0-100, where 0 indicates that a respondent dislikes and feels very "cold" towards the group and 100 indicates that the respondent likes and feels very "warm" towards the group. A rating of 50 degrees indicates indifference or ambivalence towards the group. I make use of the ANES Cumulative Datafile (ANES CDF) and individual releases of the ANES for years in which respondent's are asked about their primary election vote---1980, 1988, 1992, 2008, 2012, 2016, and 2020 specifically.^[The ANES CDF includes a variable indicating whether a respondent did or did not vote in a primary, but not the candidate(s) for whom they voted.] I also draw on a range of ANES items which solicit the attitudes and behaviors of the respondent towards the government and politics. These measures are discussed in more detail in the following section. All calculations are made and figures drawn using the appropriate weighting procedures specified in the ANES Codebooks.
-
-# Descriptive Analysis
 
 <!-- change this to be diffs between winners/losers not between hot/cold -->
 Figure 1 shows the percentage of cold partisans (those who rate their own party lower than 50 degrees on the ANES feeling thermometer) in each party-year among winning and losing primary voters. Here there are several key takeaways. First, with two exceptions, losers are more likely to be cold towards their party than are winners. 
 
-Second, in the 2020 Democratic Party, losers were about six times more likely to be cold than winners---a difference that appears to have increased steadily over several decades (though data is unavailable for much of the 1990s). The percentage differences between winning and losing Republicans are less pronounced, with Republican losers only slightly more likely to be cold than winners in 2016 (2020 Republicans are excluded because only a small share participated in the presidential primary). Finally, the percentage of cold partisans has increased recently,
+Second, in the 2020 Democratic Party, losers were about six times more likely to be cold than winners---a difference that appears to have increased steadily over several decades (though data is unavailable for much of the 1990s). The percentage differences between winning and losing Republicans are less pronounced, with Republican losers only slightly more likely to be cold than winners in 2016 (2020 Republicans are excluded because only a small share participated in the presidential primary). Finally, the percentage of cold partisans in either group has trended upwards relative to the the 1980s and early 2000s; particularly among Republicans and primary losing Democrats.
 
 
-
-
-```{r fig-1}
+```{r fig-1, fig.cap="Partisans who support a losing candidate in a presidential primary are more likely to be cold towards their in-party than supporters of primary winners. The magnitude of this difference has increased over time, particularly among Democrats."}
 
 
 ggplot(fig_3_df, aes(x = year, y = pct_50_below, color = prim_vote)) +
@@ -533,14 +528,17 @@ scale_color_manual(values = c("Winner" = "#481567FF",
 ```
 
 
-
-\clearpage
-  
 ## Primary Outcomes, Belief, and Efficacy
 
 I turn now to an examination of attitudinal and behavioral differences between supporters of primary winners and losers. Partisan warmth is a somewhat abstract concept. Survey respondents may be thinking of any number of attitudes and dispositions towards any number of party-related groups and individuals when reporting their "warmth" towards "the party". Because of this fuzzy conceptualization, the importance of studying partisan warmth is largely dependent on the degree to which partisan affect is related to more concrete sets of behaviors and opinions.
 
 Figure 2 displays the difference in the proportions of presidential primary candidate supporters^[Note that these respondents indicated *supporting* a candidate, not necessarily *voting* for the candidate. Some respondents expressed support for a primary candidate but did not indicate having *voted* for that candidate.] of primary winning and losing ANES respondents who indicated agreement with---or answered in the affirmative to---a variety of questions regarding their sense of political self-efficacy and behavior. Positive values indicate a higher proportion of winning partisans agree with a statement or report a certain behavior while negative values indicate losing partisans are more likely to agree with a statement or to report engaging in a behavior.
+
+These data are drawn from the ANES cumulative data file (ANES-CDF) and 2020 ANES time-series study, pooling all years for which respondents presidential primary candidate preferences were solicited, that is 1980, 1988, 1992, 2008, 2012, 2016, 2020. Proportions and means were calculated in accordance with the weighting guidelines presented in the ANES-CDF variable codebook^[https://electionstudies.org/anes_timeseries_cdf_codebook_var/]. The 6-item campaign participation index is taken  from item `VCF0723` in the ANES cumulative data file. This variable is the sum of the number of campaign-related activities a respondent indicated participation in during a given election cycle---plus one---such that "$1$" indicates no campaign participation and "$6$" indicates participation in each type of activity inquired of by the interviewer. To make the difference-in-means for this item comparable with each of the difference-in-proportions calculated, the variable was rescaled such that all respondents fall in $[0,1]$ before taking the difference of the mean responses for the cold and warm groups. 
+
+Turning to the belief items illustrated in Figure 2, primary losing Democrats tend to express more pessimism about the direction of the country, the way the government is run, to distrust the government, view the country to be "on the wrong track", and to believe that the wealth gap is greater at the time of the survey than 20 years prior. No such pattern is apparent among Republican respondents. Republican supporters of losing candidates were more likely than winners to describe the country as "being on the wrong track", while more *winners* described themselves as dissatisfied with Democracy, felt that government officials don't care about their attitudes, and viewed the wealth gap as more pronounced than in the past.
+
+That the relationship between primary outcome and political attitudes is less pronounced among Republicans than Democrats may follow from asymmetries in the Republican and Democratic electoral coalitions. Republican voters are more motivated by programmatic or ideological concerns while Democrats are more motivated by identity group interests [@grossmann2016]. Therefore, a Republican voter may be reasonably confident that their preferred candidates opponents will still hew to an acceptable ideological line, thus the stakes of the primary outcome are low. Without common ideological constraints imposed on candidates, identity-driven Democrats are more likely to fear their group-interests will be neglected by their candidate's opponents, making the stakes of a Democratic primary relatively higher than a Republican primary.
 
 ```{r ft-difs, include = FALSE}
 
@@ -599,7 +597,7 @@ gg_strict_behavior_pooled <- ggplot(behavior_pooled_df, aes(x = prop_dif_simple,
 #			 y = "Question",
 			 y = " ",
 			 subtitle = "Behavior Items",
-			 caption = "Positive values indicate Primary winners are more likely to engage in a behavior or agree with a statement, \n negative values indicate losers are more likely to engage in the behavior or agree with the statement. \n Bootstrapped 95% CI given by error bars. \n Source: ANES time-series studies (1980, 1988, 1992, 2008, 2012, 2016, 2020)",
+			 caption = "Source: ANES (1980, 1988, 1992, 2008, 2012, 2016, 2020), \n bootstrapped 95% CI given by by errorbar.",
 			 color = " ",
 			 shape = " ")
 
@@ -628,17 +626,11 @@ gg_strict_pooled_combined <- grid.arrange(arrangeGrob(pg,
 #ggsave("fig-4.png", gg_strict_pooled_combined, width = 4, height = 8.5, units = "in")
 ```
 
-```{r fig-display, fig.height=8.5, include=TRUE, fig.width=6, fig.align='center', fig.cap = "Differences in attitude and behavior between primary losing and winning partisans. The x-axis displays the difference between the proportion of winnig and losing partisans who answer in the affirmative to each survey item. Positive values indicate winning partisans are more likely to answer in the affirmative, negative values indicate losing partisans are more likely to respond affirmatively. Broadly, losing partisans are more cynical about the state of politics and government, but participate in politics at a similar rate to their winning co-partisans but this relationship is less pronounced among Republicans than Democrats. "}
+```{r fig-display, fig.height=8.5, include=TRUE, fig.width=6, fig.align='center', fig.cap = "Differences in attitude and behavior between primary losing and winning partisans. The x-axis displays the difference between the proportion of winnig and losing partisans who answer in the affirmative to each survey item. Positive values indicate winning partisans are more likely to answer in the affirmative, negative values indicate losing partisans are more likely to respond affirmatively. Broadly, losing partisans are more cynical about the state of politics and government, but participate in politics at a similar rate to their winning co-partisans but this relationship is less pronounced among Republicans than Democrats."}
 as_ggplot(gg_strict_pooled_combined)
 
 ```
 
-
-
-
-These data are drawn from the ANES cumulative data file (ANES-CDF) and 2020 ANES time-series study, pooling all years for which respondents presidential primary candidate preferences were solicited, that is 1980, 1988, 1992, 2008, 2012, 2016, 2020. Proportions and means were calculated in accordance with the weighting guidelines presented in the ANES-CDF variable codebook^[https://electionstudies.org/anes_timeseries_cdf_codebook_var/]. The 6-item campaign participation index is taken  from item `VCF0723` in the ANES cumulative data file. This variable is the sum of the number of campaign-related activities a respondent indicated participation in during a given election cycle---plus one---such that "$1$" indicates no campaign participation and "$6$" indicates participation in each type of activity inquired of by the interviewer. To make the difference-in-means for this item comparable with each of the difference-in-proportions calculated, the variable was rescaled such that all respondents fall in $[0,1]$ before taking the difference of the mean responses for the cold and warm groups. 
-
-Turning to the belief items illustrated in Figure 2, primary-losing Democrats tend to express more pessimism about the direction of the country, the way the government is run, to distrust the government, view the country to be "on the wrong track", and to believe that the wealth gap is greater at the time of the survey than 20 years prior. No such pattern is apparent among Republican respondents. Republican supporters of losing candidates were more likely than winners to describe the country as "being on the wrong track", while more *winners* described themselves as dissatisfied with Democracy, felt that government officials don't care about their attitudes, and viewed the wealth gap as more pronounced than in the past. That 
 
 Regarding the behavior and knowledge items in Figure 2, primary-losing partisans are less likely to vote in the general election, and more likely than winners to support a major out-party presidential candidate or to vote for a third-party in Presidential races. Losing Democrats were more likely than winners to report watching election related television or to talk about politics, with losers in both parties *more* likely to correctly identify the congressional majority party and no less likely than their primary winning copartisans to know which party won the House in the general election. In other words, the observed differences between winners and losers are not suggestive of political apathy, but political frustration. Primary losers are at least as talkative and knowledgeable about politics as are winners, but losers are less likely to participate directly in the electoral system and more likely to buck their party when they do.
 
@@ -646,7 +638,7 @@ These group differences hold important implications for politicians and party le
 
 ## Primary Outcomes and Partisan Ideology
 
-Table 1 presents the results of four OLS linear regression models, estimating in-party and out-party feeling thermometers as a function of primary election vote choice and outcome, ideology relative to the in-party, standard demographic controls, and a series of election-year dummy variables.^[The coefficients for these controls are unreported for the sake of presentation but are almost all negative and statistically significant, consistent with recent findings that intra and inter-partisan affect has declined over time [@groenendyk2020; @iyengar2018]. The full version of the table will be made available in the supporting information.]
+Table 1 presents the results of four OLS linear regression models, estimating in-party and out-party feeling thermometers as a function of primary election vote choice and outcome, ideology relative to the in-party, standard demographic controls, and a series of election-year dummy variables^[The coefficients for these controls are unreported for the sake of presentation but are almost all negative and statistically significant, consistent with recent findings that intra and inter-partisan affect has declined over time [@groenendyk2020; @iyengar2018]. The full version of the table will be made available in the supporting information.].
 
 The measure of relative party ideology used in these models is constructed as the difference between respondents' ideological self-placement on the standard seven-point scale and their in-party. The scales are recoded by party such that for Democrats "1" is "Extremely Conservative" while "7" is "Extremely Liberal", for Republicans "1" is "Extremely Liberal" while "7" is "Extremely Conservative". This re-coding is done so that high values represent more extreme ideological positions for both sets of partisans. After recoding, the difference $\text{Self} - \text{In-party}$ is taken to measure the degree to which partisans perceive an ideological distance between themselves and their party. Finally, for ease of interpretation this measure is recoded so that all observations fall in $[-1, 1]$, where negative values indicate the respondent views themselves as more moderate than their party (e.g., a Republican who sees themselves as more liberal than the Republican party), while positive values indicate the respondent views themselves as more extreme than their party (e.g., a Democrat who reports being more liberal than the Democratic Party). The modal difference is 0; a plurality of respondents ascribe the same ideological identifier to themselves as to their party. Edge cases, for example, where a Republican identifies themselves as "Extremely Liberal" and their party as "Extremely Conservative" or vice-versa are exceedingly rare^[See the supporting information for the distribution of ideological placements].
 
@@ -654,7 +646,8 @@ Columns 1 and 2 of Tab. 1 display coefficient estimates and standard errors for 
 
 \clearpage
 
-```{r primaries-table}
+
+```{r primaries-table, floating =FALSE}
 
 primary_tab <- tab_1_df %>%
 		pull(fit, name = c(pid_3))%>%
@@ -670,6 +663,7 @@ tab_header(title = md("**Table 1:** Estimated Individual Partisan Affect")) %>%
 primary_tab
 ```
 
+\clearpage
 
 ```{r margins, eval=FALSE}
 
@@ -759,7 +753,7 @@ ggplot(data = coef_1_df, aes(x = term_wrap, y = abs_estimate, color = pid_3, sha
 
 ```
 
-Turning to ideology, those who see themselves as more extreme than their party are, as argued by @groenendyk2020, predicted to be warmer towards their in-party. On average, a voter who sees themselves as much more extreme than their party; for example, an "extremely liberal" ("extremely conservative") Democrat (Republican) who sees the Democratic (Republican) Party as "extremely conservative" (extremely liberal) is about 6 degrees warmer towards their party than one who perceives the party as matching their ideology. and almost 12 degrees warmer than a partisan who sees themselves who takes a more heterodox or moderate position than the party---as in an "extremely conservative" ("extremely liberal") Democrat (Republican) who sees their party as "extremely liberal" ("extremely conservative"). However, the vast majority of respondents do not see such extreme discrepancies between the ideology of the party and their own, falling instead between $[-.5, .5]$ on the scale.
+With respect to self-reported ideology, those who see themselves as more extreme than their party are, as argued by @groenendyk2020, predicted to be warmer towards their in-party. On average, a voter who sees themselves as much more extreme than their party; for example, an "extremely liberal" ("extremely conservative") Democrat (Republican) who sees the Democratic (Republican) Party as "extremely conservative" (extremely liberal) is about 6 degrees warmer towards their party than one who perceives the party as matching their ideology. and almost 12 degrees warmer than a partisan who sees themselves who takes a more heterodox or moderate position than the party---as in an "extremely conservative" ("extremely liberal") Democrat (Republican) who sees their party as "extremely liberal" ("extremely conservative"). However, the vast majority of respondents do not see such extreme discrepancies between the ideology of the party and their own, falling instead between $[-.5, .5]$ on the scale.
 
 When the regression effect of relative ideology is calculated within more likely bounds, the magnitude of the effect is not as large. Most relative moderates are no more than 3 degrees colder than  their party-aligned co-partisans while relative extremists are only about 3 degrees warmer. Partisans' ideological self placement is statistically tied to their attitudes towards the in-party, but this tie is insubstantial relative to party competition.
 
@@ -895,14 +889,13 @@ ggplot(m_df, aes(x = therm_inparty)) +
 
 
 
-## Survey Experiment
+# Survey Experiment
 
 To address the problem of observational equivalence inherent to time series cross sectional data, I conduct an original survey experiment using Amazon's Mechanical Turk (Mturk) platform, manipulating the outcome of counterfactual congressional primary elections. The survey was programmed using the Qualtrics survey platform and participants were recruited using Amazon's *Mechanical Turk* (Mturk) platform. The quality of data produced by Mturk-recruited samples has been the subject of substantial debate, with Mturk skeptics pointing to the lack of control afforded by the Mturk environment to the researcher and the low-stakes nature of the quick tasks workers are asked to perform [@searles2015]. 
 
 Mturk samples are indeed noisier than samples obtained through more traditional methods [@johnson2020] and the population of Mturk workers is not a representative slice of the broader U.S. population [@ahler; @goodman2013]. These drawbacks make Mturk ill-suited for studies which aim to estimate the level of a parameter or quantity present in a population [@horton2011]. Fortunately, Mturk samples are much better suited to detecting *changes* in quantities. The increased noise in the Mturk sample works against statistical significance [@goodman2013] reducing the likelihood of a type-1 errors. Further, Mturk workers tend to perform *better* than other subject populations on attentiveness checks and consistently report their true preferences, provided that doing so does not jeopardize their payout [@hauser2016; @johnson2020]. As the purpose of this experiment is to interrogate shifts in partisans' affect and opinions agnostic to the absolute values of these attitudes, Mturk is an appropriate platform with which to recruit participants.
 
 Preference falsification by participants is also not of great concern as participants were not restricted from the survey on any basis other than location of their IP address (which must be based in the United States), thus there was no financial incentive to falsify preferences. Mturk workers *are* known to falsify their IP addresses [@ahler] in order to gain access to more and higher-paying tasks, as such it is quite likely that some responses in the study were gathered from participants outside the United States who likely do not have genuine preferences about U.S. political parties. Responses of this type can artificially inflate the variation in the sample, but there is no reason to think that the sample is systematically *biased* by these responses.
-
 
 
 ## Survey Structure
@@ -926,13 +919,15 @@ In total, 473 participants were surveyed. Of these only 18 identified as true in
 
 The Mturk study is conducted in two parts. First, investigating the effect of winning or losing a primary election on affect towards the in-party testing the two hypotheses:
 
-**_H1a:_** *Primary losers will be colder toward their in-party than those who do not know the primary outcome.*
-**_H1b:_** *Primary winners will be warmer toward their in-party than those who do not know the primary outcome.*
+**_Hyp. 1a:_** *Primary losers will be colder toward their in-party than those who do not know the primary outcome.*
+
+**_Hyp. 1b:_** *Primary winners will be warmer toward their in-party than those who do not know the primary outcome.*
 
 Next, I investigate the effect of a primary win and loss on affect towards the *out-party* and political independents to evaluate whether the effects of primary election outcome are constrained to individuals' attitudes towards the in-party or to the political system more generally.
 
-**_H2a:_** *Primary losers will be colder toward their out-party and independents than those who do not know the primary outcome.*
-**_H2b:_** *Primary winners will be warmer toward their out-party and independents than those who do not know the primary outcome.*
+**_Hyp. 2a:_** *Primary losers will be colder toward their out-party and independents than those who do not know the primary outcome.*
+
+**_Hyp. 2b:_** *Primary winners will be warmer toward their out-party and independents than those who do not know the primary outcome.*
 
 The summary statistics for questions relating to these hypotheses are shown in Table 2.
 
@@ -967,11 +962,10 @@ Of note, while the distribution of in-party attitudes is similar to representati
 
 In the second stage I compare the differences between winning and losing partisans on three questions intended to assess participants sense of political efficacy. These are the respondents' self-reported likelihood of voting in a general election, trust in government, and satisfaction in democracy. 
 
-**_H3:_** *Primary losers will express less political efficacy than winners.*
+**_Hyp. 3:_** *Primary losers will express less political efficacy than winners.*
 
 The summary statistics for these items are displayed in Table 3.
 
-\clearpage
 
 ```{r}
 
@@ -1093,7 +1087,7 @@ This study also has troubling implications for representation. The post-1968 McG
 
 To those concerned about *inter*-party affective polarization, a decline in esteem for one's in-party may not sound like much of a problem. Perhaps, if inter-party polarized partisans grow less fond of their own parties they may begin to see their out-party's point of view or at least to see a narrower gulf between the two. Such a prediction would be misguided. Though they may cross party lines occasionally, there is little evidence that those who dislike their party hold any greater affinity for the opposition than their peers do. Primary loss depresses intra-party affinity but out-party attitudes remain stable and overwhelmingly negative.
 
-The relationship between primary outcomes and partisan affect and political self-efficacy is consistently different between parties. Democratic losers are reliably colder and less efficacious than winners while Republicans
+The relationship between primary outcomes and partisan affect and political self-efficacy is consistently different between parties. Democratic losers are reliably colder and less efficacious than winners while Republican winners are sometimes *more* pessimistic than losers. One explanation for this divergence is that Republicans' political motivations are rooted in programmatic and ideological preferences to a greater degree than Democrats', whose political preferences are rooted in group interest [@grossmann2016]. Republicans may see fewer differences within a primary slate of candidates generally motivated by common ideological goals than Democrats who fear their group preferences may go wholly unrepresented if their preferred candidate loses.
 
 Finally, more work should be done to understand how persistent over time the effects of primary outcomes are. Do partisans spurned by their party move quickly past their frustrations or does the sting of defeat stick with the voter, compounding with other political disappointments?
 
