@@ -116,10 +116,8 @@ cdf_trimmed <- read_rds("data/tidy-cdf.rds")%>%
 #         therm_parties_mean,
          weight,
          )%>%
-	mutate(therm_inparty = as.numeric(recode(therm_inparty, .default = as.character(therm_inparty),
-																"97" = '100')),
-				 therm_outparty = as.numeric(recode(therm_outparty, .default = as.character(therm_outparty),
-																"97" = '100'))) %>%
+	mutate(therm_inparty = as.numeric(recode(therm_inparty, .default = as.character(therm_inparty), "97" = '100')),
+				 therm_outparty = as.numeric(recode(therm_outparty, .default = as.character(therm_outparty), "97" = '100'))) %>%
 	  rbind(tidy_2020_df)%>%
   glimpse()
 
@@ -630,7 +628,7 @@ gg_strict_pooled_combined <- grid.arrange(arrangeGrob(pg,
 																			#				 left = text_grob("Question Asked", rot = 90, vjust = 1, face = "bold"),
 																							 bottom = text_grob("Prop. Winners - Prop. Losers", face = "bold")))
 
-#ggsave("fig-4.png", gg_strict_pooled_combined, width = 4, height = 8.5, units = "in")
+ggsave("fig/gg-strict-pooled-combined.png", gg_strict_pooled_combined, width = 4, height = 8.5, units = "in")
 ```
 
 ```{r fig-display, fig.height=8.5, include=TRUE, fig.width=6, fig.align='center', fig.cap = "Differences in attitude and behavior between primary losing and winning partisans. The x-axis displays the difference between the proportion of winnig and losing partisans who answer in the affirmative to each survey item. Positive values indicate winning partisans are more likely to answer in the affirmative, negative values indicate losing partisans are more likely to respond affirmatively. Broadly, losing partisans are more cynical about the state of politics and government, but participate in politics at a similar rate to their winning co-partisans but this relationship is less pronounced among Republicans than Democrats."}
@@ -712,7 +710,7 @@ plot_cap(d_in, condition = c("ideo_self_in_dif_std", draw = TRUE)) +
 	geom_density(ddf, aes(x = ideo_self_in_dif_std, inherit.aes = FALSE))
 ```
 
-```{r, include = FALSE}
+```{r, eval = FALSE, include = FALSE}
 gtsave(primary_tab, "fig/primary-tab.png")
 # Estimated individuals Partisan Affect
 
