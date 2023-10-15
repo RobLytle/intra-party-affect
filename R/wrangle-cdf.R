@@ -3,12 +3,13 @@ require(dplyr)
 library(tidyverse)
 library(sjlabelled)
 #library(goji)
-library(anesr)
+#library(anesr)
 #data("timeseries_cum")
 ## Functions
-timeseries_cum %>% 
-	filter(VCF0004 == "2020") %>% 
-	glimpse()
+# timeseries_cum %>% 
+# 	filter(VCF0004 == "2020") %>% 
+# 	glimpse()
+
 zero1 <- function(x, minx = NA, maxx = NA) {
 	
 	stopifnot(identical(typeof(as.numeric(x)), "double"))
@@ -99,12 +100,10 @@ cdf_raw_trim <- rio::import("data/raw/cdf-raw-trim.rds")%>% #Imports the .dta fi
 	filter(year >= 1978) %>% 
   unite("case", c(year, case_id), remove = FALSE)%>%
   mutate(pres_election = if_else(year %in% seq(1964, 2016, by=4), 1, 0))%>% #dummy variable for pres election
-	mutate(female = sex)%>%
-  mutate(female = na_if(female, 3))%>%
-  mutate(female = na_if(female, 0))%>%
-	mutate(female = as.numeric(recode(female, 
-																		"1" = "0",
-																		"2" = "1")))%>%
+# 	mutate(female = sex)%>%
+#   mutate(female = na_if(female, 3))%>%
+#   mutate(female = na_if(female, 0))%>%
+# 	mutate(female = as.numeric(recode(female, "1" = "0", "2" = "1")))%>%
 	rename(insurance = VCF0806)%>%
 	mutate(insurance = na_if(insurance, 9))%>%
 	mutate(insurance = na_if(insurance, 0))%>%
